@@ -249,7 +249,7 @@ const COMPONENTES = {
             <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
             <polyline points="22,6 12,13 2,6"/>
           </svg>
-          <a href="mailto:javenv@hotmail.com" style="color:white;">javenv@hotmail.com</a>
+          <a href="mailto:ce4jwi@outlook.com" style="color:white;">ce4jwi@outlook.com</a>
         </li>
         <li>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">

@@ -235,6 +235,7 @@
 .cal-month-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
+  width: 100%;
 }
 
 .cal-dow {
@@ -257,6 +258,9 @@
   position: relative;
   background: var(--cal-surface);
   transition: background 0.1s;
+  overflow: hidden; 
+  display: flex;
+  flex-direction: column;
 }
 .cal-day:nth-child(7n) { border-right: none; }
 .cal-day:hover { background: var(--surface-alt); }
@@ -286,7 +290,16 @@
   display: flex;
   flex-direction: column;
   gap: 2px;
+  overflow-y: auto; 
+  flex: 1;
+  -ms-overflow-style: none;  /* IE y Edge antiguo */
+  scrollbar-width: none;     /* Firefox */
 }
+/* Oculta la barra de scroll en navegadores modernos (Chrome, Safari, Edge, Opera) */
+.cal-events::-webkit-scrollbar {
+  display: none;
+}
+
 
 .cal-event {
   font-size: 0.72rem;
@@ -380,21 +393,22 @@
 .cal-modal-bg {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.4) !important; /* Capa oscura transparente */
   display: none;
   align-items: center;
   justify-content: center;
   z-index: 9999;
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px); /* Hace que el calendario de fondo se vea borroso y elegante */
 }
 .cal-modal-bg.active { display: flex; }
 .cal-modal {
-  background: var(--cal-surface);
+  background: #ffffff !important; /* Blanco sólido y puro */
   border-radius: var(--radius-lg);
   padding: 1.5rem;
   max-width: 480px;
   width: 90%;
-  box-shadow: var(--shadow-lg);
+  border: 1px solid rgba(0, 0, 0, 0.05); /* Borde sutil */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15), 0 1px 3px rgba(0, 0, 0, 0.05); /* Sombra flotante */
   animation: calPop 0.18s ease-out;
 }
 @keyframes calPop {

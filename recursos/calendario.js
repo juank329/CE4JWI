@@ -280,74 +280,94 @@ function renderMiniCalendario(year, month) {
 }
 
 function renderVistaMes() {
-  const año = mesActual.getFullYear()
-  const mes = mesActual.getMonth()
-  const primerDia = new Date(año, mes, 1)
-  const offset = primerDia.getDay()
-  const diasEnMes = new Date(año, mes + 1, 0).getDate()
-  const totalCeldas = Math.ceil((offset + diasEnMes) / 7) * 7
+  const año = mesActual.getFullYear();
+  const mes = mesActual.getMonth();
+  
+  // 1. Obtener el primer día del mes
+  const primerDia = new Date(año, mes, 1);
+  
+  // 2. CORRECCIÓN: Ajustar offset para que la semana empiece en LUNES
+  // Si .getDay() da 0 (Domingo), lo transformamos en 6. Si da 1 (Lunes), queda en 0.
+  let offset = primerDia.getDay() - 1;
+  if (offset < 0) offset = 6; 
 
-  const eventosPorDia = new Map()
+  const diasEnMes = new Date(año, mes + 1, 0).getDate();
+  
+  // 3. CORRECCIÓN: Calcular correctamente el total de celdas necesarias (múltiplo de 7)
+  const totalCeldas = Math.ceil((offset + diasEnMes) / 7) * 7;
+
+  const eventosPorDia = new Map();
   eventosDelMes(año, mes).forEach((e) => {
-    if (!eventosPorDia.has(e.date)) eventosPorDia.set(e.date, [])
-    eventosPorDia.get(e.date).push(e)
-  })
+    if (!eventosPorDia.has(e.date)) eventosPorDia.set(e.date, []);
+    eventosPorDia.get(e.date).push(e);
+  });
 
-  const hoy = new Date()
+  const hoy = new Date();
 
-  let html = '<div class="cal-month-grid">'
+  let html = '<div class="cal-month-grid">';
+  
+  // Cabecera: Lunes a Domingo
   NOMBRES_DOW_FULL.slice(1).concat(["Domingo"]).forEach((d) => {
-    html += `<div class="cal-dow">${d}</div>`
-  })
+    html += `<div class="cal-dow">${d}</div>`;
+  });
 
+  // 4. Ciclo único para renderizar todas las celdas de la cuadrícula
   for (let i = 0; i < totalCeldas; i++) {
-    const diaNum = i - offset + 1
+    const diaNum = i - offset + 1;
+    
     if (diaNum < 1 || diaNum > diasEnMes) {
-      // día de otro mes
-      let otroDia, otroMes, otroAño
+      // Días de los meses adyacentes (anterior o posterior)
+      let otroDia, otroMes, otroAño;
       if (diaNum < 1) {
-        const u = new Date(año, mes, 0)
-        otroDia = u.getDate() + diaNum + 1
-        otroMes = mes === 0 ? 11 : mes - 1
-        otroAño = mes === 0 ? año - 1 : año
+        const u = new Date(año, mes, 0);
+        otroDia = u.getDate() + diaNum;
+        otroMes = mes === 0 ? 11 : mes - 1;
+        otroAño = mes === 0 ? año - 1 : año;
       } else {
-        otroDia = diaNum - diasEnMes
-        otroMes = mes === 11 ? 0 : mes + 1
-        otroAño = mes === 11 ? año + 1 : año
+        otroDia = diaNum - diasEnMes;
+        otroMes = mes === 11 ? 0 : mes + 1;
+        otroAño = mes === 11 ? año + 1 : año;
       }
-      const fecha = new Date(otroAño, otroMes, otroDia)
-      const evts = eventosGlobal.filter((e) => e.date === ymd(fecha))
-      html += `<div class="cal-day out" data-fecha="${ymd(fecha)}">`
-      html += `<div class="cal-day-num">${otroDia}</div>`
+      
+      const fecha = new Date(otroAño, otroMes, otroDia);
+      const ymdStr = ymd(fecha);
+      const evts = eventosGlobal.filter((e) => e.date === ymdStr);
+      
+      html += `<div class="cal-day out" data-fecha="${ymdStr}">`;
+      html += `<div class="cal-day-num">${otroDia}</div>`;
       if (evts.length) {
-        html += `<div class="cal-events">`
+        html += `<div class="cal-events">`;
         evts.slice(0, 2).forEach((e) => {
-          html += `<div class="cal-event cat-${e.category}" data-titulo="${escapeHtml(e.title)}">${escapeHtml(e.title)}</div>`
-        })
-        if (evts.length > 2) html += `<div class="cal-event more">+${evts.length - 2} más</div>`
-        html += `</div>`
+          html += `<div class="cal-event cat-${e.category}" data-titulo="${escapeHtml(e.title)}">${escapeHtml(e.title)}</div>`;
+        });
+        if (evts.length > 2) html += `<div class="cal-event more">+${evts.length - 2} más</div>`;
+        html += `</div>`;
       }
-      html += `</div>`
+      html += `</div>`;
+      
     } else {
-      const fecha = new Date(año, mes, diaNum)
-      const ymdStr = ymd(fecha)
-      const evts = eventosPorDia.get(ymdStr) || []
-      const esHoy = mismoDia(fecha, hoy)
-      html += `<div class="cal-day${esHoy ? " today" : ""}" data-fecha="${ymdStr}">`
-      html += `<div class="cal-day-num">${diaNum}</div>`
+      // Días pertenecientes al mes en curso
+      const fecha = new Date(año, mes, diaNum);
+      const ymdStr = ymd(fecha);
+      const evts = eventosPorDia.get(ymdStr) || [];
+      const esHoy = mismoDia(fecha, hoy);
+      
+      html += `<div class="cal-day${esHoy ? " today" : ""}" data-fecha="${ymdStr}">`;
+      html += `<div class="cal-day-num">${diaNum}</div>`;
       if (evts.length) {
-        html += `<div class="cal-events">`
+        html += `<div class="cal-events">`;
         evts.slice(0, 3).forEach((e) => {
-          html += `<div class="cal-event cat-${e.category}" data-titulo="${escapeHtml(e.title)}">${escapeHtml(e.title)}</div>`
-        })
-        if (evts.length > 3) html += `<div class="cal-event more">+${evts.length - 3} más</div>`
-        html += `</div>`
+          html += `<div class="cal-event cat-${e.category}" data-titulo="${escapeHtml(e.title)}">${escapeHtml(e.title)}</div>`;
+        });
+        if (evts.length > 3) html += `<div class="cal-event more">+${evts.length - 3} más</div>`;
+        html += `</div>`;
       }
-      html += `</div>`
+      html += `</div>`;
     }
   }
-  html += '</div>'
-  return html
+  
+  html += '</div>';
+  return html;
 }
 
 function renderVistaAgenda() {
