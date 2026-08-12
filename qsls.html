@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap"></noscript>
+  <title>Descargar QSLs - CE4JWI</title>
+  <meta name="description" content="Descarga tus QSL cards y diplomas de las actividades de CE4JWI">
+  <link rel="stylesheet" href="recursos/styles.css">
+  <link rel="stylesheet" href="recursos/header-responsive.css">
+  <link rel="stylesheet" href="recursos/slider.css">
+  <link rel="stylesheet" href="recursos/qsl.css">
+  <link rel="icon" href="public/favicon-32x32.png">
+</head>
+<body>
+  <div id="header-container"></div>
+  <div id="marquee-container"></div>
+
+  <main class="main-container">
+    <div class="content">
+
+      <div class="banner">
+        <h1>Descarga tus QSL Cards</h1>
+      </div>
+
+      <section class="page-content">
+
+        <!-- ============ Buscador ============ -->
+        <form class="qsl-search" id="qslForm" onsubmit="buscarQSL(event)">
+          <div class="qsl-campo">
+            <label for="qslCall">Indicativo</label>
+            <input type="text" id="qslCall" placeholder="Ej: CE4JWI, XR4MAU, 9M2RAN"
+                   autocomplete="off" maxlength="12">
+          </div>
+        </form>
+
+        <div class="qsl-acciones">
+          <button type="button" class="btn-buscar" onclick="document.getElementById('qslForm').requestSubmit()">Buscar</button>
+          <button type="button" class="btn-limpiar" onclick="limpiarQSL()">Limpiar</button>
+          <span class="contador" id="qslContador"></span>
+        </div>
+
+        <div id="qslEstado"></div>
+        <div id="qslResultados"></div>
+
+      </section>
+
+    </div>
+
+    <div id="sidebar-container"></div>
+  </main>
+
+  <div id="footer-container"></div>
+
+  <!-- ============ Lightbox ============ -->
+  <div class="qsl-lightbox" id="qslLightbox">
+    <button class="qsl-lightbox-close" onclick="cerrarLightbox()" aria-label="Cerrar">×</button>
+    <button class="qsl-lightbox-nav qsl-lightbox-prev" onclick="navegarLightbox(-1)" aria-label="Anterior">‹</button>
+    <img class="qsl-lightbox-img" id="qslLightboxImg" src="" alt="QSL">
+    <button class="qsl-lightbox-nav qsl-lightbox-next" onclick="navegarLightbox(1)" aria-label="Siguiente">›</button>
+    <div class="qsl-lightbox-info">
+      <a class="qsl-lightbox-dl" id="qslLightboxDl" href="" download>Descargar</a>
+    </div>
+  </div>
+
+  <script defer src="recursos/componentes.js"></script>
+  <script defer src="recursos/qsl.js"></script>
+</body>
+</html>

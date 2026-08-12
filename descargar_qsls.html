@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap"></noscript>
+  <title>QSL Cards y Diplomas - Portal de Radioaficionados</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #1e3a5f;
+      --primary-light: #2d5a8a;
+      --accent: #0d9488;
+      --accent-light: #14b8a6;
+      --background: #f0f4f8;
+      --card: #ffffff;
+      --text: #1a2634;
+      --text-muted: #64748b;
+      --border: #d1dbe6;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: var(--background);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* Header */
+    .header {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      padding: 3rem 1rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    .header-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .radio-icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 1rem;
+      background: rgba(255,255,255,0.15);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .radio-icon svg {
+      width: 36px;
+      height: 36px;
+      color: white;
+    }
+
+    .header h1 {
+      color: white;
+      font-size: clamp(1.5rem, 4vw, 2.25rem);
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .header p {
+      color: rgba(255,255,255,0.85);
+      font-size: 1.1rem;
+    }
+
+    /* Search Section */
+    .search-section {
+      max-width: 600px;
+      margin: -2rem auto 2rem;
+      padding: 0 1rem;
+      position: relative;
+      z-index: 10;
+    }
+
+    .search-card {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.12);
+    }
+
+    .search-label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      color: var(--text);
+    }
+
+    .search-wrapper {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .search-input {
+      flex: 1;
+      padding: 0.875rem 1rem;
+      font-size: 1.1rem;
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      outline: none;
+      text-transform: uppercase;
+      font-family: 'Courier New', monospace;
+      font-weight: 600;
+      letter-spacing: 1px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .search-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(30, 58, 95, 0.15);
+    }
+
+    .search-input::placeholder {
+      color: var(--text-muted);
+      text-transform: none;
+      font-weight: 400;
+      letter-spacing: 0;
+    }
+
+    .search-btn {
+      padding: 0.875rem 1.75rem;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .search-btn:hover {
+      background: var(--primary-light);
+    }
+
+    .search-btn:active {
+      transform: scale(0.98);
+    }
+
+    .search-btn svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    /* Main Content */
+    .main-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+
+    /* Results */
+    .results-container {
+      display: none;
+    }
+
+    .results-container.active {
+      display: block;
+    }
+
+    .section {
+      margin-bottom: 3rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .section-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--primary);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .section-icon.diplomas {
+      background: var(--accent);
+    }
+
+    .section-icon svg {
+      width: 22px;
+      height: 22px;
+      color: white;
+    }
+
+    .section-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .section-count {
+      margin-left: auto;
+      background: var(--background);
+      padding: 0.35rem 0.85rem;
+      border-radius: 20px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    /* Gallery Grid */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .gallery-item {
+      background: var(--card);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .gallery-image {
+      width: 100%;
+      
+      
+      object-fit: cover;
+      background: var(--background);
+    }
+
+    .gallery-info {
+      padding: 1rem;
+    }
+
+    .gallery-activity {
+      font-size: 0.8rem;
+      color: var(--accent);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.25rem;
+    }
+
+    .gallery-date {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .gallery-date svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    .gallery-actions {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+    }
+
+    .btn-download {
+      flex: 1;
+      padding: 0.6rem;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .btn-download:hover {
+      background: var(--primary-light);
+    }
+
+    .btn-download svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: var(--text-muted);
+    }
+
+    .empty-icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 1.5rem;
+      background: var(--background);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .empty-icon svg {
+      width: 40px;
+      height: 40px;
+      color: var(--text-muted);
+    }
+
+    .empty-state h3 {
+      font-size: 1.25rem;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+
+    /* Initial State */
+    .initial-state {
+      text-align: center;
+      padding: 4rem 2rem;
+    }
+
+    .initial-icon {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 1.5rem;
+      background: var(--card);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .initial-icon svg {
+      width: 50px;
+      height: 50px;
+      color: var(--primary);
+    }
+
+    .initial-state h3 {
+      font-size: 1.35rem;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+
+    .initial-state p {
+      color: var(--text-muted);
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    /* Lightbox */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.92);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .lightbox.active {
+      display: flex;
+    }
+
+    .lightbox-content {
+      position: relative;
+      max-width: 90vw;
+      max-height: 90vh;
+    }
+
+    .lightbox-image {
+      max-width: 100%;
+      max-height: 85vh;
+      border-radius: 8px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: -50px;
+      right: 0;
+      width: 44px;
+      height: 44px;
+      background: rgba(255,255,255,0.15);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+
+    .lightbox-close:hover {
+      background: rgba(255,255,255,0.25);
+    }
+
+    .lightbox-close svg {
+      width: 24px;
+      height: 24px;
+      color: white;
+    }
+
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 50px;
+      height: 50px;
+      background: rgba(255,255,255,0.15);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+
+    .lightbox-nav:hover {
+      background: rgba(255,255,255,0.25);
+    }
+
+    .lightbox-nav svg {
+      width: 28px;
+      height: 28px;
+      color: white;
+    }
+
+    .lightbox-prev {
+      left: -70px;
+    }
+
+    .lightbox-next {
+      right: -70px;
+    }
+
+    .lightbox-info {
+      position: absolute;
+      bottom: -50px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      color: white;
+    }
+
+    .lightbox-download {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1.25rem;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .lightbox-download:hover {
+      background: var(--accent-light);
+    }
+
+    .lightbox-download svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    /* Searched Callsign Display */
+    .searched-callsign {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .callsign-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--card);
+      padding: 0.75rem 1.5rem;
+      border-radius: 50px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      font-family: 'Courier New', monospace;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: 2px;
+    }
+
+    .callsign-badge svg {
+      width: 20px;
+      height: 20px;
+      color: var(--accent);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .header {
+        padding: 2rem 1rem;
+      }
+
+      .search-wrapper {
+        flex-direction: column;
+      }
+
+      .search-btn {
+        justify-content: center;
+      }
+
+      .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      }
+
+      .lightbox-prev {
+        left: 10px;
+      }
+
+      .lightbox-next {
+        right: 10px;
+      }
+
+      .lightbox-nav {
+        width: 40px;
+        height: 40px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-content">
+      <div class="radio-icon">
+        
+      </div>
+      <h1>Descarga tus QSL Cards y Certificados</h1>
+      <p>Portal de actividades de radioaficionados</p>
+    </div>
+  </header>
+
+  <!-- Search Section -->
+  <section class="search-section">
+    <div class="search-card">
+      <label class="search-label" for="callsign">Ingresa tu indicativo</label>
+      <div class="search-wrapper">
+        <input 
+          type="text" 
+          id="callsign" 
+          class="search-input" 
+          placeholder="Ej: CE4JWI"
+          maxlength="10"
+          autocomplete="off"
+        >
+        <button class="search-btn" onclick="searchCallsign()">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+          Buscar
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    
+    <!-- Initial State -->
+    <div class="initial-state" id="initialState">
+      <div class="initial-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        </svg>
+      </div>
+      <h3>Busca tu indicativo</h3>
+      <p>Ingresa tu indicativo de radioaficionado para ver y descargar tus QSL cards y diplomas de las actividades</p>
+    </div>
+
+    <!-- Results Container -->
+    <div class="results-container" id="resultsContainer">
+      
+      <!-- Searched Callsign -->
+      <div class="searched-callsign">
+        <span class="callsign-badge">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5.636 18.364a9 9 0 010-12.728m12.728 0a9 9 0 010 12.728m-9.9-2.829a5 5 0 010-7.07m7.072 0a5 5 0 010 7.07M13 12a1 1 0 11-2 0 1 1 0 012 0z" />
+          </svg>
+          <span id="displayCallsign">CE4JWI</span>
+        </span>
+      </div>
+
+      <!-- QSL Cards Section -->
+      <section class="section" id="qslSection">
+        <div class="section-header">
+          <div class="section-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+          </div>
+          <h2 class="section-title">QSL Cards</h2>
+          <span class="section-count" id="qslCount">0 encontradas</span>
+        </div>
+        <div class="gallery-grid" id="qslGallery"></div>
+        <div class="empty-state" id="qslEmpty" style="display: none;">
+          <div class="empty-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+          </div>
+          <h3>No se encontraron QSL Cards</h3>
+          <p>No hay tarjetas QSL registradas para este indicativo</p>
+        </div>
+      </section>
+
+      <!-- Diplomas Section -->
+      <section class="section" id="diplomasSection">
+        <div class="section-header">
+          <div class="section-icon diplomas">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+            </svg>
+          </div>
+          <h2 class="section-title">Diplomas y Certificados</h2>
+          <span class="section-count" id="diplomasCount">0 encontrados</span>
+        </div>
+        <div class="gallery-grid" id="diplomasGallery"></div>
+        <div class="empty-state" id="diplomasEmpty" style="display: none;">
+          <div class="empty-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+            </svg>
+          </div>
+          <h3>No se encontraron diplomas</h3>
+          <p>No hay diplomas o certificados registrados para este indicativo</p>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-content">
+      <button class="lightbox-close" onclick="closeLightbox()">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+      <button class="lightbox-nav lightbox-prev" onclick="navigateLightbox(-1)">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+      <img class="lightbox-image" id="lightboxImage" src="" alt="Vista previa">
+      <button class="lightbox-nav lightbox-next" onclick="navigateLightbox(1)">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+      <div class="lightbox-info">
+        <a class="lightbox-download" id="lightboxDownload" href="" download>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+          </svg>
+          Descargar
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 
+    OPCION 1: Cargar datos desde archivo externo (RECOMENDADO)
+    Descomenta la siguiente linea y comenta el bloque de datos de ejemplo
+  -->
+  <!-- <script src="datos-generados.js"></script> -->
+
+  <script>
+    // =====================================================
+    // DATOS DE EJEMPLO - REEMPLAZAR CON datos-generados.js
+    // =====================================================
+    // 
+    // INSTRUCCIONES PARA AUTOMATIZAR:
+    // 1. Ejecuta el script generar-indice.py en tu carpeta con las QSL y diplomas
+    // 2. Copia el archivo datos-generados.js a tu servidor
+    // 3. Descomenta la linea <script src="datos-generados.js"> arriba
+    // 4. Borra o comenta estos arrays de ejemplo
+    //
+    // =====================================================
+
+ const qslCards = [
+  {
+    callsign: "CE4JWI",
+    file: "qsl/Batalla de Chacabuco 2026/CE4JWI_0.jpg",
+    date: "2026-02-12",
+    activity: "Batalla De Chacabuco 2026"
+  },
+  {
+    callsign: "XR4MAU",
+    file: "qsl/Batalla de Chacabuco 2026/XR4MAU_1.jpg",
+    date: "2026-02-12",
+    activity: "Batalla De Chacabuco 2026"
+  },
+  {
+    callsign: "CE4JWI",
+    file: "qsl/Dia de los enamorados 2026/CE4JWI_0.jpg",
+    date: "2026-02-14",
+    activity: "Dia De Los Enamorados 2026"
+  },
+  {
+    callsign: "XR4MAU",
+    file: "qsl/Dia de los enamorados 2026/XR4MAU_1.jpg",
+    date: "2026-02-14",
+    activity: "Dia De Los Enamorados 2026"
+  },
+  {
+    callsign: "CE4JWI",
+    file: "qsl/Dia del brigadista forestal/CE4JWI_0.jpg",
+    date: "2026-02-15",
+    activity: "Dia Del Brigadista Forestal"
+  },
+  {
+    callsign: "XR4MAU",
+    file: "qsl/Dia del brigadista forestal/XR4MAU_1.jpg",
+    date: "2026-02-15",
+    activity: "Dia Del Brigadista Forestal"
+  },
+  {
+    callsign: "CE4JWI",
+    file: "qsl/Día del Roto Chileno 2026/CE4JWI_0.jpg",
+    date: "2026-01-15",
+    activity: "Día Del Roto Chileno 2026"
+  },
+  {
+    callsign: "XR4MAU",
+    file: "qsl/Día del Roto Chileno 2026/XR4MAU_0.jpg",
+    date: "2026-01-15",
+    activity: "Día Del Roto Chileno 2026"
+  },
+  {
+    callsign: "CE4JWI",
+    file: "qsl/Fiesta de Chancho en Piedra 2026/CE4JWI_0.jpg",
+    date: "2026-02-07",
+    activity: "Fiesta De Chancho En Piedra 2026"
+  },
+  {
+    callsign: "CE4JWI",
+    file: "qsl/Fiesta del Tomate 2026/CE4JWI_0.jpg",
+    date: "2026-01-30",
+    activity: "Fiesta Del Tomate 2026"
+  },
+];
+
+const diplomas = [];
+
+
+
+    // =====================================================
+    // FIN DE LOS DATOS
+    // =====================================================
+
+    let currentLightboxItems = [];
+    let currentLightboxIndex = 0;
+
+    // Buscar por indicativo
+    function searchCallsign() {
+      const input = document.getElementById('callsign');
+      const callsign = input.value.trim().toUpperCase();
+      
+      if (!callsign) {
+        alert('Por favor ingresa un indicativo');
+        return;
+      }
+
+      // Filtrar archivos por indicativo
+      const matchingQSL = qslCards
+        .filter(item => item.callsign.toUpperCase() === callsign)
+        .sort((a, b) => new Date(b.date) - new Date(a.date));
+
+      const matchingDiplomas = diplomas
+        .filter(item => item.callsign.toUpperCase() === callsign)
+        .sort((a, b) => new Date(b.date) - new Date(a.date));
+
+      // Mostrar resultados
+      displayResults(callsign, matchingQSL, matchingDiplomas);
+    }
+
+    // Mostrar resultados
+    function displayResults(callsign, qslResults, diplomaResults) {
+      document.getElementById('initialState').style.display = 'none';
+      document.getElementById('resultsContainer').classList.add('active');
+      document.getElementById('displayCallsign').textContent = callsign;
+
+      // QSL Cards
+      const qslGallery = document.getElementById('qslGallery');
+      const qslEmpty = document.getElementById('qslEmpty');
+      const qslCount = document.getElementById('qslCount');
+
+      qslGallery.innerHTML = '';
+      qslCount.textContent = `${qslResults.length} encontrada${qslResults.length !== 1 ? 's' : ''}`;
+
+      if (qslResults.length === 0) {
+        qslGallery.style.display = 'none';
+        qslEmpty.style.display = 'block';
+      } else {
+        qslGallery.style.display = 'grid';
+        qslEmpty.style.display = 'none';
+        qslResults.forEach((item, index) => {
+          qslGallery.appendChild(createGalleryItem(item, 'qsl', index));
+        });
+      }
+
+      // Diplomas
+      const diplomasGallery = document.getElementById('diplomasGallery');
+      const diplomasEmpty = document.getElementById('diplomasEmpty');
+      const diplomasCount = document.getElementById('diplomasCount');
+
+      diplomasGallery.innerHTML = '';
+      diplomasCount.textContent = `${diplomaResults.length} encontrado${diplomaResults.length !== 1 ? 's' : ''}`;
+
+      if (diplomaResults.length === 0) {
+        diplomasGallery.style.display = 'none';
+        diplomasEmpty.style.display = 'block';
+      } else {
+        diplomasGallery.style.display = 'grid';
+        diplomasEmpty.style.display = 'none';
+        diplomaResults.forEach((item, index) => {
+          diplomasGallery.appendChild(createGalleryItem(item, 'diploma', index));
+        });
+      }
+
+      // Guardar para lightbox
+      currentLightboxItems = [...qslResults, ...diplomaResults];
+    }
+
+    // Crear item de galeria
+    function createGalleryItem(item, type, index) {
+      const div = document.createElement('div');
+      div.className = 'gallery-item';
+      div.onclick = () => openLightbox(type === 'qsl' ? index : qslCards.filter(q => q.callsign.toUpperCase() === item.callsign.toUpperCase()).length + index);
+
+      const formattedDate = formatDate(item.date);
+
+      div.innerHTML = `
+        <img class="gallery-image" src="${item.file}" alt="${type === 'qsl' ? 'QSL Card' : 'Diploma'}" loading="lazy">
+        <div class="gallery-info">
+          <div class="gallery-activity">${item.activity}</div>
+          <div class="gallery-date">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            ${formattedDate}
+          </div>
+          <div class="gallery-actions">
+            <a class="btn-download" href="${item.file}" download onclick="event.stopPropagation()">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+              </svg>
+              Descargar
+            </a>
+          </div>
+        </div>
+      `;
+
+      return div;
+    }
+
+    // Formatear fecha
+    function formatDate(dateStr) {
+      const date = new Date(dateStr + 'T00:00:00');
+      const options = { day: 'numeric', month: 'short', year: 'numeric' };
+      return date.toLocaleDateString('es-ES', options);
+    }
+
+    // Lightbox
+    function openLightbox(index) {
+      currentLightboxIndex = index;
+      const item = currentLightboxItems[index];
+      
+      document.getElementById('lightboxImage').src = item.file;
+      document.getElementById('lightboxDownload').href = item.file;
+      document.getElementById('lightbox').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function navigateLightbox(direction) {
+      currentLightboxIndex += direction;
+      
+      if (currentLightboxIndex < 0) {
+        currentLightboxIndex = currentLightboxItems.length - 1;
+      } else if (currentLightboxIndex >= currentLightboxItems.length) {
+        currentLightboxIndex = 0;
+      }
+
+      const item = currentLightboxItems[currentLightboxIndex];
+      document.getElementById('lightboxImage').src = item.file;
+      document.getElementById('lightboxDownload').href = item.file;
+    }
+
+    // Event Listeners
+    document.getElementById('callsign').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        searchCallsign();
+      }
+    });
+
+    document.getElementById('lightbox').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeLightbox();
+      }
+    });
+
+    document.addEventListener('keydown', function(e) {
+      const lightbox = document.getElementById('lightbox');
+      if (!lightbox.classList.contains('active')) return;
+
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') navigateLightbox(-1);
+      if (e.key === 'ArrowRight') navigateLightbox(1);
+    });
+  </script>
+
+</body>
+</html>

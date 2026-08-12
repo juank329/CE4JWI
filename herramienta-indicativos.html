@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap"></noscript>
+  <title>Buscar Indicativos SUBTEL - CE4JWI</title>
+  <meta name="description" content="Buscador de indicativos de radioaficionados chilenos en los listados oficiales de SUBTEL">
+  <link rel="stylesheet" href="recursos/styles.css">
+  <link rel="stylesheet" href="recursos/header-responsive.css">
+  <link rel="stylesheet" href="recursos/slider.css">
+  <link rel="stylesheet" href="recursos/indicativos.css">
+  <link rel="icon" href="public/favicon-32x32.png">
+</head>
+<body>
+  <div id="header-container"></div>
+  <div id="marquee-container"></div>
+
+  <main class="main-container">
+    <div class="content">
+
+      <div class="banner">
+        <h1>Buscar Indicativos - SUBTEL</h1>
+      </div>
+
+      <section class="page-content">
+
+        <!-- ============ Filtros ============ -->
+        <form class="indi-filtros" id="indiForm" onsubmit="buscarIndicativos(event)">
+          <div class="indi-campo">
+            <label for="indiQ">Indicativo o nombre</label>
+            <input type="text" id="indiQ" placeholder="Ej: CE4JWI, JWI, SERRANO" autocomplete="off">
+          </div>
+
+          <div class="indi-campo">
+            <label for="indiCat">Categoría</label>
+            <select id="indiCat">
+              <option value="">Todas</option>
+              <option value="grl">General (CE)</option>
+              <option value="nov">Novicio (CA)</option>
+              <option value="asp">Aspirante (CD)</option>
+              <option value="sup">Superior (XQ)</option>
+            </select>
+          </div>
+
+          <div class="indi-campo">
+            <label for="indiZona">Zona</label>
+            <select id="indiZona">
+              <option value="">Todas</option>
+              <option value="1">1 - Tarapacá / Arica y Parinacota</option>
+              <option value="2">2 - Antofagasta / Atacama</option>
+              <option value="3">3 - Coquimbo / Valparaíso / RM</option>
+              <option value="4">4 - O'Higgins / Maule / Ñuble</option>
+              <option value="5">5 - Biobío</option>
+              <option value="6">6 - Araucanía</option>
+              <option value="7">7 - Los Ríos / Los Lagos</option>
+              <option value="8">8 - Aysén</option>
+              <option value="9">9 - Magallanes</option>
+            </select>
+          </div>
+
+          <div class="indi-campo">
+            <label for="indiRegion">Región</label>
+            <select id="indiRegion">
+              <option value="">Todas</option>
+            </select>
+          </div>
+
+          <div class="indi-campo">
+            <label for="indiComuna">Comuna</label>
+            <input type="text" id="indiComuna" placeholder="Ej: Talca, Maipú" autocomplete="off">
+          </div>
+
+          <div class="indi-campo">
+            <label for="indiVence">Vence (año)</label>
+            <select id="indiVence">
+              <option value="">Cualquiera</option>
+            </select>
+          </div>
+        </form>
+
+        <div class="indi-acciones">
+          <button type="button" class="btn-buscar" onclick="document.getElementById('indiForm').requestSubmit()">Buscar</button>
+          <button type="button" class="btn-limpiar" onclick="limpiarFiltros()">Limpiar</button>
+          <button type="button" class="btn-wildcard" title="Usar * como comodín: CE4* = todos los CE4" onclick="document.getElementById('indiQ').value='CE4*'">Prefijo: CE4*</button>
+          <button type="button" class="btn-wildcard" onclick="document.getElementById('indiQ').value='*JWI'">Sufijo: *JWI</button>
+          <span class="contador" id="indiContador"></span>
+        </div>
+
+        <div id="indiEstado"></div>
+        <div id="indiResultados"></div>
+        <div id="indiPaginacion" class="indi-paginacion"></div>
+
+      </section>
+
+    </div>
+
+    <div id="sidebar-container"></div>
+  </main>
+
+  <div id="footer-container"></div>
+
+  <script defer src="recursos/componentes.js"></script>
+  <script defer src="recursos/indicativos.js"></script>
+</body>
+</html>

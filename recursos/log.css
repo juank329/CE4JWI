@@ -1,0 +1,543 @@
+/* ==========================================================================
+   LOG EN TIEMPO REAL — CE4JWI
+   Logbook moderno alimentado desde HRDLog.net (XML/JSONP + CORS proxy)
+   ========================================================================== */
+
+.log-app {
+  --log-bg: var(--surface);
+  --log-text: var(--text);
+  --log-text-soft: var(--text-soft);
+  --log-text-muted: var(--text-muted);
+  --log-border: var(--border);
+  --log-blue: var(--blue);
+  --log-red: var(--red);
+  --log-green: #34c759;
+  --log-orange: #ff9500;
+  --log-purple: #5856d6;
+  --log-cyan: #5ac8fa;
+  --log-shadow: var(--shadow-sm);
+
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* ---- Header / Live indicator ---- */
+.log-hero {
+  background: linear-gradient(135deg, #1c1c1e 0%, #2c2c2e 100%);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.5rem;
+  color: #f5f5f7;
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.log-hero::before {
+  content: "";
+  position: absolute;
+  top: -40%;
+  right: -10%;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(52, 199, 89, 0.15) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.log-hero-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.log-hero-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.log-callsign {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.log-callsign-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--log-green);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  box-shadow: 0 4px 12px rgba(52, 199, 89, 0.35);
+  animation: logPulse 2s ease-in-out infinite;
+}
+
+@keyframes logPulse {
+  0%, 100% { box-shadow: 0 4px 12px rgba(52, 199, 89, 0.35); }
+  50% { box-shadow: 0 4px 20px rgba(52, 199, 89, 0.7); }
+}
+
+.log-callsign-sub {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.log-hero-actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.log-live-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.9rem;
+  background: rgba(52, 199, 89, 0.15);
+  border: 1px solid rgba(52, 199, 89, 0.4);
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--log-green);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.log-live-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--log-green);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--log-green);
+  animation: logBlink 1.5s ease-in-out infinite;
+}
+
+@keyframes logBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.log-refresh-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: background 0.15s;
+}
+
+.log-refresh-btn:hover { background: rgba(255, 255, 255, 0.2); }
+.log-refresh-btn.refreshing svg { animation: logSpin 0.8s linear infinite; }
+
+@keyframes logSpin { to { transform: rotate(360deg); } }
+
+/* ---- Stats grid ---- */
+.log-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 0.75rem;
+}
+
+.log-stat {
+  background: var(--log-bg);
+  border: 1px solid var(--log-border);
+  border-radius: var(--radius-md);
+  padding: 0.9rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  box-shadow: var(--log-shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.log-stat::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--accent, var(--log-blue));
+}
+
+.log-stat-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--log-text-muted);
+}
+
+.log-stat-value {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--log-text);
+  line-height: 1.1;
+}
+
+.log-stat-extra {
+  font-size: 0.75rem;
+  color: var(--log-text-muted);
+  font-weight: 500;
+}
+
+/* ---- Filters ---- */
+.log-filters {
+  background: var(--log-bg);
+  border: 1px solid var(--log-border);
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  align-items: center;
+  box-shadow: var(--log-shadow);
+}
+
+.log-filter-input {
+  flex: 1;
+  min-width: 160px;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid var(--log-border);
+  background: var(--surface-alt);
+  font-size: 0.85rem;
+  font-family: inherit;
+  color: var(--log-text);
+  outline: none;
+  transition: border 0.15s;
+}
+
+.log-filter-input:focus { border-color: var(--log-blue); }
+
+.log-filter-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.log-pill {
+  padding: 0.4rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid var(--log-border);
+  background: var(--surface-alt);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--log-text-soft);
+  cursor: pointer;
+  transition: all 0.12s;
+}
+
+.log-pill:hover { background: var(--log-border); }
+.log-pill.active {
+  background: var(--log-blue);
+  color: #fff;
+  border-color: var(--log-blue);
+}
+
+/* ---- QSO Grid ---- */
+.log-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 0.85rem;
+}
+
+.log-card {
+  background: var(--log-bg);
+  border: 1px solid var(--log-border);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+  box-shadow: var(--log-shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  position: relative;
+  animation: logFadeIn 0.3s ease-out;
+}
+
+@keyframes logFadeIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.log-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--log-blue);
+}
+
+.log-card.new {
+  border-color: var(--log-green);
+  box-shadow: 0 0 0 2px rgba(52, 199, 89, 0.2), var(--shadow-md);
+}
+
+.log-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.log-station {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--log-text);
+  letter-spacing: -0.01em;
+}
+
+.log-flag {
+  width: 28px;
+  height: 20px;
+  object-fit: cover;
+  border-radius: 3px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
+}
+
+.log-flag-fallback {
+  width: 28px;
+  height: 20px;
+  background: var(--surface-alt);
+  border-radius: 3px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  color: var(--log-text-muted);
+  font-weight: 700;
+}
+
+.log-country {
+  font-size: 0.75rem;
+  color: var(--log-text-muted);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.log-card-body {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem 1rem;
+}
+
+.log-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.log-field-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--log-text-muted);
+}
+
+.log-field-value {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--log-text);
+}
+
+.log-time {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--log-text-soft);
+  font-weight: 500;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--log-border);
+}
+
+.log-time-icon {
+  width: 12px;
+  height: 12px;
+  color: var(--log-text-muted);
+}
+
+/* ---- Empty / Loading ---- */
+.log-empty {
+  padding: 3rem 1rem;
+  text-align: center;
+  color: var(--log-text-muted);
+  font-size: 0.95rem;
+  background: var(--log-bg);
+  border: 1px dashed var(--log-border);
+  border-radius: var(--radius-md);
+}
+
+.log-loading {
+  padding: 3rem;
+  text-align: center;
+  color: var(--log-text-muted);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.log-spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--log-border);
+  border-top-color: var(--log-blue);
+  border-radius: 50%;
+  animation: logSpin 0.8s linear infinite;
+}
+
+/* ---- Modal ---- */
+.log-modal-bg {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  backdrop-filter: blur(4px);
+  padding: 1rem;
+}
+
+.log-modal-bg.active { display: flex; }
+
+.log-modal {
+  background: var(--log-bg);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  max-width: 520px;
+  width: 100%;
+  box-shadow: var(--shadow-lg);
+  animation: logPop 0.18s ease-out;
+}
+
+@keyframes logPop {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.log-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--log-border);
+}
+
+.log-modal-station {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--log-text);
+  letter-spacing: -0.01em;
+}
+
+.log-modal-country {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--log-text-soft);
+  margin-top: 0.25rem;
+}
+
+.log-modal-close {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: var(--surface-alt);
+  color: var(--log-text-soft);
+  font-size: 1.2rem;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.log-modal-body {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.85rem;
+}
+
+.log-modal-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 0.65rem 0.75rem;
+  background: var(--surface-alt);
+  border-radius: 8px;
+}
+
+.log-modal-field.full { grid-column: 1 / -1; }
+
+.log-modal-field-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--log-text-muted);
+}
+
+.log-modal-field-value {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--log-text);
+  word-break: break-word;
+}
+
+.log-modal-footer {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--log-border);
+  font-size: 0.8rem;
+  color: var(--log-text-muted);
+  text-align: center;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 768px) {
+  .log-callsign { font-size: 1.5rem; }
+  .log-callsign-icon { width: 30px; height: 30px; font-size: 1rem; }
+  .log-hero { padding: 1rem; }
+  .log-grid { grid-template-columns: 1fr; }
+  .log-modal-body { grid-template-columns: 1fr; }
+  .log-filters { padding: 0.65rem; }
+  .log-stat-value { font-size: 1.25rem; }
+}
+
+@media (max-width: 480px) {
+  .log-stats { grid-template-columns: repeat(2, 1fr); }
+}

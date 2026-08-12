@@ -1,0 +1,108 @@
+============================================================
+  CÓMO ACTUALIZAR LOS PDFs DE SUBTEL (cada mes)
+============================================================
+
+Los PDFs de la SUBTEL se renuevan aproximadamente el primer
+día hábil de cada mes. El buscador usa los PDFs locales en
+la carpeta `recursos/` como fuente principal (el proxy a
+SUBTEL sólo es un intento secundario).
+
+------------------------------------------------------------
+1. DESCARGAR LOS PDFs NUEVOS
+------------------------------------------------------------
+
+Entrar a:
+  https://www.subtel.gob.cl/inicio-concesionario/
+      servicios-de-telecomunicaciones/
+      servicios-de-radio-aficionados/
+
+Bajar los DOS archivos (NO el de Distintivos Especiales,
+ese se eliminó a propósito):
+
+  a) "Listado Radioaficionados Nov/Grl/Sup"
+     → guardar como:
+        recursos/Listado_NOV_GRAL_SUP_AAAA_MM.pdf
+     Ejemplo: recursos/Listado_NOV_GRAL_SUP_2026_07.pdf
+
+  b) "Listado de Aspirantes"
+     → guardar como:
+        recursos/Listado_Aspirantes_AAAA_MM.pdf
+     Ejemplo: recursos/Listado_Aspirantes_2026_07.pdf
+
+(AAAA = año con 4 dígitos, MM = mes con 2 dígitos)
+
+------------------------------------------------------------
+2. ACTUALIZAR URLs Y FECHA EN EL JS
+------------------------------------------------------------
+
+Abrir: recursos/indicativos.js
+
+Buscar el array FUENTES_INDICATIVOS (línea ~29) y modificar
+TRES cosas por cada fuente:
+
+  a) url: cambiar la URL oficial de SUBTEL al PDF nuevo
+     Patrón actual (Junio 2026):
+       https://www.subtel.gob.cl/wp-content/uploads/2026/07/
+            Listado_NOV_GRAL_SUP_2026_06.pdf
+     Para Julio 2026 quedaría:
+       https://www.subtel.gob.cl/wp-content/uploads/2026/08/
+            Listado_NOV_GRAL_SUP_2026_07.pdf
+     (el primer 2026/08 es la carpeta del servidor,
+      el segundo 2026_07 es el nombre del archivo)
+
+  b) local: cambiar al nuevo nombre del PDF en recursos/
+
+  c) actualizado: poner el mes nuevo en texto
+     "Julio 2026"
+
+------------------------------------------------------------
+3. ACTUALIZAR EL TEXTO DE LA PÁGINA
+------------------------------------------------------------
+
+Abrir: herramienta-indicativos.html
+
+Cambiar la nota introductoria (línea ~29) para reflejar el
+nuevo mes:
+
+  Estaba (Junio 2026):
+    Esta herramienta busca en los listados oficiales de
+    SUBTEL (Junio 2026): ...
+
+  Debe decir (Julio 2026):
+    Esta herramienta busca en los listados oficiales de
+    SUBTEL (Julio 2026): ...
+
+------------------------------------------------------------
+4. PROBAR
+------------------------------------------------------------
+
+  1. Abrir herramienta-indicativos.html en el navegador
+  2. Esperar a que termine de cargar (spinner desaparece)
+  3. Buscar CE4JWI (tu indicativo) → debe aparecer 1 vez
+  4. Verificar que la fecha de vencimiento sea razonable
+  5. Probar un filtro de categoría (General / Novicio / etc.)
+  6. Revisar la consola del navegador (F12) por si hay
+     errores
+
+Si algo no carga, probablemente:
+  - La URL de SUBTEL cambió el formato (revisar el enlace
+    del nuevo PDF haciendo clic derecho → copiar enlace)
+  - El PDF nuevo tiene un layout distinto (poco probable,
+    pero si pasa, avisar para ajustar el parser)
+
+------------------------------------------------------------
+CHECKLIST RÁPIDO (pegar en un post-it)
+------------------------------------------------------------
+
+[ ] Descargar PDFs nuevos de SUBTEL
+[ ] Renombrar a Listado_NOV_GRAL_SUP_AAAA_MM.pdf
+[ ] Renombrar a Listado_Aspirantes_AAAA_MM.pdf
+[ ] Copiar a la carpeta recursos/
+[ ] Editar recursos/indicativos.js:
+    - url (línea ~34 y ~42)
+    - local (línea ~35 y ~43)
+    - actualizado (línea ~36 y ~44)
+[ ] Editar herramienta-indicativos.html (línea ~29)
+[ ] Probar en el navegador
+
+============================================================
