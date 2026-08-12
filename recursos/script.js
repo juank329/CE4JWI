@@ -619,7 +619,7 @@ const activities = [
      id: 63,
     title: "Día del Minero en Chile",
     image: "public/minero 2026.webp",
-    status: "PRÓXIMAMENTE",
+    status: "FINALIZADO",
     description:
       "La minería y los trabajadores mineros han sido el motor de la economía del país. Por tal motivo el año 2009 se decreta el Día Nacional del Minero los 10 de agosto, que recuerda a San Lorenzo, patrono de la minería. ..",
     date: "10 Agosto 2026",
