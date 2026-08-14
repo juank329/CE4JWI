@@ -9,57 +9,420 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Roboto:wght@500;700;900&display=swap" media="print" onload="this.media='all'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Roboto:wght@500;700;900&display=swap"></noscript>
   
-  <!-- ============================================== -->
-  <!-- CAMBIAR: Título de la página -->
-  <!-- ============================================== -->
-  <title>QSO LOGGER</title>
+  <title>Generador de QSLs</title>
   
-  <!-- ============================================== -->
-  <!-- CAMBIAR: Descripción para SEO -->
-  <!-- ============================================== -->
-  <meta name="description" content="Registro de contactos QSO para radioaficionados">
+  <meta name="description" content="Registro de contactos QSO con generación automática de QSL">
   
   <link rel="stylesheet" href="recursos/styles.css">
   <link rel="stylesheet" href="recursos/header-responsive.css">
   <link rel="stylesheet" href="recursos/slider.css">
   <link rel="stylesheet" href="recursos/qsologger.css">
   <link rel="icon" href="public/favicon-32x32.png">
+  <style>
+    .qsl-config-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .qsl-config-row .form-group input[type="file"] {
+      padding: 8px 12px;
+    }
+    .qsl-position-options {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .qsl-position-options label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      color: #475569;
+      transition: all 0.2s;
+    }
+    .qsl-position-options label:hover {
+      border-color: var(--blue);
+    }
+    .qsl-position-options input:checked + label,
+    .qsl-position-options input[type="radio"]:checked + label {
+      border-color: var(--blue);
+      background: var(--blue-soft);
+      color: var(--blue);
+    }
+    .qsl-position-options input {
+      display: none;
+    }
+    .qsl-position-options.compact {
+      gap: 3px;
+      flex-wrap: nowrap;
+    }
+    .qsl-position-options.compact label {
+      padding: 4px 8px;
+      gap: 3px;
+      font-size: 11px;
+      border-width: 1.5px;
+      border-radius: 6px;
+      white-space: nowrap;
+    }
+    .qsl-color-row {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+    .qsl-color-row .form-group {
+      margin-bottom: 0;
+      min-width: 140px;
+    }
+    .qsl-color-row .form-group.qsl-showthanks {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 4px;
+      padding-bottom: 0;
+    }
+    .qsl-color-row .form-group.qsl-showthanks label {
+      cursor: pointer;
+    }
+    .qsl-color-row .color-swatch-row {
+      margin-top: 4px;
+    }
+    .color-swatch-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .color-swatch {
+      position: relative;
+      display: inline-block;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #566573;
+      border: 3px solid #fff;
+      box-shadow: 0 0 0 1px #e2e8f0, 0 2px 6px rgba(0,0,0,0.15);
+      cursor: pointer;
+      overflow: hidden;
+    }
+    .color-swatch input[type="color"] {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      cursor: pointer;
+    }
+    .color-swatch-value {
+      font-family: var(--font-mono, monospace);
+      font-size: 12px;
+      color: #64748b;
+    }
+    .qsl-preview-wrap {
+      margin-top: 16px;
+      text-align: center;
+    }
+    .qsl-preview-wrap canvas {
+      width: 100%;
+      max-width: 920px;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+    .qsl-section {
+      margin-bottom: 28px;
+    }
+    .qsl-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--blue);
+      border-bottom: 1px solid #e2e8f0;
+      padding-bottom: 6px;
+      margin-bottom: 12px;
+    }
+    .qsl-size-note {
+      margin-top: 8px;
+      padding: 8px 12px;
+      background: #eef4ff;
+      border: 1px solid #c7dcff;
+      border-left: 4px solid var(--blue);
+      border-radius: 6px;
+      font-size: 12px;
+      line-height: 1.45;
+      color: #334155;
+    }
+    .qsl-size-note strong {
+      display: block;
+      color: var(--blue);
+      margin-bottom: 2px;
+    }
+    .qsl-example-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+    .qsl-example-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #334155;
+      white-space: nowrap;
+    }
+    .qsl-example-row select {
+      width: auto;
+      max-width: 150px;
+      min-width: 130px;
+      margin: 0;
+      flex: 0 0 auto;
+    }
+    .qsl-margin-colortitulo {
+      margin-left: 40px;
+    }
+    .qsl-margin-colordatos {
+      margin-left: -20px;
+    }
+    .qsl-preview-actions {
+      margin-top: 12px;
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    @media (max-width: 480px) {
+      .qsl-config-row {
+        grid-template-columns: 1fr;
+      }
+      .qsl-config-row .form-group {
+        grid-column: 1 !important;
+        margin-left: 0 !important;
+      }
+      .qsl-position-options.compact {
+        flex-wrap: wrap;
+      }
+      .qsl-position-options.compact label {
+        white-space: normal;
+      }
+      .qsl-color-row {
+        gap: 12px;
+      }
+      .qsl-color-row .form-group {
+        min-width: 100%;
+      }
+      .qsl-preview-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .qsl-preview-actions .btn {
+        width: 100%;
+      }
+    }
+    @media (max-width: 900px) {
+      .qsl-margin-colortitulo,
+      .qsl-margin-colordatos {
+        margin-left: 0;
+      }
+    }
+    @media (max-width: 640px) {
+      .table-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .table-actions {
+        flex-wrap: wrap;
+        width: 100%;
+      }
+      .table-actions .btn {
+        flex: 1 1 100%;
+        margin-bottom: 4px;
+      }
+      .btn-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .btn-row .btn {
+        width: 100%;
+      }
+      .sync-status {
+        margin-left: 0;
+      }
+    }
+  </style>
 </head>
 <body>
-  <!-- NO TOCAR: Header cargado automáticamente -->
   <div id="header-container"></div>
   
-  <!-- NO TOCAR: Marquesina cargada automáticamente -->
   <div id="marquee-container"></div>
 
-  <!-- ========== CONTENIDO PRINCIPAL ========== -->
   <main class="main-container">
     <div class="content">
       
-      <!-- ============================================== -->
-      <!-- CAMBIAR: Banner/Título principal de la página -->
-      <!-- ============================================== -->
       <div class="banner">
-        <h1>🎧🎙️ Creador de ADIF</h1>
+        <h1>Generador de QSLs</h1>
       </div>
-
-      <!-- ╔════════════════════════════════════════════════════════════╗ -->
-      <!-- ║                                                            ║ -->
-      <!-- ║   ★★★ CONTENIDO PRINCIPAL - AGREGAR AQUÍ ★★★              ║ -->
-      <!-- ║                                                            ║ -->
-      <!-- ╚════════════════════════════════════════════════════════════╝ -->
       
       <section class="page-content">
         
     <div class="container">
-    <h1> <span>Registro de Contactos</span></h1>
-    <p>Registra y gestiona tus contactos de radioaficionados de manera sencilla y eficiente para generar su archivo Adif y posteriormente subirlo a las plataformas que desees.</p>
+    <h1> <span>Generación de QSL + Registro de Contactos</span></h1>
+    <p>Configura la QSL, genera y descarga al instante al agregar cada contacto. El archivo ADIF se mantiene disponible para subirlo a las plataformas que desees.</p>
     <br>
-    
+
     <div class="card">
+      <div class="table-header">
+        <h2>Generador de QSL</h2>
+      </div>
+
+      <div class="qsl-preview-wrap">
+        <canvas id="qslCanvas" width="1920" height="1080"></canvas>
+      </div>
+
+      <div class="qsl-section">
+        <div class="qsl-section-title">Diseño de la QSL</div>
+        <div class="qsl-config-row">
+          <div class="form-group">
+            <label>Posición del cuadro de datos</label>
+            <div class="qsl-position-options">
+              <input type="radio" name="qslPos" id="pos1" value="1" checked>
+              <label for="pos1">1 Izquierda</label>
+              <input type="radio" name="qslPos" id="pos2" value="2">
+              <label for="pos2">2 Centro</label>
+              <input type="radio" name="qslPos" id="pos3" value="3">
+              <label for="pos3">3 Derecha</label>
+            </div>
+            <div class="qsl-color-row">
+              <div class="form-group">
+                <label>Color del texto</label>
+                <div class="color-swatch-row">
+                  <span class="color-swatch" id="swatchText">
+                    <input type="color" id="textColor" value="#566573">
+                  </span>
+                  <span class="color-swatch-value" id="swatchTextVal">#566573</span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Color del cuadro de datos</label>
+                <div class="color-swatch-row">
+                  <span class="color-swatch" id="swatchBox">
+                    <input type="color" id="boxColor" value="#154360">
+                  </span>
+                  <span class="color-swatch-value" id="swatchBoxVal">#154360</span>
+                </div>
+              </div>
+              <div class="form-group qsl-showthanks">
+                <label>Mostrar Comentarios</label>
+                <div class="checkbox-wrapper" style="justify-content:flex-start; padding-top:4px;">
+                  <input type="checkbox" id="showThanks" checked>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Imagen de fondo de la QSL</label>
+            <input type="file" id="qslBackground" accept="image/*">
+            <div class="qsl-example-row">
+              <label class="qsl-example-label" for="qslSelectEjemplo">¿No tienes imagen?</label>
+              <select id="qslSelectEjemplo">
+                <option value="">— Ninguno —</option>
+              </select>
+            </div>
+            <div class="qsl-size-note">
+              <strong>Tamaño recomendado de la imagen: 1920 x 1080 px</strong>
+              <span>Si tu imagen tiene otras medidas, se ajustará para llenarla (recortando los bordes si hace falta).</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="qsl-section">
+        <div class="qsl-section-title">Datos de la Actividad</div>
+        <div class="qsl-config-row">
+          <div class="form-group" style="grid-column: 1 / -1;">
+            <label>Nombre de la Actividad y/o Indicativo</label>
+            <input type="text" id="actividadName" placeholder="Ej: Aniversario CE4JWI 2026 o tu indicativo para QSL personal">
+          </div>
+        </div>
+      </div>
+
+      <div class="qsl-section">
+        <div class="qsl-section-title">Datos del Operador</div>
+        <div class="qsl-config-row">
+          <div class="form-group">
+            <label>Nombre del operador</label>
+            <input type="text" id="opName" placeholder="Tu nombre">
+          </div>
+          <div class="form-group">
+            <label>Domicilio</label>
+            <input type="text" id="opDomicilio" placeholder="Calle 123">
+          </div>
+          <div class="form-group">
+            <label>Ciudad</label>
+            <input type="text" id="opCiudad" placeholder="Talca">
+          </div>
+          <div class="form-group">
+            <label>País</label>
+            <input type="text" id="opPais" placeholder="Chile">
+          </div>
+          <div class="form-group">
+            <label>Grid Locator</label>
+            <input type="text" id="opGrid" placeholder="FF45" style="text-transform: uppercase;">
+          </div>
+          <div class="form-group">
+            <label>Zona ITU</label>
+            <input type="text" id="opItu" placeholder="14">
+          </div>
+          <div class="form-group">
+            <label>Zona CQ</label>
+            <input type="text" id="opCq" placeholder="12">
+          </div>
+          <div class="form-group">
+            <label>Alineación de los datos</label>
+            <div class="qsl-position-options compact">
+              <input type="radio" name="qslAlin" id="alin1" value="1">
+              <label for="alin1">Izquierda</label>
+              <input type="radio" name="qslAlin" id="alin2" value="2" checked>
+              <label for="alin2">Centrado</label>
+              <input type="radio" name="qslAlin" id="alin3" value="3">
+              <label for="alin3">Derecha</label>
+            </div>
+          </div>
+          <div class="form-group qsl-margin-colortitulo">
+            <label>Color del título</label>
+            <div class="color-swatch-row">
+              <span class="color-swatch" id="swatchTitle">
+                <input type="color" id="titleColor" value="#ffffff">
+              </span>
+              <span class="color-swatch-value" id="swatchTitleVal">#ffffff</span>
+            </div>
+          </div>
+          <div class="form-group qsl-margin-colordatos">
+            <label>Color de los datos del operador</label>
+            <div class="color-swatch-row">
+              <span class="color-swatch" id="swatchOp">
+                <input type="color" id="opColor" value="#ffffff">
+              </span>
+              <span class="color-swatch-value" id="swatchOpVal">#ffffff</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="table-header">
+        <h2>Registro de Contactos</h2>
+      </div>
+
       <div class="form-row">
         <div class="form-group" style="grid-column: span 2;">
-          <label>Fecha/Hora (UTC) <span class="utc-indicator">🕐 UTC</span></label>
+          <label>Fecha/Hora (UTC) <span class="utc-indicator">UTC</span></label>
           <div class="datetime-group">
             <input type="datetime-local" id="qsoDateTime">
             <div class="checkbox-wrapper" title="Sincronizar con hora UTC actual">
@@ -110,6 +473,8 @@
             <option value="LSB">LSB</option>
             <option value="DV">DV</option>
             <option value="DMR">DMR</option>
+            <option value="PKT">PKT</option>
+            <option value="C4FM">C4FM</option>
             <option value="VOI">VOI</option>
             <option value="SSTV">SSTV</option>
           </select>
@@ -126,14 +491,15 @@
 
       <div class="form-row">
         <div class="form-group" style="grid-column: 1 / -1;">
-          <label>Comentarios</label>
-          <textarea id="comments" placeholder="Comentarios del QSO"></textarea>
+          <label>Comentarios (reemplaza el texto de agradecimiento)</label>
+          <textarea id="comments" placeholder="Ej: Gracias por el QSO, 73 Cordiales!"></textarea>
         </div>
       </div>
 
       <div class="btn-row">
-        <button class="btn btn-primary" onclick="addQso()">Agregar QSO</button>
+        <button class="btn btn-primary" id="btnAddQso" onclick="addQso()">Agregar QSO y Generar QSL</button>
         <button class="btn btn-secondary" onclick="clearForm()">Limpiar formulario</button>
+        <button class="btn btn-secondary" id="btnCancelarEdicion" onclick="cancelarEdicion()" style="display:none;">Cancelar edición</button>
         <span class="sync-status" id="syncStatus">Sincronizado (0 QSOs)</span>
       </div>
     </div>
@@ -142,6 +508,7 @@
       <div class="table-header">
         <h2>QSOs cargados: <span id="qsoCount">0</span></h2>
         <div class="table-actions">
+          <button class="btn btn-primary" onclick="descargarQSLs()">Descargar QSLs</button>
           <button class="btn btn-success" onclick="downloadAdif()">Descargar ADIF</button>
           <button class="btn btn-danger" onclick="clearAllQsos()">Borrar QSO Cargados</button>
         </div>
@@ -177,24 +544,449 @@
     </div>
   </div>
 
+  <script src="recursos/jszip.min.js"></script>
   <script>
     let qsos = JSON.parse(localStorage.getItem('qsos')) || [];
     let utcInterval;
+    let imgFondo = null;
+    let editandoId = null;
+    const PLANTILLA = 'recursos/plantilla_qsl.png';
 
-    // Inicializar
+    const posiciones = { 1: 30, 2: 960 - 325, 3: 1920 - 30 - 650 };
+    const Y_BASE = 1080 - 30 - 175;
+    const AGRADECIMIENTO_DEFECTO = 'Gracias por el QSO, 73 Cordiales!';
+
+    function obtenerColorTexto() {
+      const el = document.getElementById('textColor');
+      return el ? el.value : '#566573';
+    }
+
+    function obtenerColorCuadro() {
+      const el = document.getElementById('boxColor');
+      return el ? el.value : '#154360';
+    }
+
+    function obtenerPosicion() {
+      const sel = document.querySelector('input[name="qslPos"]:checked');
+      return sel ? parseInt(sel.value, 10) : 1;
+    }
+
+    function mostrarAgradecimiento() {
+      const el = document.getElementById('showThanks');
+      return el ? el.checked : true;
+    }
+
+    function obtenerConfigQSL() {
+      const selAlin = document.querySelector('input[name="qslAlin"]:checked');
+      return {
+        actividad: (document.getElementById('actividadName') ? document.getElementById('actividadName').value : '').trim(),
+        opNombre: (document.getElementById('opName') ? document.getElementById('opName').value : '').trim(),
+        opDomicilio: (document.getElementById('opDomicilio') ? document.getElementById('opDomicilio').value : '').trim(),
+        opCiudad: (document.getElementById('opCiudad') ? document.getElementById('opCiudad').value : '').trim(),
+        opPais: (document.getElementById('opPais') ? document.getElementById('opPais').value : '').trim(),
+        opGrid: (document.getElementById('opGrid') ? document.getElementById('opGrid').value : '').trim(),
+        opZonaItu: (document.getElementById('opItu') ? document.getElementById('opItu').value : '').trim(),
+        opZonaCq: (document.getElementById('opCq') ? document.getElementById('opCq').value : '').trim(),
+        colorTitulo: (document.getElementById('titleColor') ? document.getElementById('titleColor').value : '#ffffff'),
+        colorDatos: (document.getElementById('opColor') ? document.getElementById('opColor').value : '#ffffff'),
+        opAlineacion: selAlin ? selAlin.value : '2'
+      };
+    }
+
+    function roundRect(ctx, x, y, w, h, r) {
+      ctx.beginPath();
+      ctx.moveTo(x + r, y);
+      ctx.arcTo(x + w, y, x + w, y + h, r);
+      ctx.arcTo(x + w, y + h, x, y + h, r);
+      ctx.arcTo(x, y + h, x, y, r);
+      ctx.arcTo(x, y, x + w, y, r);
+      ctx.closePath();
+    }
+
+    function dibujarCajon(ctx, datos) {
+      const X = posiciones[datos.posicion] || 30;
+      const colorTexto = datos.colorTexto || obtenerColorTexto();
+      const colorCuadro = datos.colorCuadro || obtenerColorCuadro();
+      const conAgradecimiento = datos.conAgradecimiento !== undefined ? datos.conAgradecimiento : mostrarAgradecimiento();
+      const ALTO_BARRA = 41;
+      const Y = Y_BASE + (conAgradecimiento ? 0 : ALTO_BARRA);
+
+      ctx.save();
+      ctx.font = 'bold 22px Arial';
+      ctx.textBaseline = 'top';
+
+      ctx.fillStyle = '#ffffff';
+      roundRect(ctx, X, Y, 650, 44, 8); ctx.fill();
+      ctx.fillStyle = colorCuadro;
+      roundRect(ctx, X, Y, 150, 44, 8); ctx.fill();
+      roundRect(ctx, X + 315, Y, 160, 44, 8); ctx.fill();
+
+      ctx.fillStyle = colorCuadro;
+      roundRect(ctx, X, Y + 50, 650, 39, 8); ctx.fill();
+
+      ctx.fillStyle = '#ffffff';
+      roundRect(ctx, X, Y + 89, 650, 39, 8); ctx.fill();
+
+      ctx.fillStyle = colorCuadro;
+      ctx.fillRect(X, Y + 80, 650, 10);
+
+      if (conAgradecimiento) {
+        ctx.fillStyle = '#ffffff';
+        roundRect(ctx, X, Y + 134, 650, ALTO_BARRA, 8); ctx.fill();
+      }
+
+      ctx.fillStyle = '#ffffff';
+      ctx.textAlign = 'left';
+      ctx.fillText('OPERADOR', X + 13, Y + 12);
+      ctx.fillStyle = colorTexto;
+      ctx.font = 'bold 24px Arial';
+      ctx.fillText(datos.operador, X + 180, Y + 10);
+      ctx.fillStyle = '#ffffff';
+      ctx.font = 'bold 22px Arial';
+      ctx.fillText('QSO CON', X + 340, Y + 12);
+      ctx.fillStyle = colorTexto;
+      ctx.font = 'bold 24px Arial';
+      ctx.fillText(datos.colega, X + 500, Y + 10);
+
+      const COLUMNAS = [
+        { titulo: 'FECHA', centro: 62 },
+        { titulo: 'UTC', centro: 170 },
+        { titulo: 'BANDA', centro: 275 },
+        { titulo: 'MODO', centro: 380 },
+        { titulo: 'FRECUENCIA', centro: 505 },
+        { titulo: 'RST', centro: 620 }
+      ];
+      const valores = [datos.fecha, datos.hora, datos.banda, datos.modo, datos.frecuencia, datos.rst];
+
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#ffffff';
+      ctx.font = 'bold 20px Arial';
+      COLUMNAS.forEach((c, i) => {
+        ctx.fillText(c.titulo, X + c.centro, Y + 59);
+      });
+
+      ctx.fillStyle = colorTexto;
+      ctx.font = 'bold 22px Arial';
+      COLUMNAS.forEach((c, i) => {
+        ctx.fillText(valores[i] || '', X + c.centro, Y + 99);
+      });
+      ctx.textAlign = 'left';
+
+      if (conAgradecimiento) {
+        ctx.fillStyle = colorTexto;
+        ctx.font = 'bold 22px Arial';
+        ctx.fillText(datos.agradecimiento || AGRADECIMIENTO_DEFECTO, X + 15, Y + 143);
+      }
+
+      ctx.restore();
+    }
+
+    function obtenerDatosVista() {
+      const dateTimeEl = document.getElementById('qsoDateTime');
+      const myCallEl = document.getElementById('myCallsign');
+      const theirCallEl = document.getElementById('theirCallsign');
+      const freqEl = document.getElementById('frequency');
+      const bandEl = document.getElementById('band');
+      const modeEl = document.getElementById('mode');
+      const rstEl = document.getElementById('rstSent');
+      const commentsEl = document.getElementById('comments');
+
+      const dateTimeVal = dateTimeEl ? dateTimeEl.value : '';
+      const partes = dateTimeVal.split('T');
+      const fechaRaw = partes[0] || '';
+      const horaRaw = (partes[1] || '').slice(0, 5);
+      const fecha = fechaRaw ? `${fechaRaw.slice(8,10)}-${fechaRaw.slice(5,7)}-${fechaRaw.slice(0,4)}` : '';
+      const hora = horaRaw || '';
+
+      const operador = (myCallEl ? myCallEl.value : '').toUpperCase().trim() || 'TU CALL';
+      const colega = limpiarCall((theirCallEl ? theirCallEl.value : '').toUpperCase()) || 'TU CALL';
+      const comentario = (commentsEl ? commentsEl.value : '').trim();
+      const config = obtenerConfigQSL();
+
+      return Object.assign({
+        posicion: obtenerPosicion(),
+        operador: operador,
+        colega: colega,
+        fecha: fecha,
+        hora: hora,
+        banda: bandEl ? bandEl.value : '',
+        modo: modeEl ? modeEl.value : '',
+        frecuencia: freqEl ? freqEl.value : '',
+        rst: rstEl ? rstEl.value : '',
+        agradecimiento: comentario || AGRADECIMIENTO_DEFECTO,
+        conAgradecimiento: mostrarAgradecimiento(),
+        colorTexto: obtenerColorTexto(),
+        colorCuadro: obtenerColorCuadro()
+      }, config);
+    }
+
+    const DATOS_EJEMPLO = {
+      operador: 'CE4JWI',
+      colega: 'XR4MAU',
+      fecha: '14-08-2026',
+      hora: '03:09',
+      banda: '2m',
+      modo: 'FM',
+      frecuencia: '145.500',
+      rst: '59',
+      agradecimiento: AGRADECIMIENTO_DEFECTO
+    };
+
+    function textoConBorde(ctx, texto, x, y, color) {
+      ctx.strokeStyle = 'rgba(0,0,0,0.75)';
+      ctx.lineWidth = 6;
+      ctx.strokeText(texto, x, y);
+      ctx.fillStyle = color || '#ffffff';
+      ctx.fillText(texto, x, y);
+    }
+
+    function dibujarCabecera(ctx, datos) {
+      const alineacion = datos.opAlineacion || '2';
+      let x;
+      let align;
+      if (alineacion === '1') { x = 60; align = 'left'; }
+      else if (alineacion === '3') { x = 1860; align = 'right'; }
+      else { x = 960; align = 'center'; }
+
+      const colorTitulo = datos.colorTitulo || '#ffffff';
+      const colorDatos = datos.colorDatos || '#ffffff';
+
+      ctx.save();
+      ctx.textAlign = align;
+      ctx.textBaseline = 'top';
+
+      if (datos.actividad) {
+        ctx.font = 'bold 58px Arial';
+        textoConBorde(ctx, datos.actividad, x, 35, colorTitulo);
+      }
+      if (datos.opNombre) {
+        ctx.font = 'bold 40px Arial';
+        textoConBorde(ctx, datos.opNombre, x, 115, colorDatos);
+      }
+      const lineaDireccion = [datos.opDomicilio, datos.opCiudad, datos.opPais].filter(Boolean).join(' - ');
+      if (lineaDireccion) {
+        ctx.font = 'bold 30px Arial';
+        textoConBorde(ctx, lineaDireccion, x, 175, colorDatos);
+      }
+      const lineaZonas = [
+        datos.opGrid ? 'GRID: ' + datos.opGrid : '',
+        datos.opZonaItu ? 'ITU: ' + datos.opZonaItu : '',
+        datos.opZonaCq ? 'CQ: ' + datos.opZonaCq : ''
+      ].filter(Boolean).join('  |  ');
+      if (lineaZonas) {
+        ctx.font = 'bold 30px Arial';
+        textoConBorde(ctx, lineaZonas, x, 235, colorDatos);
+      }
+
+      ctx.restore();
+    }
+
+    function dibujarCanvas() {
+      const canvas = document.getElementById('qslCanvas');
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, 1920, 1080);
+      ctx.fillStyle = '#222831';
+      ctx.fillRect(0, 0, 1920, 1080);
+
+      if (imgFondo) {
+        ctx.drawImage(imgFondo, 0, 0, 1920, 1080);
+      } else {
+        dibujarFondoGenerado(ctx);
+      }
+
+      const vista = qsos.length === 0
+        ? Object.assign({}, DATOS_EJEMPLO, {
+            posicion: obtenerPosicion(),
+            conAgradecimiento: mostrarAgradecimiento(),
+            colorTexto: obtenerColorTexto(),
+            colorCuadro: obtenerColorCuadro()
+          }, obtenerConfigQSL())
+        : obtenerDatosVista();
+
+      dibujarCabecera(ctx, vista);
+      dibujarCajon(ctx, vista);
+    }
+
+    function dibujarFondoGenerado(ctx) {
+      const g = ctx.createLinearGradient(0, 0, 1920, 1080);
+      g.addColorStop(0, '#154360');
+      g.addColorStop(1, '#0a2233');
+      ctx.fillStyle = g;
+      ctx.fillRect(0, 0, 1920, 1080);
+      ctx.fillStyle = 'rgba(255,255,255,0.05)';
+      ctx.beginPath();
+      ctx.arc(960, 540, 300, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    const BANDERAS = {
+      'cl': 'recursos/banderas/cl.png',
+      'ar': 'recursos/banderas/ar.png',
+      'es': 'recursos/banderas/es.png',
+      'br': 'recursos/banderas/br.png',
+      'de': 'recursos/banderas/de.png',
+      'mx': 'recursos/banderas/mx.png'
+    };
+    const imagenesBanderas = {};
+
+    function cargarBanderas(callback) {
+      const keys = Object.keys(BANDERAS);
+      let pendientes = keys.length;
+      keys.forEach(k => {
+        const img = new Image();
+        img.onload = () => { imagenesBanderas[k] = img; pendientes--; if (pendientes === 0) callback(); };
+        img.onerror = () => { pendientes--; if (pendientes === 0) callback(); };
+        img.src = BANDERAS[k];
+      });
+    }
+
+    function dibujarBandera(ctx, codigo) {
+      const img = imagenesBanderas[codigo];
+      if (!img || !img.complete) {
+        dibujarFondoGenerado(ctx);
+        return;
+      }
+      const cw = ctx.canvas.width;
+      const ch = ctx.canvas.height;
+      const escala = cw / img.width;
+      const w = img.width * escala;
+      const h = img.height * escala;
+      ctx.drawImage(img, 0, (ch - h) / 2, w, h);
+    }
+
+    const EJEMPLOS_IMAGEN = [
+      { id: 'bandera_chile', nombre: 'Bandera Chile', pintar: (ctx) => dibujarBandera(ctx, 'cl') },
+      { id: 'bandera_argentina', nombre: 'Bandera Argentina', pintar: (ctx) => dibujarBandera(ctx, 'ar') },
+      { id: 'bandera_espana', nombre: 'Bandera España', pintar: (ctx) => dibujarBandera(ctx, 'es') },
+      { id: 'bandera_brasil', nombre: 'Bandera Brasil', pintar: (ctx) => dibujarBandera(ctx, 'br') },
+      { id: 'bandera_alemania', nombre: 'Bandera Alemania', pintar: (ctx) => dibujarBandera(ctx, 'de') },
+      { id: 'bandera_mexico', nombre: 'Bandera México', pintar: (ctx) => dibujarBandera(ctx, 'mx') }
+    ];
+
+    function crearFondoEjemplo(ejemplo) {
+      const canvas = document.createElement('canvas');
+      canvas.width = 1920;
+      canvas.height = 1080;
+      const ctx = canvas.getContext('2d');
+      ejemplo.pintar(ctx);
+      return canvas;
+    }
+
+    function poblarEjemplos() {
+      const select = document.getElementById('qslSelectEjemplo');
+      if (!select) return;
+      EJEMPLOS_IMAGEN.forEach(ejemplo => {
+        const opt = document.createElement('option');
+        opt.value = ejemplo.id;
+        opt.textContent = ejemplo.nombre;
+        select.appendChild(opt);
+      });
+      select.addEventListener('change', () => {
+        const ejemplo = EJEMPLOS_IMAGEN.find(e => e.id === select.value);
+        imgFondo = ejemplo ? crearFondoEjemplo(ejemplo) : null;
+        dibujarCanvas();
+      });
+    }
+
+    function cargarPlantilla() {
+      fetch(PLANTILLA)
+        .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.blob(); })
+        .then(blob => new Promise((res, rej) => {
+          const fr = new FileReader();
+          fr.onload = () => res(fr.result);
+          fr.onerror = rej;
+          fr.readAsDataURL(blob);
+        }))
+        .then(dataUrl => {
+          const img = new Image();
+          img.onload = () => { imgFondo = img; dibujarCanvas(); };
+          img.src = dataUrl;
+        })
+        .catch(() => {
+          console.warn('Plantilla no accesible en modo archivo local. Usando fondo generado para que la QSL se pueda descargar.');
+          imgFondo = null;
+          dibujarCanvas();
+        });
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
       renderQsos();
       updateUtcTime();
       startUtcSync();
-      
-      // Cargar indicativo guardado
+      cargarBanderas(poblarEjemplos);
+      cargarPlantilla();
+      dibujarCanvas();
+
       const savedCallsign = localStorage.getItem('myCallsign');
       if (savedCallsign) {
         document.getElementById('myCallsign').value = savedCallsign;
       }
+
+      const textoIni = document.getElementById('textColor').value;
+      document.getElementById('swatchText').style.background = textoIni;
+      document.getElementById('swatchTextVal').textContent = textoIni;
+      const cajaIni = document.getElementById('boxColor').value;
+      document.getElementById('swatchBox').style.background = cajaIni;
+      document.getElementById('swatchBoxVal').textContent = cajaIni;
+      const tituloIni = document.getElementById('titleColor').value;
+      document.getElementById('swatchTitle').style.background = tituloIni;
+      document.getElementById('swatchTitleVal').textContent = tituloIni;
+      const opIni = document.getElementById('opColor').value;
+      document.getElementById('swatchOp').style.background = opIni;
+      document.getElementById('swatchOpVal').textContent = opIni;
+
+      document.querySelectorAll('input[name="qslPos"]').forEach(r => {
+        r.addEventListener('change', dibujarCanvas);
+      });
+
+      document.querySelectorAll('input[name="qslAlin"]').forEach(r => {
+        r.addEventListener('change', dibujarCanvas);
+      });
+
+      document.getElementById('textColor').addEventListener('input', (e) => {
+        document.getElementById('swatchText').style.background = e.target.value;
+        document.getElementById('swatchTextVal').textContent = e.target.value;
+        dibujarCanvas();
+      });
+      document.getElementById('boxColor').addEventListener('input', (e) => {
+        document.getElementById('swatchBox').style.background = e.target.value;
+        document.getElementById('swatchBoxVal').textContent = e.target.value;
+        dibujarCanvas();
+      });
+      document.getElementById('titleColor').addEventListener('input', (e) => {
+        document.getElementById('swatchTitle').style.background = e.target.value;
+        document.getElementById('swatchTitleVal').textContent = e.target.value;
+        dibujarCanvas();
+      });
+      document.getElementById('opColor').addEventListener('input', (e) => {
+        document.getElementById('swatchOp').style.background = e.target.value;
+        document.getElementById('swatchOpVal').textContent = e.target.value;
+        dibujarCanvas();
+      });
+      document.getElementById('showThanks').addEventListener('change', dibujarCanvas);
+
+      ['myCallsign', 'theirCallsign', 'frequency', 'band', 'mode', 'rstSent', 'comments', 'qsoDateTime'].forEach(id => {
+        document.getElementById(id).addEventListener('input', dibujarCanvas);
+      });
+
+      ['actividadName', 'opName', 'opDomicilio', 'opCiudad', 'opPais', 'opGrid', 'opItu', 'opCq'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener('input', dibujarCanvas);
+      });
+
+      document.getElementById('qslBackground').addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+          const img = new Image();
+          img.onload = () => { imgFondo = img; dibujarCanvas(); };
+          img.src = ev.target.result;
+        };
+        reader.readAsDataURL(file);
+      });
     });
 
-    // Sincronización UTC
     function updateUtcTime() {
       if (document.getElementById('syncUtc').checked) {
         const now = new Date();
@@ -213,7 +1005,6 @@
       }
     });
 
-    // Auto-detectar banda por frecuencia
     document.getElementById('frequency').addEventListener('input', (e) => {
       const freq = parseFloat(e.target.value);
       let band = '';
@@ -236,10 +1027,131 @@
       }
     });
 
-    // Agregar QSO
+    function limpiarCall(call) {
+      const up = String(call || '').toUpperCase().trim();
+      if (up.includes('-')) return up.slice(0, up.indexOf('-'));
+      return up;
+    }
+
+    function datosQslPara(qso) {
+      const partes = qso.dateTime.split('T');
+      const fechaRaw = partes[0] || '';
+      const horaRaw = (partes[1] || '').slice(0, 5);
+      const fecha = fechaRaw ? `${fechaRaw.slice(8,10)}-${fechaRaw.slice(5,7)}-${fechaRaw.slice(0,4)}` : '';
+      const hora = horaRaw || '';
+      const config = obtenerConfigQSL();
+      return {
+        posicion: obtenerPosicion(),
+        operador: qso.myCallsign.toUpperCase(),
+        colega: limpiarCall(qso.theirCallsign),
+        fecha: fecha,
+        hora: hora,
+        banda: qso.band || '',
+        modo: qso.mode || '',
+        frecuencia: qso.frequency || '',
+        rst: qso.rstSent || '59',
+        agradecimiento: (qso.comments || '').trim() || AGRADECIMIENTO_DEFECTO,
+        conAgradecimiento: mostrarAgradecimiento(),
+        colorTexto: obtenerColorTexto(),
+        colorCuadro: obtenerColorCuadro(),
+        colorTitulo: config.colorTitulo,
+        colorDatos: config.colorDatos,
+        actividad: config.actividad,
+        opNombre: config.opNombre,
+        opDomicilio: config.opDomicilio,
+        opCiudad: config.opCiudad,
+        opPais: config.opPais,
+        opGrid: config.opGrid,
+        opZonaItu: config.opZonaItu,
+        opZonaCq: config.opZonaCq,
+        opAlineacion: config.opAlineacion
+      };
+    }
+
+    function nombreArchivoQSL(datos) {
+      return `${datos.colega}.jpg`;
+    }
+
+    function nombreCarpetaActividad(datos) {
+      return (datos.actividad || 'QSLs').replace(/[\\/*?:`"<>|]/g, '').replace(/ /g, '_');
+    }
+
+    function renderQSL(dataQSL) {
+      return new Promise((resolve) => {
+        const canvas = document.createElement('canvas');
+        canvas.width = 1920;
+        canvas.height = 1080;
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = '#222831';
+        ctx.fillRect(0, 0, 1920, 1080);
+        if (imgFondo) {
+          ctx.drawImage(imgFondo, 0, 0, 1920, 1080);
+        } else {
+          dibujarFondoGenerado(ctx);
+        }
+        dibujarCabecera(ctx, dataQSL);
+        dibujarCajon(ctx, dataQSL);
+        try {
+          canvas.toBlob((blob) => resolve(blob), 'image/jpeg', 0.85);
+        } catch (e) {
+          resolve(null);
+        }
+      });
+    }
+
+    function descargarQSLs() {
+      if (qsos.length === 0) {
+        alert('No hay QSOs para generar QSLs');
+        return;
+      }
+      const zip = new JSZip();
+      const primerQso = qsos[0];
+      const dataPrimer = primerQso && (primerQso.qslData || datosQslPara(primerQso));
+      const carpeta = zip.folder(nombreCarpetaActividad(dataPrimer));
+      const nombresUsados = {};
+      let errores = 0;
+
+      const promesas = qsos.map(async (qso) => {
+        const dataQSL = qso.qslData || datosQslPara(qso);
+        let blob = null;
+        try {
+          blob = await renderQSL(dataQSL);
+          let nombre = nombreArchivoQSL(dataQSL);
+          if (nombresUsados[nombre]) {
+            nombresUsados[nombre]++;
+            nombre = nombre.replace(/\.jpg$/, '_' + nombresUsados[nombre] + '.jpg');
+          } else {
+            nombresUsados[nombre] = 1;
+          }
+          if (blob) {
+            carpeta.file(nombre, blob);
+          } else {
+            errores++;
+          }
+        } catch (e) {
+          errores++;
+        }
+      });
+
+      Promise.all(promesas).then(async () => {
+        const content = await zip.generateAsync({ type: 'blob' });
+        const url = URL.createObjectURL(content);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `qsls_${new Date().toISOString().slice(0, 10)}.zip`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        setTimeout(() => URL.revokeObjectURL(url), 5000);
+        if (errores > 0) {
+          alert(errores + ' QSL(s) no se pudieron generar correctamente y no se incluyeron en el paquete.');
+        }
+      });
+    }
+
     function addQso() {
       const qso = {
-        id: Date.now(),
+        id: editandoId !== null ? editandoId : Date.now(),
         dateTime: document.getElementById('qsoDateTime').value,
         myCallsign: document.getElementById('myCallsign').value.toUpperCase(),
         theirCallsign: document.getElementById('theirCallsign').value.toUpperCase(),
@@ -256,20 +1168,89 @@
         return;
       }
 
-      qsos.push(qso);
+      if (!qso.frequency) {
+        alert('Por favor ingresa la frecuencia en MHz');
+        document.getElementById('frequency').focus();
+        return;
+      }
+
+      if (!qso.band) {
+        alert('Por favor selecciona la banda');
+        document.getElementById('band').focus();
+        return;
+      }
+
+      if (!qso.mode) {
+        alert('Por favor selecciona el modo');
+        document.getElementById('mode').focus();
+        return;
+      }
+
+      qso.qslData = datosQslPara(qso);
+
+      if (editandoId !== null) {
+        const idx = qsos.findIndex(q => q.id === editandoId);
+        if (idx !== -1) {
+          qsos[idx] = qso;
+        }
+        editandoId = null;
+        document.getElementById('btnAddQso').textContent = 'Agregar QSO y Generar QSL';
+        document.getElementById('btnCancelarEdicion').style.display = 'none';
+        document.getElementById('syncUtc').checked = true;
+        updateUtcTime();
+      } else {
+        qsos.push(qso);
+      }
+
       saveQsos();
       renderQsos();
       
-      // Guardar indicativo del operador
       localStorage.setItem('myCallsign', qso.myCallsign);
-      
-      // Limpiar solo el indicativo del contacto y comentarios
+
+      dibujarCanvas();
+
       document.getElementById('theirCallsign').value = '';
       document.getElementById('comments').value = '';
       document.getElementById('theirCallsign').focus();
     }
 
-    // Renderizar tabla
+    function editarQso(id) {
+      const qso = qsos.find(q => q.id === id);
+      if (!qso) return;
+
+      document.getElementById('qsoDateTime').value = qso.dateTime || '';
+      document.getElementById('myCallsign').value = qso.myCallsign || '';
+      document.getElementById('theirCallsign').value = qso.theirCallsign || '';
+      document.getElementById('frequency').value = qso.frequency || '';
+      document.getElementById('band').value = qso.band || '';
+      document.getElementById('mode').value = qso.mode || '';
+      document.getElementById('rstSent').value = qso.rstSent || '59';
+      document.getElementById('rstRcvd').value = qso.rstRcvd || '59';
+      document.getElementById('comments').value = qso.comments || '';
+
+      editandoId = id;
+      document.getElementById('btnAddQso').textContent = 'Guardar cambios del QSO';
+      document.getElementById('btnCancelarEdicion').style.display = 'inline-block';
+
+      document.getElementById('syncUtc').checked = false;
+
+      const qsl = qso.qslData;
+      if (qsl && qsl.agradecimiento && qsl.agradecimiento !== AGRADECIMIENTO_DEFECTO) {
+        document.getElementById('comments').value = qsl.agradecimiento;
+      }
+
+      document.getElementById('qsoDateTime').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function cancelarEdicion() {
+      editandoId = null;
+      document.getElementById('btnAddQso').textContent = 'Agregar QSO y Generar QSL';
+      document.getElementById('btnCancelarEdicion').style.display = 'none';
+      clearForm();
+      document.getElementById('syncUtc').checked = true;
+      updateUtcTime();
+    }
+
     function renderQsos() {
       const tbody = document.getElementById('qsoTableBody');
       const emptyState = document.getElementById('emptyState');
@@ -286,8 +1267,8 @@
       emptyState.style.display = 'none';
       
       tbody.innerHTML = qsos.map((qso, index) => {
-        const dt = new Date(qso.dateTime);
-        const dateStr = dt.toLocaleDateString('es-ES') + ' ' + dt.toLocaleTimeString('es-ES', {hour: '2-digit', minute: '2-digit'});
+        const dt = new Date(qso.dateTime + ':00Z');
+        const dateStr = dt.toLocaleDateString('es-ES', { timeZone: 'UTC' }) + ' ' + dt.toLocaleTimeString('es-ES', { timeZone: 'UTC', hour: '2-digit', minute: '2-digit' });
         
         return `
           <tr>
@@ -300,23 +1281,23 @@
             <td>${qso.frequency}</td>
             <td>${qso.rstSent}/${qso.rstRcvd}</td>
             <td class="actions-cell">
-              <button class="btn btn-secondary btn-small" onclick="deleteQso(${qso.id})">🗑️</button>
+              <button class="btn btn-secondary btn-small" onclick="editarQso(${qso.id})">Editar</button>
+              <button class="btn btn-danger btn-small" onclick="deleteQso(${qso.id})">Borrar</button>
             </td>
           </tr>
         `;
       }).join('');
     }
 
-    // Eliminar QSO
     function deleteQso(id) {
       if (confirm('¿Eliminar este QSO?')) {
         qsos = qsos.filter(q => q.id !== id);
         saveQsos();
         renderQsos();
+        dibujarCanvas();
       }
     }
 
-    // Limpiar formulario
     function clearForm() {
       document.getElementById('theirCallsign').value = '';
       document.getElementById('frequency').value = '';
@@ -325,24 +1306,23 @@
       document.getElementById('rstSent').value = '59';
       document.getElementById('rstRcvd').value = '59';
       document.getElementById('comments').value = '';
+      dibujarCanvas();
     }
 
-    // Limpiar todos los QSOs
     function clearAllQsos() {
       if (qsos.length === 0) return;
       if (confirm(`¿Eliminar los ${qsos.length} QSOs cargados?`)) {
         qsos = [];
         saveQsos();
         renderQsos();
+        dibujarCanvas();
       }
     }
 
-    // Guardar en localStorage
     function saveQsos() {
       localStorage.setItem('qsos', JSON.stringify(qsos));
     }
 
-    // Generar y descargar ADIF
     function downloadAdif() {
       if (qsos.length === 0) {
         alert('No hay QSOs para exportar');
@@ -356,10 +1336,9 @@
       adif += '<EOH>\n\n';
 
       qsos.forEach(qso => {
-        // El formato de datetime-local es: "YYYY-MM-DDTHH:MM"
         const dateTimeParts = qso.dateTime.split('T');
-        const date = dateTimeParts[0].replace(/-/g, ''); // YYYYMMDD
-        const time = dateTimeParts[1].replace(':', '');   // HHMM
+        const date = dateTimeParts[0].replace(/-/g, '');
+        const time = dateTimeParts[1].replace(':', '');
 
         adif += `<QSO_DATE:8>${date}`;
         adif += `<TIME_ON:4>${time}`;
@@ -388,7 +1367,6 @@
         adif += '<EOR>\n';
       });
 
-      // Descargar archivo
       const blob = new Blob([adif], { type: 'text/plain' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
@@ -404,20 +1382,12 @@
         
       </section>
       
-      <!-- ╔════════════════════════════════════════════════════════════╗ -->
-      <!-- ║              FIN DEL CONTENIDO PRINCIPAL                   ║ -->
-      <!-- ╚════════════════════════════════════════════════════════════╝ -->
-
     </div>
 
-    <!-- NO TOCAR: Sidebar cargado automáticamente (incluye slider) -->
-    
   </main>
 
-  <!-- NO TOCAR: Footer cargado automáticamente -->
   <div id="footer-container"></div>
 
-  <!-- Script que carga todos los componentes -->
   <script src="recursos/actividades.js" defer></script>
   <script defer src="recursos/componentes.js"></script>
 </body>

@@ -52,7 +52,7 @@ const COMPONENTES = {
           </a>
           <a href="QSO_logger.html" class="nav-link" data-page="qsologger">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/><path d="M8 4v5"/></svg>
-            QSO Logger (Creador ADIF)
+            Generador de QSLs
           </a>
           <a href="herramienta-indicativos.html" class="nav-link" data-page="indicativos">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/><path d="M8 11h6"/></svg>
