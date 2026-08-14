@@ -14,6 +14,11 @@
   <link rel="stylesheet" href="recursos/header-responsive.css">
   <link rel="stylesheet" href="recursos/slider.css">
   <link rel="stylesheet" href="recursos/indicativos.css">
+  <style>
+    .figura-zonas img {
+      max-width: 460px;
+    }
+  </style>
   <link rel="icon" href="public/favicon-32x32.png">
 </head>
 <body>
@@ -51,6 +56,7 @@
             <label for="indiZona">Zona</label>
             <select id="indiZona">
               <option value="">Todas</option>
+              <option value="0">0 - Islas (Pascua / Juan Fernández)</option>
               <option value="1">1 - Tarapacá / Arica y Parinacota</option>
               <option value="2">2 - Antofagasta / Atacama</option>
               <option value="3">3 - Coquimbo / Valparaíso / RM</option>
@@ -100,32 +106,8 @@
           <p>La UIT asignó a Chile los prefijos CA–CE, XQ–XR y 3G–3I, y la SUBTEL los distribuye según la licencia: Novicio (CA), General (CE), Aspirante (CD) y Superior (XQ). Además, las licencias se reparten en 9 zonas radiales que siguen el orden geográfico de norte a sur: de la zona 1 (Tarapacá y Arica y Parinacota) a la zona 9 (Magallanes). Así, un indicativo como CE4JWI ya nos cuenta que es un radioaficionado General de la zona centro.</p>
         </div>
 
-        <figure class="figura">
-          <svg viewBox="0 0 640 320" role="img" aria-label="Mapa simplificado de las 9 zonas radiales de Chile">
-            <text x="20" y="28" font-family="Arial, sans-serif" font-size="15" fill="#555555">Zonas radiales SUBTEL (norte a sur)</text>
-            <g font-family="Arial, sans-serif" font-size="14" text-anchor="middle">
-              <rect x="250" y="40" width="140" height="26" rx="4" fill="#1a4d8f"/>
-              <text x="320" y="58" fill="#ffffff">1 - Tarapacá / Arica</text>
-              <rect x="250" y="70" width="140" height="26" rx="4" fill="#2c6bbf"/>
-              <text x="320" y="88" fill="#ffffff">2 - Antofagasta / Atacama</text>
-              <rect x="250" y="100" width="140" height="26" rx="4" fill="#3d85d1"/>
-              <text x="320" y="118" fill="#ffffff">3 - Coquimbo / Valpo / RM</text>
-              <rect x="250" y="130" width="140" height="26" rx="4" fill="#5495d8"/>
-              <text x="320" y="148" fill="#ffffff">4 - O'Higgins / Maule / Ñuble</text>
-              <rect x="250" y="160" width="140" height="26" rx="4" fill="#6ba5df"/>
-              <text x="320" y="178" fill="#ffffff">5 - Biobío</text>
-              <rect x="250" y="190" width="140" height="26" rx="4" fill="#83b5e6"/>
-              <text x="320" y="208" fill="#ffffff">6 - Araucanía</text>
-              <rect x="250" y="220" width="140" height="26" rx="4" fill="#9ac5ed"/>
-              <text x="320" y="238" fill="#ffffff">7 - Los Ríos / Los Lagos</text>
-              <rect x="250" y="250" width="140" height="26" rx="4" fill="#b1d5f4"/>
-              <text x="320" y="268" fill="#1a4d8f">8 - Aysén</text>
-              <rect x="250" y="280" width="140" height="26" rx="4" fill="#c8e5fb"/>
-              <text x="320" y="298" fill="#1a4d8f">9 - Magallanes</text>
-              <rect x="404" y="40" width="70" height="266" rx="4" fill="#eaf1fb" stroke="#7aa3d6" stroke-width="1"/>
-              <text x="439" y="180" font-size="13" fill="#1a4d8f">Zonas</text>
-            </g>
-          </svg>
+        <figure class="figura figura-zonas">
+          <img src="public/zonas de radioaficionados de chile.jpg" alt="Las 9 zonas radiales de Chile usadas por SUBTEL">
           <figcaption class="leyenda">Las 9 zonas radiales que usa SUBTEL para los indicativos chilenos</figcaption>
         </figure>
 
@@ -138,6 +120,7 @@
 
   <script src="recursos/actividades.js" defer></script>
   <script defer src="recursos/componentes.js"></script>
+  <script defer src="recursos/indicativos-data.js"></script>
   <script defer src="recursos/indicativos.js"></script>
 </body>
 </html>

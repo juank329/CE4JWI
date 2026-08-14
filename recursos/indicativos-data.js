@@ -1,4 +1,4 @@
-[
+window.INDICATIVOS_DATA = [
     {
         "indicativo":  "CE7GFN",
         "nombre":  "SERRANO MARAMBIO IGNACIO ERNESTO",
@@ -126510,4 +126510,4 @@
         "vence":  "25/06/2031",
         "licencia":  "908961-6"
     }
-]
+];

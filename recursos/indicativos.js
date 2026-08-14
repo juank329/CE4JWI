@@ -12,14 +12,15 @@
  *   3) Commit + push → Netlify lo publica.
  *
  * Estrategia de carga (en orden, primera que funcione):
- *   1) localStorage (caché de 24 h)
- *   2) URL del JSON en qsl.net vía cors.sh (siempre actualiza al instante)
- *   3) Fallback al JSON local (./recursos/indicativos.json)
+ *   1) Datos embebidos (./recursos/indicativos-data.js): siempre frescos, funcionan con file://
+ *   2) localStorage (caché de 24 h)
+ *   3) JSON local (./recursos/indicativos.json), servido con la web
+ *   4) URL del JSON en qsl.net vía cors.sh (respaldo remoto)
  */
 
 const INDICATIVOS_JSON_URL = "https://qsl.net/ce4jwi/indicativos.json"
 const INDICATIVOS_JSON_LOCAL = "recursos/indicativos.json"
-const CACHE_KEY = "ce4jwi_indicativos_v2"
+const CACHE_KEY = "ce4jwi_indicativos_v4"
 const CACHE_TTL_MS = 24 * 60 * 60 * 1000  // 24 h
 
 const PAGINA_TAMANO = 25
@@ -101,7 +102,17 @@ async function fetchJSON(url, timeoutMs) {
 async function cargarIndicativos({ silencioso = false } = {}) {
   if (!silencioso) setEstado("Cargando base de indicativos…")
 
-  // 1) Caché local
+  // 1) Datos embebidos (window.INDICATIVOS_DATA): siempre los más frescos, funcionan incluso con file://
+  if (window.INDICATIVOS_DATA) {
+    const data = window.INDICATIVOS_DATA
+    guardarCache(data)
+    aplicarDatos(data)
+    if (!silencioso) setEstado("")
+    recargarEnBackground()
+    return
+  }
+
+  // 2) Caché local
   const cache = cargarCache()
   if (cache) {
     if (!silencioso) setEstado("")
@@ -111,30 +122,34 @@ async function cargarIndicativos({ silencioso = false } = {}) {
     return
   }
 
-  // 2) Remoto vía proxies (o local como último fallback)
+  // 3) JSON local (servido con la web): datos actualizados
+  try {
+    const r = await fetchConTimeout(INDICATIVOS_JSON_LOCAL, 5000)
+    if (!r.ok) throw new Error(`HTTP ${r.status}`)
+    const data = await r.json()
+    guardarCache(data)
+    aplicarDatos(data)
+    if (!silencioso) setEstado("")
+    recargarEnBackground()
+    return
+  } catch (eLocal) {
+    console.warn("[indicativos] local falló:", eLocal.message)
+  }
+
+  // 4) Respaldo remoto en qsl.net vía proxies CORS
   try {
     const data = await fetchJSON(INDICATIVOS_JSON_URL, 15000)
     guardarCache(data)
     aplicarDatos(data)
     if (!silencioso) setEstado("")
   } catch (eRemoto) {
-    console.warn("[indicativos] remoto falló:", eRemoto.message)
-    // 3) Fallback: archivo local (servido por Netlify, sin CORS)
-    try {
-      const r = await fetchConTimeout(INDICATIVOS_JSON_LOCAL, 5000)
-      if (!r.ok) throw new Error(`HTTP ${r.status}`)
-      const data = await r.json()
-      guardarCache(data)
-      aplicarDatos(data)
-      if (!silencioso) setEstado("")
-    } catch (eLocal) {
-      throw new Error(`No se pudo cargar la base ni de qsl.net ni local: ${eLocal.message}`)
-    }
+    throw new Error(`No se pudo cargar la base ni local ni de qsl.net: ${eRemoto.message}`)
   }
 }
 
 function recargarEnBackground() {
-  fetchJSON(INDICATIVOS_JSON_URL, 15000)
+  fetchConTimeout(INDICATIVOS_JSON_LOCAL, 5000)
+    .then((r) => (r.ok ? r.json() : Promise.reject(new Error(`HTTP ${r.status}`))))
     .then((data) => guardarCache(data))
     .catch(() => { /* silencio: ya tenemos caché válido */ })
 }
