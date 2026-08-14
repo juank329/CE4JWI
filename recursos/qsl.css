@@ -201,6 +201,10 @@
   box-shadow: var(--shadow-md);
 }
 
+.qsl-tarjeta.oculta {
+  display: none;
+}
+
 .qsl-tarjeta img {
   display: block;
   width: 100%;

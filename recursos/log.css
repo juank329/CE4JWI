@@ -1,434 +1,13 @@
 /* ==========================================================================
    LOG EN TIEMPO REAL — CE4JWI
-   Logbook moderno alimentado desde HRDLog.net (XML/JSONP + CORS proxy)
+   Widget oficial de HRDLog.net modernizado con el diseño del sitio
    ========================================================================== */
 
-.log-app {
-  --log-bg: var(--surface);
-  --log-text: var(--text);
-  --log-text-soft: var(--text-soft);
-  --log-text-muted: var(--text-muted);
-  --log-border: var(--border);
-  --log-blue: var(--blue);
-  --log-red: var(--red);
-  --log-green: #34c759;
-  --log-orange: #ff9500;
-  --log-purple: #5856d6;
-  --log-cyan: #5ac8fa;
-  --log-shadow: var(--shadow-sm);
-
-  margin-top: 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-}
-
-/* ---- Header / Live indicator ---- */
-.log-hero {
-  background: linear-gradient(135deg, #1c1c1e 0%, #2c2c2e 100%);
-  border-radius: var(--radius-lg);
-  padding: 1.25rem 1.5rem;
-  color: #f5f5f7;
-  box-shadow: var(--shadow-md);
-  position: relative;
-  overflow: hidden;
-}
-
-.log-hero::before {
-  content: "";
-  position: absolute;
-  top: -40%;
-  right: -10%;
-  width: 300px;
-  height: 300px;
-  background: radial-gradient(circle, rgba(52, 199, 89, 0.15) 0%, transparent 70%);
-  border-radius: 50%;
-  pointer-events: none;
-}
-
-.log-hero-content {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 1rem;
-  position: relative;
-  z-index: 1;
-}
-
-.log-hero-info {
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-}
-
-.log-callsign {
-  font-family: var(--font-display);
-  font-size: 2rem;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-}
-
-.log-callsign-icon {
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
-  background: var(--log-green);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.2rem;
-  box-shadow: 0 4px 12px rgba(52, 199, 89, 0.35);
-  animation: logPulse 2s ease-in-out infinite;
-}
-
-@keyframes logPulse {
-  0%, 100% { box-shadow: 0 4px 12px rgba(52, 199, 89, 0.35); }
-  50% { box-shadow: 0 4px 20px rgba(52, 199, 89, 0.7); }
-}
-
-.log-callsign-sub {
-  color: rgba(255, 255, 255, 0.65);
-  font-size: 0.85rem;
-  font-weight: 500;
-}
-
-.log-hero-actions {
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
-}
-
-.log-live-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 0.9rem;
-  background: rgba(52, 199, 89, 0.15);
-  border: 1px solid rgba(52, 199, 89, 0.4);
-  border-radius: 999px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--log-green);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
-
-.log-live-dot {
-  width: 8px;
-  height: 8px;
-  background: var(--log-green);
-  border-radius: 50%;
-  box-shadow: 0 0 8px var(--log-green);
-  animation: logBlink 1.5s ease-in-out infinite;
-}
-
-@keyframes logBlink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.3; }
-}
-
-.log-refresh-btn {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: #fff;
-  padding: 0.5rem 1rem;
-  border-radius: 999px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  transition: background 0.15s;
-}
-
-.log-refresh-btn:hover { background: rgba(255, 255, 255, 0.2); }
-.log-refresh-btn.refreshing svg { animation: logSpin 0.8s linear infinite; }
-
-.log-upload-btn {
-  background: linear-gradient(135deg, #34c759 0%, #30b350 100%);
-  border: none;
-  color: #fff;
-  padding: 0.5rem 1rem;
-  border-radius: 999px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  transition: all 0.15s;
-  text-decoration: none;
-  box-shadow: 0 2px 8px rgba(52, 199, 89, 0.3);
-}
-
-.log-upload-btn:hover { 
-  background: linear-gradient(135deg, #30b350 0%, #2aa844 100%);
-  box-shadow: 0 4px 12px rgba(52, 199, 89, 0.4);
-  transform: translateY(-1px);
-}
-
-.log-upload-btn:active {
-  transform: translateY(0);
-}
-
-@keyframes logSpin { to { transform: rotate(360deg); } }
-
-/* ---- Stats grid ---- */
-.log-stats {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 0.75rem;
-}
-
-.log-stat {
-  background: var(--log-bg);
-  border: 1px solid var(--log-border);
-  border-radius: var(--radius-md);
-  padding: 0.9rem 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  box-shadow: var(--log-shadow);
-  position: relative;
-  overflow: hidden;
-}
-
-.log-stat::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 4px;
-  background: var(--accent, var(--log-blue));
-}
-
-.log-stat-label {
-  font-size: 0.7rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--log-text-muted);
-}
-
-.log-stat-value {
-  font-family: var(--font-display);
-  font-size: 1.5rem;
-  font-weight: 800;
-  color: var(--log-text);
-  line-height: 1.1;
-}
-
-.log-stat-extra {
-  font-size: 0.75rem;
-  color: var(--log-text-muted);
-  font-weight: 500;
-}
-
-/* ---- Filters ---- */
-.log-filters {
-  background: var(--log-bg);
-  border: 1px solid var(--log-border);
-  border-radius: var(--radius-md);
-  padding: 0.85rem 1rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem;
-  align-items: center;
-  box-shadow: var(--log-shadow);
-}
-
-.log-filter-input {
-  flex: 1;
-  min-width: 160px;
-  padding: 0.5rem 0.75rem;
-  border-radius: 8px;
-  border: 1px solid var(--log-border);
-  background: var(--surface-alt);
-  font-size: 0.85rem;
-  font-family: inherit;
-  color: var(--log-text);
-  outline: none;
-  transition: border 0.15s;
-}
-
-.log-filter-input:focus { border-color: var(--log-blue); }
-
-.log-filter-pills {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem;
-}
-
-.log-pill {
-  padding: 0.4rem 0.75rem;
-  border-radius: 999px;
-  border: 1px solid var(--log-border);
-  background: var(--surface-alt);
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--log-text-soft);
-  cursor: pointer;
-  transition: all 0.12s;
-}
-
-.log-pill:hover { background: var(--log-border); }
-.log-pill.active {
-  background: var(--log-blue);
-  color: #fff;
-  border-color: var(--log-blue);
-}
-
-/* ---- QSO Grid ---- */
-.log-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 0.85rem;
-}
-
-.log-card {
-  background: var(--log-bg);
-  border: 1px solid var(--log-border);
-  border-radius: var(--radius-md);
-  padding: 1rem;
-  cursor: pointer;
-  transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
-  box-shadow: var(--log-shadow);
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  position: relative;
-  animation: logFadeIn 0.3s ease-out;
-}
-
-@keyframes logFadeIn {
-  from { opacity: 0; transform: translateY(-6px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.log-card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-  border-color: var(--log-blue);
-}
-
-.log-card.new {
-  border-color: var(--log-green);
-  box-shadow: 0 0 0 2px rgba(52, 199, 89, 0.2), var(--shadow-md);
-}
-
-.log-card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 0.5rem;
-}
-
-.log-station {
-  font-family: var(--font-display);
-  font-size: 1.35rem;
-  font-weight: 800;
-  color: var(--log-text);
-  letter-spacing: -0.01em;
-}
-
-.log-flag {
-  width: 28px;
-  height: 20px;
-  object-fit: cover;
-  border-radius: 3px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  flex-shrink: 0;
-}
-
-.log-flag-fallback {
-  width: 28px;
-  height: 20px;
-  background: var(--surface-alt);
-  border-radius: 3px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.7rem;
-  color: var(--log-text-muted);
-  font-weight: 700;
-}
-
-.log-country {
-  font-size: 0.75rem;
-  color: var(--log-text-muted);
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
-}
-
-.log-card-body {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.5rem 1rem;
-}
-
-.log-field {
-  display: flex;
-  flex-direction: column;
-  gap: 0.1rem;
-}
-
-.log-field-label {
-  font-size: 0.65rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: var(--log-text-muted);
-}
-
-.log-field-value {
-  font-family: var(--font-mono);
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--log-text);
-}
-
-.log-time {
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  color: var(--log-text-soft);
-  font-weight: 500;
-  padding-top: 0.5rem;
-  border-top: 1px solid var(--log-border);
-}
-
-.log-time-icon {
-  width: 12px;
-  height: 12px;
-  color: var(--log-text-muted);
-}
-
-/* ---- Empty / Loading ---- */
-.log-empty {
+/* ---- Estado de carga ---- */
+.log-loading {
   padding: 3rem 1rem;
   text-align: center;
-  color: var(--log-text-muted);
-  font-size: 0.95rem;
-  background: var(--log-bg);
-  border: 1px dashed var(--log-border);
-  border-radius: var(--radius-md);
-}
-
-.log-loading {
-  padding: 3rem;
-  text-align: center;
-  color: var(--log-text-muted);
+  color: var(--text-muted);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -438,284 +17,138 @@
 .log-spinner {
   width: 32px;
   height: 32px;
-  border: 3px solid var(--log-border);
-  border-top-color: var(--log-blue);
+  border: 3px solid var(--border);
+  border-top-color: var(--blue);
   border-radius: 50%;
   animation: logSpin 0.8s linear infinite;
 }
 
-/* ---- Modal ---- */
-.log-modal-bg {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.45);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-  backdrop-filter: blur(4px);
-  padding: 1rem;
-}
+@keyframes logSpin { to { transform: rotate(360deg); } }
 
-.log-modal-bg.active { display: flex; }
-
-.log-modal {
-  background: var(--log-bg);
-  border-radius: var(--radius-lg);
-  padding: 1.5rem;
-  max-width: 520px;
-  width: 100%;
-  box-shadow: var(--shadow-lg);
-  animation: logPop 0.18s ease-out;
-}
-
-@keyframes logPop {
-  from { transform: scale(0.95); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
-}
-
-.log-modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 1rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid var(--log-border);
-}
-
-.log-modal-station {
-  font-family: var(--font-display);
-  font-size: 1.75rem;
-  font-weight: 800;
-  color: var(--log-text);
-  letter-spacing: -0.01em;
-}
-
-.log-modal-country {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.9rem;
-  color: var(--log-text-soft);
-  margin-top: 0.25rem;
-}
-
-.log-modal-close {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  border: none;
-  background: var(--surface-alt);
-  color: var(--log-text-soft);
-  font-size: 1.2rem;
-  cursor: pointer;
-  flex-shrink: 0;
-}
-
-.log-modal-body {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.85rem;
-}
-
-.log-modal-field {
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-  padding: 0.65rem 0.75rem;
-  background: var(--surface-alt);
-  border-radius: 8px;
-}
-
-.log-modal-field.full { grid-column: 1 / -1; }
-
-.log-modal-field-label {
-  font-size: 0.7rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: var(--log-text-muted);
-}
-
-.log-modal-field-value {
-  font-family: var(--font-mono);
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--log-text);
-  word-break: break-word;
-}
-
-.log-modal-footer {
+/* ---- Contenedor del widget ---- */
+#hrdlog {
   margin-top: 1rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--log-border);
-  font-size: 0.8rem;
-  color: var(--log-text-muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+  box-shadow: var(--shadow-sm);
+  overflow-x: auto;
+}
+
+#hrdlog table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#hrdlog img[src*="HRDL_80x200"] { display: none; }
+
+#hrdlog #hrdl_loading { vertical-align: middle; margin-left: 0.5rem; }
+
+/* ---- Formulario de búsqueda ---- */
+#hrdlog input[type="text"] {
+  padding: 0.45rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface-alt);
+  font-family: inherit;
+  font-size: 0.85rem;
+  color: var(--text);
+  outline: none;
+  transition: border 0.15s;
+}
+
+#hrdlog input[type="text"]:focus { border-color: var(--blue); }
+
+#hrdlog input[type="button"] {
+  padding: 0.45rem 1rem;
+  border: none;
+  border-radius: 8px;
+  background: var(--blue);
+  color: #fff;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+#hrdlog input[type="button"]:hover { background: var(--blue-dark, var(--blue)); }
+
+/* ---- Tabla de QSO ---- */
+#hrdlog .hrdl_table {
+  width: 100%;
+  background: var(--surface) !important;
+  font-family: inherit !important;
+  font-size: 0.9rem;
+  margin-top: 0.75rem;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+#hrdlog .hrdl_table th {
+  background: var(--blue) !important;
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.65rem 0.9rem;
+  border: none;
   text-align: center;
+}
+
+#hrdlog .hrdl_table th[colspan] {
+  background: var(--blue) !important;
+  text-align: center;
+  letter-spacing: 0.08em;
+}
+
+#hrdlog .hrdl_table td {
+  padding: 0.55rem 0.9rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+  font-family: inherit !important;
+}
+
+#hrdlog .hrdl_table tr.hrdl_odd td  { background: #fff !important; }
+#hrdlog .hrdl_table tr.hrdl_even td { background: var(--surface-alt) !important; }
+
+#hrdlog .hrdl_table tr:last-child td { border-bottom: none; }
+
+#hrdlog .hrdl_table tr:hover td { background: var(--surface-hover, var(--surface-alt)) !important; }
+
+#hrdlog .hrdl_table img {
+  border-radius: 3px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+  vertical-align: middle;
+}
+
+#hrdlog .hrdl_table a {
+  color: var(--blue);
+  font-weight: 700;
+}
+
+/* ---- Placa DXCC ---- */
+.log-dxcc {
+  margin-top: 1.25rem;
+  text-align: center;
+}
+
+.log-dxcc img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
 }
 
 /* ---- Responsive ---- */
 @media (max-width: 768px) {
-  .log-callsign { font-size: 1.5rem; }
-  .log-callsign-icon { width: 30px; height: 30px; font-size: 1rem; }
-  .log-hero { padding: 1rem; }
-  .log-grid { grid-template-columns: 1fr; }
-  .log-modal-body { grid-template-columns: 1fr; }
-  .log-filters { padding: 0.65rem; }
-  .log-stat-value { font-size: 1.25rem; }
-}
-
-@media (max-width: 480px) {
-  .log-stats { grid-template-columns: repeat(2, 1fr); }
-}
-
-/* ---- Modern HRDLog Container ---- */
-.log-app-modern {
-  margin-top: 1rem;
-}
-
-.hrdlog-container {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 1.5rem;
-  box-shadow: var(--shadow-md);
-  overflow: hidden;
-}
-
-.hrdlog-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1.25rem;
-  flex-wrap: wrap;
-  gap: 1rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid var(--border);
-}
-
-.hrdlog-title {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.hrdlog-icon {
-  font-size: 1.75rem;
-}
-
-.hrdlog-title h2 {
-  font-family: var(--font-display);
-  font-size: 1.5rem;
-  font-weight: 800;
-  margin: 0;
-  color: var(--text);
-  letter-spacing: -0.01em;
-}
-
-.hrdlog-status {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  flex-wrap: wrap;
-}
-
-.status-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  padding: 0.5rem 1rem;
-  border-radius: 999px;
-  font-size: 0.85rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  transition: all 0.3s ease;
-}
-
-.status-online {
-  background: rgba(52, 199, 89, 0.15);
-  color: #34c759;
-  border: 1px solid rgba(52, 199, 89, 0.3);
-}
-
-.status-offline {
-  background: rgba(255, 69, 58, 0.15);
-  color: #ff453a;
-  border: 1px solid rgba(255, 69, 58, 0.3);
-}
-
-.status-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  display: inline-block;
-}
-
-.status-online .status-dot {
-  background: #34c759;
-  box-shadow: 0 0 8px rgba(52, 199, 89, 0.6);
-  animation: statusPulse 2s ease-in-out infinite;
-}
-
-.status-offline .status-dot {
-  background: #ff453a;
-  opacity: 0.7;
-}
-
-@keyframes statusPulse {
-  0%, 100% { 
-    opacity: 1;
-    box-shadow: 0 0 8px rgba(52, 199, 89, 0.6);
-  }
-  50% { 
-    opacity: 0.4;
-    box-shadow: 0 0 4px rgba(52, 199, 89, 0.3);
-  }
-}
-
-.status-text {
-  display: inline-block;
-}
-
-.status-time {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  font-weight: 500;
-}
-
-.status-time span {
-  font-family: var(--font-mono);
-  font-weight: 600;
-  color: var(--text-soft);
-}
-
-.hrdlog-iframe {
-  width: 100%;
-  border: none;
-  border-radius: 8px;
-  background: var(--surface-alt);
-  min-height: 600px;
-}
-
-/* ---- Responsive HRDLog ---- */
-@media (max-width: 768px) {
-  .hrdlog-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  
-  .hrdlog-status {
-    flex-direction: column;
-    gap: 0.75rem;
-    width: 100%;
-  }
-  
-  .hrdlog-container {
-    padding: 1rem;
-  }
-  
-  .hrdlog-title h2 {
-    font-size: 1.25rem;
-  }
+  #hrdlog { padding: 0.9rem; }
+  #hrdlog .hrdl_table th,
+  #hrdlog .hrdl_table td { padding: 0.5rem 0.6rem; }
 }

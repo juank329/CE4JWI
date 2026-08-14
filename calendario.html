@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" media="print" onload="this.media='all'">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap"></noscript>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Roboto:wght@500;700;900&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Roboto:wght@500;700;900&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Roboto:wght@500;700;900&display=swap"></noscript>
   <title>Calendario CE4JWI</title>
-  <meta name="description" content="Calendario de actividades y días nacionales de CE4JWI">
+  <meta name="description" content="Calendario de CE4JWI: efemérides y días nacionales de Chile, activaciones con indicativos especiales y consejos prácticos sobre bandas de radioaficionado.">
   <link rel="stylesheet" href="recursos/styles.css">
   <link rel="stylesheet" href="recursos/header-responsive.css">
   <link rel="stylesheet" href="recursos/slider.css">
@@ -29,15 +29,68 @@
 
       <section class="page-content">
         <div id="calApp" class="cal-app"></div>
+
+        <div class="tip"><span class="etiqueta">DATO ÚTIL</span><p>Las bandas de HF se comportan distinto según la hora del día y la actividad solar. De día funcionan mejor las bandas altas, como 20, 15 y 10 metros, mientras que de noche brillan las bandas bajas, como 80 y 40 metros.</p></div>
+
+        <div class="tabla-scroll">
+          <table>
+            <thead>
+              <tr><th>Banda</th><th>Frecuencia</th><th>Mejor momento</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>80 m</td><td>3,5 – 3,8 MHz</td><td>Noche</td></tr>
+              <tr><td>40 m</td><td>7,0 – 7,3 MHz</td><td>Noche</td></tr>
+              <tr><td>20 m</td><td>14,0 – 14,35 MHz</td><td>Día</td></tr>
+              <tr><td>15 m</td><td>21,0 – 21,45 MHz</td><td>Día</td></tr>
+              <tr><td>10 m</td><td>28,0 – 29,7 MHz</td><td>Día</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <figure class="figura">
+          <svg viewBox="0 0 720 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Bandas de HF y su mejor horario">
+            <rect x="20" y="20" width="680" height="280" fill="#f5f7ff" stroke="#0b3f9a" stroke-width="2" rx="10"/>
+            <text x="360" y="58" text-anchor="middle" font-family="Manrope, Arial, sans-serif" font-size="20" font-weight="700" fill="#0b3f9a">Bandas de HF más usadas en Chile</text>
+            <g font-family="Manrope, Arial, sans-serif" font-size="15" fill="#1b2430">
+              <text x="60" y="95">80 m</text>
+              <rect x="170" y="83" width="130" height="24" fill="#0b3f9a" opacity="0.85" rx="5"/>
+              <text x="560" y="100" text-anchor="middle">3,5 – 3,8 MHz</text>
+              <text x="690" y="100" text-anchor="end" fill="#1e8e3e">Noche</text>
+
+              <text x="60" y="135">40 m</text>
+              <rect x="170" y="123" width="250" height="24" fill="#2f6bd8" opacity="0.85" rx="5"/>
+              <text x="560" y="140" text-anchor="middle">7,0 – 7,3 MHz</text>
+              <text x="690" y="140" text-anchor="end" fill="#1e8e3e">Noche</text>
+
+              <text x="60" y="175">20 m</text>
+              <rect x="170" y="163" width="380" height="24" fill="#4a90e2" opacity="0.85" rx="5"/>
+              <text x="560" y="180" text-anchor="middle">14,0 – 14,35 MHz</text>
+              <text x="690" y="180" text-anchor="end" fill="#b26a00">Día</text>
+
+              <text x="60" y="215">15 m</text>
+              <rect x="170" y="203" width="330" height="24" fill="#6aa5ef" opacity="0.85" rx="5"/>
+              <text x="560" y="220" text-anchor="middle">21,0 – 21,45 MHz</text>
+              <text x="690" y="220" text-anchor="end" fill="#b26a00">Día</text>
+
+              <text x="60" y="255">10 m</text>
+              <rect x="170" y="243" width="200" height="24" fill="#9cc2f5" opacity="0.85" rx="5"/>
+              <text x="560" y="260" text-anchor="middle">28,0 – 29,7 MHz</text>
+              <text x="690" y="260" text-anchor="end" fill="#b26a00">Día</text>
+            </g>
+            <text x="360" y="292" text-anchor="middle" font-family="Manrope, Arial, sans-serif" font-size="12" fill="#6a7485">Largo de la barra: frecuencia con la que se abre la banda en condiciones normales</text>
+          </svg>
+          <figcaption class="leyenda">Fig. 1 — Bandas de HF más usadas por CE4JWI y su mejor momento de propagación</figcaption>
+        </figure>
       </section>
 
     </div>
 
-    
+    <div id="sidebar-container"></div>
   </main>
 
   <div id="footer-container"></div>
 
+  <script src="recursos/actividades.js" defer></script>
   <script defer src="recursos/componentes.js"></script>
   <script defer src="recursos/calendario.js"></script>
 </body>

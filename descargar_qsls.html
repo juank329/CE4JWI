@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" media="print" onload="this.media='all'">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap"></noscript>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Roboto:wght@500;700;900&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Roboto:wght@500;700;900&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Roboto:wght@500;700;900&display=swap"></noscript>
   <title>QSL Cards y Diplomas - Portal de Radioaficionados</title>
   <style>
     * {
@@ -722,25 +722,22 @@
     </div>
   </div>
 
-  <!-- 
-    OPCION 1: Cargar datos desde archivo externo (RECOMENDADO)
-    Descomenta la siguiente linea y comenta el bloque de datos de ejemplo
+  <!--
+    NOTA (13-08-2026):
+    - Esta página usa DATOS DE EJEMPLO en línea (arrays qslCards/...).
+      No está enlazada en el menú: la página real de descarga de QSLs
+      es qsls.html, que carga el catálogo desde https://qsl.net/ce4jwi/log_qsl.json
+    - Las rutas "qsl/..." de los datos de ejemplo apuntan a una carpeta
+      qsl/ que NO existe en este proyecto. Para que las imágenes carguen,
+      esa carpeta debe subirse por separado o regenerarse con generar.py.
+    - El archivo datos-generados.js fue eliminado en la limpieza de
+      13-08-2026 por no estar referenciado. Si quieres volver a usarlo:
+      1. Ejecuta generar-indice.py sobre tus carpetas de QSL
+      2. Copia el archivo datos-generados.js generado al servidor
+      3. Descomenta la linea <script src="datos-generados.js"> abajo
   -->
-  <!-- <script src="datos-generados.js"></script> -->
 
   <script>
-    // =====================================================
-    // DATOS DE EJEMPLO - REEMPLAZAR CON datos-generados.js
-    // =====================================================
-    // 
-    // INSTRUCCIONES PARA AUTOMATIZAR:
-    // 1. Ejecuta el script generar-indice.py en tu carpeta con las QSL y diplomas
-    // 2. Copia el archivo datos-generados.js a tu servidor
-    // 3. Descomenta la linea <script src="datos-generados.js"> arriba
-    // 4. Borra o comenta estos arrays de ejemplo
-    //
-    // =====================================================
-
  const qslCards = [
   {
     callsign: "CE4JWI",

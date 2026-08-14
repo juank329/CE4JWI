@@ -1,3 +1,14 @@
+/**
+ * ============================================================
+ * CE4JWI - Carrusel de imágenes (efemérides)
+ * ============================================================
+ * Controla los carruseles con clase .carousel-track que vienen
+ * definidos en el HTML de cada página de efeméride:
+ *  - Autoplay cada 5 segundos (se pausa al pasar el mouse)
+ *  - Botones anterior/siguiente + indicadores dinámicos
+ *  - Navegación con flechas del teclado
+ * ============================================================
+ */
 document.addEventListener("DOMContentLoaded", () => {
   const track = document.querySelector(".carousel-track")
   const slides = document.querySelectorAll(".carousel-slide")

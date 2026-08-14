@@ -5,17 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" media="print" onload="this.media='all'">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap"></noscript>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Roboto:wght@500;700;900&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Roboto:wght@500;700;900&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Roboto:wght@500;700;900&display=swap"></noscript>
   
   
   <title>Automatizando tus contactos: Sincronización entre tu Logbook local, eQSL y LoTW (Logbook of the World)</title>
   
   
-  <meta name="description" content="Automatizando tus contactos: Sincronización entre tu Logbook local, eQSL y LoTW (Logbook of the World)">
+  <meta name="description" content="Cómo funciona la sincronización automática de tu logbook: ADIF, TQSL y LoTW, APIs de eQSL y QRZ Logbook, respaldos y buenas prácticas.">
   
-  <link rel="stylesheet" href="recursos/novedades.css">
+  <link rel="stylesheet" href="recursos/styles.css">
   <link rel="stylesheet" href="recursos/header-responsive.css">
   <link rel="stylesheet" href="recursos/slider.css">
   <link rel="icon" href="public/favicon-32x32.png">
@@ -39,88 +39,140 @@
       <section class="page-content">
         
         <h3 class="destacar">11 de Junio 2026</h3>
-        <br>
-          <div style="text-align: center;">
-            <img src="public/Automatizando tus contactos.jpg" alt="automatizando contactos" width="100%" height="100%" >
-
-        </div>
-        <br>
+        <figure class="figura">
+          <img src="public/Automatizando tus contactos.jpg" alt="Automatizando tus contactos">
+          <figcaption class="leyenda">Un solo guardado en el logbook, tres plataformas actualizadas</figcaption>
+        </figure>
         
           <div class="parrafo">
             <br>
-              
+            <p>¡Hola de nuevo, amigos de las confirmaciones y los diplomas!</p>
+            <br>
+            <p>Hacer el contacto de radio en el aire es solo la mitad del camino. La otra mitad, igualmente emocionante, es lograr la confirmación oficial de ese QSO para validar nuestros países cazados (DXCC), provincias o zonas geográficas con el fin de obtener diplomas internacionales. Hace décadas, esto significaba llenar tarjetas QSL de cartón a mano, meterlas en un sobre, pagar el correo postal y esperar meses o años a que regresaran de vuelta.</p>
+            <br>
+            <p>Hoy todo se maneja a la velocidad de los bits. Sin embargo, tener que exportar manualmente un archivo <b>.adi</b> desde tu programa local al final del día para luego subirlo de forma individual a <b>eQSL, QRZ.com Logbook y al estricto sistema LoTW de la ARRL</b> se vuelve una tarea monótona que terminamos postergando. Hoy vamos a analizar cómo funciona la arquitectura de sincronización automática en el Shack mediante el uso de APIs y firmas criptográficas.</p>
+            <br>
+            <h3 class="titulo">1. El estándar ADIF</h3>
+            <br>
+            <p>Antes de hablar de plataformas, hay que conocer el idioma común: el <b>ADIF</b> (Amateur Data Interchange Format). Es un formato de texto que describe cada QSO con campos etiquetados, por ejemplo:</p>
+            <br>
+            <p><b>&lt;CALL:6&gt;CE4JWI &lt;BAND:3&gt;20M &lt;MODE:3&gt;FT8 &lt;QSO_DATE:8&gt;20260517 &lt;TIME_ON:6&gt;193245 &lt;RST_SENT:3&gt;-09 &lt;RST_RCVD:3&gt;-13 &lt;GRIDSQUARE:4&gt;FG35 &lt;EOR&gt;</b></p>
+            <br>
+            <p>Esa línea contiene todo lo necesario para confirmar: indicativo, banda, modo, fecha y hora <b>UTC</b>, reportes y grid locator. Los archivos de intercambio llevan extensión <b>.adi</b> (o <b>.adi.gz</b> comprimidos). Todos los programas de logbook y todas las plataformas web entienden este formato, lo que hace posible la automatización.</p>
+            <br>
+            <div class="nota">
+              <span class="etiqueta">Regla de oro</span>
+              Las fechas en ADIF van en formato <b>YYYYMMDD</b> y la hora en <b>HHMMSS UTC</b>. Un solo QSO mal fechado puede generar duplicados o descartes en el cruce con la bitácora del corresponsal.
+            </div>
+            <br>
+            <h3 class="titulo">2. La arquitectura de sincronización</h3>
+            <br>
+            <p>Para lograr que un contacto se guarde en tu computadora y aparezca en las plataformas de internet en menos de 5 segundos de forma automática, los programas modernos utilizan dos mecanismos técnicos de conexión: el <b>firmado digital</b> (para LoTW) y las <b>APIs</b> (para eQSL y QRZ).</p>
+            <br>
+            <figure class="figura">
+              <svg viewBox="0 0 720 350" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Flujo de sincronización automática del logbook">
+                <defs>
+                  <marker id="fC" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                    <path d="M0,0 L10,5 L0,10 z" fill="#667085"/>
+                  </marker>
+                </defs>
+                <rect width="720" height="350" fill="#ffffff"/>
+                <text x="20" y="24" font-family="Manrope, Inter, sans-serif" font-size="12.5" font-weight="700" fill="#1a1f2b">UN SOLO GUARDADO → TRES PLATAFORMAS DE CONFIRMACIÓN</text>
 
+                <rect x="40" y="40" width="200" height="52" rx="10" fill="#e8effa" stroke="#0039a6"/>
+                <text x="140" y="63" text-anchor="middle" font-family="Manrope, Inter, sans-serif" font-size="12.5" font-weight="700" fill="#1a1f2b">Logbook local</text>
+                <text x="140" y="80" text-anchor="middle" font-family="JetBrains Mono, Consolas, monospace" font-size="10" fill="#3d4552">archivo ADIF</text>
+                <line x1="240" y1="66" x2="360" y2="66" stroke="#667085" stroke-width="2" marker-end="url(#fC)"/>
+                <rect x="360" y="40" width="320" height="52" rx="10" fill="#fbe9e7" stroke="#d52b1e"/>
+                <text x="520" y="63" text-anchor="middle" font-family="Manrope, Inter, sans-serif" font-size="12.5" font-weight="700" fill="#1a1f2b">LoTW (ARRL)</text>
+                <text x="520" y="80" text-anchor="middle" font-family="Manrope, Inter, sans-serif" font-size="10.5" fill="#3d4552">firma .tq8 · match automático</text>
 
+                <rect x="40" y="130" width="200" height="52" rx="10" fill="#e8effa" stroke="#0039a6"/>
+                <text x="140" y="153" text-anchor="middle" font-family="Manrope, Inter, sans-serif" font-size="12.5" font-weight="700" fill="#1a1f2b">TQSL + certificado .p12</text>
+                <text x="140" y="170" text-anchor="middle" font-family="JetBrains Mono, Consolas, monospace" font-size="10" fill="#3d4552">firma local del QSO</text>
+                <line x1="240" y1="156" x2="360" y2="156" stroke="#667085" stroke-width="2" marker-end="url(#fC)"/>
+                <rect x="360" y="130" width="320" height="52" rx="10" fill="#fbe9e7" stroke="#d52b1e"/>
+                <text x="520" y="153" text-anchor="middle" font-family="Manrope, Inter, sans-serif" font-size="12.5" font-weight="700" fill="#1a1f2b">eQSL AG</text>
+                <text x="520" y="170" text-anchor="middle" font-family="Manrope, Inter, sans-serif" font-size="10.5" fill="#3d4552">API Key · Inbox instantáneo</text>
+
+                <rect x="40" y="220" width="200" height="52" rx="10" fill="#e8effa" stroke="#0039a6"/>
+                <text x="140" y="243" text-anchor="middle" font-family="Manrope, Inter, sans-serif" font-size="12.5" font-weight="700" fill="#1a1f2b">API Key eQSL / QRZ</text>
+                <text x="140" y="260" text-anchor="middle" font-family="JetBrains Mono, Consolas, monospace" font-size="10" fill="#3d4552">JSON · XML · HTTP</text>
+                <line x1="240" y1="246" x2="360" y2="246" stroke="#667085" stroke-width="2" marker-end="url(#fC)"/>
+                <rect x="360" y="220" width="320" height="52" rx="10" fill="#fbe9e7" stroke="#d52b1e"/>
+                <text x="520" y="243" text-anchor="middle" font-family="Manrope, Inter, sans-serif" font-size="12.5" font-weight="700" fill="#1a1f2b">QRZ Logbook</text>
+                <text x="520" y="260" text-anchor="middle" font-family="Manrope, Inter, sans-serif" font-size="10.5" fill="#3d4552">sesión + subida ADIF</text>
+
+                <line x1="140" y1="92" x2="140" y2="310" stroke="#667085" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#fC)"/>
+                <line x1="140" y1="182" x2="140" y2="310" stroke="#667085" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#fC)"/>
+                <line x1="140" y1="272" x2="140" y2="310" stroke="#667085" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#fC)"/>
+                <rect x="40" y="310" width="640" height="34" rx="10" fill="#e9f7ee" stroke="#1e8e3e"/>
+                <text x="360" y="331" text-anchor="middle" font-family="Manrope, Inter, sans-serif" font-size="12.5" font-weight="700" fill="#1e8e3e">Confirmaciones cruzadas → diplomas (DXCC, WAS, IOTA…)</text>
+              </svg>
+              <figcaption class="leyenda">Figura 1 - El logbook local (ADIF) alimenta a LoTW, eQSL y QRZ en paralelo</figcaption>
+            </figure>
             <br>
-            
-            <p>​¡Hola de nuevo, amigos de las confirmaciones y los diplomas!</p>
+            <h3 class="titulo">3. Logbook of the World (LoTW): máxima seguridad criptográfica</h3>
             <br>
-            <p>Hacer el contacto de radio en el aire es solo la mitad del camino. La otra mitad, igualmente emocionante, es lograr la confirmación oficial de ese QSO para validar nuestros países cazados (DXCC), provincias o zonas geográficas con el fin de obtener diplomas internacionales. Hace décadas, esto significaba llenar tarjetas QSL de cartón a mano, meterlas en un sobre, pagar el correo postal y esperar meses o años a que regresaran de vuelta..</p>
-            <br>  
-            <p>​Hoy todo se maneja a la velocidad de los bits. Sin embargo, tener que exportar manualmente un archivo .adi desde tu programa local al final del día para luego subirlo de forma individual a <b>eQSL, QRZ.com Logbook y al estricto sistema LoTW de la ARRL</b> se vuelve una tarea monótona que terminamos postergando. Hoy vamos a analizar cómo funciona la arquitectura de sincronización automática en el Shack mediante el uso de APIs y firmas criptográficas.</p>
+            <p>El sistema LoTW de la American Radio Relay League (ARRL) es el estándar de oro de la confirmación mundial por una gran razón: <b>no se puede falsificar un contacto</b>. A diferencia de otras webs donde cualquiera puede escribir que hizo un QSO, LoTW te obliga a instalar un programa llamado <b>TQSL</b>, el cual gestiona un <b>certificado digital</b> (llave privada en un archivo <b>.p12</b>) que la ARRL asocia a tus datos reales de licencia.</p>
             <br>
-            
-            <h2>​1. El Ecosistema de la Confirmación Digital</h2>
+            <p>Cuando configuras tu software de bitácora local (como Log4OM, Logger32 o Ham Radio Deluxe) para enlazarse con LoTW, el proceso funciona así:</p>
             <br>
-            <p>Para lograr que un contacto se guarde en tu computadora y aparezca en las plataformas de internet en menos de 5 segundos de forma automática, los programas modernos utilizan dos mecanismos técnicos de conexión: las <b>APIs (Application Programming Interfaces)</b> y el firmado digital seguro de datos.</p>
-            <br>
-            <h2>​2. Logbook of the World (LoTW): Máxima seguridad criptográfica</h2>
-            <br>
-            <p>El sistema LoTW de la American Radio Relay League (ARRL) es el estándar de oro de la confirmación mundial por una gran razón: <b>no se puede falsificar un contacto</b>. A diferencia de otras webs donde cualquiera puede escribir que hizo un QSO, LoTW te obliga a instalar un programa llamado TQSL en tu máquina, el cual gestiona un certificado digital único (llave privada) que la ARRL asocia a tus datos reales de licencia.</p>
-            <br>
-            <p>Cuando configuras tu software de bitácora local (como Log4OM o Logger32) para enlazarse con LoTW, el proceso funciona así:</p>
-            <br>
-            
             <div class="lista">
                 <ul>
                   <li>Al presionar "Guardar" en tu contacto, el logbook invoca en segundo plano al motor de TQSL.</li>
-                  <li>​TQSL toma los datos básicos del QSO (indicativo, hora, banda, modo) y los encripta usando tu firma digital privada creando un paquete seguro .tq8.</li>
+                  <li>TQSL toma los datos básicos del QSO (indicativo, hora, banda, modo) y los firma con tu certificado, creando un paquete seguro <b>.tq8</b>.</li>
                   <li>Tu logbook envía automáticamente ese paquete firmado a los servidores web de la ARRL mediante una solicitud HTTP segura. En cuestión de minutos, si tu corresponsal hizo lo mismo, el sistema hace un emparejamiento (match) y valida el contacto para tus diplomas internacionales de forma oficial.</li>
-                  <br>
-                  </ul>
-              </div>
-
-
-
-            <h2>​3. QRZ.com y eQSL: Sincronización en tiempo real por API Key</h2>
+                </ul>
+            </div>
             <br>
-            <p>Plataformas como QRZ o eQSL simplifican este proceso eliminando el firmado de archivos locales mediante el uso de una <b>API Key</b>. Una API Key es una cadena larga de letras y números secreta que el sitio web te proporciona dentro de tus opciones de configuración de usuario.</p>
+            <div class="aviso">
+              <span class="etiqueta">¡Respaldos, no lo pierdas!</span>
+              El archivo <b>.p12</b> de tu certificado LoTW <b>no se puede recuperar</b> si lo pierdes: tendrías que pedir uno nuevo a la ARRL y todo tu historial firmado quedaría "huérfano". Guárdalo cifrado en una USB y en tu nube personal, junto con tu contraseña en un gestor de claves.
+            </div>
             <br>
-            <p>​Al pegar esa clave única dentro de tu programa de libro de guardia local, le estás dando una "llave de acceso autorizada" a tu software. Cada vez que registras un nuevo colega en tu rueda de VHF o HF, el programa realiza un envío de datos en formato JSON o XML directo al servidor de destino. La confirmación es instantánea: tu corresponsal verá la notificación en su perfil en tiempo real.</p>
-              <br>
-            <h2>​​Consejos para un Shack automatizado y sin dolores de cabeza</h2>
+            <h3 class="titulo">4. eQSL y QRZ: sincronización en tiempo real por API</h3>
+            <br>
+            <p>Plataformas como eQSL o QRZ simplifican el proceso eliminando el firmado de archivos locales mediante el uso de una <b>API Key</b>: una cadena secreta de letras y números que el sitio web te entrega en tus opciones de configuración de usuario.</p>
+            <br>
+            <p>Al pegar esa clave dentro de tu programa de libro de guardia local, le estás dando una "llave de acceso autorizada" a tu software. Cada vez que registras un nuevo colega, el programa realiza un envío de datos en formato <b>JSON o XML</b> directo al servidor de destino. La confirmación es instantánea: tu corresponsal verá la notificación en su perfil en tiempo real.</p>
+            <br>
+            <div class="tip">
+              <span class="etiqueta">Dato técnico</span>
+              En el caso de <b>QRZ Logbook</b>, la API usa una sesión: tu logbook hace un <b>login XML</b> con tu usuario y contraseña, recibe una <b>session key</b> y recién entonces sube los QSO (también en ADIF). La sesión expira sola, por lo que el programa la renueva automáticamente en cada arranque.
+            </div>
+            <br>
+            <h3 class="titulo">5. Comparativa de plataformas</h3>
+            <br>
+            <div class="tabla-scroll">
+              <table>
+                <thead>
+                  <tr><th>Plataforma</th><th>Método de carga</th><th>¿Firma local?</th><th>Costo</th><th>Válida para DXCC</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td><b>LoTW</b></td><td>TQSL firma .tq8</td><td>Sí (certificado)</td><td>Gratis</td><td>Sí</td></tr>
+                  <tr><td><b>eQSL AG</b></td><td>Upload ADIF / API</td><td>No</td><td>Gratis (premium opcional)</td><td>No (sí otros diplomas)</td></tr>
+                  <tr><td><b>QRZ Logbook</b></td><td>API sesión + ADIF</td><td>No</td><td>Gratis</td><td>Se cruza con LoTW</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <br>
+            <h3 class="titulo">6. Consejos para un Shack automatizado y sin dolores de cabeza</h3>
             <br>
             <div class="lista">
                 <ul>
-                  <li><b>​Mantén tus relojes sincronizados:</b> Dado que LoTW y los emparejamientos automáticos exigen una ventana de tolerancia de pocos minutos entre tu bitácora y la del corresponsal, asegúrate de tener activada la sincronización de tiempo automática por internet en el sistema operativo de tu Shack.</li>
-                  <li>​<b>Copias de seguridad en la nube:</b> Aunque uses tres plataformas web simultáneamente, la base de datos maestra sigue estando en tu taller. Configura tu software local para que realice un respaldo automático de tu archivo ADIF en servicios de almacenamiento en la nube (como Google Drive) cada vez que cierres la aplicación.</li>
-                   <br>
+                  <li><b>Mantén tus relojes sincronizados:</b> LoTW y los emparejamientos automáticos exigen una ventana de tolerancia de pocos minutos entre tu bitácora y la del corresponsal. Activa la sincronización de tiempo automática por internet (NTP) en el sistema operativo de tu Shack.</li>
+                  <li><b>Copias de seguridad en la nube:</b> aunque uses tres plataformas web simultáneamente, la base de datos maestra sigue estando en tu taller. Configura tu software local para que respalde automáticamente tu archivo ADIF en servicios de almacenamiento en la nube (como Google Drive) cada vez que cierres la aplicación.</li>
+                  <li><b>Evita duplicados:</b> no re-subas QSO antiguos "por si acaso". Los motores de match comparan indicativo + banda/modo + hora; subir lo mismo dos veces puede marcar un duplicado y ensuciar tus estadísticas.</li>
+                  <li><b>Automatiza desde el radio:</b> modos como FT8/FT4 guardan el QSO en el logbook directamente (integración con WSJT-X); configura tu logbook para que la subida a las tres plataformas sea automática al guardar.</li>
                 </ul>
             </div>
+            <br>
             <p>La automatización del libro de guardia te quita el trabajo administrativo de encima, dejándote más tiempo libre para disfrutar del sintonizador, ajustar tus antenas y concentrarte puramente en disfrutar de la radioafición.</p>
             <br>
-            <p>​¿Qué plataforma de confirmación digital es tu favorita o cuál te ha costado más configurar en el Shack? ¡Espero sus comentarios y experiencias. ¡73 y buenas confirmaciones digitales!</p>
-
-            
-
-                  
-          </div><br>
+            <p>¿Qué plataforma de confirmación digital es tu favorita o cuál te ha costado más configurar en el Shack? ¡Espero sus comentarios y experiencias! ¡73 y buenas confirmaciones digitales!</p>
+          </div>
           
-          <br>
-
-
-           
-          
-
-
-        </div>
-
-
-
-
-
-
-        
       </section>
       
       <!-- ╔════════════════════════════════════════════════════════════╗ -->
@@ -137,6 +189,7 @@
   <div id="footer-container"></div>
 
   <!-- Script que carga todos los componentes -->
+  <script src="recursos/actividades.js" defer></script>
   <script defer src="recursos/componentes.js"></script>
 </body>
 </html>

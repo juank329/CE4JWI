@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" role="img" aria-label="Medidor de ROE o SWR">
+  <rect width="800" height="450" fill="#eef3fb"/>
+  <rect x="210" y="60" width="380" height="260" rx="24" fill="#1a1f2b"/>
+  <circle cx="400" cy="175" r="120" fill="#ffffff"/>
+  <path d="M 292 145 A 120 120 0 0 1 508 145" fill="none" stroke="#d52b1e" stroke-width="26"/>
+  <path d="M 316 170 A 120 120 0 0 1 484 170" fill="none" stroke="#ffffff" stroke-width="6"/>
+  <path d="M 330 195 A 120 120 0 0 1 470 195" fill="none" stroke="#d52b1e" stroke-width="12"/>
+  <g font-family="JetBrains Mono, monospace" font-size="15" fill="#1a1f2b" text-anchor="middle">
+    <text x="400" y="330" font-weight="800">1.0</text>
+    <text x="318" y="285">1.5</text>
+    <text x="482" y="285">1.5</text>
+    <text x="284" y="230">2</text>
+    <text x="516" y="230">2</text>
+  </g>
+  <line x1="400" y1="175" x2="352" y2="136" stroke="#d52b1e" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="400" cy="175" r="10" fill="#1a1f2b"/>
+  <text x="400" y="58" text-anchor="middle" font-family="Manrope, Inter, sans-serif" font-size="26" font-weight="800" fill="#1a1f2b">MEDIDOR DE ROE</text>
+  <text x="400" y="86" text-anchor="middle" font-family="Manrope, Inter, sans-serif" font-size="15" fill="#3d4552">Relación de Ondas Estacionarias (SWR)</text>
+  <g transform="translate(120 120)">
+    <line x1="0" y1="130" x2="0" y2="0" stroke="#0039a6" stroke-width="8" stroke-linecap="round"/>
+    <line x1="0" y1="0" x2="-70" y2="40" stroke="#0039a6" stroke-width="6" stroke-linecap="round"/>
+    <line x1="0" y1="0" x2="70" y2="40" stroke="#0039a6" stroke-width="6" stroke-linecap="round"/>
+    <line x1="0" y1="0" x2="-45" y2="38" stroke="#0039a6" stroke-width="6" stroke-linecap="round"/>
+    <line x1="0" y1="0" x2="45" y2="38" stroke="#0039a6" stroke-width="6" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(680 120)">
+    <rect x="-60" y="-10" width="120" height="90" rx="10" fill="#d52b1e"/>
+    <line x1="0" y1="80" x2="0" y2="130" stroke="#d52b1e" stroke-width="8" stroke-linecap="round"/>
+    <line x1="0" y1="-10" x2="-50" y2="-45" stroke="#d52b1e" stroke-width="6" stroke-linecap="round"/>
+    <line x1="0" y1="-10" x2="50" y2="-45" stroke="#d52b1e" stroke-width="6" stroke-linecap="round"/>
+  </g>
+  <g stroke="#0039a6" stroke-width="4" fill="none">
+    <path d="M120 400 Q 140 385 160 400 T 200 400"/>
+    <path d="M200 400 Q 220 385 240 400 T 280 400"/>
+    <path d="M520 400 Q 540 385 560 400 T 600 400"/>
+  </g>
+</svg>

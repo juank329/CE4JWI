@@ -14,7 +14,7 @@
 
 const QSL_JSON_URL = "https://qsl.net/ce4jwi/log_qsl.json"
 const QSL_CACHE_KEY = "ce4jwi_qsl_cache_v1"
-const QSL_CACHE_TTL_MS = 60 * 60 * 1000  // 1 hora
+const QSL_CACHE_TTL_MS = 5 * 60 * 1000  // 5 minutos
 
 let indicePorIndicativo = {}
 let qslPlanas = []
@@ -73,20 +73,26 @@ function guardarCache(data) {
   } catch { /* localStorage lleno, ignorar */ }
 }
 
-async function fetchQSLData() {
-  // 1) Caché local (instantáneo)
-  const cache = cargarCache()
-  if (cache) {
-    return { data: cache, fuente: "cache" }
+async function fetchQSLData(opciones = {}) {
+  const forzar = !!opciones.forzar
+  // 1) Caché local (instantáneo) — salvo que se pida recarga forzada
+  if (!forzar) {
+    const cache = cargarCache()
+    if (cache) {
+      return { data: cache, fuente: "cache" }
+    }
   }
 
   // 2) Intentar en orden: directo → proxies CORS
   // qsl.net NO envía Access-Control-Allow-Origin, así que desde un navegador
-  // siempre hay que pasar por un proxy. cors.sh es el más estable que probamos.
+  // suele ser necesario un proxy. Se prueban varios en orden.
+  // El timestamp (?t=) evita que la caché del servidor/CDN sirva el JSON viejo.
+  const ts = Date.now()
+  const directa = `${QSL_JSON_URL}?t=${ts}`
   const intentos = [
-    { url: `https://cors.sh/${QSL_JSON_URL}`,        nombre: "cors.sh" },
-    { url: `https://api.allorigins.win/raw?url=${encodeURIComponent(QSL_JSON_URL)}`, nombre: "allorigins" },
-    { url: QSL_JSON_URL,                              nombre: "directo" },
+    { url: directa,                                            nombre: "directo" },
+    { url: `https://api.allorigins.win/raw?url=${encodeURIComponent(directa)}`, nombre: "allorigins" },
+    { url: `https://corsproxy.io/?url=${encodeURIComponent(directa)}`,          nombre: "corsproxy.io" },
   ]
   let lastErr = null
   for (const intento of intentos) {
@@ -224,7 +230,8 @@ function renderBusqueda(indicativo) {
 function tarjetaQSL(q, i) {
   return `
     <div class="qsl-tarjeta" onclick="abrirLightbox(${i})">
-      <img src="${escapar(q.url)}" alt="QSL ${escapar(q.indicativo)}" loading="lazy">
+      <img src="${escapar(q.url)}" alt="QSL ${escapar(q.indicativo)}" loading="lazy"
+           onerror="ocultarTarjetaRota(this)">
       <div class="qsl-tarjeta-info">
         <div class="qsl-tarjeta-actividad">${escapar(q.actividad)}</div>
         <div class="qsl-tarjeta-meta">
@@ -236,6 +243,20 @@ function tarjetaQSL(q, i) {
         </div>
       </div>
     </div>`
+}
+
+// Si la imagen ya no existe en qsl.net (QSL borrada), oculta la tarjeta
+// para que no se muestre el icono de error. Actualiza también el contador.
+function ocultarTarjetaRota(img) {
+  const tarjeta = img?.closest(".qsl-tarjeta")
+  if (tarjeta) tarjeta.classList.add("oculta")
+
+  // Recontar las tarjetas visibles
+  const visibles = document.querySelectorAll(".qsl-galeria .qsl-tarjeta:not(.oculta)").length
+  const contCnt = document.getElementById("qslContador")
+  if (contCnt && visibles !== lightboxItems.length) {
+    contCnt.innerHTML = `<strong>${visibles}</strong> QSL${visibles === 1 ? "" : "s"} disponibles`
+  }
 }
 
 // ---- Lightbox --------------------------------------------------------
@@ -258,8 +279,16 @@ function cerrarLightbox() {
 
 function navegarLightbox(dir) {
   if (!lightboxItems.length) return
-  lightboxIndex = (lightboxIndex + dir + lightboxItems.length) % lightboxItems.length
-  abrirLightbox(lightboxIndex)
+  let intentos = lightboxItems.length
+  do {
+    lightboxIndex = (lightboxIndex + dir + lightboxItems.length) % lightboxItems.length
+    const tarjeta = document.querySelectorAll(".qsl-tarjeta")[lightboxIndex]
+    if (!tarjeta || !tarjeta.classList.contains("oculta")) {
+      abrirLightbox(lightboxIndex)
+      return
+    }
+    intentos--
+  } while (intentos > 0)
 }
 
 // Cerrar con click fuera / Escape / flechas
@@ -284,6 +313,23 @@ function limpiarQSL() {
   document.getElementById("qslContador").innerHTML = ""
   setEstado("")
   document.getElementById("qslCall").focus()
+}
+
+// Actualizar ahora: borra la caché local y re-descarga el JSON fresco
+async function actualizarQSL() {
+  try { localStorage.removeItem(QSL_CACHE_KEY) } catch { /* ignorar */ }
+  setEstado("Actualizando catálogo de QSLs…")
+  document.getElementById("qslContador").innerHTML = ""
+  try {
+    const { data, fuente } = await fetchQSLData({ forzar: true })
+    indexar(data)
+    setEstado(`Catálogo actualizado desde ${fuente === "directo" ? "qsl.net" : fuente}.`)
+    window.dispatchEvent(new CustomEvent("qsl:actualizado"))
+    const input = document.getElementById("qslCall")
+    if (input && input.value.trim()) buscarQSL({ preventDefault: () => {} })
+  } catch (e) {
+    setEstado("No se pudo actualizar: " + (e.message || e), true)
+  }
 }
 
 // Enter en el input → buscar

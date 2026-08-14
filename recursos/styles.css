@@ -72,21 +72,22 @@ a { color: inherit; }
   gap: 0.65rem;
   text-decoration: none;
   color: var(--white);
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: 1.6rem;
-  letter-spacing: -0.02em;
+  font-family: 'Roboto', var(--font-display);
+  font-weight: 700;
+  font-size: 1.9rem;
+  letter-spacing: 0.02em;
 }
 
 .logo img {
-  width: 34px;
-  height: 34px;
-  border-radius: 9px;
-  background-color: var(--white);
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 .logo span {
   color: var(--white);
+  font-weight: 900;
 }
 
 .logo-icon {
@@ -140,6 +141,19 @@ a { color: inherit; }
   font: inherit;
 }
 
+/* Dropdown solo con icono (sin texto): botón circular */
+.nav-dropdown-toggle.nav-icon-only {
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+}
+
+.nav-dropdown-toggle.nav-icon-only svg {
+  width: 22px;
+  height: 22px;
+}
+
 .nav-dropdown-caret {
   width: 13px;
   height: 13px;
@@ -154,7 +168,7 @@ a { color: inherit; }
   display: none;
   position: absolute;
   top: calc(100% + 10px);
-  left: 0;
+  right: 0;
   min-width: 250px;
   background: var(--white);
   border: 1px solid var(--border);
@@ -304,6 +318,35 @@ a { color: inherit; }
   background-color: rgba(255, 255, 255, 0.12);
 }
 
+.marquee-badge.upcoming {
+  background-color: #34c759;
+  animation: pulse-badge-up 1.6s ease-in-out infinite;
+}
+
+@keyframes pulse-badge-up {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(52, 199, 89, 0.55); }
+  50% { box-shadow: 0 0 0 5px rgba(52, 199, 89, 0); }
+}
+
+/* Ítems de la marquesina como enlace a la actividad */
+.marquee-link {
+  color: var(--white);
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+.marquee-link:hover {
+  opacity: 0.85;
+}
+
+.marquee-date {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  opacity: 0.75;
+  white-space: nowrap;
+}
+
 @keyframes pulse-badge {
   0%, 100% { box-shadow: 0 0 0 0 rgba(213, 43, 30, 0.55); }
   50% { box-shadow: 0 0 0 5px rgba(213, 43, 30, 0); }
@@ -369,6 +412,11 @@ a { color: inherit; }
   .activity-grid { grid-template-columns: repeat(3, 1fr); }
 }
 
+/* Variante de 4 columnas (página Novedades) */
+@media (min-width: 1024px) {
+  .activity-grid--wide { grid-template-columns: repeat(4, 1fr); }
+}
+
 /* Activity Card */
 .activity-card {
   display: block;
@@ -405,6 +453,13 @@ a { color: inherit; }
 
 .activity-card:hover .card-image {
   transform: scale(1.06);
+}
+
+/* Imagen completa sin recorte (tarjetas con logos/screenshots) */
+.card-image-fit {
+  object-fit: contain;
+  padding: 0.75rem;
+  background: var(--surface-alt);
 }
 
 .card-content {
@@ -448,15 +503,24 @@ a { color: inherit; }
 }
 
 .card-status.upcoming {
-  background-color: var(--blue-soft);
-  color: var(--blue);
+  background-color: #fff4e5;
+  color: #b45309;
+  box-shadow: 0 0 0 1px rgba(244, 162, 97, 0.4), 0 1px 4px rgba(180, 83, 9, 0.25);
 }
+.card-status.upcoming::before { animation: pulse-badge 1.6s ease-in-out infinite; }
 
 .card-status.now {
   background-color: var(--red-soft);
   color: var(--red);
 }
 .card-status.now::before { animation: pulse-badge 1.4s ease-in-out infinite; }
+
+.card-status.active {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  box-shadow: 0 0 0 1px rgba(46, 125, 50, 0.4), 0 1px 4px rgba(46, 125, 50, 0.25);
+}
+.card-status.active::before { animation: pulse-badge 1.4s ease-in-out infinite; }
 
 .card-status.finished {
   background-color: var(--surface-alt);
@@ -544,6 +608,139 @@ a { color: inherit; }
 
 .widget-content {
   padding: 1.1rem;
+}
+
+/* Reloj: texto centrado */
+.widget-content.widget-clock {
+  text-align: center;
+}
+
+.widget-clock h3 {
+  margin: 0 0 0.5rem;
+}
+
+/* ---- Widget "Último Contacto" ---- */
+.ult-qsl-cargando,
+.ult-qsl-vacio {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 0.5rem 0;
+}
+
+.ult-qsl-card {
+  cursor: pointer;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--surface-alt);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.ult-qsl-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.ult-qsl-img-wrap {
+  width: 100%;
+  background: var(--surface-alt);
+}
+
+.ult-qsl-img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.ult-qsl-datos {
+  padding: 0.6rem 0.75rem;
+}
+
+.ult-qsl-call {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--blue);
+  letter-spacing: 0.02em;
+}
+
+.ult-qsl-actividad {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin: 0.15rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.ult-qsl-meta {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.ult-qsl-hint {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  text-align: center;
+  margin-top: 0.4rem;
+  font-style: italic;
+}
+
+/* Lightbox Última QSL */
+.ult-qsl-lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.92);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.ult-qsl-lightbox.active { display: flex; }
+
+.ult-qsl-lightbox-img {
+  max-width: 90vw;
+  max-height: 80vh;
+  border-radius: var(--radius-md);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.ult-qsl-lightbox-info {
+  position: absolute;
+  bottom: 1.2rem;
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: white;
+  font-size: 0.9rem;
+  font-family: var(--font-display);
+}
+
+.ult-qsl-lightbox-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.12);
+  color: white;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.18s ease;
+}
+
+.ult-qsl-lightbox-close:hover {
+  background: rgba(255, 255, 255, 0.25);
 }
 
 /* Formulario QRZ */
@@ -752,13 +949,14 @@ a { color: inherit; }
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  font-family: var(--font-display);
-  font-size: 1.4rem;
-  font-weight: 800;
+  font-family: 'Roboto', var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 900;
+  letter-spacing: 0.02em;
   margin-bottom: 1rem;
 }
 
-.footer-logo img { width: 32px; height: 32px; border-radius: 8px; background-color: var(--white); }
+.footer-logo img { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; background-color: transparent; }
 
 .footer-logo-icon { width: 3rem; height: 3rem; color: var(--white); }
 
@@ -893,6 +1091,12 @@ a { color: inherit; }
   font-size: 0.82rem;
   padding: 0 14px;
   white-space: nowrap;
+}
+
+.weather-forecast {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 0.75rem;
+  margin-left: 0.15rem;
 }
 
 .weather-city {
@@ -1167,6 +1371,10 @@ ol { margin-left: 1.5rem; font-weight: bold; }
 
 .tool-form button:hover { opacity: 0.9; }
 
+.tool-btn-blue {
+  background-color: var(--blue) !important;
+}
+
 /* DMR */
 .dmr-cargando { color: var(--text-muted); }
 
@@ -1252,6 +1460,26 @@ ol { margin-left: 1.5rem; font-weight: bold; }
   border-radius: var(--radius-sm);
   padding: 0.75rem 0.5rem;
   text-align: center;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s, background 0.15s;
+}
+
+.fonetico-item:hover {
+  border-color: var(--blue);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-2px);
+}
+
+.fonetico-item:focus-visible {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(0, 57, 166, 0.2);
+}
+
+.fonetico-item.playing {
+  border-color: var(--red);
+  background: #fdeeee;
+  box-shadow: 0 0 0 3px rgba(213, 43, 30, 0.15);
 }
 
 .fonetico-letra {
@@ -1271,6 +1499,60 @@ ol { margin-left: 1.5rem; font-weight: bold; }
   font-size: 0.85rem;
   color: var(--blue);
   letter-spacing: 0.1em;
+}
+
+.fonetico-actions {
+  margin-top: 0.35rem;
+  display: flex;
+  gap: 0.35rem;
+}
+
+.fonetico-play,
+.fonetico-speak {
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--surface);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.fonetico-play { color: var(--blue); }
+.fonetico-speak { color: var(--red); }
+
+.fonetico-item:hover .fonetico-play,
+.fonetico-item:hover .fonetico-speak {
+  background: var(--blue);
+  color: #fff;
+  border-color: var(--blue);
+}
+
+.fonetico-speak:hover {
+  background: var(--red);
+  color: #fff;
+  border-color: var(--red);
+  transform: scale(1.1);
+}
+
+.fonetico-item.playing .fonetico-play {
+  background: var(--red);
+  color: #fff;
+  border-color: var(--red);
+  animation: foneticoPulse 0.6s ease-in-out infinite;
+}
+
+.fonetico-speak:focus-visible,
+.fonetico-item:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 57, 166, 0.2);
+}
+
+@keyframes foneticoPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
 }
 
 /* Contenedor del log en tiempo real (iframe externo hrdlog.net) */
@@ -1299,4 +1581,186 @@ ol { margin-left: 1.5rem; font-weight: bold; }
 
 @media (max-width: 480px) {
   .iss-map-container iframe { height: 600px; }
+}
+
+/* ===================== Contenido de articulos ===================== */
+/* Cajas de nota importante, consejo y aviso */
+.nota,
+.tip,
+.aviso {
+  border-radius: var(--radius-sm);
+  padding: 1rem 1.25rem;
+  margin: 1.25rem 0;
+  font-size: 1rem;
+  line-height: 1.6;
+  border-left: 4px solid;
+}
+
+.nota { background: var(--blue-soft); border-color: var(--blue); }
+.tip { background: #e9f7ee; border-color: #1e8e3e; }
+.aviso { background: var(--red-soft); border-color: var(--red); }
+
+.nota .etiqueta,
+.tip .etiqueta,
+.aviso .etiqueta {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.35rem;
+}
+
+.nota .etiqueta { color: var(--blue); }
+.tip .etiqueta { color: #1e8e3e; }
+.aviso .etiqueta { color: var(--red); }
+
+/* Tablas de datos */
+.tabla-scroll {
+  overflow-x: auto;
+  margin: 1.25rem 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  background: var(--surface);
+}
+
+th,
+td {
+  border: 1px solid var(--border);
+  padding: 0.6rem 0.8rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+thead th {
+  background: var(--blue);
+  color: var(--white);
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+tbody tr:nth-child(even) { background: var(--surface-alt); }
+
+table code,
+.tabla-scroll code {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--red);
+  background: transparent;
+}
+
+/* Figuras y diagramas */
+.figura {
+  text-align: center;
+  margin: 1.5rem 0;
+}
+
+.figura svg {
+  width: 100%;
+  height: auto;
+  max-width: 720px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: #ffffff;
+}
+
+.figura img {
+  display: block;
+  margin: 0 auto;
+  max-width: 720px;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: var(--radius-md);
+}
+
+.figura .leyenda {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 0.5rem;
+  font-family: var(--font-mono);
+}
+
+/* ================== Tipografia unificada de contenidos ================== */
+/* Una sola escala para titulos, subtitulos y parrafos dentro de las paginas */
+.page-content h1,
+.page-content h2,
+.page-content h3,
+.page-content h4 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  color: var(--text);
+}
+.page-content h1 { font-size: 1.5rem; }
+.page-content h2,
+.page-content h3,
+.page-content .titulo { font-size: 1.15rem; }
+.page-content h4 { font-size: 0.95rem; font-weight: 700; }
+.page-content p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text);
+}
+.page-content a {
+  color: var(--blue);
+  text-decoration: underline;
+  font-weight: 700;
+  word-break: break-word;
+}
+.page-content a:hover { color: var(--red); }
+.page-content .carousel-title { font-size: 1.6rem; }
+.page-content .destacar {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--blue);
+}
+.page-content h3.actividad,
+.page-content h4.actividad {
+  color: var(--blue);
+  text-align: center;
+  letter-spacing: 0.02em;
+}
+.page-content h3.actividad { font-size: 1.15rem; }
+.page-content h4.actividad { font-size: 0.95rem; }
+
+/* ================== Responsive global - Celulares ================== */
+/* Evita scroll horizontal por desbordes accidentales */
+html, body {
+  overflow-x: hidden;
+}
+
+img, svg, video, iframe, embed, object {
+  max-width: 100%;
+}
+
+/* Banner en pantallas chicas */
+@media (max-width: 480px) {
+  .banner { padding: 1.6rem 1rem; }
+  .banner h1 { font-size: 1.25rem; }
+}
+
+/* Marquesina en pantallas muy chicas: texto compacto */
+@media (max-width: 480px) {
+  .marquee-item { font-size: 0.8rem; padding: 0 12px; }
+  .marquee-badge { font-size: 0.56rem; padding: 0.15rem 0.5rem; }
+}
+
+/* Widget QRZ: pila vertical en móvil */
+@media (max-width: 480px) {
+  .widget-content form#topcall { flex-direction: column; }
+  .widget-content input#tsubmit { width: 100%; }
+}
+
+/* Formularios de herramientas: pila vertical en móvil */
+@media (max-width: 480px) {
+  .tool-form { flex-direction: column; }
+  .tool-form button { width: 100%; }
 }

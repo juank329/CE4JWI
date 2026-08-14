@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Roboto:wght@500;700;900&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Roboto:wght@500;700;900&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Roboto:wght@500;700;900&display=swap"></noscript>
+  
+  
+  <title>Libro de guardia: El diario de tu estación</title>
+  
+  
+  <meta name="description" content="Aprende a llevar un libro de guardia (logbook): datos obligatorios de cada QSO, papel vs digital, formato ADIF y buenas prácticas de registro.">
+  
+  <link rel="stylesheet" href="recursos/styles.css">
+  <link rel="stylesheet" href="recursos/header-responsive.css">
+  <link rel="stylesheet" href="recursos/slider.css">
+  <link rel="icon" href="public/favicon-32x32.png">
+</head>
+<body>
+  <!-- NO TOCAR: Header cargado automáticamente -->
+  <div id="header-container"></div>
+  
+  <!-- NO TOCAR: Marquesina cargada automáticamente -->
+  <div id="marquee-container"></div>
+
+  <!-- ========== CONTENIDO PRINCIPAL ========== -->
+  <main class="main-container">
+    <div class="content">
+      
+      
+      <div class="banner">
+        <h1>Libro de guardia: El diario de tu estación</h1>
+      </div>
+
+      <section class="page-content">
+        
+        <h3 class="destacar">14 Agosto 2026</h3>
+        <figure class="figura">
+          <img src="public/libro de guardia.svg" alt="Libro de guardia de radioaficionado">
+          <figcaption class="leyenda">Cada QSO merece su registro: fecha, hora UTC, banda, modo y reportes</figcaption>
+        </figure>
+        
+          <div class="parrafo">
+            <br>
+            <p>¡Buenas propagaciones, amigos!</p>
+            <br>
+            <p>En el blog hablamos de QSL, de modos digitales, de automatización... pero hay un pilar silencioso que sostiene todo eso: <b>el libro de guardia</b>. Ese registro donde queda la historia completa de tu estación, contacto tras contacto.</p>
+            <br>
+            <p>Muchos colegas lo ven como una obligación burocrática. Yo lo veo como la memoria de la estación: sin él, un DX de un rato se olvida; con él, ese contacto queda para siempre, listo para confirmarse, repetirse y hasta convertirse en diploma.</p>
+            <br>
+            <h3 class="titulo">¿Qué es el libro de guardia y por qué importa?</h3>
+            <br>
+            <p>El libro de guardia (en inglés, <b>logbook</b> o simplemente <b>log</b>) es el registro ordenado de los contactos que realizas. Sirve para documentar tu actividad, validar QSL, solicitar diplomas y, en varios países, es un requisito normativo llevar el registro al día.</p>
+            <br>
+            <p>En Chile, la normativa vigente contempla que la estación lleve su libro de guardia con los datos de cada comunicación. Más allá de lo reglamentario, tener un log completo te permite <b>ver tu progreso</b>, recordar con quién hablaste y demostrar que estás activo.</p>
+            <br>
+            <h3 class="titulo">Los datos que todo QSO debe registrar</h3>
+            <br>
+            <p>Una entrada de logbook no es un "hola y adiós" anotado al lápiz: cada registro debe permitir reconstruir el contacto sin ambigüedades. Estos son los campos imprescindibles:</p>
+            <br>
+            <div class="lista">
+                <ul>
+                  <li><b>Fecha y hora UTC</b> del contacto (formato DD/MM/AAAA y HH:MM en Tiempo Universal Coordinado).</li>
+                  <li><b>Indicativo de la estación</b> con la que contactaste.</li>
+                  <li><b>Banda o frecuencia</b> exacta (p. ej., 14.074 MHz o "20 m").</li>
+                  <li><b>Modo</b> de emisión (SSB, CW, FM, FT8, FT4...).</li>
+                  <li><b>Reporte RST</b> enviado y recibido (p. ej., 599 para CW y digitales, 59 para fonía).</li>
+                  <li><b>Nombre y QTH</b> del corresponsal (opcional pero muy útil).</li>
+                  <li><b>Observaciones</b>: potencias, antenas, condiciones de propagación o notas personales.</li>
+                </ul>
+            </div>
+            <br>
+            <div class="nota">
+              <span class="etiqueta">Dato importante</span>
+              La hora <b>SIEMPRE</b> se anota en <b>UTC</b>. Si registras la hora local, el contacto puede quedar fechado en un día distinto para el otro lado del mundo, y ese QSO no coincidirá en el cruce de confirmaciones.
+            </div>
+            <br>
+            <h3 class="titulo">Papel o digital: cada uno tiene su lugar</h3>
+            <br>
+            <p>Hay quienes juran por el cuaderno y el lápiz, y quienes no conciben operar sin una base de datos. No hay un "ganador": hay un método para cada estilo de operador.</p>
+            <br>
+            <div class="tabla-scroll">
+              <table>
+                <thead>
+                  <tr><th>Aspecto</th><th>Libro en papel</th><th>Logbook digital</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>Costo</td><td>Solo el cuaderno</td><td>Software gratuito o de pago</td></tr>
+                  <tr><td>Riesgo de pérdida</td><td>Alto (agua, fuego, extravío)</td><td>Bajo (con respaldos en la nube)</td></tr>
+                  <tr><td>Búsquedas</td><td>Manual, hoja por hoja</td><td>Instantáneas (por DX, banda, país)</td></tr>
+                  <tr><td>Exportar ADIF</td><td>Imposible</td><td>Un clic</td></tr>
+                  <tr><td>Valor sentimental</td><td>Altísimo</td><td>Bajo</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <br>
+            <p>La mejor estrategia es la <b>doble vía</b>: anota el QSO en papel mientras operas (nada reemplaza la velocidad del lápiz) y luego vuelca todo al log digital para respaldarlo y exportarlo.</p>
+            <br>
+            <h3 class="titulo">El formato ADIF: el idioma común de los logs</h3>
+            <br>
+            <p>Si usas software, tarde o temprano necesitarás exportar tus contactos. El formato estándar de la radioafición para intercambiar logs se llama <b>ADIF</b> (Amateur Data Interchange Format): un archivo de texto plano con campos etiquetados que todos los programas entienden.</p>
+            <br>
+            <p>Cada contacto se guarda como un registro <b>&lt;QSO&gt;</b> con campos como <b>&lt;CALL:4&gt;CE4JWI</b>, <b>&lt;BAND:3&gt;20M</b>, <b>&lt;MODE:3&gt;FT8</b>, <b>&lt;QSO_DATE&gt;</b>, <b>&lt;TIME_ON&gt;</b> y los reportes RST. Ese archivo es el que se sube a LoTW, eQSL o QRZ para confirmar contactos.</p>
+            <br>
+            <div class="aviso">
+              <span class="etiqueta">Ojo, colegas</span>
+              Si quieres validar contactos en <b>LoTW</b> (Logbook of the World) de la ARRL, el log debe subirse en <b>ADIF</b> firmado con tu certificado digital (TQSL). Un log desordenado o con horas locales mal registradas <b>será rechazado</b> en la validación. La precisión empieza en el libro de guardia.
+            </div>
+            <br>
+            <figure class="figura">
+              <svg viewBox="0 0 720 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Camino del libro de guardia a la confirmación">
+                <defs>
+                  <marker id="lgA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                    <path d="M0,0 L10,5 L0,10 z" fill="#667085"/>
+                  </marker>
+                </defs>
+                <rect width="720" height="220" fill="#ffffff"/>
+                <rect x="20" y="42" width="130" height="52" rx="10" fill="#fff4e5" stroke="#f2b90b"/>
+                <text x="85" y="66" text-anchor="middle" font-family="Manrope, Inter, sans-serif" font-size="12" font-weight="700" fill="#1a1f2b">Anotar QSO</text>
+                <text x="85" y="82" text-anchor="middle" font-family="Manrope, Inter, sans-serif" font-size="10.5" fill="#3d4552">papel / digital</text>
+                <line x1="150" y1="68" x2="178" y2="68" stroke="#667085" stroke-width="2" marker-end="url(#lgA)"/>
+                <rect x="185" y="42" width="150" height="52" rx="10" fill="#e8effa" stroke="#0039a6"/>
+                <text x="260" y="66" text-anchor="middle" font-family="Manrope, Inter, sans-serif" font-size="12" font-weight="700" fill="#1a1f2b">Log digital</text>
+                <text x="260" y="82" text-anchor="middle" font-family="Manrope, Inter, sans-serif" font-size="10.5" fill="#3d4552">ADIF exportado</text>
+                <line x1="335" y1="68" x2="363" y2="68" stroke="#667085" stroke-width="2" marker-end="url(#lgA)"/>
+                <rect x="370" y="42" width="150" height="52" rx="10" fill="#fbe9e7" stroke="#d52b1e"/>
+                <text x="445" y="66" text-anchor="middle" font-family="Manrope, Inter, sans-serif" font-size="12" font-weight="700" fill="#1a1f2b">Confirmar</text>
+                <text x="445" y="82" text-anchor="middle" font-family="Manrope, Inter, sans-serif" font-size="10.5" fill="#3d4552">LoTW · eQSL · QRZ</text>
+                <line x1="520" y1="68" x2="548" y2="68" stroke="#667085" stroke-width="2" marker-end="url(#lgA)"/>
+                <rect x="555" y="42" width="145" height="52" rx="10" fill="#e8f5e9" stroke="#2e7d32"/>
+                <text x="627" y="66" text-anchor="middle" font-family="Manrope, Inter, sans-serif" font-size="12" font-weight="700" fill="#1a1f2b">Diplomas y DXCC</text>
+                <text x="627" y="82" text-anchor="middle" font-family="Manrope, Inter, sans-serif" font-size="10.5" fill="#3d4552">contactos validados</text>
+              </svg>
+              <figcaption class="leyenda">Figura 1 - Del libro de guardia al diploma: el flujo completo del registro</figcaption>
+            </figure>
+            <br>
+            <h3 class="titulo">Mis consejos para un log ordenado</h3>
+            <br>
+            <div class="lista">
+                <ul>
+                  <li><b>Anota apenas termina el contacto</b>: el dato que no se escribe en el momento, se pierde.</li>
+                  <li><b>Mantén siempre la hora UTC</b> visible en el shack (reloj digital sincronizado o el del PC).</li>
+                  <li><b>Respaldá tu log digital</b> con copias periódicas o sincronización a la nube.</li>
+                  <li><b>Revisa una vez al mes</b> los QSO sin confirmar y gestiona tus QSL pendientes.</li>
+                  <li><b>Registra también los contactos fallidos</b>: un "casi DX" anotado te cuenta más que una página llena de ceros.</li>
+                </ul>
+            </div>
+            <br>
+            <p>¿Llevas tu libro de guardia en papel, en digital o en ambos? ¿Qué software usas para tu log? ¡Cuéntamelo en los comentarios!</p>
+          </div>
+          
+      </section>
+      
+      <!-- ╔════════════════════════════════════════════════════════════╗ -->
+      <!-- ║              FIN DEL CONTENIDO PRINCIPAL                   ║ -->
+      <!-- ╚════════════════════════════════════════════════════════════╝ -->
+
+    </div>
+
+    <!-- NO TOCAR: Sidebar cargado automáticamente (incluye slider) -->
+    <div id="sidebar-container"></div>
+  </main>
+
+  <!-- NO TOCAR: Footer cargado automáticamente -->
+  <div id="footer-container"></div>
+
+  <!-- Script que carga todos los componentes -->
+  <script src="recursos/actividades.js" defer></script>
+  <script defer src="recursos/componentes.js"></script>
+</body>
+</html>

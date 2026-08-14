@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" role="img" aria-label="Antenas básicas para radioaficionados">
+  <rect width="800" height="450" fill="#eef3fb"/>
+  <rect x="0" y="390" width="800" height="60" fill="#a5d6a7"/>
+  <text x="400" y="60" text-anchor="middle" font-family="Manrope, Inter, sans-serif" font-size="28" font-weight="800" fill="#1a1f2b">ANTENAS BÁSICAS</text>
+  <text x="400" y="88" text-anchor="middle" font-family="Manrope, Inter, sans-serif" font-size="15" fill="#3d4552">Dipolo · Vertical · Yagi</text>
+  <g>
+    <text x="150" y="120" text-anchor="middle" font-family="Manrope, Inter, sans-serif" font-size="16" font-weight="700" fill="#0039a6">DIPOLO</text>
+    <line x1="40" y1="150" x2="260" y2="150" stroke="#1a1f2b" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="150" cy="150" r="6" fill="#d52b1e"/>
+    <line x1="150" y1="156" x2="150" y2="390" stroke="#1a1f2b" stroke-width="4"/>
+    <line x1="150" y1="210" x2="90" y2="190" stroke="#1a1f2b" stroke-width="3"/>
+    <text x="130" y="190" font-family="JetBrains Mono, monospace" font-size="13" fill="#d52b1e">λ/2</text>
+    <path d="M40 180 Q 55 165 70 180" stroke="#0039a6" stroke-width="3" fill="none"/>
+    <path d="M70 180 Q 85 165 100 180" stroke="#0039a6" stroke-width="3" fill="none"/>
+    <path d="M200 180 Q 215 165 230 180" stroke="#0039a6" stroke-width="3" fill="none"/>
+    <path d="M230 180 Q 245 165 260 180" stroke="#0039a6" stroke-width="3" fill="none"/>
+  </g>
+  <g>
+    <text x="400" y="120" text-anchor="middle" font-family="Manrope, Inter, sans-serif" font-size="16" font-weight="700" fill="#0039a6">VERTICAL 1/4λ</text>
+    <line x1="400" y1="150" x2="400" y2="360" stroke="#1a1f2b" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="400" cy="360" r="6" fill="#d52b1e"/>
+    <g stroke="#1a1f2b" stroke-width="3">
+      <line x1="370" y1="360" x2="330" y2="390"/>
+      <line x1="400" y1="360" x2="400" y2="390"/>
+      <line x1="430" y1="360" x2="470" y2="390"/>
+    </g>
+    <path d="M380 200 Q 390 188 400 200 Q 410 188 420 200" stroke="#0039a6" stroke-width="3" fill="none"/>
+    <path d="M380 240 Q 390 228 400 240 Q 410 228 420 240" stroke="#0039a6" stroke-width="3" fill="none"/>
+    <path d="M380 280 Q 390 268 400 280 Q 410 268 420 280" stroke="#0039a6" stroke-width="3" fill="none"/>
+  </g>
+  <g>
+    <text x="650" y="120" text-anchor="middle" font-family="Manrope, Inter, sans-serif" font-size="16" font-weight="700" fill="#0039a6">YAGI (3 elementos)</text>
+    <line x1="650" y1="150" x2="650" y2="390" stroke="#1a1f2b" stroke-width="5"/>
+    <line x1="650" y1="170" x2="650" y2="360" stroke="#1a1f2b" stroke-width="5"/>
+    <line x1="545" y1="170" x2="755" y2="170" stroke="#d52b1e" stroke-width="5" stroke-linecap="round"/>
+    <line x1="650" y1="120" x2="650" y2="225" stroke="#d52b1e" stroke-width="5"/>
+    <line x1="600" y1="90" x2="600" y2="225" stroke="#d52b1e" stroke-width="5"/>
+    <line x1="700" y1="90" x2="700" y2="225" stroke="#d52b1e" stroke-width="5"/>
+    <path d="M560 300 Q 585 280 610 300" stroke="#0039a6" stroke-width="3" fill="none"/>
+    <path d="M690 300 Q 715 280 740 300" stroke="#0039a6" stroke-width="3" fill="none"/>
+  </g>
+</svg>

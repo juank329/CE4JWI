@@ -1,3 +1,11 @@
+// ==================================================================
+// CE4JWI - Página de NOVEDADES
+// ==================================================================
+// Similar a script.js pero para la sección Novedades: muestra
+// tarjetas con los artículos recientes en #activityGrid.
+// (La navegación activa la maneja marcarNavActivo() en componentes.js)
+// ==================================================================
+
 // Activity Data
 const activities = [
 {
@@ -30,8 +38,76 @@ const activities = [
     date: "11 Junio 2026",
     url: "automatizando_tus_contactos_2026.html",
   },
-  
- 
+  {
+    id: 4,
+    title: "Libro de guardia: El diario de tu estación",
+    image: "public/libro de guardia.svg",
+    status: "NOVEDADES",
+    description:
+      "El logbook es la memoria de la estación. Aprende los datos obligatorios de cada QSO, las diferencias entre papel y digital, y el formato ADIF que conecta tu registro con LoTW, eQSL y QRZ: ...",
+    date: "14 Agosto 2026",
+    url: "libro_de_guardia_2026.html",
+  },
+  {
+    id: 5,
+    title: "Medidor de ROE: La salud de tu antena",
+    image: "public/medidor de roe.svg",
+    status: "NOVEDADES",
+    description:
+      "El ROE (SWR) es el pulso de tu sistema irradiante. Descubre qué es la onda estacionaria, cómo se mide en línea con el transceptor y qué hacer cuando el valor se dispara: ...",
+    date: "15 Agosto 2026",
+    url: "medidor_de_roe_2026.html",
+  },
+  {
+    id: 6,
+    title: "El Código Q: El idioma universal de las bandas",
+    image: "public/codigo q.svg",
+    status: "NOVEDADES",
+    description:
+      "QRZ, QSL, QRM, QRP... tres letras bastan para comunicarte con el mundo. Conoce la historia del código Q, su uso en CW, fonía y digitales, y los códigos que usamos a diario: ...",
+    date: "16 Agosto 2026",
+    url: "codigo_q_2026.html",
+  },
+  {
+    id: 7,
+    title: "Antenas básicas para empezar en HF",
+    image: "public/antenas basicas.svg",
+    status: "NOVEDADES",
+    description:
+      "La antena es la mitad del rendimiento. Dipolo, vertical y yagi: te cuento cuál elegir para dar tus primeros pasos, los cálculos rápidos y los errores de novato que todos cometemos: ...",
+    date: "17 Agosto 2026",
+    url: "antenas_basicas_2026.html",
+  },
+  {
+    id: 8,
+    title: "La licencia de radioaficionado en Chile",
+    image: "public/licencia_radioaficionado_chile.jpg",
+    status: "NOVEDADES",
+    description:
+      "El camino hacia tu diploma ante SUBTEL: el examen, las categorías, las bandas autorizadas y el indicativo que será tu nombre en las bandas, como el CE4JWI de este blog: ...",
+    date: "18 Agosto 2026",
+    url: "licencia_radioaficionado_chile_2026.html",
+  },
+  {
+    id: 9,
+    title: "QRZ.com: La base de datos de indicativos que une a la radioafición",
+    image: "public/qrz_com.png",
+    status: "NOVEDADES",
+    description:
+      "El 'directorio telefónico' de la radioafición: busca cualquier indicativo del mundo, crea tu página personal, confirma tus QSO en el QRZ Logbook y conéctalo a tu software: ...",
+    date: "19 Agosto 2026",
+    url: "qrz_com_2026.html",
+  },
+  {
+    id: 10,
+    title: "eQSL.cc: Las tarjetas QSL electrónicas",
+    image: "public/eQSL.jpg",
+    status: "NOVEDADES",
+    description:
+      "La confirmación de QSO que viaja por Internet: gratis, en minutos y con sus propios diplomas. Te cuento el registro en dos pasos, el sistema AG y los eAwards: ...",
+    date: "20 Agosto 2026",
+    url: "eqsl_cc_2026.html",
+  },
 ]
 
 function parseSpanishDate(dateStr) {
@@ -84,7 +160,7 @@ function renderActivities() {
 
     card.innerHTML = `
       <div class="card-image-container">
-        <img src="${activity.image}" alt="${activity.title}" class="card-image">
+        <img src="${activity.image}" alt="${activity.title}" class="card-image${activity.url === "qrz_com_2026.html" || activity.url === "eqsl_cc_2026.html" ? " card-image-fit" : ""}">
       </div>
       <div class="card-content">
         <h3 class="card-title">${activity.title}</h3>
@@ -99,33 +175,9 @@ function renderActivities() {
 }
 
  
+ 
 
-
-// Navigation
-function setupNavigation() {
-  const navButtons = document.querySelectorAll(".nav-btn")
-
-  navButtons.forEach((btn) => {
-    btn.addEventListener("click", function () {
-      navButtons.forEach((b) => b.classList.remove("active"))
-      this.classList.add("active")
-    })
-  })
-}
-// Initialize Marquee
-function initMarquee() {
-  const marqueeContent = document.getElementById("marqueeContent")
-  if (!marqueeContent) return
-
-  // Duplicar el contenido para crear un loop infinito sin cortes
-  const originalContent = marqueeContent.innerHTML
-  marqueeContent.innerHTML = originalContent + originalContent
-}
-
-
-// Initialize
+// Inicialización
 document.addEventListener("DOMContentLoaded", () => {
   renderActivities()
-  setupNavigation()
-  initMarquee()
 })

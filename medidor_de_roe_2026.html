@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Roboto:wght@500;700;900&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Roboto:wght@500;700;900&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Roboto:wght@500;700;900&display=swap"></noscript>
+  
+  
+  <title>Medidor de ROE: La salud de tu antena</title>
+  
+  
+  <meta name="description" content="Qué es el ROE (SWR), cómo se mide con un medidor de ondas estacionarias, valores ideales y cómo detectar problemas de antena.">
+  
+  <link rel="stylesheet" href="recursos/styles.css">
+  <link rel="stylesheet" href="recursos/header-responsive.css">
+  <link rel="stylesheet" href="recursos/slider.css">
+  <link rel="icon" href="public/favicon-32x32.png">
+</head>
+<body>
+  <!-- NO TOCAR: Header cargado automáticamente -->
+  <div id="header-container"></div>
+  
+  <!-- NO TOCAR: Marquesina cargada automáticamente -->
+  <div id="marquee-container"></div>
+
+  <!-- ========== CONTENIDO PRINCIPAL ========== -->
+  <main class="main-container">
+    <div class="content">
+      
+      
+      <div class="banner">
+        <h1>Medidor de ROE: La salud de tu antena</h1>
+      </div>
+
+      <section class="page-content">
+        
+        <h3 class="destacar">15 Agosto 2026</h3>
+        <figure class="figura">
+          <img src="public/medidor de roe.svg" alt="Medidor de ROE o SWR">
+          <figcaption class="leyenda">El ROE es el pulso de tu sistema irradiante: saber leerlo evita muchas frustraciones</figcaption>
+        </figure>
+        
+          <div class="parrafo">
+            <br>
+            <p>¡Buenas propagaciones, amigos!</p>
+            <br>
+            <p>Si llevas un tiempo en las bandas, seguramente has escuchado la pregunta del millón: <b>"¿Cuál es tu ROE?"</b>. El ROE —también llamado SWR en inglés, por <i>Standing Wave Ratio</i>— es una de las mediciones más importantes de nuestra estación, y quizás la menos entendida.</p>
+            <br>
+            <p>Hoy te cuento qué es, cómo se mide con el medidor y, sobre todo, <b>cómo interpretar lo que te dice</b> para que tu antena (y tu final de transmisión) vivan felices.</p>
+            <br>
+            <h3 class="titulo">¿Qué es el ROE en términos simples?</h3>
+            <br>
+            <p>Cuando tu radio transmite, la energía viaja por el cable coaxial hacia la antena. Si la antena está perfectamente adaptada, <b>toda</b> la potencia se irradia. Si no lo está, parte de esa energía <b>rebota</b> de vuelta por el cable.</p>
+            <br>
+            <p>La <b>Relación de Ondas Estacionarias</b> expresa esa desadaptación: es la proporción entre la onda incidente (la que sale) y la reflejada (la que vuelve). Se escribe como una proporción: 1:1 (perfecto), 1:1.5, 1:3, etc.</p>
+            <br>
+            <h3 class="titulo">Los valores que debes conocer</h3>
+            <br>
+            <p>Cada valor de ROE cuenta una historia. Esta es la guía práctica que uso en el shack:</p>
+            <br>
+            <div class="tabla-scroll">
+              <table>
+                <thead>
+                  <tr><th>ROE</th><th>Interpretación</th><th>Qué hacer</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td><b>1:1 a 1:1.5</b></td><td>Excelente adaptación</td><td>Disfruta, no hay que tocar nada</td></tr>
+                  <tr><td><b>1:1.5 a 1:2</b></td><td>Aceptable, pérdidas menores</td><td>Usable sin problemas</td></tr>
+                  <tr><td><b>1:2 a 1:3</b></td><td>Desadaptación notable</td><td>Revisa conexiones y largo del cable</td></tr>
+                  <tr><td><b>Mayor a 1:3</b></td><td>Problema serio</td><td>No transmitas a potencia alta: la energía se convierte en calor</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <br>
+            <div class="nota">
+              <span class="etiqueta">Dato importante</span>
+              Un ROE alto <b>no es solo una antena "tonta"</b>: la energía reflejada genera calor en la etapa final del equipo. Muchos transceptores modernos reducen la potencia automáticamente (o se protegen) con un ROE alto. Forzar la máquina con ROE elevado es la receta para quemar un final.
+            </div>
+            <br>
+            <h3 class="titulo">Cómo se mide con el medidor</h3>
+            <br>
+            <p>El medidor de ROE (también llamado <b>medidor de ondas estacionarias</b> o SWR meter) se instala <b>en línea</b>, es decir, entre el transceptor y el cable de antena. Puede ser un equipo independiente o estar integrado en el propio radio.</p>
+            <br>
+            <div class="lista">
+                <ul>
+                  <li><b>Conecta el medidor</b> entre el transceptor y el coaxial: TX al radio, ANT a la antena.</li>
+                  <li><b>Selecciona la banda</b> de medición y baja la potencia al mínimo (5 a 10 W es suficiente).</li>
+                  <li><b>Pulsa la tecla de transmisión</b> (o el modo de prueba) y lee el valor de ROE en la escala.</li>
+                  <li><b>Repite en varias frecuencias</b> de la banda para ver dónde está la resonancia.</li>
+                </ul>
+            </div>
+            <br>
+            <div class="aviso">
+              <span class="etiqueta">Ojo, colegas</span>
+              Mide <b>con la antena al aire libre o a su altura de trabajo</b>, no a nivel del piso ni con cables enrollados. El entorno cambia la lectura: una antena que "resuena perfecto" en el taller puede comportarse distinto instalada en el techo.
+            </div>
+            <br>
+            <figure class="figura">
+              <svg viewBox="0 0 720 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Conexión en línea del medidor de ROE">
+                <defs>
+                  <marker id="swrA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                    <path d="M0,0 L10,5 L0,10 z" fill="#667085"/>
+                  </marker>
+                </defs>
+                <rect width="720" height="220" fill="#ffffff"/>
+                <rect x="20" y="70" width="140" height="60" rx="10" fill="#e8effa" stroke="#0039a6"/>
+                <text x="90" y="98" text-anchor="middle" font-family="Manrope, Inter, sans-serif" font-size="12" font-weight="700" fill="#1a1f2b">Transceptor</text>
+                <text x="90" y="114" text-anchor="middle" font-family="Manrope, Inter, sans-serif" font-size="10.5" fill="#3d4552">TX / RX</text>
+                <line x1="160" y1="100" x2="198" y2="100" stroke="#667085" stroke-width="2" marker-end="url(#swrA)"/>
+                <rect x="205" y="55" width="170" height="90" rx="10" fill="#fbe9e7" stroke="#d52b1e" stroke-width="2"/>
+                <text x="290" y="88" text-anchor="middle" font-family="Manrope, Inter, sans-serif" font-size="12" font-weight="700" fill="#1a1f2b">Medidor de ROE</text>
+                <text x="290" y="104" text-anchor="middle" font-family="Manrope, Inter, sans-serif" font-size="11" fill="#d52b1e">TX → · ← ANT</text>
+                <text x="290" y="120" text-anchor="middle" font-family="Manrope, Inter, sans-serif" font-size="10.5" fill="#3d4552">en línea con el coaxial</text>
+                <line x1="375" y1="100" x2="413" y2="100" stroke="#667085" stroke-width="2" marker-end="url(#swrA)"/>
+                <rect x="420" y="70" width="140" height="60" rx="10" fill="#fff4e5" stroke="#f2b90b"/>
+                <text x="490" y="98" text-anchor="middle" font-family="Manrope, Inter, sans-serif" font-size="12" font-weight="700" fill="#1a1f2b">Cable coaxial</text>
+                <text x="490" y="114" text-anchor="middle" font-family="Manrope, Inter, sans-serif" font-size="10.5" fill="#3d4552">50 ohm</text>
+                <line x1="560" y1="100" x2="598" y2="100" stroke="#667085" stroke-width="2" marker-end="url(#swrA)"/>
+                <rect x="605" y="70" width="95" height="60" rx="10" fill="#e8f5e9" stroke="#2e7d32"/>
+                <text x="652" y="104" text-anchor="middle" font-family="Manrope, Inter, sans-serif" font-size="12" font-weight="700" fill="#1a1f2b">Antena</text>
+              </svg>
+              <figcaption class="leyenda">Figura 1 - El medidor va en línea: transceptor → medidor → coaxial → antena</figcaption>
+            </figure>
+            <br>
+            <h3 class="titulo">¿Por qué el ROE sube de golpe?</h3>
+            <br>
+            <p>Si tu antena funcionaba bien y de pronto el ROE se dispara, el problema casi siempre está en el camino de la señal, no en la antena en sí. Estas son las causas más comunes:</p>
+            <br>
+            <div class="lista">
+                <ul>
+                  <li><b>Conectores flojos u oxidados</b>: el PL-259 es el primer sospechoso.</li>
+                  <li><b>Agua dentro del conector o del balun</b>: la humedad cambia la impedancia.</li>
+                  <li><b>Cable coaxial dañado</b>: un pliegue, un aplastón o una malla cortada.</li>
+                  <li><b>Radiales flojas o corroídas</b> (en antenas verticales).</li>
+                  <li><b>Viento que movió el dipolo</b>: un extremo que bajó cambia la resonancia.</li>
+                  <li><b>Punto de enganche de banda distinto</b>: el ROE se mide siempre en la frecuencia de trabajo.</li>
+                </ul>
+            </div>
+            <br>
+            <h3 class="titulo">Mi rutina de verificación</h3>
+            <br>
+            <p>Una vez al mes reviso el ROE en todas las bandas en que opero, antes de las activaciones de campo y siempre después de una tormenta o un viento fuerte. Es una rutina de dos minutos que me ha ahorrado más de un final de transmisión quemado.</p>
+            <br>
+            <p>¿Tienes un medidor en tu estación? ¿Cuál es el ROE más raro que has visto? ¡Cuéntamelo en los comentarios!</p>
+          </div>
+          
+      </section>
+      
+      <!-- ╔════════════════════════════════════════════════════════════╗ -->
+      <!-- ║              FIN DEL CONTENIDO PRINCIPAL                   ║ -->
+      <!-- ╚════════════════════════════════════════════════════════════╝ -->
+
+    </div>
+
+    <!-- NO TOCAR: Sidebar cargado automáticamente (incluye slider) -->
+    <div id="sidebar-container"></div>
+  </main>
+
+  <!-- NO TOCAR: Footer cargado automáticamente -->
+  <div id="footer-container"></div>
+
+  <!-- Script que carga todos los componentes -->
+  <script src="recursos/actividades.js" defer></script>
+  <script defer src="recursos/componentes.js"></script>
+</body>
+</html>

@@ -5,16 +5,25 @@ Sitio web personal del indicativo **CE4JWI** — radioaficionado activo desde la
 ## Estructura
 
 - `index.html` — portada con tarjetas de actividades
+- `novedades.html` — artículos y novedades
 - `herramienta-indicativos.html` — buscador de indicativos chilenos (SUBTEL)
-- `herramienta-licencia.html` — buscador simple de licencias en los PDFs SUBTEL
 - `herramienta-fonetico.html` — código fonético ICAO + código Morse
-- `qsls.html`, `descargar_qsls.html` — descarga de QSLs
+- `qsls.html` — buscador de QSLs (catálogo desde https://qsl.net/ce4jwi/log_qsl.json)
+- `descargar_qsls.html` — página con datos de ejemplo (usa datos generados por `generar.py`; requiere carpeta `qsl/`)
 - `log.html` — log en tiempo real (iframe externo)
 - `QSO_logger.html` — generador de ADIF
 - `calendario.html` — calendario de actividades
-- `componentes/` — header, sidebar, marquee, footer (se inyectan por JS)
+- `carrousel.js` — carrusel de imágenes para las páginas de efeméride
+- `generar.py`, `generar-indice.py` — scripts para actualizar el catálogo de QSLs
 - `recursos/` — CSS, JS, PDFs locales, imágenes
 - `public/` — imágenes y favicon
+
+## Componentes compartidos
+
+El header, la marquesina, el sidebar y el footer se definen como strings
+dentro de `recursos/componentes.js` y se inyectan en cada página con JS
+(los contenedores `<div id="header-container">` etc.). Para cambiar el menú
+o los widgets, se edita ese único archivo.
 
 ## Buscador de indicativos
 
