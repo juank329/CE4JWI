@@ -335,7 +335,7 @@
             </div>
             <div class="qsl-size-note">
               <strong>Tamaño recomendado de la imagen: 1920 x 1080 px</strong>
-              <span>Si tu imagen tiene otras medidas, se ajustará para llenarla (recortando los bordes si hace falta).</span>
+              <span>Tu imagen queda guardada en este equipo y se usará cada vez que vuelvas. Si no subes ninguna, la QSL sale en fondo blanco.</span>
             </div>
           </div>
         </div>
@@ -397,7 +397,7 @@
             <label>Color del título</label>
             <div class="color-swatch-row">
               <span class="color-swatch" id="swatchTitle">
-                <input type="color" id="titleColor" value="#ffffff">
+                <input type="color" id="titleColor" value="#1e3a5f">
               </span>
               <span class="color-swatch-value" id="swatchTitleVal">#ffffff</span>
             </div>
@@ -406,7 +406,7 @@
             <label>Color de los datos del operador</label>
             <div class="color-swatch-row">
               <span class="color-swatch" id="swatchOp">
-                <input type="color" id="opColor" value="#ffffff">
+                <input type="color" id="opColor" value="#1e3a5f">
               </span>
               <span class="color-swatch-value" id="swatchOpVal">#ffffff</span>
             </div>
@@ -433,11 +433,11 @@
         </div>
         <div class="form-group">
           <label>Indicativo Operador</label>
-          <input type="text" id="myCallsign" placeholder="Tu indicativo" style="text-transform: uppercase;">
+          <input type="text" id="myCallsign" placeholder="Tu indicativo" autocomplete="off" style="text-transform: uppercase;">
         </div>
         <div class="form-group">
           <label>Indicativo del Colega</label>
-          <input type="text" id="theirCallsign" placeholder="Indicativo contacto" style="text-transform: uppercase;">
+          <input type="text" id="theirCallsign" placeholder="Indicativo contacto" autocomplete="off" style="text-transform: uppercase;">
         </div>
       </div>
 
@@ -587,8 +587,8 @@
         opGrid: (document.getElementById('opGrid') ? document.getElementById('opGrid').value : '').trim(),
         opZonaItu: (document.getElementById('opItu') ? document.getElementById('opItu').value : '').trim(),
         opZonaCq: (document.getElementById('opCq') ? document.getElementById('opCq').value : '').trim(),
-        colorTitulo: (document.getElementById('titleColor') ? document.getElementById('titleColor').value : '#ffffff'),
-        colorDatos: (document.getElementById('opColor') ? document.getElementById('opColor').value : '#ffffff'),
+        colorTitulo: (document.getElementById('titleColor') ? document.getElementById('titleColor').value : '#1e3a5f'),
+        colorDatos: (document.getElementById('opColor') ? document.getElementById('opColor').value : '#1e3a5f'),
         opAlineacion: selAlin ? selAlin.value : '2'
       };
     }
@@ -732,6 +732,16 @@
       agradecimiento: AGRADECIMIENTO_DEFECTO
     };
 
+    // Al previsualizar sin QSOs aún, solo se usan los campos que el colega
+    // escribió; los vacíos se rellenan con los datos de ejemplo.
+    function filtrarConfigVacia(config) {
+      const limpio = {};
+      for (const k in config) {
+        if (config[k]) limpio[k] = config[k];
+      }
+      return limpio;
+    }
+
     function textoConBorde(ctx, texto, x, y, color) {
       ctx.strokeStyle = 'rgba(0,0,0,0.75)';
       ctx.lineWidth = 6;
@@ -748,8 +758,8 @@
       else if (alineacion === '3') { x = 1860; align = 'right'; }
       else { x = 960; align = 'center'; }
 
-      const colorTitulo = datos.colorTitulo || '#ffffff';
-      const colorDatos = datos.colorDatos || '#ffffff';
+      const colorTitulo = datos.colorTitulo || '#1e3a5f';
+      const colorDatos = datos.colorDatos || '#1e3a5f';
 
       ctx.save();
       ctx.textAlign = align;
@@ -800,7 +810,7 @@
             conAgradecimiento: mostrarAgradecimiento(),
             colorTexto: obtenerColorTexto(),
             colorCuadro: obtenerColorCuadro()
-          }, obtenerConfigQSL())
+          }, filtrarConfigVacia(obtenerConfigQSL()))
         : obtenerDatosVista();
 
       dibujarCabecera(ctx, vista);
@@ -808,15 +818,11 @@
     }
 
     function dibujarFondoGenerado(ctx) {
-      const g = ctx.createLinearGradient(0, 0, 1920, 1080);
-      g.addColorStop(0, '#154360');
-      g.addColorStop(1, '#0a2233');
-      ctx.fillStyle = g;
+      ctx.fillStyle = '#d1dbe6';
       ctx.fillRect(0, 0, 1920, 1080);
-      ctx.fillStyle = 'rgba(255,255,255,0.05)';
-      ctx.beginPath();
-      ctx.arc(960, 540, 300, 0, Math.PI * 2);
-      ctx.fill();
+      ctx.strokeStyle = '#b8c4d2';
+      ctx.lineWidth = 3;
+      ctx.strokeRect(2, 2, 1916, 1076);
     }
 
     const BANDERAS = {
@@ -889,24 +895,19 @@
     }
 
     function cargarPlantilla() {
-      fetch(PLANTILLA)
-        .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.blob(); })
-        .then(blob => new Promise((res, rej) => {
-          const fr = new FileReader();
-          fr.onload = () => res(fr.result);
-          fr.onerror = rej;
-          fr.readAsDataURL(blob);
-        }))
-        .then(dataUrl => {
-          const img = new Image();
-          img.onload = () => { imgFondo = img; dibujarCanvas(); };
-          img.src = dataUrl;
-        })
-        .catch(() => {
-          console.warn('Plantilla no accesible en modo archivo local. Usando fondo generado para que la QSL se pueda descargar.');
-          imgFondo = null;
-          dibujarCanvas();
-        });
+      // Cada colega usa SU PROPIO fondo. Si ya subió una imagen antes,
+      // se la recordamos; si no, empieza en blanco para que agregue la suya.
+      let guardado = null;
+      try { guardado = localStorage.getItem('qso_logger_fondo'); } catch (e) { /* ignorar */ }
+      if (guardado) {
+        const img = new Image();
+        img.onload = () => { imgFondo = img; dibujarCanvas(); };
+        img.onerror = () => { imgFondo = null; dibujarCanvas(); };
+        img.src = guardado;
+        return;
+      }
+      imgFondo = null;
+      dibujarCanvas();
     }
 
     document.addEventListener('DOMContentLoaded', () => {
@@ -980,7 +981,11 @@
         const reader = new FileReader();
         reader.onload = (ev) => {
           const img = new Image();
-          img.onload = () => { imgFondo = img; dibujarCanvas(); };
+          img.onload = () => {
+            imgFondo = img;
+            dibujarCanvas();
+            try { localStorage.setItem('qso_logger_fondo', ev.target.result); } catch (err) { /* almacen lleno, ignorar */ }
+          };
           img.src = ev.target.result;
         };
         reader.readAsDataURL(file);
