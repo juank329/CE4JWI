@@ -41,7 +41,6 @@
         <div class="qsl-acciones">
           <button type="button" class="btn-buscar" onclick="document.getElementById('qslForm').requestSubmit()">Buscar</button>
           <button type="button" class="btn-limpiar" onclick="limpiarQSL()">Limpiar</button>
-          <button type="button" class="btn-actualizar" onclick="actualizarQSL()">Actualizar</button>
           <span class="contador" id="qslContador"></span>
         </div>
 
@@ -53,24 +52,20 @@
           <p>La QSL es la confirmación de un contacto y existen varios caminos para intercambiarla: la tarjeta de papel por correo, la tarjeta electrónica por servicios como eQSL.cc, y el registro digital del LoTW (Logbook of The World) de la ARRL, que muchos concursos y diplomas aceptan de forma automática. Cada vez se usa más el "download directo", así que no olvides incluir tu correo en QRZ.com: así te llegan las confirmaciones al instante.</p>
         </div>
 
-        <figure class="figura">
-          <svg viewBox="0 0 640 260" role="img" aria-label="Ejemplo de una tarjeta QSL">
-            <text x="20" y="28" font-family="Arial, sans-serif" font-size="15" fill="#555555">Así se ve una tarjeta QSL confirmando un contacto</text>
-            <rect x="90" y="45" width="460" height="180" rx="10" fill="#ffffff" stroke="#7aa3d6" stroke-width="2"/>
-            <rect x="90" y="45" width="460" height="52" rx="10" fill="#1a4d8f"/>
-            <rect x="90" y="89" width="460" height="8" fill="#1a4d8f"/>
-            <text x="320" y="78" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#ffffff">CE4JWI  QSL</text>
-            <g font-family="Arial, sans-serif" font-size="14" fill="#333333">
-              <text x="115" y="125">Confirmo QSO con:</text>
-              <text x="115" y="148" font-size="18" font-weight="bold" fill="#b00000">XR4MAU</text>
-              <text x="340" y="125">Fecha: 01-07-2026</text>
-              <text x="340" y="148">Hora: 18:15 UTC</text>
-              <text x="115" y="175">Banda: 20 m   Modo: SSB</text>
-              <text x="115" y="200">UR 599 / UR 599  —  ¡73!</text>
-            </g>
-          </svg>
-          <figcaption class="leyenda">Una tarjeta QSL clásica: indicativo, fecha, hora, banda, modo y reportes</figcaption>
-        </figure>
+        <section class="qsl-ultima" id="qslUltima">
+          <h2 class="qsl-ultima-titulo">Última QSL generada</h2>
+          <div class="qsl-ultima-cuerpo">
+            <a class="qsl-ultima-img" id="qslUltimaImgWrap" href="#">
+              <img id="qslUltimaImg" src="" alt="Última QSL generada por CE4JWI">
+            </a>
+            <div class="qsl-ultima-datos">
+              <div class="qsl-ultima-call" id="qslUltimaCall">—</div>
+              <div class="qsl-ultima-actividad" id="qslUltimaActividad">Cargando…</div>
+              <div class="qsl-ultima-meta" id="qslUltimaMeta"></div>
+              <div class="qsl-ultima-hint" id="qslUltimaHint">Haz clic en la QSL para ampliarla</div>
+            </div>
+          </div>
+        </section>
 
       </section>
 

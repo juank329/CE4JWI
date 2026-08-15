@@ -44,7 +44,7 @@ function escapar(s) {
 function parsearNombreArchivo(nombre) {
   // dd-mm-aaaa
   const mFecha = nombre.match(/(\d{2})-(\d{2})-(\d{4})/)
-  const mHora  = nombre.match(/-(\d{4})_(?=[^_]*\.[a-z]+$)/i) // 4 dígitos antes del modo+ext
+  const mHora  = nombre.match(/_(\d{4})_(?=[^_]*\.[a-z]+$)/i) // 4 dígitos antes del modo+ext
   let fecha = ""
   if (mFecha) fecha = `${mFecha[1]}/${mFecha[2]}/${mFecha[3]}`
   let hora = ""
@@ -139,6 +139,57 @@ function indexar(data) {
   // Ordenar cada grupo por fecha (YYYY/MM/DD → orden lexicográfico funciona)
   for (const cs in indicePorIndicativo) {
     indicePorIndicativo[cs].sort((a, b) => (b.fecha || "").localeCompare(a.fecha || ""))
+  }
+
+  renderUltimaQSL()
+}
+
+// ---- Última QSL generada (destacado) -------------------------------
+
+function elegirUltimaQSL() {
+  if (!qslPlanas.length) return null
+  return qslPlanas.reduce((mejor, q) => {
+    const clave = (q.fecha || "").split("/").reverse().join("") + (q.hora || "")
+    const claveMejor = (mejor.fecha || "").split("/").reverse().join("") + (mejor.hora || "")
+    return clave >= claveMejor ? q : mejor
+  })
+}
+
+function renderUltimaQSL() {
+  const sec = document.getElementById("qslUltima")
+  if (!sec) return
+  const q = elegirUltimaQSL()
+  if (!q) {
+    sec.style.display = "none"
+    return
+  }
+  sec.style.display = ""
+
+  const img = document.getElementById("qslUltimaImg")
+  const call = document.getElementById("qslUltimaCall")
+  const act = document.getElementById("qslUltimaActividad")
+  const meta = document.getElementById("qslUltimaMeta")
+  const hint = document.getElementById("qslUltimaHint")
+
+  if (img) {
+    img.onerror = () => {
+      const wrap = img.parentElement
+      if (wrap) wrap.innerHTML = `<div class="qsl-vacio">Imagen no disponible</div>`
+    }
+    img.src = q.url
+  }
+  if (call) call.textContent = q.indicativo
+  if (act) act.textContent = q.actividad
+  if (meta) meta.textContent = `${q.fecha || ""} ${q.hora || ""} · ${q.modo || ""}`
+  if (hint) hint.textContent = "Haz clic en la QSL para ampliarla"
+
+  const wrap = document.getElementById("qslUltimaImgWrap")
+  if (wrap) {
+    wrap.onclick = (e) => {
+      e.preventDefault()
+      lightboxItems = [q]
+      abrirLightbox(0)
+    }
   }
 }
 
@@ -315,33 +366,30 @@ function limpiarQSL() {
   document.getElementById("qslCall").focus()
 }
 
-// Actualizar ahora: borra la caché local y re-descarga el JSON fresco
-async function actualizarQSL() {
-  try { localStorage.removeItem(QSL_CACHE_KEY) } catch { /* ignorar */ }
-  setEstado("Actualizando catálogo de QSLs…")
-  document.getElementById("qslContador").innerHTML = ""
-  try {
-    const { data, fuente } = await fetchQSLData({ forzar: true })
-    indexar(data)
-    setEstado(`Catálogo actualizado desde ${fuente === "directo" ? "qsl.net" : fuente}.`)
-    window.dispatchEvent(new CustomEvent("qsl:actualizado"))
-    const input = document.getElementById("qslCall")
-    if (input && input.value.trim()) buscarQSL({ preventDefault: () => {} })
-  } catch (e) {
-    setEstado("No se pudo actualizar: " + (e.message || e), true)
-  }
-}
-
-// Enter en el input → buscar
+// Precarga con re-validación en background: muestra la caché al instante
+// y luego descarga los datos frescos en silencio (sin botón de actualizar).
 document.addEventListener("DOMContentLoaded", () => {
   const input = document.getElementById("qslCall")
   if (input) input.focus()
 
-  // Precarga silenciosa del JSON en background (para que la 1ª búsqueda sea instantánea)
   if (qslPlanas.length === 0 && !window._qslPrecargando) {
     window._qslPrecargando = true
-    fetchQSLData()
-      .then(({ data }) => { indexar(data); window._qslPrecargando = false })
+
+    // 1) Instante: usar la copia local si existe
+    const cache = cargarCache()
+    if (cache && Array.isArray(cache)) {
+      indexar(cache)
+    }
+
+    // 2) Re-validación: siempre descargar lo último en background
+    fetchQSLData({ forzar: true })
+      .then(({ data }) => {
+        indexar(data)
+        window._qslPrecargando = false
+        window.dispatchEvent(new CustomEvent("qsl:actualizado"))
+        const q = document.getElementById("qslCall")
+        if (q && q.value.trim()) buscarQSL({ preventDefault: () => {} })
+      })
       .catch(() => { window._qslPrecargando = false })
   }
 })

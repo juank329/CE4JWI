@@ -249,6 +249,97 @@
 
 .qsl-tarjeta-dl:hover { text-decoration: underline; }
 
+/* ---- Última QSL generada (destacado) ---- */
+.qsl-ultima {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 1.25rem 1.35rem;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 2rem;
+}
+
+.qsl-ultima-titulo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.05rem;
+  color: var(--text);
+  margin: 0 0 1rem;
+}
+
+.qsl-ultima-titulo::before {
+  content: "";
+  width: 5px;
+  height: 1.1em;
+  border-radius: 3px;
+  background: linear-gradient(180deg, var(--blue), var(--red));
+}
+
+.qsl-ultima-cuerpo {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.qsl-ultima-img {
+  flex: 0 0 auto;
+  max-width: 430px;
+  width: 100%;
+  display: block;
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.qsl-ultima-img:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+
+.qsl-ultima-img img {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: var(--surface-alt);
+}
+
+.qsl-ultima-datos { min-width: 0; flex: 1; }
+
+.qsl-ultima-call {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 1.8rem;
+  letter-spacing: 0.05em;
+  color: var(--blue);
+}
+
+.qsl-ultima-actividad {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0.3rem 0 0.5rem;
+}
+
+.qsl-ultima-meta {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.qsl-ultima-hint {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 0.9rem;
+}
+
 /* ---- Lightbox ---- */
 .qsl-lightbox {
   display: none;
@@ -341,6 +432,12 @@
   .qsl-galeria {
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   }
+  .qsl-ultima-cuerpo {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .qsl-ultima-img { max-width: 100%; }
+  .qsl-ultima-call { font-size: 1.45rem; }
   .qsl-lightbox-nav { width: 40px; height: 40px; }
   .qsl-lightbox-prev { left: 0.5rem; }
   .qsl-lightbox-next { right: 0.5rem; }

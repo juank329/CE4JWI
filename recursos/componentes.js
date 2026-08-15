@@ -607,7 +607,7 @@ let ultQslTimer = null
 
 function ultQslParsearNombre(nombre) {
   const mFecha = nombre.match(/(\d{2})-(\d{2})-(\d{4})/)
-  const mHora = nombre.match(/-(\d{4})_(?=[^_]*\.[a-z]+$)/i)
+  const mHora = nombre.match(/_(\d{4})_(?=[^_]*\.[a-z]+$)/i)
   const mModo = nombre.match(/_([A-Z0-9]+)\.[a-z]+$/i)
   return {
     fecha: mFecha ? `${mFecha[3]}-${mFecha[2]}-${mFecha[1]}` : "",
