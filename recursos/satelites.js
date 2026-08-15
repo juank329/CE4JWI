@@ -309,6 +309,11 @@ const marcadoresTodos = new Map()
 const polilineasTodos = new Map()
 let circuloCobertura = null
 const circulosCobertura = new Map()
+let seguimientoMovilIniciado = false
+
+function esMovil() {
+  return window.innerWidth <= 768 || ("ontouchstart" in window && window.innerWidth <= 1024)
+}
 
 function eciAGeo(satrec, fecha) {
   const pv = satellite.propagate(satrec, fecha)
@@ -504,13 +509,20 @@ function poblarSelectorSatelites() {
     } else {
       satActualMapa = SATELITES.find((s) => s.norad === parseInt(v, 10)) || null
       vistaAcercada = false
+      seguimientoMovilIniciado = false
       limpiarTodos()
       if (capaOrbita && !mapa.hasLayer(capaOrbita)) capaOrbita.addTo(mapa)
       actualizarMapa()
     }
   })
-  satActualMapa = "all"
-  sel.value = "all"
+  if (esMovil()) {
+    const primero = SATELITES[0]
+    satActualMapa = primero
+    sel.value = String(primero.norad)
+  } else {
+    satActualMapa = "all"
+    sel.value = "all"
+  }
 }
 
 const COLORES_SAT = ["#1a4d8f", "#c0392b", "#27ae60", "#8e44ad", "#d35400", "#16a085", "#2980b9", "#e67e22", "#7f8c8d", "#f39c12", "#8e44ad", "#c0392b", "#16a085", "#27ae60", "#2980b9"]
@@ -644,6 +656,16 @@ function dibujarOrbita(satrec, obs) {
         <div class="f"><span class="l">Tono</span><span>${satActualMapa.tone}</span></div>
         <div class="f"><span class="l">Dir.</span><span>${dirCardinal(rumbo)} (${rumbo.toFixed(0)}°)</span></div>
       </div>`)
+  }
+
+  if (esMovil()) {
+    if (!seguimientoMovilIniciado) {
+      mapa.setView([pos.lat, pos.lon], 5)
+      seguimientoMovilIniciado = true
+    } else {
+      mapa.panTo([pos.lat, pos.lon], { animate: true, duration: 1.5 })
+    }
+    return
   }
 
   const pv = satellite.propagate(satrec, ahora)
