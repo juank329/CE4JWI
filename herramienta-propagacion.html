@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Roboto:wght@500;700;900&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Roboto:wght@500;700;900&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Roboto:wght@500;700;900&display=swap"></noscript>
+  <title>Propagación HF en Tiempo Real - CE4JWI</title>
+  <meta name="description" content="Condiciones actuales del clima espacial y estado de las bandas HF en tiempo real: flujo solar, índice K, rayos X, viento solar y qué bandas están abiertas ahora para tu radio.">
+  <link rel="stylesheet" href="recursos/styles.css">
+  <link rel="stylesheet" href="recursos/header-responsive.css">
+  <link rel="stylesheet" href="recursos/slider.css">
+  <link rel="icon" href="public/favicon-32x32.png">
+  <style>
+    .prop-form {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    .prop-form-izq {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+    .prop-live {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #2e7d32;
+      background: rgba(46,125,50,.08);
+      padding: 0.35rem 0.8rem;
+      border-radius: 50px;
+    }
+    .prop-live .prop-live-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #2e7d32;
+      animation: propPulso 1.6s ease-in-out infinite;
+    }
+    @keyframes propPulso {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.35; transform: scale(0.75); }
+    }
+    .prop-estado {
+      padding: 0.6rem 0.9rem;
+      border-radius: var(--radius-sm);
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    .prop-estado.cargando { background: #fff4e5; color: #b45309; }
+    .prop-estado.error { background: var(--red-soft); color: var(--red); }
+    .prop-estado.ok { background: #e8f5e9; color: #2e7d32; }
+
+    .prop-hero {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius-lg);
+      padding: 2rem 2.25rem;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(120deg, #0039a6 0%, #1054c4 55%, #7c3aed 120%);
+      color: var(--white);
+      box-shadow: var(--shadow-lg);
+    }
+    .prop-hero::before, .prop-hero::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.55;
+      pointer-events: none;
+    }
+    .prop-hero::before {
+      width: 260px; height: 260px;
+      background: radial-gradient(circle, rgba(255,255,255,.35), transparent 70%);
+      top: -90px; right: -40px;
+      animation: propFlotar 7s ease-in-out infinite;
+    }
+    .prop-hero::after {
+      width: 200px; height: 200px;
+      background: radial-gradient(circle, rgba(255,255,255,.22), transparent 70%);
+      bottom: -80px; left: 20%;
+      animation: propFlotar 9s ease-in-out infinite reverse;
+    }
+    @keyframes propFlotar {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(18px) scale(1.08); }
+    }
+    .prop-hero h1 {
+      position: relative;
+      z-index: 1;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.7rem;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.4rem;
+    }
+    .prop-hero p {
+      position: relative;
+      z-index: 1;
+      font-size: 0.95rem;
+      opacity: 0.9;
+      max-width: 620px;
+      line-height: 1.55;
+    }
+
+    .prop-titulo-seccion {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.15rem;
+      color: var(--text);
+      margin: 0 0 0.85rem;
+    }
+    .prop-titulo-seccion::before {
+      content: "";
+      width: 5px;
+      height: 1.15em;
+      border-radius: 3px;
+      background: linear-gradient(180deg, var(--blue), var(--red));
+      flex-shrink: 0;
+    }
+
+    .prop-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.75rem;
+    }
+    .prop-card {
+      position: relative;
+      overflow: hidden;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.15rem 1.25rem;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    }
+    .prop-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+      border-color: #c8d2e6;
+    }
+    .prop-card::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      border-radius: var(--radius-md) var(--radius-md) 0 0;
+      background: linear-gradient(90deg, var(--blue), var(--red));
+      opacity: 0.9;
+    }
+    .prop-card .prop-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px; height: 36px;
+      border-radius: 10px;
+      margin-bottom: 0.65rem;
+    }
+    .prop-card.azul .prop-icon { background: var(--blue-soft); color: var(--blue); }
+    .prop-card.rojo .prop-icon { background: var(--red-soft); color: var(--red); }
+    .prop-card.verde .prop-icon { background: rgba(46,125,50,.1); color: #2e7d32; }
+    .prop-card.naranja .prop-icon { background: rgba(230,126,34,.1); color: #e67e22; }
+    .prop-card.amarillo .prop-icon { background: rgba(243,156,18,.1); color: #b7791f; }
+    .prop-card .prop-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+      margin-bottom: 0.4rem;
+    }
+    .prop-card .prop-valor {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.9rem;
+      color: var(--text);
+      line-height: 1.1;
+      font-variant-numeric: tabular-nums;
+    }
+    .prop-card .prop-sub {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 0.3rem;
+    }
+    .prop-card .prop-extra {
+      font-family: var(--font-mono, 'JetBrains Mono', monospace);
+      font-size: 0.78rem;
+      color: var(--text-soft);
+      margin-top: 0.45rem;
+    }
+
+    .prop-bandas {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.75rem;
+    }
+    .prop-banda {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.05rem 1.2rem;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+      animation: propAparecer 0.45s ease both;
+    }
+    .prop-banda:nth-child(2n) { animation-delay: 0.06s; }
+    .prop-banda:nth-child(3n) { animation-delay: 0.12s; }
+    .prop-banda:nth-child(4n) { animation-delay: 0.18s; }
+    .prop-banda:nth-child(5n) { animation-delay: 0.24s; }
+    @keyframes propAparecer {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .prop-banda:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+      border-color: #c8d2e6;
+    }
+    .prop-banda-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.65rem;
+    }
+    .prop-banda-nombre {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.05rem;
+      color: var(--text);
+    }
+    .prop-banda-freq {
+      font-family: var(--font-mono, 'JetBrains Mono', monospace);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      background: var(--surface-alt);
+      padding: 0.2rem 0.5rem;
+      border-radius: 6px;
+    }
+    .prop-badge {
+      display: inline-block;
+      padding: 0.32rem 0.85rem;
+      border-radius: 50px;
+      font-weight: 800;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--white);
+      margin-bottom: 0.7rem;
+    }
+    .prop-badge.excelente { background: linear-gradient(135deg, #10b981, #059669); box-shadow: 0 6px 16px -4px rgba(16,185,129,.5); }
+    .prop-badge.buena { background: linear-gradient(135deg, #22c55e, #16a34a); box-shadow: 0 6px 16px -4px rgba(34,197,94,.5); }
+    .prop-badge.regular { background: linear-gradient(135deg, #fbbf24, #f59e0b); box-shadow: 0 6px 16px -4px rgba(245,158,11,.5); }
+    .prop-badge.pobre { background: linear-gradient(135deg, #f97316, #ea580c); box-shadow: 0 6px 16px -4px rgba(249,115,22,.5); }
+    .prop-badge.cerrada { background: linear-gradient(135deg, #ef4444, #dc2626); box-shadow: 0 6px 16px -4px rgba(239,68,68,.5); }
+    .prop-banda-desc {
+      font-size: 0.82rem;
+      color: var(--text-soft);
+      line-height: 1.5;
+    }
+    .prop-leyenda {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1.25rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      align-items: center;
+      font-weight: 600;
+    }
+    .prop-leyenda .sw {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      margin-right: 5px;
+      vertical-align: middle;
+      box-shadow: 0 2px 6px -1px rgba(16,24,40,.35);
+    }
+    .prop-fecha {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-family: var(--font-mono, 'JetBrains Mono', monospace);
+    }
+    .prop-btn-recargar {
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1.4rem;
+      border: none;
+      border-radius: 50px;
+      background: linear-gradient(120deg, var(--blue), #1054c4);
+      color: var(--white);
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      letter-spacing: 0.02em;
+      box-shadow: 0 6px 18px -5px rgba(0,57,166,.5);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+    }
+    .prop-btn-recargar:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 24px -6px rgba(0,57,166,.6);
+      opacity: 1;
+    }
+    .prop-btn-recargar:active { transform: translateY(1px); box-shadow: 0 4px 12px -4px rgba(0,57,166,.5); }
+    .prop-btn-recargar .prop-btn-icon {
+      width: 15px; height: 15px;
+    }
+    .prop-btn-recargar.cargando-btn .prop-btn-icon {
+      animation: propGirar 0.9s linear infinite;
+    }
+    @keyframes propGirar { to { transform: rotate(360deg); } }
+
+    @media (max-width: 640px) {
+      .prop-form { flex-direction: column; align-items: stretch; }
+      .prop-form-izq { justify-content: space-between; }
+      .prop-btn-recargar { width: 100%; justify-content: center; }
+      .page-content { padding: 1.25rem; }
+      .prop-card .prop-valor { font-size: 1.6rem; }
+      .prop-hero { padding: 1.6rem 1.4rem; }
+      .prop-hero h1 { font-size: 1.35rem; }
+      .prop-grid { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
+    }
+
+    @media (max-width: 400px) {
+      .page-content { padding: 1rem; }
+      .prop-hero { padding: 1.35rem 1.1rem; border-radius: var(--radius-md); }
+      .prop-hero h1 { font-size: 1.2rem; }
+      .prop-hero p { font-size: 0.88rem; }
+      .prop-grid { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+      .prop-card { padding: 0.9rem 0.9rem; }
+      .prop-card .prop-valor { font-size: 1.35rem; }
+      .prop-card .prop-icon { width: 30px; height: 30px; }
+      .prop-card .prop-icon svg { width: 15px; height: 15px; }
+      .prop-bandas { grid-template-columns: 1fr; }
+      .prop-form-izq { flex-direction: column; align-items: flex-start; gap: 0.35rem; }
+    }
+  </style>
+</head>
+<body>
+  <div id="header-container"></div>
+  <div id="marquee-container"></div>
+
+  <main class="main-container">
+    <div class="content">
+
+      <div class="prop-hero">
+        <h1>Propagación HF en Tiempo Real</h1>
+        <p>Clima espacial en vivo y qué bandas de radio están abiertas ahora para tu equipo, calculado con datos reales y la hora actual en Chile.</p>
+      </div>
+
+      <section class="page-content">
+
+        <div id="propEstado" class="prop-estado cargando">Cargando condiciones del clima espacial…</div>
+
+        <form class="prop-form" id="propForm">
+          <span class="prop-form-izq">
+            <span class="prop-live"><span class="prop-live-dot"></span> En vivo</span>
+            <span class="prop-fecha" id="propFecha">Esperando datos…</span>
+          </span>
+          <button type="button" class="prop-btn-recargar" id="propRecargar">
+            <svg class="prop-btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg>
+            Actualizar ahora
+          </button>
+        </form>
+
+        <h3 class="prop-titulo-seccion">Condiciones actuales del Sol y el campo magnético</h3>
+        <div class="prop-grid" id="propTarjetas">
+          <div class="prop-card azul"><div class="prop-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg></div><div class="prop-label">Flujo solar (SFI)</div><div class="prop-valor">—</div><div class="prop-sub">Cargando…</div></div>
+          <div class="prop-card naranja"><div class="prop-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h5v5l10-10h-5z"/><path d="M16 8l2-2"/><path d="M21 21l-4-4"/></svg></div><div class="prop-label">Índice K</div><div class="prop-valor">—</div><div class="prop-sub">Cargando…</div></div>
+          <div class="prop-card rojo"><div class="prop-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M21 7v6h-6"/></svg></div><div class="prop-label">Índice A</div><div class="prop-valor">—</div><div class="prop-sub">Cargando…</div></div>
+          <div class="prop-card verde"><div class="prop-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v8"/><path d="M8 12h8"/></svg></div><div class="prop-label">Rayos X</div><div class="prop-valor">—</div><div class="prop-sub">Cargando…</div></div>
+          <div class="prop-card amarillo"><div class="prop-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg></div><div class="prop-label">Manchas solares</div><div class="prop-valor">—</div><div class="prop-sub">Cargando…</div></div>
+          <div class="prop-card azul"><div class="prop-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8a7 7 0 0 1 14 0c0 5-2 7-2 7H7s-2-2-2-7z"/><path d="M9 19h6"/><path d="M10 22h4"/></svg></div><div class="prop-label">Viento solar</div><div class="prop-valor">—</div><div class="prop-sub">Cargando…</div></div>
+        </div>
+
+        <h3 class="prop-titulo-seccion">Estado de las bandas HF ahora <span class="prop-fecha" id="propHora">(hora de Chile)</span></h3>
+        <div class="prop-leyenda">
+          <span><span class="sw" style="background:#10b981;"></span> Excelente</span>
+          <span><span class="sw" style="background:#22c55e;"></span> Buena</span>
+          <span><span class="sw" style="background:#fbbf24;"></span> Regular</span>
+          <span><span class="sw" style="background:#f97316;"></span> Pobre</span>
+          <span><span class="sw" style="background:#ef4444;"></span> Cerrada</span>
+        </div>
+        <div class="prop-bandas" id="propBandas"></div>
+
+        <div class="nota">
+          <span class="etiqueta">DATO ÚTIL</span>
+          <p>El estado de cada banda se calcula con los datos reales del clima espacial: flujo solar (SFI), índice K y la hora actual en Chile. SFI alto + K bajo = bandas altas abiertas. SFI bajo o K alto = bandas bajas y ruido. Los datos provienen del reporte N0NBH (NOAA).</p>
+        </div>
+
+      </section>
+
+    </div>
+  </main>
+
+  <div id="footer-container"></div>
+
+  <script src="recursos/actividades.js" defer></script>
+  <script defer src="recursos/componentes.js"></script>
+  <script defer src="recursos/propagacion.js"></script>
+</body>
+</html>
