@@ -152,7 +152,7 @@ function obtenerAudioCtx() {
 function reproducirMorse(morse) {
   if (!morse) return
   const ctx = obtenerAudioCtx()
-  const unidad = 0.06
+  const unidad = 0.15
   const freq = 650
   const volumen = 0.25
   let t = ctx.currentTime + 0.05
