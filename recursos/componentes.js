@@ -58,6 +58,10 @@ const COMPONENTES = {
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/><path d="M8 11h6"/></svg>
             Buscar Indicativos (SUBTEL)
           </a>
+          <a href="herramienta-satelites.html" class="nav-link" data-page="satelites">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h5v5l10-10h-5z"/><path d="M16 8l2-2"/><path d="M21 21l-4-4"/></svg>
+            Seguimiento de Satélites FM
+          </a>
         </div>
       </div>
     </nav>
