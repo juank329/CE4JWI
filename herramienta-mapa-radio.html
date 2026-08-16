@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Roboto:wght@500;700;900&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Roboto:wght@500;700;900&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Roboto:wght@500;700;900&display=swap"></noscript>
+  <title>Mapa de Radioaficionados de Chile - CE4JWI</title>
+  <meta name="description" content="Mapa interactivo de todos los radioaficionados de Chile: busca por indicativo, nombre o comuna y filtra por categoría y región (datos SUBTEL)">
+  <link rel="stylesheet" href="recursos/styles.css">
+  <link rel="stylesheet" href="recursos/header-responsive.css">
+  <link rel="stylesheet" href="recursos/slider.css">
+  <link rel="stylesheet" href="recursos/leaflet.css">
+  <link rel="stylesheet" href="recursos/MarkerCluster.css">
+  <link rel="stylesheet" href="recursos/MarkerCluster.Default.css">
+  <link rel="icon" href="public/favicon-32x32.png">
+</head>
+<body>
+  <div id="header-container"></div>
+  <div id="marquee-container"></div>
+
+  <main class="main-container">
+    <div class="content">
+
+      <div class="banner">
+        <h1>Mapa de Radioaficionados de Chile</h1>
+      </div>
+
+      <section class="page-content">
+        <div class="mr-panel">
+          <div class="mr-buscar">
+            <input type="search" id="mrBusqueda" placeholder="Buscar indicativo, nombre o comuna (ej: CE4JWI)" autocomplete="off" aria-label="Buscar radioaficionado">
+          </div>
+          <div class="mr-filtros">
+            <span class="mr-total" id="mrTotal">0</span>
+            <span class="mr-total-txt">radioaficionados</span>
+            <button type="button" class="mr-filtro-cat active" data-cat="General" aria-pressed="true">General</button>
+            <button type="button" class="mr-filtro-cat active" data-cat="Superior" aria-pressed="true">Superior</button>
+            <button type="button" class="mr-filtro-cat active" data-cat="Novicio" aria-pressed="true">Novicio</button>
+            <button type="button" class="mr-filtro-cat active" data-cat="Aspirante" aria-pressed="true">Aspirante</button>
+            <select id="mrRegion" aria-label="Filtrar por región">
+              <option value="">Todas las regiones</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="mr-estado" id="mrEstado" aria-live="polite">Cargando base de datos de SUBTEL...</div>
+
+        <div class="mr-mapa" id="mrMapa"></div>
+
+        <div class="mr-leyenda">
+          <span><i class="mr-punto" style="background:#1a4d8f"></i> General</span>
+          <span><i class="mr-punto" style="background:#1e8e3e"></i> Superior</span>
+          <span><i class="mr-punto" style="background:#e08a00"></i> Novicio</span>
+          <span><i class="mr-punto" style="background:#7d3bd2"></i> Aspirante</span>
+          <span><i class="mr-punto" style="background:#d9a404"></i> Tu indicativo</span>
+        </div>
+
+        <div class="nota">
+          <span class="etiqueta">FUENTE: SUBTEL</span>
+          <p>Mapa de todos los radioaficionados de Chile según los listados oficiales de <a href="https://www.subtel.gob.cl" target="_blank" rel="noopener">SUBTEL</a> (licencias e indicativos otorgados). <strong>Los datos se actualizan automáticamente cada mes</strong> cuando se renuevan los listados de SUBTEL, igual que el buscador de indicativos. La posición de cada punto es aproximada: corresponde al lugar de la <strong>comuna de residencia</strong> declarada por el titular, no a su dirección exacta. Los aspirantes son quienes aprobaron el examen y están a la espera de su licencia definitiva. Pasa el mouse sobre un punto para ver sus datos al instante y haz clic para abrir la ficha completa; los puntos se agrupan según el zoom y los grupos con número se despliegan al acercarse. Al borrar una búsqueda, el mapa vuelve a su vista inicial.</p>
+        </div>
+
+        <noscript>
+          <div class="aviso">
+            <span class="etiqueta">JAVASCRIPT DESACTIVADO</span>
+            <p>Activa JavaScript para ver el mapa de radioaficionados de Chile.</p>
+          </div>
+        </noscript>
+      </section>
+
+    </div>
+  </main>
+
+  <div id="footer-container"></div>
+
+  <script src="recursos/leaflet.js" defer></script>
+  <script src="recursos/leaflet.markercluster.js" defer></script>
+  <script src="recursos/indicativos-data.js" defer></script>
+  <script src="recursos/mapa-comunas.js" defer></script>
+  <script src="recursos/actividades.js" defer></script>
+  <script defer src="recursos/componentes.js"></script>
+  <script defer src="recursos/mapa-radio.js"></script>
+</body>
+</html>

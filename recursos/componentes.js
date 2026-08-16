@@ -66,6 +66,14 @@ const COMPONENTES = {
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v3"/><path d="M12 18v3"/><path d="M3 12h3"/><path d="M18 12h3"/><path d="M5.6 5.6l2.1 2.1"/><path d="M16.3 16.3l2.1 2.1"/><path d="M5.6 18.4l2.1-2.1"/><path d="M16.3 7.7l2.1-2.1"/></svg>
             Propagación HF en Tiempo Real
           </a>
+          <a href="herramienta-aprs.html" class="nav-link" data-page="aprs">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.1-7-11a7 7 0 0 1 14 0c0 5.9-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/><path d="M8.8 7.8a4.4 4.4 0 0 0 0 4.4"/><path d="M15.2 7.8a4.4 4.4 0 0 1 0 4.4"/></svg>
+            Mapa APRS Chile
+          </a>
+          <a href="herramienta-mapa-radio.html" class="nav-link" data-page="mapa-radio">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4L3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"/><path d="M9 4v14"/><path d="M15 6v14"/></svg>
+            Mapa de Radioaficionados
+          </a>
         </div>
       </div>
     </nav>
@@ -516,6 +524,7 @@ async function cargarClimaMaule() {
  */
 function inicializarSlider() {
   const slides = document.querySelectorAll(".slide")
+  const track = document.getElementById("sliderTrack")
   const dots = document.querySelectorAll(".dot")
   const prevBtn = document.getElementById("sliderPrev")
   const nextBtn = document.getElementById("sliderNext")
@@ -531,10 +540,8 @@ function inicializarSlider() {
     else if (index < 0) currentSlide = slides.length - 1
     else currentSlide = index
 
-    // Actualizar slides
-    slides.forEach((slide, i) => {
-      slide.classList.toggle("active", i === currentSlide)
-    })
+    // Deslizar el track horizontalmente
+    if (track) track.style.transform = `translateX(-${currentSlide * 100}%)`
 
     // Actualizar dots
     dots.forEach((dot, i) => {

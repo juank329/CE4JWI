@@ -1764,3 +1764,521 @@ img, svg, video, iframe, embed, object {
   .tool-form { flex-direction: column; }
   .tool-form button { width: 100%; }
 }
+
+/* ============================= Mapa APRS Chile ============================= */
+.aprs-estado {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+}
+
+.aprs-resumen {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--blue);
+  margin: 0 0 0.75rem;
+}
+
+.aprs-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: 1rem;
+  align-items: stretch;
+}
+
+.aprs-mapa {
+  height: 520px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.aprs-lista {
+  max-height: 520px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface-alt);
+}
+
+.aprs-item {
+  padding: 0.6rem 0.8rem;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  outline: none;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.aprs-item:last-child { border-bottom: none; }
+
+.aprs-item:hover,
+.aprs-item:focus-visible {
+  background: var(--surface);
+  border-left: 3px solid var(--blue);
+}
+
+.aprs-item-cabecera {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  align-items: baseline;
+}
+
+.aprs-item-call {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--text);
+  font-size: 0.9rem;
+}
+
+.aprs-item-cuando {
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  white-space: nowrap;
+}
+
+.aprs-item-tipo {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--blue);
+  margin-top: 0.1rem;
+}
+
+.aprs-item-comentario {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-top: 0.1rem;
+}
+
+.aprs-leyenda {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin: 0.9rem 0 1rem;
+  font-size: 0.8rem;
+  color: var(--text-soft);
+}
+
+.aprs-leyenda span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.aprs-punto {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  flex: 0 0 auto;
+}
+
+.aprs-pop-com {
+  display: inline-block;
+  margin-top: 0.3rem;
+  font-style: italic;
+}
+
+.aprs-pop-path {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  display: inline-block;
+  margin-top: 0.3rem;
+  word-break: break-word;
+}
+
+.aprs-mapa-aprsfi {
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+
+.aprs-mapa-aprsfi iframe {
+  display: block;
+  width: 100%;
+  height: 560px;
+  border: none;
+}
+
+@media (max-width: 768px) {
+  .aprs-panel { grid-template-columns: 1fr; }
+  .aprs-mapa { height: 400px; }
+  .aprs-lista { max-height: 320px; }
+  .aprs-mapa-aprsfi iframe { height: 460px; }
+}
+
+@media (max-width: 480px) {
+  .aprs-mapa { height: 340px; }
+  .aprs-lista { max-height: 280px; }
+  .aprs-mapa-aprsfi iframe { height: 400px; }
+  .aprs-mensajes-filtro button { flex: 1 1 auto; }
+  .aprs-mensajes-cabecera { flex-direction: column; align-items: flex-start; }
+}
+
+/* Chat de mensajes APRS en vivo */
+.aprs-mensajes {
+  margin-top: 1.5rem;
+}
+
+.aprs-mensajes-cabecera {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.6rem;
+}
+
+.aprs-mensajes-cabecera h3 {
+  margin: 0;
+}
+
+.aprs-mensajes-filtro {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.aprs-mensajes-filtro button {
+  padding: 0.4rem 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface-alt);
+  color: var(--text);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.aprs-mensajes-filtro button:hover {
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+.aprs-mensajes-filtro button.active {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: #ffffff;
+}
+
+.aprs-mensajes-estado {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.aprs-mensajes-chat {
+  max-height: 620px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface-alt);
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.aprs-msg {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.5rem 0.75rem;
+}
+
+.aprs-msg.chilena {
+  background: var(--blue-soft);
+  border-color: var(--blue);
+}
+
+.aprs-msg.propio {
+  background: #fff3cd;
+  border: 2px solid #e0a800;
+  box-shadow: 0 0 0 3px rgba(224, 168, 0, 0.25);
+}
+
+.aprs-msg.propio .aprs-msg-de,
+.aprs-msg.propio .aprs-msg-para {
+  color: #8a6d00;
+  font-weight: 800;
+}
+
+.aprs-msg-etiqueta {
+  display: inline-block;
+  margin-left: 0.4rem;
+  font-family: var(--font-display);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: #e0a800;
+  color: #ffffff;
+  border-radius: 4px;
+  padding: 0.1rem 0.45rem;
+}
+
+.aprs-msg-cuerpo a {
+  color: var(--blue);
+  text-decoration: underline;
+  font-weight: 700;
+  word-break: break-all;
+}
+
+.aprs-msg-cuerpo a:hover {
+  color: var(--red);
+}
+
+.aprs-msg-cab {
+  display: flex;
+  align-items: baseline;
+  gap: 0.45rem;
+  font-size: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.aprs-msg-hora {
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  font-size: 0.72rem;
+}
+
+.aprs-msg-de {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--blue);
+}
+
+.aprs-msg-flecha {
+  color: var(--text-muted);
+}
+
+.aprs-msg-para {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--red);
+}
+
+.aprs-msg-cuerpo {
+  font-size: 0.88rem;
+  color: var(--text);
+  margin-top: 0.15rem;
+  word-break: break-word;
+}
+
+.aprs-msg-vacio {
+  color: var(--text-muted);
+  text-align: center;
+  padding: 1.5rem 0;
+  font-size: 0.85rem;
+}
+
+@media (max-width: 768px) {
+  .aprs-mensajes-chat { max-height: 460px; }
+}
+
+@media (max-width: 480px) {
+  .aprs-mensajes-chat { max-height: 380px; }
+}
+
+/* ==========================================================================
+   Mapa de Radioaficionados de Chile
+   ========================================================================== */
+.mr-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-bottom: 0.9rem;
+}
+
+.mr-buscar input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border: 2px solid var(--border, #d1d5db);
+  border-radius: 0.6rem;
+  background: var(--card-bg, #fff);
+  color: var(--text, #111827);
+  outline: none;
+}
+
+.mr-buscar input:focus {
+  border-color: var(--accent, #1a4d8f);
+  box-shadow: 0 0 0 3px rgba(26, 77, 143, 0.15);
+}
+
+.mr-filtros {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.mr-total {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--accent, #1a4d8f);
+}
+
+.mr-total-txt {
+  font-size: 0.85rem;
+  color: var(--muted, #6b7280);
+  margin-right: 0.4rem;
+}
+
+.mr-filtro-cat {
+  border: 1px solid var(--border, #d1d5db);
+  background: var(--card-bg, #fff);
+  color: var(--text, #111827);
+  border-radius: 999px;
+  padding: 0.4rem 0.85rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  opacity: 0.55;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition: opacity 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+
+.mr-filtro-cat:hover {
+  opacity: 0.8;
+}
+
+.mr-filtro-cat.active {
+  opacity: 1;
+  background: var(--accent, #1a4d8f);
+  border-color: var(--accent, #1a4d8f);
+  color: #fff;
+}
+
+#mrRegion {
+  padding: 0.4rem 0.6rem;
+  font-size: 0.85rem;
+  border: 1px solid var(--border, #d1d5db);
+  border-radius: 0.5rem;
+  background: var(--card-bg, #fff);
+  color: var(--text, #111827);
+  max-width: 100%;
+}
+
+.mr-estado {
+  margin-bottom: 0.6rem;
+  font-size: 0.85rem;
+  color: var(--muted, #6b7280);
+}
+
+.mr-mapa {
+  height: 540px;
+  border: 1px solid var(--border, #d1d5db);
+  border-radius: 0.6rem;
+  overflow: hidden;
+  z-index: 0;
+  background: #dde4ea;
+}
+
+.mr-leyenda {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin: 0.8rem 0 0.2rem;
+  font-size: 0.82rem;
+  color: var(--text, #111827);
+}
+
+.mr-leyenda span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.mr-punto {
+  display: inline-block;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25);
+}
+
+.mr-badge {
+  display: inline-block;
+  background: #d9a404;
+  color: #fff;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding: 0.1rem 0.45rem;
+  border-radius: 999px;
+  margin-left: 0.25rem;
+  vertical-align: middle;
+}
+
+.mr-pop-cat {
+  font-weight: 700;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  opacity: 0.85;
+}
+
+.mr-pop-nombre {
+  font-size: 0.85rem;
+}
+
+.mr-pop-ubi,
+.mr-pop-vence {
+  font-size: 0.78rem;
+  opacity: 0.8;
+}
+
+.mr-mapa .leaflet-container {
+  font-family: inherit;
+}
+
+.mr-mapa .leaflet-popup-content {
+  margin: 0.65rem 0.9rem;
+  line-height: 1.5;
+}
+
+.mr-mapa .leaflet-tooltip {
+  max-width: 260px;
+  white-space: normal;
+}
+
+.mr-mapa .leaflet-popup-content {
+  max-width: min(340px, calc(100vw - 4rem));
+}
+
+@media (max-width: 768px) {
+  .mr-mapa { height: 440px; }
+}
+
+@media (max-width: 480px) {
+  .mr-mapa { height: 340px; }
+  .mr-filtros { gap: 0.4rem; }
+  #mrRegion { width: 100%; }
+  .mr-buscar input { padding: 0.65rem 0.85rem; font-size: 0.95rem; }
+  .mr-total-txt { display: none; }
+  .mr-filtro-cat {
+    flex: 1 1 auto;
+    text-align: center;
+    min-height: 2.3rem;
+    font-size: 0.78rem;
+    padding: 0.35rem 0.6rem;
+  }
+  .mr-leyenda { gap: 0.5rem 0.9rem; font-size: 0.78rem; }
+  .mr-mapa .leaflet-tooltip { max-width: 220px; }
+}
