@@ -2251,15 +2251,12 @@ img, svg, video, iframe, embed, object {
 .mr-mapa .leaflet-popup-content {
   margin: 0.65rem 0.9rem;
   line-height: 1.5;
+  max-width: min(340px, calc(100vw - 4rem));
 }
 
 .mr-mapa .leaflet-tooltip {
   max-width: 260px;
   white-space: normal;
-}
-
-.mr-mapa .leaflet-popup-content {
-  max-width: min(340px, calc(100vw - 4rem));
 }
 
 @media (max-width: 768px) {

@@ -389,7 +389,6 @@ function renderVistaAgenda() {
     porDia.get(e.date).push(e)
   })
 
-  const hoy = new Date()
   let html = '<div class="cal-agenda">'
   Array.from(porDia.entries()).forEach(([fecha, evts]) => {
     const [y, m, d] = fecha.split("-").map(Number)

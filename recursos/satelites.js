@@ -538,7 +538,7 @@ function limpiarTodos() {
 }
 
 function limpiarIndividual() {
-  polilineaOrbita.setLatLngs([])
+  if (polilineaOrbita) polilineaOrbita.setLatLngs([])
   if (polilineaRecorrido) polilineaRecorrido.setLatLngs([])
   if (marcadorSatelite) {
     marcadorSatelite.setLatLng([0, 0])
