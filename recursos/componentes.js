@@ -605,10 +605,11 @@ function actualizarAnioFooter() {
 
 // ---- Widget "Último Contacto" (última QSL generada) -----------------
 
-const ULT_QSL_URL = "https://qsl.net/ce4jwi/log_qsl.json"
+const ULT_QSL_URL = "https://juank329.github.io/ce4jwi-qsls/log_qsl.json"
+const ULT_QSL_URL_QSLNET = "https://qsl.net/ce4jwi/log_qsl.json"
 const ULT_QSL_CACHE_KEY = "ce4jwi_qsl_cache_v1"
-const ULT_QSL_TTL_MS = 5 * 60 * 1000
-const ULT_QSL_REFRESH_MS = 5 * 60 * 1000
+const ULT_QSL_TTL_MS = 1 * 60 * 1000
+const ULT_QSL_REFRESH_MS = 1 * 60 * 1000
 let ultQslActual = null
 let ultQslTimer = null
 
@@ -635,10 +636,12 @@ async function ultQslFetch() {
     }
   } catch { /* ignorar */ }
 
+  const ts = Date.now()
   const intentos = [
-    { url: ULT_QSL_URL, nombre: "directo" },
-    { url: `https://api.allorigins.win/raw?url=${encodeURIComponent(ULT_QSL_URL)}`, nombre: "allorigins" },
-    { url: `https://corsproxy.io/?url=${encodeURIComponent(ULT_QSL_URL)}`, nombre: "corsproxy.io" },
+    { url: `${ULT_QSL_URL_QSLNET}?t=${ts}`,                                      nombre: "qsl.net directo" },
+    { url: `${ULT_QSL_URL}?t=${ts}`,                                             nombre: "directo (GitHub Pages)" },
+    { url: `https://api.allorigins.win/raw?url=${encodeURIComponent(`${ULT_QSL_URL_QSLNET}?t=${ts}`)}`, nombre: "allorigins" },
+    { url: `https://corsproxy.io/?url=${encodeURIComponent(`${ULT_QSL_URL_QSLNET}?t=${ts}`)}`,          nombre: "corsproxy.io" },
   ]
   for (const intento of intentos) {
     try {

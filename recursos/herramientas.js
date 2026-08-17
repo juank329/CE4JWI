@@ -240,21 +240,21 @@ document.addEventListener("DOMContentLoaded", () => {
   if (btnMorse) btnMorse.addEventListener("click", reproducirTextoMorse)
 })
 
-/* ============ Lectura en voz alta (inglés) ============ */
+/* ============ Lectura en voz alta (español) ============ */
 
 let vocesCargadas = null
 
-function obtenerVozIngles() {
+function obtenerVozEspanol() {
   if (!("speechSynthesis" in window)) return null
   const voces = window.speechSynthesis.getVoices()
   if (!voces.length) return null
 
-  const pref = ["en-US", "en-GB", "en-AU", "en-CA", "en-NZ", "en-IE", "en-ZA"]
+  const pref = ["es-CL", "es-ES", "es-MX", "es-AR", "es-CO", "es-PE", "es-VE"]
   for (const p of pref) {
     const v = voces.find((voz) => voz.lang.replace("_", "-").toUpperCase() === p)
     if (v) return v
   }
-  return voces.find((voz) => voz.lang.toLowerCase().startsWith("en")) || null
+  return voces.find((voz) => voz.lang.toLowerCase().startsWith("es")) || null
 }
 
 function leerVoz(texto) {
@@ -270,12 +270,12 @@ function leerVoz(texto) {
   }
 
   const u = new SpeechSynthesisUtterance(texto)
-  const voz = obtenerVozIngles()
+  const voz = obtenerVozEspanol()
   if (voz) {
     u.voice = voz
     u.lang = voz.lang
   } else {
-    u.lang = "en-US"
+    u.lang = "es-CL"
   }
   u.rate = 0.9
   u.pitch = 1

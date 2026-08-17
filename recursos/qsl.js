@@ -1,18 +1,19 @@
 /**
  * Buscador de QSLs de CE4JWI
  * ------------------------------
- * Fuente de datos: https://qsl.net/ce4jwi/log_qsl.json
- * (alojado en qsl.net, escrito por el script Python del escritorio
- * cada vez que se registra un QSO en Log4OM).
+ * Fuente de datos: https://juank329.github.io/ce4jwi-qsls/log_qsl.json
+ * (GitHub Pages, escrito por el bot APRS del escritorio cada QSO; qsl.net
+ * queda como respaldo).
  *
  * Optimizaciones:
  *  - Caché en localStorage por 1 hora (no re-descarga en cada visita)
  *  - Índice por indicativo (búsqueda O(1))
- *  - Fallback con proxy CORS si qsl.net bloquea el navegador del usuario
+ *  - Fallback en cadena: GitHub Pages → qsl.net → proxy CORS
  *  - Parseo de fecha embebida en el nombre del archivo JPG
  */
 
-const QSL_JSON_URL = "https://qsl.net/ce4jwi/log_qsl.json"
+const QSL_JSON_URL = "https://juank329.github.io/ce4jwi-qsls/log_qsl.json"
+const QSL_JSON_URL_QSLNET = "https://qsl.net/ce4jwi/log_qsl.json"
 const QSL_CACHE_KEY = "ce4jwi_qsl_cache_v1"
 const QSL_CACHE_TTL_MS = 5 * 60 * 1000  // 5 minutos
 
@@ -83,16 +84,16 @@ async function fetchQSLData(opciones = {}) {
     }
   }
 
-  // 2) Intentar en orden: directo → proxies CORS
-  // qsl.net NO envía Access-Control-Allow-Origin, así que desde un navegador
-  // suele ser necesario un proxy. Se prueban varios en orden.
-  // El timestamp (?t=) evita que la caché del servidor/CDN sirva el JSON viejo.
+  // 2) Intentar en orden: GitHub Pages (con CORS) → qsl.net directo → proxies
+  // El timestamp (?t=) evita que la caché del CDN sirva el JSON viejo.
   const ts = Date.now()
   const directa = `${QSL_JSON_URL}?t=${ts}`
-  const intentos = [
-    { url: directa,                                            nombre: "directo" },
-    { url: `https://api.allorigins.win/raw?url=${encodeURIComponent(directa)}`, nombre: "allorigins" },
-    { url: `https://corsproxy.io/?url=${encodeURIComponent(directa)}`,          nombre: "corsproxy.io" },
+  const directa_qslnet = `${QSL_JSON_URL_QSLNET}?t=${ts}`
+const intentos = [
+{ url: directa_qslnet,                                                       nombre: "qsl.net directo" },
+{ url: directa,                                                              nombre: "directo (GitHub Pages)" },
+    { url: `https://api.allorigins.win/raw?url=${encodeURIComponent(directa_qslnet)}`, nombre: "allorigins" },
+    { url: `https://corsproxy.io/?url=${encodeURIComponent(directa_qslnet)}`,          nombre: "corsproxy.io" },
   ]
   let lastErr = null
   for (const intento of intentos) {

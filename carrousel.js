@@ -16,6 +16,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const nextBtn = document.querySelector(".carousel-btn-next")
   const indicatorsContainer = document.querySelector(".carousel-indicators")
 
+  if (!track || !slides.length || !prevBtn || !nextBtn || !indicatorsContainer) return
+
   let currentIndex = 0
   let autoplayInterval
   const autoplayDelay = 5000
