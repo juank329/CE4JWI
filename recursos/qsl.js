@@ -84,16 +84,16 @@ async function fetchQSLData(opciones = {}) {
     }
   }
 
-  // 2) Intentar en orden: GitHub Pages (con CORS) → qsl.net directo → proxies
-  // El timestamp (?t=) evita que la caché del CDN sirva el JSON viejo.
+  // 2) Intentar en orden: GitHub Pages (CORS OK) → proxies qsl.net
   const ts = Date.now()
   const directa = `${QSL_JSON_URL}?t=${ts}`
   const directa_qslnet = `${QSL_JSON_URL_QSLNET}?t=${ts}`
-const intentos = [
-{ url: directa_qslnet,                                                       nombre: "qsl.net directo" },
-{ url: directa,                                                              nombre: "directo (GitHub Pages)" },
+  const intentos = [
+    { url: directa,                                                              nombre: "GitHub Pages" },
     { url: `https://api.allorigins.win/raw?url=${encodeURIComponent(directa_qslnet)}`, nombre: "allorigins" },
     { url: `https://corsproxy.io/?url=${encodeURIComponent(directa_qslnet)}`,          nombre: "corsproxy.io" },
+    { url: `https://r.jina.ai/http://${encodeURIComponent(directa_qslnet)}`,           nombre: "jina.ai" },
+    { url: `https://cors.bridged.cc/${encodeURIComponent(directa_qslnet)}`,           nombre: "bridged.cc" },
   ]
   let lastErr = null
   for (const intento of intentos) {
@@ -394,3 +394,29 @@ document.addEventListener("DOMContentLoaded", () => {
       .catch(() => { window._qslPrecargando = false })
   }
 })
+
+// ==== Botón "Actualizar QSLs ahora" ====
+function forzarActualizacionQSL() {
+  const btn = document.getElementById("btnActualizarQSL")
+  if (btn) {
+    btn.disabled = true
+    btn.textContent = "Actualizando…"
+  }
+  fetchQSLData({ forzar: true })
+    .then(({ data }) => {
+      indexar(data)
+      window.dispatchEvent(new CustomEvent("qsl:actualizado"))
+      const q = document.getElementById("qslCall")
+      if (q && q.value.trim()) buscarQSL({ preventDefault: () => {} })
+      if (btn) {
+        btn.textContent = "¡Actualizado!"
+        setTimeout(() => { btn.disabled = false; btn.textContent = "Actualizar QSLs ahora" }, 2000)
+      }
+    })
+    .catch(() => {
+      if (btn) {
+        btn.textContent = "Error, reintenta"
+        setTimeout(() => { btn.disabled = false; btn.textContent = "Actualizar QSLs ahora" }, 2000)
+      }
+    })
+}

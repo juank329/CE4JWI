@@ -10,7 +10,7 @@ Sitio web personal del indicativo **CE4JWI** — radioaficionado activo desde la
 - `herramienta-fonetico.html` — código fonético ICAO + código Morse
 - `herramienta-satelites.html` — seguimiento de satélites FM en vivo (Leaflet)
 - `herramienta-propagacion.html` — propagación HF en tiempo real (reporte N0NBH vía proxy CORS)
-- `qsls.html` — buscador de QSLs (catálogo desde https://qsl.net/ce4jwi/log_qsl.json)
+- `qsls.html` — buscador de QSLs (catálogo desde https://juank329.github.io/ce4jwi-qsls/log_qsl.json, con qsl.net como respaldo)
 - `descargar_qsls.html` — página con datos de ejemplo (usa datos generados por `generar.py`; requiere carpeta `qsl/`)
 - `log.html` — log en tiempo real (iframe externo)
 - `QSO_logger.html` — generador de ADIF

@@ -109,7 +109,8 @@ El bot `buscador.py` (en `Desktop\log4om_qslnet`) hace todo:
 3. El bot, por cada QSO:
    - genera el JPG de la QSL desde `plantilla_qsl.png`,
    - lo sube por FTP a qsl.net,
-   - actualiza `log_qsl.json` en qsl.net (lo baja, agrega el registro y lo sube).
+   - actualiza `log_qsl.json` en qsl.net (lo baja, agrega el registro y lo sube)
+     y publica la misma copia en GitHub Pages (`juank329/ce4jwi-qsls`).
 4. La sección "Descarga de QSLs" (`qsls.html`) las mostrará automáticamente.
 
 > Para que el QSO tenga la actividad correcta, usa el nombre de la actividad

@@ -636,12 +636,12 @@ async function ultQslFetch() {
     }
   } catch { /* ignorar */ }
 
-  const ts = Date.now()
+const ts = Date.now()
   const intentos = [
-    { url: `${ULT_QSL_URL_QSLNET}?t=${ts}`,                                      nombre: "qsl.net directo" },
-    { url: `${ULT_QSL_URL}?t=${ts}`,                                             nombre: "directo (GitHub Pages)" },
+    { url: `${ULT_QSL_URL}?t=${ts}`,                                             nombre: "GitHub Pages" },
     { url: `https://api.allorigins.win/raw?url=${encodeURIComponent(`${ULT_QSL_URL_QSLNET}?t=${ts}`)}`, nombre: "allorigins" },
     { url: `https://corsproxy.io/?url=${encodeURIComponent(`${ULT_QSL_URL_QSLNET}?t=${ts}`)}`,          nombre: "corsproxy.io" },
+    { url: `https://r.jina.ai/http://${encodeURIComponent(`${ULT_QSL_URL_QSLNET}?t=${ts}`)}`,           nombre: "jina.ai" },
   ]
   for (const intento of intentos) {
     try {
