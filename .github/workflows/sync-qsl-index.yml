@@ -2,23 +2,22 @@ name: Sync QSL Index to GitHub Pages
 
 on:
   schedule:
-    # Cada 5 minutos (cron: minuto hora día mes día-semana)
     - cron: '*/5 * * * *'
-  workflow_dispatch:  # Permite ejecutar manualmente desde Actions
+  workflow_dispatch:
 
 permissions:
-  contents: write  # Necesario para push a GitHub Pages
+  contents: write
 
 jobs:
   sync:
     runs-on: ubuntu-latest
     timeout-minutes: 10
-
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -38,47 +37,48 @@ jobs:
           GITHUB_REPO: ${{ github.repository }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          python -c "
-import ftplib, json, requests, base64, os
-from io import BytesIO
+          cat > sync.py << 'PYEOF'
+          import ftplib, json, requests, base64, os
+          from io import BytesIO
 
-FTP_HOST = os.environ['FTP_HOST']
-FTP_USER = os.environ['FTP_USER']
-FTP_PASS = os.environ['FTP_PASS']
-GITHUB_REPO = os.environ['GITHUB_REPO']
-GITHUB_TOKEN = os.environ['GITHUB_TOKEN']
+          FTP_HOST = os.environ['FTP_HOST']
+          FTP_USER = os.environ['FTP_USER']
+          FTP_PASS = os.environ['FTP_PASS']
+          GITHUB_REPO = os.environ['GITHUB_REPO']
+          GITHUB_TOKEN = os.environ['GITHUB_TOKEN']
 
-# 1) Leer índice actual del FTP
-s = ftplib.FTP(FTP_HOST, FTP_USER, FTP_PASS)
-s.cwd('/')
-buf = BytesIO()
-s.retrbinary('RETR log_qsl.json', buf.write)
-s.quit()
+          # 1) Leer índice actual del FTP
+          s = ftplib.FTP(FTP_HOST, FTP_USER, FTP_PASS)
+          s.cwd('/')
+          buf = BytesIO()
+          s.retrbinary('RETR log_qsl.json', buf.write)
+          s.quit()
 
-buf.seek(0)
-entries = json.loads(buf.read().decode('utf-8'))
-print(f'Entradas en FTP: {len(entries)}')
-if entries:
-    print(f'Última: {entries[-1][\"call\"]} - {entries[-1][\"archivo\"]}')
+          buf.seek(0)
+          entries = json.loads(buf.read().decode('utf-8'))
+          print(f'Entradas en FTP: {len(entries)}')
+          if entries:
+              print(f'Última: {entries[-1]["call"]} - {entries[-1]["archivo"]}')
 
-# 2) Subir a GitHub Pages
-url = f'https://api.github.com/repos/{GITHUB_REPO}/contents/log_qsl.json'
-headers = {
-    'Authorization': f'Bearer {GITHUB_TOKEN}',
-    'Accept': 'application/vnd.github+json',
-}
-data = {
-    'message': 'Auto-sync log_qsl.json from FTP',
-    'content': base64.b64encode(json.dumps(entries, ensure_ascii=False).encode()).decode(),
-}
-r = requests.get(url, headers=headers, timeout=10)
-if r.status_code == 200:
-    data['sha'] = r.json()['sha']
-r = requests.put(url, headers=headers, json=data, timeout=15)
-print(f'GitHub Pages: {r.status_code}')
-if r.status_code not in (200, 201):
-    print(f'Error: {r.text[:200]}')
-    exit(1)
-else:
-    print('OK - GitHub Pages actualizado')
-"
+          # 2) Subir a GitHub Pages
+          url = f'https://api.github.com/repos/{GITHUB_REPO}/contents/log_qsl.json'
+          headers = {
+              'Authorization': f'Bearer {GITHUB_TOKEN}',
+              'Accept': 'application/vnd.github+json',
+          }
+          data = {
+              'message': 'Auto-sync log_qsl.json from FTP',
+              'content': base64.b64encode(json.dumps(entries, ensure_ascii=False).encode()).decode(),
+          }
+          r = requests.get(url, headers=headers, timeout=10)
+          if r.status_code == 200:
+              data['sha'] = r.json()['sha']
+          r = requests.put(url, headers=headers, json=data, timeout=15)
+          print(f'GitHub Pages: {r.status_code}')
+          if r.status_code not in (200, 201):
+              print(f'Error: {r.text[:200]}')
+              exit(1)
+          else:
+              print('OK - GitHub Pages actualizado')
+          PYEOF
+          python sync.py
