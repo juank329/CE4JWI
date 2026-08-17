@@ -137,6 +137,7 @@ function parseSpanishDate(dateStr) {
 // Render Activity Cards
 function renderActivities() {
   const grid = document.getElementById("activityGrid")
+  if (!grid) return
 
   const sortedActivities = [...activities].sort((a, b) => {
     return parseSpanishDate(b.date) - parseSpanishDate(a.date)

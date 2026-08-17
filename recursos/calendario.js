@@ -371,12 +371,12 @@ function renderVistaMes() {
 }
 
 function renderVistaAgenda() {
+  const hoy = new Date()
   const eventos = eventosGlobal.filter((e) => {
     const [y, m] = e.date.split("-").map(Number)
-    const hoy = new Date()
     if (y < hoy.getFullYear()) return false
     if (y === hoy.getFullYear() && (m - 1) < hoy.getMonth()) return false
-    return y === hoy.getFullYear() || (y === hoy.getFullYear() + 1 && mesActual.getMonth() + 1 === m)
+    return true
   }).slice(0, 50)
 
   if (eventos.length === 0) {

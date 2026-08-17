@@ -48,7 +48,7 @@ function traducirTexto() {
   const input = document.getElementById("foneticoInput")
   const salidaFonetico = document.getElementById("salidaFonetico")
   const salidaMorse = document.getElementById("salidaMorse")
-  if (!input) return
+  if (!input || !salidaFonetico || !salidaMorse) return
 
   const texto = input.value.toUpperCase()
   const letras = texto.split("")

@@ -91,6 +91,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Soporte para teclado
   document.addEventListener("keydown", (e) => {
+    if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA" || e.target.isContentEditable) return
     if (e.key === "ArrowLeft") {
       prevSlide()
       resetAutoplay()

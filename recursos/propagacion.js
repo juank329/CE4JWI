@@ -41,72 +41,72 @@
     "160m": {
       excellent: "DX nocturno continental en su mejor momento.",
       good: "Buenas condiciones regionales de noche.",
-      regular: "Atenuada durante el día, solo regional.",
-      pobre: "Alta absorción diurna, solo contactos locales.",
-      cerrada: "Banda sin propagación útil."
+      fair: "Atenuada durante el día, solo regional.",
+      poor: "Alta absorción diurna, solo contactos locales.",
+      closed: "Banda sin propagación útil."
     },
     "80m": {
       excellent: "Perfecta para DX nocturno y gray line.",
       good: "Buena de noche y al amanecer.",
-      regular: "Atenuada durante el día.",
-      pobre: "Absorción diurna fuerte.",
-      cerrada: "Fuera de servicio."
+      fair: "Atenuada durante el día.",
+      poor: "Absorción diurna fuerte.",
+      closed: "Fuera de servicio."
     },
     "40m": {
       excellent: "La banda todoterreno en su mejor momento.",
       good: "Confiable día y noche.",
-      regular: "Usable con limitaciones diurnas.",
-      pobre: "Condiciones degradadas.",
-      cerrada: "Fuera de servicio."
+      fair: "Usable con limitaciones diurnas.",
+      poor: "Condiciones degradadas.",
+      closed: "Fuera de servicio."
     },
     "30m": {
       excellent: "Ideal para DX confiable.",
       good: "Muy estable.",
-      regular: "Aceptable.",
-      pobre: "Propagación limitada.",
-      cerrada: "Inoperativa."
+      fair: "Aceptable.",
+      poor: "Propagación limitada.",
+      closed: "Inoperativa."
     },
     "20m": {
       excellent: "La banda reina: DX internacional.",
       good: "Excelente para DX de media y larga distancia.",
-      regular: "Buena para media distancia.",
-      pobre: "Degradada por la tormenta.",
-      cerrada: "Cerrada."
+      fair: "Buena para media distancia.",
+      poor: "Degradada por la tormenta.",
+      closed: "Cerrada."
     },
     "17m": {
       excellent: "Joya para DX diurno.",
       good: "Muy buena con SFI elevado.",
-      regular: "Requiere condiciones favorables.",
-      pobre: "Marginal, SFI insuficiente.",
-      cerrada: "Cerrada."
+      fair: "Requiere condiciones favorables.",
+      poor: "Marginal, SFI insuficiente.",
+      closed: "Cerrada."
     },
     "15m": {
       excellent: "Fantástica para DX de larga distancia.",
       good: "Muy buena en horas diurnas.",
-      regular: "Funcional con SFI moderado.",
-      pobre: "SFI bajo o de noche.",
-      cerrada: "Cerrada."
+      fair: "Funcional con SFI moderado.",
+      poor: "SFI bajo o de noche.",
+      closed: "Cerrada."
     },
     "12m": {
       excellent: "Extraordinaria para DX diurno.",
       good: "Excelente con alto SFI.",
-      regular: "Marginal, necesita más sol.",
-      pobre: "Apenas utilizable.",
-      cerrada: "Cerrada de noche o con SFI bajo."
+      fair: "Marginal, necesita más sol.",
+      poor: "Apenas utilizable.",
+      closed: "Cerrada de noche o con SFI bajo."
     },
     "10m": {
       excellent: "¡Apertura global! Especialmente en máximos solares.",
       good: "Muy buena con actividad solar alta.",
-      regular: "Abierta pero inestable.",
-      pobre: "Apenas abierta.",
-      cerrada: "Cerrada (necesita SFI alto)."
+      fair: "Abierta pero inestable.",
+      poor: "Apenas abierta.",
+      closed: "Cerrada (necesita SFI alto)."
     },
     "6m": {
       excellent: "¡Esporádica-E! Aprovecha para DX.",
       good: "Abierta por condiciones especiales.",
-      regular: "Posible propagación local.",
-      pobre: "Solo troposférica.",
-      cerrada: "Sin propagación ionosférica."
+      fair: "Posible propagación local.",
+      poor: "Solo troposférica.",
+      closed: "Sin propagación ionosférica."
     }
   };
 
