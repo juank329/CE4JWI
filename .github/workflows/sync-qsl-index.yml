@@ -231,7 +231,7 @@ else:
           else:
               print(f"[CLEAN] No old entries to remove")
 
-          upload_json(s, entries)
+upload_json(s, entries)
           s.quit()
           print(f"[OK] FTP updated: {len(entries)} entries")
 
@@ -239,7 +239,7 @@ else:
               sys.exit(1)
           print("[OK] GitHub Pages updated")
           
-# Download and save images locally for GitHub Pages hosting
+          # Download and save images locally for GitHub Pages hosting
           print("[IMG] Descargando imágenes nuevas...")
           os.makedirs("qsl_images", exist_ok=True)
           s2 = ftp_connect()
@@ -258,15 +258,15 @@ else:
                       except Exception as e:
                           print(f"[IMG WARN] Error descargando {jpg}: {e}")
           s2.quit()
-          
-          # Commit and push images to CE4JWI repo
-          print("[GIT] Commitando imágenes en CE4JWI...")
-          os.system("git config user.name 'github-actions[bot]'")
-          os.system("git config user.email 'github-actions[bot]@users.noreply.github.com'")
-          os.system("git add qsl_images/")
-          os.system("git commit -m 'Add QSL images for local hosting' || true")
-          os.system("git push")
-          print("[OK] Imágenes subidas al repo CE4JWI")
 
           PYEOF
           python sync.py
+
+      - name: Commit and push QSL images
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add qsl_images/
+          git commit -m "Add QSL images for local hosting" || true
+          git push
