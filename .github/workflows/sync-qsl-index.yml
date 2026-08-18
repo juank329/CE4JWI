@@ -89,6 +89,23 @@ jobs:
                   print(f"[WARN] Delete failed {filename}: {e}")
                   return False
 
+          def _call_desde_archivo(archivo):
+              base = os.path.splitext(os.path.basename(archivo))[0]
+              partes = base.split("_")
+              if len(partes) >= 3:
+                  return partes[2].upper()
+              return base
+
+          def parsearNombreArchivo(nombre):
+              m_fecha = re.search(r"(\d{2})-(\d{2})-(\d{4})", nombre)
+              m_hora = re.search(r"_(\d{4})_(?=[^_]*\.[a-z]+$)", nombre, re.IGNORECASE)
+              m_modo = re.search(r"_([A-Z0-9]+)\.[a-z]+$", nombre, re.IGNORECASE)
+              return type("Meta", (), {
+                  "fecha": f"{m_fecha.group(3)}-{m_fecha.group(2)}-{m_fecha.group(1)}" if m_fecha else "",
+                  "hora": f"{m_hora.group(1)[:2]}:{m_hora.group(1)[2:4]}" if m_hora else "",
+                  "modo": m_modo.group(1) if m_modo else "",
+              })()
+
           def github_push(entries):
               url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/log_qsl.json"
               headers = {
@@ -117,6 +134,44 @@ jobs:
           s = ftp_connect()
           s.cwd("/")
           entries = download_json(s)
+
+          # Reconcile JSON with actual FTP files
+          ftp_files = []
+          s.retrlines("NLST", ftp_files.append)
+          ftp_jpgs = [f for f in ftp_files if f.lower().endswith('.jpg')]
+          
+          # Build lookup from existing entries by filename
+          entries_by_file = {e.get("archivo"): e for e in entries if e.get("archivo")}
+          
+          new_entries = []
+          for jpg in ftp_jpgs:
+              if jpg in entries_by_file:
+                  # File exists in JSON, check if URL is correct
+                  e = entries_by_file[jpg]
+                  expected_url = f"https://qsl.net/{FTP_USER}/{jpg}"
+                  if e.get("url") != expected_url:
+                      print(f"[FIX] Corrigiendo URL para {jpg}: {e.get('url')} -> {expected_url}")
+                      e["url"] = expected_url
+                  new_entries.append(e)
+              else:
+                  # New file not in JSON, create entry
+                  call = _call_desde_archivo(jpg)
+                  meta = parsearNombreArchivo(jpg)
+                  prefijo = jpg.split("_CE4JWI_")[0] if "_CE4JWI_" in jpg else "General"
+                  nuevo = {
+                      "call": call,
+                      "carpeta": prefijo,
+                      "archivo": jpg,
+                      "url": f"https://qsl.net/{FTP_USER}/{jpg}",
+                      "fecha": meta.fecha,
+                      "hora": meta.hora,
+                      "modo": meta.modo,
+                  }
+                  new_entries.append(nuevo)
+                  print(f"[NEW] Nueva QSL detectada: {jpg} ({call})")
+          
+          entries = new_entries
+          print(f"[RECONCILE] Total QSLs reconciliadas: {len(entries)}")
 
           # Clean test entries
           test_entries = [e for e in entries if e.get("call") in {"XR4MAU"} or e.get("carpeta") in {"TEST"}]
