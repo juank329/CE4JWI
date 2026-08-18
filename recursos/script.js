@@ -85,6 +85,9 @@ function renderPage(page) {
     const fechaInicio = parseSpanishDate(activity.date)
     const fechaFin = fechaFinActividad(activity)
     let estadoEfectivo = activity.status
+    if (activity.showAfter && hoyInicio < new Date(activity.showAfter + "T00:00:00")) {
+      return
+    }
     if (fechaFin < hoyInicio) {
       estadoEfectivo = "FINALIZADO"
     } else if (hoyInicio >= fechaInicio && hoyInicio <= fechaFin) {
