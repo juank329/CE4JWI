@@ -115,12 +115,48 @@ async function fetchQSLData(opciones = {}) {
 }
 
 // ---- Proxy imágenes para evitar hotlink qsl.net -------------------
+// Las imágenes nuevas se alojan en GitHub Pages (ce4jwi-qsls/qsl_images/)
+// Las antiguas en qsl.net usan proxies como fallback
+
+const IMG_PROXIES = [
+  u => 'https://r.jina.ai/http://' + encodeURIComponent(u),
+  u => 'https://images.weserv.nl/?url=' + encodeURIComponent(u.replace('https://', '')),
+  u => 'https://images.weserv.nl/?url=' + encodeURIComponent(u),
+  u => 'https://corsproxy.io/' + encodeURIComponent(u),
+  u => 'https://api.allorigins.win/raw?url=' + encodeURIComponent(u),
+  u => 'https://corsproxy.io/' + encodeURIComponent(u),
+]
+
+let imgProxyIndex = 0
+
 function proxyImg(url) {
   if (!url) return url
-  if (url.includes('qsl.net/ce4jwi/')) {
-    return 'https://images.weserv.nl/?url=' + encodeURIComponent(url.replace('https://', ''))
+  // Si ya es URL local de GitHub Pages, no usar proxy
+  if (url.includes('juank329.github.io/ce4jwi-qsls/qsl_images/')) return url
+  if (!url.includes('qsl.net/ce4jwi/')) return url
+  
+  // Usar el proxy actual basado en índice
+  return IMG_PROXIES[imgProxyIndex](url)
+}
+
+function nextImgProxy() {
+  imgProxyIndex = (imgProxyIndex + 1) % IMG_PROXIES.length
+  console.log(`[IMG PROXY] Cambiando a proxy #${imgProxyIndex + 1}`)
+  return IMG_PROXIES[imgProxyIndex]
+}
+
+// Función para reintentar imágenes rotas con el siguiente proxy
+function retryImgWithNextProxy(img) {
+  if (!img || !img.src) return
+  if (!img.src.includes('qsl.net/ce4jwi/')) return
+  
+  const nextProxy = nextImgProxy()
+  const newSrc = nextProxy(img.src)
+  
+  if (newSrc !== img.src) {
+    console.log(`[IMG RETRY] Reintentando con proxy: ${newSrc}`)
+    img.src = newSrc
   }
-  return url
 }
 
 // ---- Indexado por indicativo -----------------------------------------
@@ -306,10 +342,28 @@ function tarjetaQSL(q, i) {
     </div>`
 }
 
-// Si la imagen ya no existe en qsl.net (QSL borrada), oculta la tarjeta
-// para que no se muestre el icono de error. Actualiza también el contador.
+// Si la imagen ya no existe en qsl.net (QSL borrada), intenta con el siguiente proxy
+// Si todos fallan, oculta la tarjeta. Actualiza también el contador.
 function ocultarTarjetaRota(img) {
-  const tarjeta = img?.closest(".qsl-tarjeta")
+  if (!img) return
+  
+  // Intentar con el siguiente proxy
+  const currentSrc = img.src
+  const tarjeta = img.closest(".qsl-tarjeta")
+  
+  // Verificar si ya intentamos todos los proxies
+  if (!img.dataset.proxyAttempts) {
+    img.dataset.proxyAttempts = 0
+  }
+  const attempts = parseInt(img.dataset.proxyAttempts, 10)
+  
+  if (attempts < 3) { // Máximo 3 intentos con proxies diferentes
+    img.dataset.proxyAttempts = attempts + 1
+    retryImgWithNextProxy(img)
+    return
+  }
+  
+  // Todos los proxies fallaron, ocultar tarjeta
   if (tarjeta) tarjeta.classList.add("oculta")
 
   // Recontar las tarjetas visibles
