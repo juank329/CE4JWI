@@ -39,7 +39,7 @@ jobs:
         run: |
           set -euo pipefail
           cat > sync.py << 'PYEOF'
-          import ftplib, json, requests, base64, os, sys, time
+          import ftplib, json, requests, base64, os, sys, time, datetime
           from io import BytesIO
 
           FTP_HOST = os.environ['FTP_HOST']
@@ -50,6 +50,7 @@ jobs:
 
           TEST_CALLS = {"XR4MAU"}
           TEST_FOLDERS = {"TEST"}
+          DIAS_RETENCION = 365
 
           def es_test(item):
               return (item.get("call") in TEST_CALLS) or (item.get("carpeta") in TEST_FOLDERS)
@@ -124,6 +125,32 @@ jobs:
                   delete_ftp_file(s, e["archivo"])
               entries = [e for e in entries if e not in test_entries]
               print(f"[CLEAN] Removed {len(test_entries)} test entries")
+
+          # Clean old entries (> 365 days)
+          cutoff = datetime.datetime.now(datetime.timezone.utc) - datetime.timedelta(days=365)
+          old_entries = []
+          remaining = []
+          for e in entries:
+              fecha_str = e.get("fecha", "")
+              if fecha_str:
+                  try:
+                      d, m, y = map(int, fecha_str.split("/"))
+                      fecha_qsl = datetime.datetime(y, m, d, tzinfo=datetime.timezone.utc)
+                      if fecha_qsl < cutoff:
+                          a_borrar.append(e)
+                      else:
+                          remaining.append(e)
+                  except Exception:
+                      remaining.append(e)
+              else:
+                  remaining.append(e)
+          if a_borrar:
+              for e in a_borrar:
+                  delete_ftp_file(s, e["archivo"])
+              entries = remaining
+              print(f"[CLEAN] Removed {len(a_borrar)} entries > 365 days")
+          else:
+              print(f"[CLEAN] No old entries to remove")
 
           upload_json(s, entries)
           s.quit()
