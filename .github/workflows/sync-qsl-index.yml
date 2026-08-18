@@ -113,14 +113,17 @@ jobs:
               }
               for attempt in range(3):
                   try:
-                      r = requests.get(url, headers={"Authorization": f"Bearer {GITHUB_TOKEN}", "Accept": "application/vnd.github+json"}, timeout=10)
+                      sha = None
+                      r = requests.get(url, headers=headers, timeout=10)
                       if r.status_code == 200:
-                          data = {"sha": r.json()["sha"]}
-                      data = {
+                          sha = r.json().get("sha")
+                      payload = {
                           "message": "Auto-sync log_qsl.json from FTP",
                           "content": base64.b64encode(json.dumps(entries, ensure_ascii=False).encode()).decode(),
                       }
-                      r = requests.put(url, headers=headers, json=data, timeout=15)
+                      if sha:
+                          payload["sha"] = sha
+                      r = requests.put(url, headers=headers, json=payload, timeout=15)
                       if r.status_code in (200, 201):
                           return True
                       print(f"[RETRY {attempt+1}/3] GitHub PUT failed: {r.status_code} {r.text[:200]}")
