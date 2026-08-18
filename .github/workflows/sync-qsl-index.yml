@@ -19,14 +19,6 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
 
-      - name: Checkout ce4jwi-qsls repo for images
-        uses: actions/checkout@v4
-        with:
-          repository: juank329/ce4jwi-qsls
-          token: ${{ secrets.GITHUB_TOKEN }}
-          path: qsls_repo
-          fetch-depth: 0
-
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -154,9 +146,9 @@ jobs:
           new_entries = []
 for jpg in ftp_jpgs:
                if jpg in entries_by_file:
-                   # File exists in JSON, check if URL is correct (local GitHub Pages URL)
+                   # File exists in JSON, check if URL is correct (local GitHub Pages URL - repo CE4JWI)
                    e = entries_by_file[jpg]
-                   expected_url = f"https://juank329.github.io/ce4jwi-qsls/qsl_images/{jpg}"
+                   expected_url = f"https://juank329.github.io/CE4JWI/qsl_images/{jpg}"
                    if e.get("url") != expected_url:
                        print(f"[FIX] Corrigiendo URL para {jpg}: {e.get('url')} -> {expected_url}")
                        e["url"] = expected_url
@@ -167,18 +159,25 @@ else:
                    meta = parsearNombreArchivo(jpg)
                    prefijo = jpg.split("_CE4JWI_")[0] if "_CE4JWI_" in jpg else "General"
                    
-                   # Download image from FTP
+                   # New file not in JSON, create entry
+                   call = _call_desde_archivo(jpg)
+                   meta = parsearNombreArchivo(jpg)
+                   prefijo = jpg.split("_CE4JWI_")[0] if "_CE4JWI_" in jpg else "General"
+                   
+                   # Download image from FTP and save locally
                    img_buf = BytesIO()
                    try:
                        s.retrbinary(f"RETR {jpg}", img_buf.write)
                        img_buf.seek(0)
                        img_data = img_buf.read()
                        
-                       # Save image to repo (for GitHub Pages hosting)
-                       img_path = f"qsls_repo/qsl_images/{jpg}"
-                       # Note: Actual file write happens in GitHub Action step after sync
-                       # Use local URL that points to GitHub Pages (ce4jwi-qsls repo)
-                       local_url = f"https://juank329.github.io/ce4jwi-qsls/qsl_images/{jpg}"
+                       # Save image to local repo (CE4JWI/qsl_images/)
+                       img_path = f"qsl_images/{jpg}"
+                       with open(img_path, "wb") as f:
+                           f.write(img_data)
+                       print(f"[IMG] Guardada localmente: {jpg}")
+                       # URL local en GitHub Pages (repo CE4JWI)
+                       local_url = f"https://juank329.github.io/CE4JWI/qsl_images/{jpg}"
                    except Exception as e:
                        print(f"[WARN] No se pudo descargar imagen {jpg}: {e}")
                        local_url = f"https://qsl.net/{FTP_USER}/{jpg}"
@@ -240,36 +239,34 @@ else:
               sys.exit(1)
           print("[OK] GitHub Pages updated")
           
-          # Download and save images locally for GitHub Pages hosting
+# Download and save images locally for GitHub Pages hosting
           print("[IMG] Descargando imágenes nuevas...")
-          os.makedirs("qsls_repo/qsl_images", exist_ok=True)
+          os.makedirs("qsl_images", exist_ok=True)
           s2 = ftp_connect()
           s2.cwd("/")
           for e in entries:
               jpg = e.get("archivo")
               if jpg and jpg.lower().endswith(".jpg"):
-                  img_path = f"qsls_repo/qsl_images/{jpg}"
+                  img_path = f"qsl_images/{jpg}"
                   if not os.path.exists(img_path):
                       try:
                           buf = BytesIO()
-                          s2.retrbinary(f"RETR {jpg}", img_buf.write)
+                          s2.retrbinary(f"RETR {jpg}", buf.write)
                           with open(img_path, "wb") as f:
-                              f.write(img_buf.getvalue())
+                              f.write(buf.getvalue())
                           print(f"[IMG] Guardada: {jpg}")
                       except Exception as e:
                           print(f"[IMG WARN] Error descargando {jpg}: {e}")
           s2.quit()
           
-          # Commit and push images to ce4jwi-qsls repo
-          print("[GIT] Commitando imágenes en ce4jwi-qsls...")
-          os.chdir("qsls_repo")
+          # Commit and push images to CE4JWI repo
+          print("[GIT] Commitando imágenes en CE4JWI...")
           os.system("git config user.name 'github-actions[bot]'")
           os.system("git config user.email 'github-actions[bot]@users.noreply.github.com'")
           os.system("git add qsl_images/")
           os.system("git commit -m 'Add QSL images for local hosting' || true")
           os.system("git push")
-          os.chdir("..")
-          print("[OK] Imágenes subidas al repo")
+          print("[OK] Imágenes subidas al repo CE4JWI")
 
           PYEOF
           python sync.py
