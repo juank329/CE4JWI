@@ -92,7 +92,7 @@ new_entries = []
 for jpg in ftp_jpgs:
     if jpg in entries_by_file:
         e = entries_by_file[jpg]
-        e["url"] = f"https://juank329.github.io/CE4JWI/qsl_images/{jpg}"
+        e["url"] = f"https://juank329.github.io/ce4jwi-qsls/qsl_images/{jpg}"
         new_entries.append(e)
     else:
         call = call_from_file(jpg)
@@ -101,7 +101,7 @@ for jpg in ftp_jpgs:
             "call": call,
             "carpeta": "General",
             "archivo": jpg,
-            "url": f"https://juank329.github.io/CE4JWI/qsl_images/{jpg}",
+            "url": f"https://juank329.github.io/ce4jwi-qsls/qsl_images/{jpg}",
             "fecha": meta.fecha,
             "hora": meta.hora,
             "modo": meta.modo,
