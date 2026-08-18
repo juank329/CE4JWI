@@ -603,16 +603,27 @@ const ACTIVIDADES = [
     url: "dia_de_la_region_del_maule_2026.html",
   }
     ,
- {
-     id: 62,
-    title: "Día de la Miel en Chile",
-    image: "public/miel.webp",
-    status: "FINALIZADO",
-    description:
-      "Con el objetivo de dar a conocer los beneficios y bondades de la Miel, el año 2009 se declara el 6 de agosto como el Día Nacional de la Miel ..",
-    date: "06 Agosto 2026",
-    url: "dia_de_la_miel_en_chile_2026.html",
-  }
+{
+      id: 62,
+      title: "Día de la Miel en Chile",
+      image: "public/miel.webp",
+      status: "FINALIZADO",
+      description:
+        "Con el objetivo de dar a conocer los beneficios y bondades de la Miel, el año 2009 se declara el 6 de agosto como el Día Nacional de la Miel ..",
+      date: "06 Agosto 2026",
+      url: "dia_de_la_miel_en_chile_2026.html",
+    }
+    ,
+    {
+      id: 63,
+      title: "DÍA DE LA PROVINCIA DE TALCA 2026",
+      image: "public/Día de la Provincia de Talca 2026.webp",
+      status: "PRÓXIMAMENTE",
+      description:
+        "Actividad radial exclusiva DMR en Talkgroup 73040 ADN SYSTEMS (Red ADN SYSTEMS). Un solo contacto. QSL conmemorativa con diseño exclusivo 2026 enviada al correo QRZ.com. Provincia de Talca: 10 comunas, capital regional, corazón del Maule.",
+      date: "30 Agosto 2026",
+      url: "dia_de_la_provincia_de_talca_2026.html",
+    }
     ,
     {
      id: 63,

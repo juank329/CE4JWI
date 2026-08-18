@@ -114,6 +114,15 @@ async function fetchQSLData(opciones = {}) {
   throw new Error(`No se pudo cargar el catálogo de QSLs: ${lastErr?.message || "?"}`)
 }
 
+// ---- Proxy imágenes para evitar hotlink qsl.net -------------------
+function proxyImg(url) {
+  if (!url) return url
+  if (url.includes('qsl.net/ce4jwi/')) {
+    return 'https://images.weserv.nl/?url=' + encodeURIComponent(url.replace('https://', ''))
+  }
+  return url
+}
+
 // ---- Indexado por indicativo -----------------------------------------
 
 function indexar(data) {
@@ -128,7 +137,7 @@ function indexar(data) {
       indicativo: cs,
       actividad: (item.carpeta || "").replace(/_/g, " "),
       archivo: item.archivo || "",
-      url: item.url || "",
+      url: proxyImg(item.url || ""),
       fecha: meta.fecha,
       hora: meta.hora,
       modo: meta.modo,
