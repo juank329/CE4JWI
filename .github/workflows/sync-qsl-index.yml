@@ -39,7 +39,7 @@ jobs:
         run: |
           set -euo pipefail
           cat > sync.py << 'PYEOF'
-          import ftplib, json, requests, base64, os, sys, time, datetime
+          import ftplib, json, requests, base64, os, sys, time, datetime, re
           from io import BytesIO
 
           FTP_HOST = os.environ['FTP_HOST']
@@ -65,11 +65,6 @@ jobs:
                       print(f"[RETRY {attempt+1}/3] FTP connect failed: {e}")
                       time.sleep(2)
               raise RuntimeError("FTP connection failed after 3 attempts")
-
-          def list_ftp_files(session):
-              files = []
-              session.retrlines("NLST", files.append)
-              return files
 
           def download_json(session):
               buf = BytesIO()
@@ -120,7 +115,11 @@ jobs:
                   try:
                       r = requests.get(url, headers={"Authorization": f"Bearer {GITHUB_TOKEN}", "Accept": "application/vnd.github+json"}, timeout=10)
                       if r.status_code == 200:
-                          data["sha"] = r.json()["sha"]
+                          data = {"sha": r.json()["sha"]}
+                      data = {
+                          "message": "Auto-sync log_qsl.json from FTP",
+                          "content": base64.b64encode(json.dumps(entries, ensure_ascii=False).encode()).decode(),
+                      }
                       r = requests.put(url, headers=headers, json=data, timeout=15)
                       if r.status_code in (200, 201):
                           return True
@@ -131,68 +130,44 @@ jobs:
               return False
 
           # Main
-          s = ftp_connect()
+          s = ftplib.FTP(FTP_HOST, FTP_USER, FTP_PASS, timeout=30)
           s.cwd("/")
-          entries = download_json(s)
+          entries = json.loads(buf.read().decode("utf-8"))
 
           # Reconcile JSON with actual FTP files
           ftp_files = []
           s.retrlines("NLST", ftp_files.append)
           ftp_jpgs = [f for f in ftp_files if f.lower().endswith('.jpg')]
           
-          # Build lookup from existing entries by filename
           entries_by_file = {e.get("archivo"): e for e in entries if e.get("archivo")}
           
           new_entries = []
-for jpg in ftp_jpgs:
-               if jpg in entries_by_file:
-                   # File exists in JSON, check if URL is correct (local GitHub Pages URL - repo CE4JWI)
-                   e = entries_by_file[jpg]
-                   expected_url = f"https://juank329.github.io/CE4JWI/qsl_images/{jpg}"
-                   if e.get("url") != expected_url:
-                       print(f"[FIX] Corrigiendo URL para {jpg}: {e.get('url')} -> {expected_url}")
-                       e["url"] = expected_url
-                   new_entries.append(e)
-else:
-                   # New file not in JSON, create entry
-                   call = _call_desde_archivo(jpg)
-                   meta = parsearNombreArchivo(jpg)
-                   prefijo = jpg.split("_CE4JWI_")[0] if "_CE4JWI_" in jpg else "General"
-                   
-                   # New file not in JSON, create entry
-                   call = _call_desde_archivo(jpg)
-                   meta = parsearNombreArchivo(jpg)
-                   prefijo = jpg.split("_CE4JWI_")[0] if "_CE4JWI_" in jpg else "General"
-                   
-                   # Download image from FTP and save locally
-                   img_buf = BytesIO()
-                   try:
-                       s.retrbinary(f"RETR {jpg}", img_buf.write)
-                       img_buf.seek(0)
-                       img_data = img_buf.read()
-                       
-                       # Save image to local repo (CE4JWI/qsl_images/)
-                       img_path = f"qsl_images/{jpg}"
-                       with open(img_path, "wb") as f:
-                           f.write(img_data)
-                       print(f"[IMG] Guardada localmente: {jpg}")
-                       # URL local en GitHub Pages (repo CE4JWI)
-                       local_url = f"https://juank329.github.io/CE4JWI/qsl_images/{jpg}"
-                   except Exception as e:
-                       print(f"[WARN] No se pudo descargar imagen {jpg}: {e}")
-                       local_url = f"https://qsl.net/{FTP_USER}/{jpg}"
-                   
-                   nuevo = {
-                       "call": call,
-                       "carpeta": prefijo,
-                       "archivo": jpg,
-                       "url": local_url,
-                       "fecha": meta.fecha,
-                       "hora": meta.hora,
-                       "modo": meta.modo,
-                   }
-                   new_entries.append(nuevo)
-                   print(f"[NEW] Nueva QSL detectada: {jpg} ({call})")
+          for jpg in ftp_jpgs:
+              if jpg in entries_by_file:
+                  e = entries_by_file[jpg]
+                  expected_url = f"https://juank329.github.io/CE4JWI/qsl_images/{jpg}"
+                  if e.get("url") != expected_url:
+                      print(f"[FIX] Corrigiendo URL para {jpg}: {e.get('url')} -> {expected_url}")
+                      e["url"] = expected_url
+                  new_entries.append(e)
+              else:
+                  call = _call_desde_archivo(jpg)
+                  meta = parsearNombreArchivo(jpg)
+                  prefijo = jpg.split("_CE4JWI_")[0] if "_CE4JWI_" in jpg else "General"
+                  
+                  local_url = f"https://juank329.github.io/CE4JWI/qsl_images/{jpg}"
+                  
+                  nuevo = {
+                      "call": call,
+                      "carpeta": prefijo,
+                      "archivo": jpg,
+                      "url": f"https://juank329.github.io/CE4JWI/qsl_images/{jpg}",
+                      "fecha": meta.fecha,
+                      "hora": meta.hora,
+                      "modo": meta.modo,
+                  }
+                  new_entries.append(nuevo)
+                  print(f"[NEW] Nueva QSL detectada: {jpg} ({call})")
           
           entries = new_entries
           print(f"[RECONCILE] Total QSLs reconciliadas: {len(entries)}")
@@ -201,19 +176,18 @@ else:
           test_entries = [e for e in entries if e.get("call") in {"XR4MAU"} or e.get("carpeta") in {"TEST"}]
           if test_entries:
               for e in test_entries:
-                  delete_ftp_file(s, e["archivo"])
-              entries = [e for e in entries if e not in test_entries]
-              print(f"[CLEAN] Removed {len(test_entries)} test entries")
+                  pass  # Keep in index, just don't show in web
+              print(f"[CLEAN] Test entries kept in index: {len(test_entries)}")
 
           # Clean old entries (> 365 days)
           cutoff = datetime.datetime.now(datetime.timezone.utc) - datetime.timedelta(days=365)
-          old_entries = []
+          a_borrar = []
           remaining = []
           for e in entries:
               fecha_str = e.get("fecha", "")
               if fecha_str:
                   try:
-                      d, m, y = map(int, fecha_str.split("/"))
+                      d, m, y = map(int, e["fecha"].split("-"))
                       fecha_qsl = datetime.datetime(y, m, d, tzinfo=datetime.timezone.utc)
                       if fecha_qsl < cutoff:
                           a_borrar.append(e)
@@ -224,49 +198,22 @@ else:
               else:
                   remaining.append(e)
           if a_borrar:
-              for e in a_borrar:
-                  delete_ftp_file(s, e["archivo"])
               entries = remaining
               print(f"[CLEAN] Removed {len(a_borrar)} entries > 365 days")
           else:
               print(f"[CLEAN] No old entries to remove")
 
-upload_json(s, entries)
+          # Upload updated index to FTP
+          s = ftplib.FTP(FTP_HOST, FTP_USER, FTP_PASS, timeout=30)
+          s.cwd("/")
+          data = json.dumps(entries, ensure_ascii=False).encode("utf-8")
+          s.storbinary("STOR log_qsl.json", BytesIO(data))
           s.quit()
           print(f"[OK] FTP updated: {len(entries)} entries")
 
+          # Push to GitHub Pages via API
           if not github_push(entries):
               sys.exit(1)
           print("[OK] GitHub Pages updated")
-          
-          # Download and save images locally for GitHub Pages hosting
-          print("[IMG] Descargando imágenes nuevas...")
-          os.makedirs("qsl_images", exist_ok=True)
-          s2 = ftp_connect()
-          s2.cwd("/")
-          for e in entries:
-              jpg = e.get("archivo")
-              if jpg and jpg.lower().endswith(".jpg"):
-                  img_path = f"qsl_images/{jpg}"
-                  if not os.path.exists(img_path):
-                      try:
-                          buf = BytesIO()
-                          s2.retrbinary(f"RETR {jpg}", buf.write)
-                          with open(img_path, "wb") as f:
-                              f.write(buf.getvalue())
-                          print(f"[IMG] Guardada: {jpg}")
-                      except Exception as e:
-                          print(f"[IMG WARN] Error descargando {jpg}: {e}")
-          s2.quit()
-
           PYEOF
           python sync.py
-
-      - name: Commit and push QSL images
-        if: always()
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add qsl_images/
-          git commit -m "Add QSL images for local hosting" || true
-          git push
