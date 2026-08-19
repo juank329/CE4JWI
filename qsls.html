@@ -56,7 +56,7 @@
           <h2 class="qsl-ultima-titulo">Última QSL generada</h2>
           <div class="qsl-ultima-cuerpo">
             <a class="qsl-ultima-img" id="qslUltimaImgWrap" href="#">
-              <img id="qslUltimaImg" src="" alt="Última QSL generada por CE4JWI">
+              <img id="qslUltimaImg" src="" alt="Última QSL generada por CE4JWI" onerror="ocultarTarjetaRota(this)">
             </a>
             <div class="qsl-ultima-datos">
               <div class="qsl-ultima-call" id="qslUltimaCall">—</div>
@@ -66,10 +66,6 @@
             </div>
           </div>
         </section>
-
-        <div style="text-align:center; margin-top:1rem;">
-          <button id="btnActualizarQSL" class="btn-actualizar" onclick="forzarActualizacionQSL()" style="padding:0.5rem 1rem; background:#0b3f9a; color:white; border:none; border-radius:6px; cursor:pointer; font-weight:600;">Actualizar QSLs ahora</button>
-        </div>
 
       </section>
 
@@ -84,7 +80,7 @@
   <div class="qsl-lightbox" id="qslLightbox">
     <button class="qsl-lightbox-close" onclick="cerrarLightbox()" aria-label="Cerrar">×</button>
     <button class="qsl-lightbox-nav qsl-lightbox-prev" onclick="navegarLightbox(-1)" aria-label="Anterior">‹</button>
-    <img class="qsl-lightbox-img" id="qslLightboxImg" src="" alt="QSL">
+    <img class="qsl-lightbox-img" id="qslLightboxImg" src="" alt="QSL" onerror="ocultarTarjetaRota(this)">
     <button class="qsl-lightbox-nav qsl-lightbox-next" onclick="navegarLightbox(1)" aria-label="Siguiente">›</button>
     <div class="qsl-lightbox-info">
       <a class="qsl-lightbox-dl" id="qslLightboxDl" href="" download>Descargar</a>
