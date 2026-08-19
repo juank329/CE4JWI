@@ -457,29 +457,3 @@ document.addEventListener("DOMContentLoaded", () => {
       .catch(() => { window._qslPrecargando = false })
   }
 })
-
-// ==== Botón "Actualizar QSLs ahora" ====
-function forzarActualizacionQSL() {
-  const btn = document.getElementById("btnActualizarQSL")
-  if (btn) {
-    btn.disabled = true
-    btn.textContent = "Actualizando…"
-  }
-  fetchQSLData({ forzar: true })
-    .then(({ data }) => {
-      indexar(data)
-      window.dispatchEvent(new CustomEvent("qsl:actualizado"))
-      const q = document.getElementById("qslCall")
-      if (q && q.value.trim()) buscarQSL({ preventDefault: () => {} })
-      if (btn) {
-        btn.textContent = "¡Actualizado!"
-        setTimeout(() => { btn.disabled = false; btn.textContent = "Actualizar QSLs ahora" }, 2000)
-      }
-    })
-    .catch(() => {
-      if (btn) {
-        btn.textContent = "Error, reintenta"
-        setTimeout(() => { btn.disabled = false; btn.textContent = "Actualizar QSLs ahora" }, 2000)
-      }
-    })
-}

@@ -824,6 +824,7 @@ function renderizarMarquee() {
   // Próximas (fecha de inicio en el futuro o de hoy en adelante)
   const proximas = ACTIVIDADES
     .filter((a) => mqEstadoEfectivo(a) === "PRÓXIMAMENTE")
+    .filter((a) => !a.showAfter || hoy >= new Date(a.showAfter + "T00:00:00"))
     .sort((a, b) => mqParseFecha(a.date) - mqParseFecha(b.date))
 
   let seleccion
