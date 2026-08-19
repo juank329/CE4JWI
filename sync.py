@@ -109,13 +109,7 @@ for jpg in ftp_jpgs:
         new_entries.append(nuevo)
         print(f"[NEW] {jpg} ({call})")
 
-TEST_CALLS = {"XR4MAU", "XX1TEST"}
-TEST_FOLDERS = {"TEST"}
-
-entries = [e for e in new_entries if e.get("call") not in TEST_CALLS and e.get("carpeta") not in TEST_FOLDERS]
-test_removed = len(new_entries) - len(entries)
-if test_removed:
-    print(f"[CLEAN] Removed {test_removed} test entries")
+entries = new_entries
 print(f"[SYNC] Total: {len(entries)} QSLs")
 
 # Clean entries > 365 days
