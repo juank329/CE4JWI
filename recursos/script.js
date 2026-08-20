@@ -52,7 +52,11 @@ let sortedActivitiesCache = []
 function renderActivities() {
   const grid = document.getElementById("activityGrid")
 
-  sortedActivitiesCache = [...activities].sort((a, b) => {
+  sortedActivitiesCache = [...activities].filter(a => {
+    const hoy = new Date(); hoy.setHours(0,0,0,0)
+    if (a.showAfter && hoy < new Date(a.showAfter + "T00:00:00")) return false
+    return true
+  }).sort((a, b) => {
     return parseSpanishDate(b.date) - parseSpanishDate(a.date)
   })
 
@@ -85,9 +89,6 @@ function renderPage(page) {
     const fechaInicio = parseSpanishDate(activity.date)
     const fechaFin = fechaFinActividad(activity)
     let estadoEfectivo = activity.status
-    if (activity.showAfter && hoyInicio < new Date(activity.showAfter + "T00:00:00")) {
-      return
-    }
     if (fechaFin < hoyInicio) {
       estadoEfectivo = "FINALIZADO"
     } else if (hoyInicio >= fechaInicio && hoyInicio <= fechaFin) {
