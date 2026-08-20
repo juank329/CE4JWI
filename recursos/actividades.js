@@ -626,7 +626,7 @@ const ACTIVIDADES = [
     }
     ,
     {
-     id: 63,
+     id: 64,
     title: "Día del Minero en Chile",
     image: "public/minero 2026.webp",
     status: "PRÓXIMAMENTE",
