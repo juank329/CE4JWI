@@ -615,18 +615,7 @@ const ACTIVIDADES = [
     }
     ,
     {
-      id: 63,
-      title: "DÍA DE LA PROVINCIA DE TALCA 2026",
-      image: "public/Día de la Provincia de Talca 2026.webp",
-      status: "PRÓXIMAMENTE",
-      description:
-        "Actividad radial exclusiva DMR en Talkgroup 73040 ADN SYSTEMS (Red ADN SYSTEMS). Un solo contacto. QSL conmemorativa con diseño exclusivo 2026 enviada al correo QRZ.com. Provincia de Talca: 10 comunas, capital regional, corazón del Maule.",
-      date: "30 Agosto 2026",
-      url: "dia_de_la_provincia_de_talca_2026.html",
-    }
-    ,
-    {
-     id: 64,
+     id: 63,
     title: "Día del Minero en Chile",
     image: "public/minero 2026.webp",
     status: "PRÓXIMAMENTE",
