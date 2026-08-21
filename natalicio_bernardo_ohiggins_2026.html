@@ -252,31 +252,54 @@
           return arch.indexOf("aprs_") === 0 || arch.indexOf("pkt") !== -1;
         });
 
-        filtered.sort(function(a, b) {
-          var fa = (a.date || "") + " " + (a.hora || "");
-          var fb = (b.date || "") + " " + (b.hora || "");
-          return fa.localeCompare(fb);
+        var porCall = {};
+        filtered.forEach(function(q) {
+          var call = (q.call || "").toUpperCase();
+          if (!porCall[call]) {
+            porCall[call] = { call: call, contactos: [], band: q.band, mode: q.mode };
+          }
+          porCall[call].contactos.push({ date: q.date, hora: q.hora });
         });
 
-        badge.textContent = filtered.length + " QSO" + (filtered.length !== 1 ? "s" : "");
+        var ranking = Object.values(porCall);
+        ranking.forEach(function(r) {
+          if (r.contactos.length > 2) r.contactos = r.contactos.slice(-2);
+        });
+        ranking.sort(function(a, b) {
+          if (b.contactos.length !== a.contactos.length) return b.contactos.length - a.contactos.length;
+          var ultA = a.contactos[a.contactos.length - 1];
+          var ultB = b.contactos[b.contactos.length - 1];
+          return (ultA.date + ultA.hora).localeCompare(ultB.date + ultB.hora);
+        });
 
-        if (filtered.length === 0) {
+        badge.textContent = filtered.length + " QSO" + (filtered.length !== 1 ? "s" : "") + " - " + ranking.length + " estacion" + (ranking.length !== 1 ? "es" : "");
+
+        if (ranking.length === 0) {
           body.innerHTML = '<tr><td colspan="6" class="ranking-empty">Sin contactos registrados</td></tr>';
           return;
         }
 
         var html = "";
-        for (var i = 0; i < filtered.length; i++) {
-          var q = filtered[i];
-          var fc = (q.date || "").split("-");
-          var fechaFmt = (fc.length === 3) ? fc[0] + "/" + fc[1] + "/" + fc[2] : (q.date || "-");
+        for (var i = 0; i < ranking.length; i++) {
+          var r = ranking[i];
+          var c = r.contactos[0];
+          var fc = (c.date || "").split("-");
+          var fechaFmt = (fc.length === 3) ? fc[0] + "/" + fc[1] + "/" + fc[2] : (c.date || "-");
+
+          var veces = r.contactos.length;
+          var vecesTxt = veces > 1 ? ' <span style="color:#e67e22;font-weight:800;">x' + veces + "</span>" : "";
+
+          var horas = r.contactos.map(function(ct) {
+            return ct.hora;
+          }).join(", ");
+
           html += "<tr>"
             + "<td>" + (i + 1) + "</td>"
-            + '<td><a class="call-badge" href="https://www.qrz.com/db/' + (q.call || "") + '" target="_blank" rel="noopener">' + (q.call || "") + "</a></td>"
+            + '<td><a class="call-badge" href="https://www.qrz.com/db/' + r.call + '" target="_blank" rel="noopener">' + r.call + "</a>" + vecesTxt + "</td>"
             + "<td>" + fechaFmt + "</td>"
-            + "<td>" + (q.hora || "-") + "</td>"
-            + "<td>" + (q.band || "-") + "</td>"
-            + '<td><span class="mode-badge ' + modeClass(q.mode) + '">' + modeLabel(q.mode) + "</span></td>"
+            + "<td>" + horas + "</td>"
+            + "<td>" + (r.band || "-") + "</td>"
+            + '<td><span class="mode-badge ' + modeClass(r.mode) + '">' + modeLabel(r.mode) + "</span></td>"
             + "</tr>";
         }
         body.innerHTML = html;
