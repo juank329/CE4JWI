@@ -256,20 +256,31 @@
         filtered.forEach(function(q) {
           var call = (q.call || "").toUpperCase();
           if (!porCall[call]) {
-            porCall[call] = { call: call, contactos: [], band: q.band, mode: q.mode };
+            porCall[call] = { call: call, contactos: [], band: q.band || "-", mode: q.mode || "PKT" };
           }
-          porCall[call].contactos.push({ date: q.date, hora: q.hora });
+          var fecha = q.date || "";
+          var hora = q.hora || "";
+          if (!fecha && q.archivo) {
+            var fm = q.archivo.match(/(\d{2})-(\d{2})-(\d{4})/);
+            var hm = q.archivo.match(/_(\d{4})_(?=[^_]*\.[a-z]+$)/i);
+            if (fm) fecha = fm[3] + "-" + fm[2] + "-" + fm[1];
+            if (hm) hora = hm[1].substring(0, 2) + ":" + hm[1].substring(2, 4);
+          }
+          porCall[call].contactos.push({ date: fecha, hora: hora });
         });
 
-        var ranking = Object.values(porCall);
-        ranking.forEach(function(r) {
-          if (r.contactos.length > 2) r.contactos = r.contactos.slice(-2);
-        });
+        var ranking = [];
+        var keys = Object.keys(porCall);
+        for (var k = 0; k < keys.length; k++) ranking.push(porCall[keys[k]]);
+
+        for (var i = 0; i < ranking.length; i++) {
+          if (ranking[i].contactos.length > 2) ranking[i].contactos = ranking[i].contactos.slice(-2);
+        }
         ranking.sort(function(a, b) {
           if (b.contactos.length !== a.contactos.length) return b.contactos.length - a.contactos.length;
           var ultA = a.contactos[a.contactos.length - 1];
           var ultB = b.contactos[b.contactos.length - 1];
-          return (ultA.date + ultA.hora).localeCompare(ultB.date + ultB.hora);
+          return ((ultA.date || "") + (ultA.hora || "")).localeCompare((ultB.date || "") + (ultB.hora || ""));
         });
 
         badge.textContent = filtered.length + " QSO" + (filtered.length !== 1 ? "s" : "") + " - " + ranking.length + " estacion" + (ranking.length !== 1 ? "es" : "");
@@ -290,7 +301,7 @@
           var vecesTxt = veces > 1 ? ' <span style="color:#e67e22;font-weight:800;">x' + veces + "</span>" : "";
 
           var horas = r.contactos.map(function(ct) {
-            return ct.hora;
+            return ct.hora || "-";
           }).join(", ");
 
           html += "<tr>"
@@ -309,8 +320,9 @@
         fetch(JSON_URL + "?t=" + Date.now())
           .then(function(r) { return r.json(); })
           .then(function(data) { render(data); })
-          .catch(function() {
-            body.innerHTML = '<tr><td colspan="6" class="ranking-empty">Error al cargar datos</td></tr>';
+          .catch(function(e) {
+            console.error("Error cargando ranking:", e);
+            body.innerHTML = '<tr><td colspan="6" class="ranking-empty">Error al cargar datos (' + (e.message || e) + ")</td></tr>";
           });
       }
 
