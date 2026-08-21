@@ -246,18 +246,17 @@
       function render(data) {
         var filtered = data.filter(function(q) {
           if (!q.call || q.call.toUpperCase() === MY_CALL) return false;
+          var modo = (q.modo || q.mode || "").toUpperCase();
+          if (modo === "PKT" || modo === "APRS") return true;
           var carpeta = (q.carpeta || "").toLowerCase();
-          if (carpeta === "aprs" || carpeta === "pkt") return true;
-          var arch = (q.archivo || "").toLowerCase();
-          return arch.indexOf("aprs_") === 0 || arch.indexOf("pkt") !== -1;
+          if (carpeta === "aprs") return true;
+          return false;
         });
 
         var porCall = {};
+        var seenQSO = {};
         filtered.forEach(function(q) {
           var call = (q.call || "").toUpperCase();
-          if (!porCall[call]) {
-            porCall[call] = { call: call, contactos: [], band: q.band || "-", mode: q.mode || "PKT" };
-          }
           var fecha = q.date || "";
           var hora = q.hora || "";
           if (!fecha && q.archivo) {
@@ -265,6 +264,12 @@
             var hm = q.archivo.match(/_(\d{4})_(?=[^_]*\.[a-z]+$)/i);
             if (fm) fecha = fm[3] + "-" + fm[2] + "-" + fm[1];
             if (hm) hora = hm[1].substring(0, 2) + ":" + hm[1].substring(2, 4);
+          }
+          var qsok = call + "|" + fecha + "|" + hora;
+          if (seenQSO[qsok]) return;
+          seenQSO[qsok] = true;
+          if (!porCall[call]) {
+            porCall[call] = { call: call, contactos: [], band: q.band || "-", mode: q.mode || q.modo || "PKT" };
           }
           porCall[call].contactos.push({ date: fecha, hora: hora });
         });
