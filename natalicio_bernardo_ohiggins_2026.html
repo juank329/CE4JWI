@@ -71,15 +71,6 @@
       font-size: 1rem;
       color: #113f5f;
     }
-    .ranking-table tbody tr:nth-child(1) td:first-child {
-      font-size: 1.3rem;
-    }
-    .ranking-table tbody tr:nth-child(2) td:first-child {
-      font-size: 1.15rem;
-    }
-    .ranking-table tbody tr:nth-child(3) td:first-child {
-      font-size: 1.1rem;
-    }
     .call-badge {
       display: inline-block;
       background: linear-gradient(135deg, #e8f4fd, #d1ecf9);
@@ -90,6 +81,14 @@
       font-family: 'Courier New', monospace;
       font-size: 0.9rem;
       border: 1px solid #b8d9ef;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .call-badge:hover {
+      background: linear-gradient(135deg, #113f5f, #1a6b8a);
+      color: #fff;
+      border-color: #113f5f;
     }
     .mode-badge {
       display: inline-block;
@@ -268,7 +267,7 @@
           var fechaFmt = fc[0] + "/" + fc[1] + "/" + fc[2];
           html += "<tr>"
             + "<td>" + (i + 1) + "</td>"
-            + '<td><span class="call-badge">' + (q.call || "") + "</span></td>"
+            + '<td><a class="call-badge" href="https://www.qrz.com/db/' + (q.call || "") + '" target="_blank" rel="noopener">' + (q.call || "") + "</a></td>"
             + "<td>" + fechaFmt + "</td>"
             + "<td>" + (q.hora || "") + "</td>"
             + "<td>" + (q.band || "-") + "</td>"
