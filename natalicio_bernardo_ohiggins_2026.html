@@ -269,7 +269,7 @@
           if (seenQSO[qsok]) return;
           seenQSO[qsok] = true;
           if (!porCall[call]) {
-            porCall[call] = { call: call, contactos: [], band: q.band || "-", mode: q.mode || q.modo || "PKT" };
+            porCall[call] = { call: call, contactos: [], band: "2M", mode: "APRS" };
           }
           porCall[call].contactos.push({ date: fecha, hora: hora });
         });
