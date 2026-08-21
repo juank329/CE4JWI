@@ -208,7 +208,7 @@
               </tbody>
             </table>
           </div>
-          <div class="ranking-footer">Se actualiza automaticamente cada 30 segundos</div>
+          <div class="ranking-footer">Actividad finalizada - contactos registrados de forma permanente</div>
         </div>
 
       </section>
@@ -223,7 +223,6 @@
   <script>
     (function() {
       var JSON_URL = "https://juank329.github.io/ce4jwi-qsls/log_qsl.json";
-      var ACTIVITY_DATES = ["20-08-2026", "21-08-2026"];
       var MY_CALL = "CE4JWI";
       var body = document.getElementById("rankingBody");
       var badge = document.getElementById("totalQSOs");
@@ -246,17 +245,23 @@
 
       function render(data) {
         var filtered = data.filter(function(q) {
-          return ACTIVITY_DATES.indexOf(q.date) !== -1 && q.call && q.call.toUpperCase() !== MY_CALL;
+          if (!q.call || q.call.toUpperCase() === MY_CALL) return false;
+          var carpeta = (q.carpeta || "").toLowerCase();
+          if (carpeta === "aprs" || carpeta === "pkt") return true;
+          var arch = (q.archivo || "").toLowerCase();
+          return arch.indexOf("aprs_") === 0 || arch.indexOf("pkt") !== -1;
         });
 
         filtered.sort(function(a, b) {
-          return (a.hora || "").localeCompare(b.hora || "");
+          var fa = (a.date || "") + " " + (a.hora || "");
+          var fb = (b.date || "") + " " + (b.hora || "");
+          return fa.localeCompare(fb);
         });
 
         badge.textContent = filtered.length + " QSO" + (filtered.length !== 1 ? "s" : "");
 
         if (filtered.length === 0) {
-          body.innerHTML = '<tr><td colspan="6" class="ranking-empty">Esperando primeros contactos...</td></tr>';
+          body.innerHTML = '<tr><td colspan="6" class="ranking-empty">Sin contactos registrados</td></tr>';
           return;
         }
 
@@ -264,12 +269,12 @@
         for (var i = 0; i < filtered.length; i++) {
           var q = filtered[i];
           var fc = (q.date || "").split("-");
-          var fechaFmt = fc[0] + "/" + fc[1] + "/" + fc[2];
+          var fechaFmt = (fc.length === 3) ? fc[0] + "/" + fc[1] + "/" + fc[2] : (q.date || "-");
           html += "<tr>"
             + "<td>" + (i + 1) + "</td>"
             + '<td><a class="call-badge" href="https://www.qrz.com/db/' + (q.call || "") + '" target="_blank" rel="noopener">' + (q.call || "") + "</a></td>"
             + "<td>" + fechaFmt + "</td>"
-            + "<td>" + (q.hora || "") + "</td>"
+            + "<td>" + (q.hora || "-") + "</td>"
             + "<td>" + (q.band || "-") + "</td>"
             + '<td><span class="mode-badge ' + modeClass(q.mode) + '">' + modeLabel(q.mode) + "</span></td>"
             + "</tr>";
@@ -282,12 +287,11 @@
           .then(function(r) { return r.json(); })
           .then(function(data) { render(data); })
           .catch(function() {
-            body.innerHTML = '<tr><td colspan="6" class="ranking-empty">Error al cargar datos. Reintentando...</td></tr>';
+            body.innerHTML = '<tr><td colspan="6" class="ranking-empty">Error al cargar datos</td></tr>';
           });
       }
 
       load();
-      setInterval(load, 30000);
     })();
   </script>
 </body>
