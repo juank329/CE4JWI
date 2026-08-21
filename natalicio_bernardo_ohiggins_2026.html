@@ -9,6 +9,133 @@
   <link rel="stylesheet" href="recursos/header-responsive.css">
   <link rel="stylesheet" href="recursos/slider.css">
   <link rel="icon" href="public/favicon-32x32.png">
+  <style>
+    .ranking-section { margin: 3rem 0; }
+    .ranking-header { text-align: center; margin-bottom: 1.5rem; }
+    .ranking-header h2 { margin-bottom: 0.3rem; }
+    .ranking-header .total-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #113f5f, #1a6b8a);
+      color: #fff;
+      padding: 0.4rem 1.2rem;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1rem;
+      margin-top: 0.5rem;
+      box-shadow: 0 4px 15px rgba(17,63,95,0.3);
+    }
+    .ranking-table-wrap {
+      overflow-x: auto;
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+      background: #fff;
+    }
+    .ranking-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+    .ranking-table thead th {
+      background: linear-gradient(135deg, #113f5f, #1a6b8a);
+      color: #fff;
+      padding: 1rem 1.2rem;
+      text-align: left;
+      font-weight: 600;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      position: sticky;
+      top: 0;
+      z-index: 2;
+    }
+    .ranking-table thead th:first-child {
+      text-align: center;
+      width: 60px;
+    }
+    .ranking-table tbody tr {
+      transition: background 0.2s;
+      border-bottom: 1px solid #eef2f7;
+    }
+    .ranking-table tbody tr:hover {
+      background: #f0f7ff;
+    }
+    .ranking-table tbody td {
+      padding: 0.85rem 1.2rem;
+      font-size: 0.95rem;
+      color: #1a1c1e;
+      vertical-align: middle;
+    }
+    .ranking-table tbody td:first-child {
+      text-align: center;
+      font-weight: 800;
+      font-size: 1rem;
+      color: #113f5f;
+    }
+    .ranking-table tbody tr:nth-child(1) td:first-child {
+      font-size: 1.3rem;
+    }
+    .ranking-table tbody tr:nth-child(2) td:first-child {
+      font-size: 1.15rem;
+    }
+    .ranking-table tbody tr:nth-child(3) td:first-child {
+      font-size: 1.1rem;
+    }
+    .call-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #e8f4fd, #d1ecf9);
+      color: #113f5f;
+      padding: 0.25rem 0.7rem;
+      border-radius: 6px;
+      font-weight: 700;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9rem;
+      border: 1px solid #b8d9ef;
+    }
+    .mode-badge {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 5px;
+      font-weight: 600;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+    }
+    .mode-aprs { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
+    .mode-dmr { background: #fff3e0; color: #e65100; border: 1px solid #ffcc80; }
+    .mode-fm { background: #e3f2fd; color: #1565c0; border: 1px solid #90caf9; }
+    .mode-ssb { background: #fce4ec; color: #c62828; border: 1px solid #ef9a9a; }
+    .mode-ft8 { background: #f3e5f5; color: #7b1fa2; border: 1px solid #ce93d8; }
+    .ranking-empty {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: #6c757d;
+      font-size: 1rem;
+    }
+    .ranking-empty .spinner {
+      display: inline-block;
+      width: 32px;
+      height: 32px;
+      border: 3px solid #e0e0e0;
+      border-top-color: #113f5f;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin-bottom: 0.8rem;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .ranking-footer {
+      text-align: center;
+      margin-top: 1rem;
+      font-size: 0.8rem;
+      color: #999;
+    }
+    @media (max-width: 600px) {
+      .ranking-table thead th,
+      .ranking-table tbody td {
+        padding: 0.6rem 0.7rem;
+        font-size: 0.8rem;
+      }
+      .call-badge { font-size: 0.78rem; padding: 0.2rem 0.5rem; }
+    }
+  </style>
 </head>
 <body>
   <div id="header-container"></div>
@@ -60,6 +187,31 @@
         <h2>QSL</h2>
         <p>Al finalizar tu contacto, la QSL conmemorativa se genera automaticamente. Puedes consultarla en la seccion de QSL del sitio web o recibir el enlace por APRS.</p>
 
+        <div class="ranking-section">
+          <div class="ranking-header">
+            <h2>Estaciones Participantes</h2>
+            <div class="total-badge" id="totalQSOs">0 QSOs</div>
+          </div>
+          <div class="ranking-table-wrap">
+            <table class="ranking-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Estacion</th>
+                  <th>Fecha</th>
+                  <th>Hora</th>
+                  <th>Banda</th>
+                  <th>Modo</th>
+                </tr>
+              </thead>
+              <tbody id="rankingBody">
+                <tr><td colspan="6" class="ranking-empty"><div class="spinner"></div><br>Cargando participantes...</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="ranking-footer">Se actualiza automaticamente cada 30 segundos</div>
+        </div>
+
       </section>
     </div>
     <div id="sidebar-container"></div>
@@ -69,5 +221,75 @@
 
   <script src="recursos/actividades.js" defer></script>
   <script src="recursos/componentes.js"></script>
+  <script>
+    (function() {
+      var JSON_URL = "https://juank329.github.io/ce4jwi-qsls/log_qsl.json";
+      var ACTIVITY_DATE = "20-08-2026";
+      var MY_CALL = "CE4JWI";
+      var body = document.getElementById("rankingBody");
+      var badge = document.getElementById("totalQSOs");
+
+      function modeClass(mode) {
+        var m = (mode || "").toUpperCase();
+        if (m === "PKT" || m === "APRS") return "mode-aprs";
+        if (m === "DMR") return "mode-dmr";
+        if (m === "FM") return "mode-fm";
+        if (m === "SSB" || m === "LSB" || m === "USB") return "mode-ssb";
+        if (m === "FT8" || m === "FT4") return "mode-ft8";
+        return "mode-fm";
+      }
+
+      function modeLabel(mode) {
+        var m = (mode || "").toUpperCase();
+        if (m === "PKT") return "APRS";
+        return m;
+      }
+
+      function render(data) {
+        var filtered = data.filter(function(q) {
+          return q.date === ACTIVITY_DATE && q.call && q.call.toUpperCase() !== MY_CALL;
+        });
+
+        filtered.sort(function(a, b) {
+          return (a.hora || "").localeCompare(b.hora || "");
+        });
+
+        badge.textContent = filtered.length + " QSO" + (filtered.length !== 1 ? "s" : "");
+
+        if (filtered.length === 0) {
+          body.innerHTML = '<tr><td colspan="6" class="ranking-empty">Esperando primeros contactos...</td></tr>';
+          return;
+        }
+
+        var html = "";
+        for (var i = 0; i < filtered.length; i++) {
+          var q = filtered[i];
+          var fc = (q.date || "").split("-");
+          var fechaFmt = fc[0] + "/" + fc[1] + "/" + fc[2];
+          html += "<tr>"
+            + "<td>" + (i + 1) + "</td>"
+            + '<td><span class="call-badge">' + (q.call || "") + "</span></td>"
+            + "<td>" + fechaFmt + "</td>"
+            + "<td>" + (q.hora || "") + "</td>"
+            + "<td>" + (q.band || "-") + "</td>"
+            + '<td><span class="mode-badge ' + modeClass(q.mode) + '">' + modeLabel(q.mode) + "</span></td>"
+            + "</tr>";
+        }
+        body.innerHTML = html;
+      }
+
+      function load() {
+        fetch(JSON_URL + "?t=" + Date.now())
+          .then(function(r) { return r.json(); })
+          .then(function(data) { render(data); })
+          .catch(function() {
+            body.innerHTML = '<tr><td colspan="6" class="ranking-empty">Error al cargar datos. Reintentando...</td></tr>';
+          });
+      }
+
+      load();
+      setInterval(load, 30000);
+    })();
+  </script>
 </body>
 </html>
