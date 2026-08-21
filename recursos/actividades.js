@@ -624,4 +624,13 @@ const ACTIVIDADES = [
     date: "10 Agosto 2026",
     url: "dia_del_minero_en_chile_2026.html",
   },
+  {
+  id: 64,
+  title: "Natalicio de Bernardo O'Higgins 2026",
+  image: "public/bernardo_2026.webp",
+  status: "PRÓXIMAMENTE",  // o "FINALIZADO" si ya paso
+  description: "Activacion especial por el 248 aniversario del natalicio del Libertador General Bernardo O'Higgins Riquelme. Contacto por APRS (CQ BERNARDO) y DMR TG 73040 ADN Systems. QSL automatica.",
+  date: "20 Agosto 2026",
+  url: "natalicio_bernardo_ohiggins_2026.html",
+},
 ]
