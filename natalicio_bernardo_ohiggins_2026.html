@@ -224,7 +224,7 @@
   <script>
     (function() {
       var JSON_URL = "https://juank329.github.io/ce4jwi-qsls/log_qsl.json";
-      var ACTIVITY_DATE = "20-08-2026";
+      var ACTIVITY_DATES = ["20-08-2026", "21-08-2026"];
       var MY_CALL = "CE4JWI";
       var body = document.getElementById("rankingBody");
       var badge = document.getElementById("totalQSOs");
@@ -247,7 +247,7 @@
 
       function render(data) {
         var filtered = data.filter(function(q) {
-          return q.date === ACTIVITY_DATE && q.call && q.call.toUpperCase() !== MY_CALL;
+          return ACTIVITY_DATES.indexOf(q.date) !== -1 && q.call && q.call.toUpperCase() !== MY_CALL;
         });
 
         filtered.sort(function(a, b) {
