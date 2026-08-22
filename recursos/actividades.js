@@ -618,7 +618,7 @@ const ACTIVIDADES = [
      id: 63,
     title: "Día del Minero en Chile",
     image: "public/minero 2026.webp",
-    status: "PRÓXIMAMENTE",
+  status: "ACTIVO",
     description:
       "La minería y los trabajadores mineros han sido el motor de la economía del país. Por tal motivo el año 2009 se decreta el Día Nacional del Minero los 10 de agosto, que recuerda a San Lorenzo, patrono de la minería. ..",
     date: "10 Agosto 2026",
@@ -637,7 +637,7 @@ const ACTIVIDADES = [
   id: 65,
   title: "Dia Mundial del Folklore 2026",
   image: "public/FOLKLORE 2026.webp",
-  status: "PRÓXIMAMENTE",
+  status: "ACTIVO",
   description: "Activacion especial por el Dia Mundial del Folklore. Contacto por APRS (CQ FOLKLORE) y DMR TG 73040 ADN Systems. QSL automatica.",
   date: "22 Agosto 2026",
   url: "dia_mundial_folklore_2026.html",
