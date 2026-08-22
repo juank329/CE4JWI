@@ -636,7 +636,7 @@ const ACTIVIDADES = [
 {
   id: 65,
   title: "Dia Mundial del Folklore 2026",
-  image: "public/folklore_2026.webp",
+  image: "public/FOLKLORE 2026.webp",
   status: "PRÓXIMAMENTE",
   description: "Activacion especial por el Dia Mundial del Folklore. Contacto por APRS (CQ FOLKLORE) y DMR TG 73040 ADN Systems. QSL automatica.",
   date: "22 Agosto 2026",
