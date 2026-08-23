@@ -15,9 +15,9 @@ const NOMBRES_DOW_FULL = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", 
 
 const CATEGORIAS = [
   { key: "actividad",   nombre: "Activaciones CE4JWI", dot: "var(--cat-actividad)",   color: "#34c759", label: "ACTIVIDAD" },
-  { key: "nacional",    nombre: "Días nacionales",     dot: "var(--cat-nacional)",    color: "#0039a6", label: "CHILE" },
-  { key: "mundial",     nombre: "Días mundiales",      dot: "var(--cat-mundial)",     color: "#5856d6", label: "MUNDIAL" },
-  { key: "celebracion", nombre: "Celebraciones",       dot: "var(--cat-celebracion)", color: "#d52b1e", label: "CELEBRACIÓN" },
+  { key: "nacional",    nombre: "Días nacionales CE4JWI", dot: "var(--cat-nacional)",  color: "#0039a6", label: "CHILE" },
+  { key: "mundial",     nombre: "Días mundiales CE4JWI", dot: "var(--cat-mundial)",   color: "#5856d6", label: "MUNDIAL" },
+  { key: "celebracion", nombre: "Celebraciones CE4JWI", dot: "var(--cat-celebracion)", color: "#d52b1e", label: "CELEBRACIÓN" },
 ]
 
 // ---- Estado ----
