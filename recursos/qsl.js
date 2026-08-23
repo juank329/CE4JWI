@@ -119,24 +119,22 @@ async function fetchQSLData(opciones = {}) {
 // Las antiguas en qsl.net usan proxies como fallback
 
 const IMG_PROXIES = [
-  u => 'https://r.jina.ai/http://' + encodeURIComponent(u),
   u => 'https://images.weserv.nl/?url=' + encodeURIComponent(u.replace('https://', '')),
-  u => 'https://images.weserv.nl/?url=' + encodeURIComponent(u),
-  u => 'https://corsproxy.io/' + encodeURIComponent(u),
+  u => 'https://corsproxy.io/?' + encodeURIComponent(u),
   u => 'https://api.allorigins.win/raw?url=' + encodeURIComponent(u),
-  u => 'https://corsproxy.io/' + encodeURIComponent(u),
+  u => 'https://images.weserv.nl/?url=' + encodeURIComponent(u),
 ]
 
 let imgProxyIndex = 0
 
 function proxyImg(url) {
-  if (!url) return url
+  if (!url) return { proxied: url, original: url }
   // Si ya es URL local de GitHub Pages, no usar proxy
-  if (url.includes('juank329.github.io/ce4jwi-qsls/qsl_images/')) return url
-  if (!url.includes('qsl.net/ce4jwi/')) return url
+  if (url.includes('juank329.github.io/ce4jwi-qsls/qsl_images/')) return { proxied: url, original: url }
+  if (!url.includes('qsl.net/ce4jwi/')) return { proxied: url, original: url }
   
   // Usar el proxy actual basado en índice
-  return IMG_PROXIES[imgProxyIndex](url)
+  return { proxied: IMG_PROXIES[imgProxyIndex](url), original: url }
 }
 
 function nextImgProxy() {
@@ -148,10 +146,12 @@ function nextImgProxy() {
 // Función para reintentar imágenes rotas con el siguiente proxy
 function retryImgWithNextProxy(img) {
   if (!img || !img.src) return
-  if (!img.src.includes('qsl.net/ce4jwi/')) return
+  // Usar la URL original guardada, no la URL ya proxyeada
+  const originalUrl = img.dataset.originalUrl || img.src
+  if (!originalUrl.includes('qsl.net/ce4jwi/')) return
   
   const nextProxy = nextImgProxy()
-  const newSrc = nextProxy(img.src)
+  const newSrc = nextProxy(originalUrl)
   
   if (newSrc !== img.src) {
     console.log(`[IMG RETRY] Reintentando con proxy: ${newSrc}`)
@@ -169,11 +169,13 @@ function indexar(data) {
     const cs = (item.call || "").toUpperCase().trim()
     if (!cs) continue
     const meta = parsearNombreArchivo(item.archivo || "")
+    const { proxied, original } = proxyImg(item.url || "")
     const normalizado = {
       indicativo: cs,
       actividad: (item.carpeta || "").replace(/_/g, " "),
       archivo: item.archivo || "",
-      url: proxyImg(item.url || ""),
+      url: proxied,
+      urlOriginal: original,
       fecha: meta.fecha,
       hora: meta.hora,
       modo: meta.modo,
@@ -325,9 +327,10 @@ function renderBusqueda(indicativo) {
 }
 
 function tarjetaQSL(q, i) {
+  const dataOriginal = q.urlOriginal && q.urlOriginal !== q.url ? ` data-original-url="${escapar(q.urlOriginal)}"` : ""
   return `
     <div class="qsl-tarjeta" onclick="abrirLightbox(${i})">
-      <img src="${escapar(q.url)}" alt="QSL ${escapar(q.indicativo)}" loading="lazy"
+      <img src="${escapar(q.url)}" alt="QSL ${escapar(q.indicativo)}" loading="lazy"${dataOriginal}
            onerror="ocultarTarjetaRota(this)">
       <div class="qsl-tarjeta-info">
         <div class="qsl-tarjeta-actividad">${escapar(q.actividad)}</div>
@@ -347,9 +350,23 @@ function tarjetaQSL(q, i) {
 function ocultarTarjetaRota(img) {
   if (!img) return
   
-  // Intentar con el siguiente proxy
-  const currentSrc = img.src
-  const tarjeta = img.closest(".qsl-tarjeta")
+  // Asegurar que tenemos la URL original guardada
+  if (!img.dataset.originalUrl) {
+    const tarjeta = img.closest(".qsl-tarjeta")
+    const originalBtn = tarjeta?.querySelector("img[data-original-url]")
+    if (originalBtn) img.dataset.originalUrl = originalBtn.dataset.originalUrl
+    // Also try from the qslPlanas data
+    if (!img.dataset.originalUrl) {
+      const src = img.src
+      // Check if it's a proxy URL — extract original from qslPlanas
+      for (const q of qslPlanas) {
+        if (q.url === src && q.urlOriginal && q.urlOriginal !== q.url) {
+          img.dataset.originalUrl = q.urlOriginal
+          break
+        }
+      }
+    }
+  }
   
   // Verificar si ya intentamos todos los proxies
   if (!img.dataset.proxyAttempts) {
@@ -364,6 +381,7 @@ function ocultarTarjetaRota(img) {
   }
   
   // Todos los proxies fallaron, ocultar tarjeta
+  const tarjeta = img.closest(".qsl-tarjeta")
   if (tarjeta) tarjeta.classList.add("oculta")
 
   // Recontar las tarjetas visibles

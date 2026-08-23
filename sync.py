@@ -1,5 +1,6 @@
 import ftplib, json, requests, base64, os, sys, time, datetime, re, subprocess
 from io import BytesIO
+from PIL import Image
 
 FTP_HOST = os.environ['FTP_HOST']
 FTP_USER = os.environ['FTP_USER']
@@ -7,6 +8,7 @@ FTP_PASS = os.environ['FTP_PASS']
 GH_TOKEN = os.environ['GH_TOKEN']
 GITHUB_REPO = "juank329/ce4jwi-qsls"
 IMAGES_DIR = "qsl_images"
+MIN_JPG_SIZE = 5000  # QSL images are ~100-300KB minimum
 
 os.makedirs(IMAGES_DIR, exist_ok=True)
 
@@ -57,12 +59,18 @@ s.cwd("/")
 
 # Download current index from FTP
 buf = BytesIO()
+entries = []
 try:
     s.retrbinary("RETR log_qsl.json", buf.write)
     buf.seek(0)
     entries = json.loads(buf.read().decode("utf-8"))
-except:
-    entries = []
+    if not isinstance(entries, list):
+        entries = []
+except ftplib.error_perm:
+    print("[INFO] log_qsl.json aun no existe en FTP, se creara.")
+except Exception as e:
+    print(f"[WARN] No se pudo leer log_qsl.json ({e}), se intentara de nuevo mas tarde.")
+    # No sobreescribir: mantener entries = [] para crear desde cero solo si FTP no tiene nada
 print(f"[INFO] Index actual en FTP: {len(entries)} QSLs")
 
 # List FTP JPGs
@@ -71,18 +79,65 @@ s.retrlines("NLST", ftp_files.append)
 ftp_jpgs = [f for f in ftp_files if f.lower().endswith('.jpg')]
 print(f"[INFO] JPGs en FTP: {len(ftp_jpgs)}")
 
-# Download new images
+# Download new images with validation
 ya_descargadas = set(os.listdir(IMAGES_DIR))
+# First: re-validate existing local files that might be corrupt from previous runs
+corruptas_previas = 0
+for jpg in list(ya_descargadas):
+    if not jpg.lower().endswith('.jpg'):
+        continue
+    local_path = os.path.join(IMAGES_DIR, jpg)
+    try:
+        size = os.path.getsize(local_path)
+        if size < MIN_JPG_SIZE:
+            os.remove(local_path)
+            ya_descargadas.discard(jpg)
+            corruptas_previas += 1
+            continue
+        with Image.open(local_path) as im:
+            im.verify()
+    except Exception:
+        try:
+            os.remove(local_path)
+        except Exception:
+            pass
+        ya_descargadas.discard(jpg)
+        corruptas_previas += 1
+if corruptas_previas:
+    print(f"[IMG] Eliminadas {corruptas_previas} imagenes corruptas/parciales previas")
+
 nuevas = 0
 for jpg in ftp_jpgs:
     if jpg not in ya_descargadas:
+        local_path = os.path.join(IMAGES_DIR, jpg)
         try:
-            with open(os.path.join(IMAGES_DIR, jpg), 'wb') as f:
+            with open(local_path, 'wb') as f:
                 s.retrbinary(f"RETR {jpg}", f.write)
+            # Validate: file must be large enough and be a valid JPEG
+            size = os.path.getsize(local_path)
+            if size < MIN_JPG_SIZE:
+                print(f"[IMG] Descartada {jpg}: solo {size} bytes (minimo {MIN_JPG_SIZE})")
+                os.remove(local_path)
+                continue
+            try:
+                with Image.open(local_path) as im:
+                    im.verify()
+            except Exception:
+                print(f"[IMG] Descartada {jpg}: no es un JPEG valido o esta corrupta")
+                os.remove(local_path)
+                continue
             nuevas += 1
-            print(f"[IMG] Descargada: {jpg}")
+            print(f"[IMG] Descargada y validada: {jpg} ({size} bytes)")
         except Exception as e:
             print(f"[IMG] Error descargando {jpg}: {e}")
+            # Borrar archivo parcial si quedo en disco
+            local_path = os.path.join(IMAGES_DIR, jpg)
+            if os.path.exists(local_path):
+                os.remove(local_path)
+                print(f"[IMG] Archivo parcial eliminado: {jpg}")
+
+# Re-scan local dir after cleanup to get accurate list
+ya_descargadas = set(os.listdir(IMAGES_DIR))
 s.quit()
 print(f"[IMG] Nuevas descargadas: {nuevas}")
 
