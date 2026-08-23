@@ -351,8 +351,9 @@ function renderVistaMes() {
       const ymdStr = ymd(fecha);
       const evts = eventosPorDia.get(ymdStr) || [];
       const esHoy = mismoDia(fecha, hoy);
+      const esPasado = ymdStr < ymd(hoy);
       
-      html += `<div class="cal-day${esHoy ? " today" : ""}" data-fecha="${ymdStr}">`;
+      html += `<div class="cal-day${esHoy ? " today" : ""}${esPasado ? " past" : ""}" data-fecha="${ymdStr}">`;
       html += `<div class="cal-day-num">${diaNum}</div>`;
       if (evts.length) {
         html += `<div class="cal-events">`;
@@ -372,12 +373,8 @@ function renderVistaMes() {
 
 function renderVistaAgenda() {
   const hoy = new Date()
-  const eventos = eventosGlobal.filter((e) => {
-    const [y, m] = e.date.split("-").map(Number)
-    if (y < hoy.getFullYear()) return false
-    if (y === hoy.getFullYear() && (m - 1) < hoy.getMonth()) return false
-    return true
-  }).slice(0, 50)
+  const hoyStr = ymd(hoy)
+  const eventos = eventosGlobal.filter((e) => e.date >= hoyStr).slice(0, 50)
 
   if (eventos.length === 0) {
     return '<div class="cal-loading">No hay eventos próximos.</div>'

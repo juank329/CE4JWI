@@ -266,6 +266,9 @@
 .cal-day:hover { background: var(--surface-alt); }
 .cal-day.out { background: #fafafa; color: var(--cal-text-muted); }
 .cal-day.out .cal-day-num { color: #c7c7cc; }
+.cal-day.past { background: #fef2f2; }
+.cal-day.past .cal-day-num { color: var(--cal-red); font-weight: 700; }
+.cal-day.past .cal-event { opacity: 0.55; }
 .cal-day.today { background: linear-gradient(135deg, #fff5f0, #fff); }
 .cal-day.today .cal-day-num {
   background: var(--cal-red);
