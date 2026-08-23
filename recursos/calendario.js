@@ -14,10 +14,7 @@ const NOMBRES_DOW = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"]
 const NOMBRES_DOW_FULL = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"]
 
 const CATEGORIAS = [
-  { key: "actividad",   nombre: "Activaciones CE4JWI", dot: "var(--cat-actividad)",   color: "#34c759", label: "ACTIVIDAD" },
-  { key: "nacional",    nombre: "Días nacionales CE4JWI", dot: "var(--cat-nacional)",  color: "#0039a6", label: "CHILE" },
-  { key: "mundial",     nombre: "Días mundiales CE4JWI", dot: "var(--cat-mundial)",   color: "#5856d6", label: "MUNDIAL" },
-  { key: "celebracion", nombre: "Celebraciones CE4JWI", dot: "var(--cat-celebracion)", color: "#d52b1e", label: "CELEBRACIÓN" },
+  { key: "actividad",   nombre: "Activaciones CE4JWI", dot: "var(--cat-actividad)",   color: "#0039a6", label: "ACTIVACIONES CE4JWI" },
 ]
 
 // ---- Estado ----
@@ -69,16 +66,7 @@ function parsearICal(texto) {
 }
 
 function clasificar(summary) {
-  const s = summary.toLowerCase()
-  if (s.includes("actividad") || s.includes("recorriendo") || s.includes("dragon ball") ||
-      s.includes("activación") || s.includes("activacion"))
-    return "actividad"
-  if (s.includes("navidad") || s.includes("halloween") || s.includes("san valentín") ||
-      s.includes("año nuevo") || s.includes("víspera") || s.includes("cumpleaños"))
-    return "celebracion"
-  if (s.includes("mundial") || s.includes("internacional"))
-    return "mundial"
-  return "nacional"
+  return "actividad"
 }
 
 function normalizarEventos(iCalEvents) {

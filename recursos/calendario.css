@@ -14,9 +14,9 @@
   --cal-today: #ff9500;
 
   --cat-nacional: #0039a6;
-  --cat-mundial: #5856d6;
-  --cat-celebracion: #d52b1e;
-  --cat-actividad: #34c759;
+  --cat-mundial: #0039a6;
+  --cat-celebracion: #0039a6;
+  --cat-actividad: #0039a6;
   --cat-default: #8e8e93;
 
   display: grid;
@@ -327,7 +327,7 @@
 .cal-event.cat-nacional    { background: var(--cat-nacional); }
 .cal-event.cat-mundial     { background: var(--cat-mundial); }
 .cal-event.cat-celebracion { background: var(--cat-celebracion); }
-.cal-event.cat-actividad   { background: var(--cat-actividad); color: #0d3d1a; }
+.cal-event.cat-actividad   { background: var(--cat-actividad); color: white; }
 .cal-event.cat-default     { background: var(--cat-default); }
 
 /* ---- Vista Agenda (lista) ---- */
