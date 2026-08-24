@@ -128,6 +128,9 @@ const COMPONENTES = {
            <div class="slide">
               <img src="public/HFk (2).png" alt="HF">
             </div>
+           <div class="slide">
+              <img src="public/APRS CARROUSEL.png" alt="APRS">
+            </div>
             
             
           </div>
@@ -144,6 +147,7 @@ const COMPONENTES = {
           <div class="slider-dots" id="sliderDots">
             <span class="dot active" data-slide="0"></span>
             <span class="dot" data-slide="1"></span>
+            <span class="dot" data-slide="2"></span>
           </div>
         </div>
       </div>
