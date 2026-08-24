@@ -412,9 +412,6 @@ function navegarLightbox(dir) {
   lightboxIndex = (lightboxIndex + dir + lightboxItems.length) % lightboxItems.length
   abrirLightbox(lightboxIndex)
 }
-    intentos--
-  } while (intentos > 0)
-}
 
 // Cerrar con click fuera / Escape / flechas
 document.addEventListener("keydown", (e) => {
