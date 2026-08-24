@@ -128,13 +128,7 @@ const IMG_PROXIES = [
 let imgProxyIndex = 0
 
 function proxyImg(url) {
-  if (!url) return { proxied: url, original: url }
-  // Si ya es URL local de GitHub Pages, no usar proxy
-  if (url.includes('juank329.github.io/ce4jwi-qsls/qsl_images/')) return { proxied: url, original: url }
-  if (!url.includes('qsl.net/ce4jwi/')) return { proxied: url, original: url }
-  
-  // Usar el proxy actual basado en índice
-  return { proxied: IMG_PROXIES[imgProxyIndex](url), original: url }
+  return { proxied: url, original: url }
 }
 
 function nextImgProxy() {
@@ -159,6 +153,28 @@ function retryImgWithNextProxy(img) {
   }
 }
 
+// ---- Expiración de QSLs -----------------------------------------------
+// LOG4OM: 2 años desde fecha de contacto
+// APRS:   1 mes  desde fecha de contacto
+
+const DURACION_LOG4OM_MS = 2 * 365 * 24 * 60 * 60 * 1000  // 2 años
+const DURACION_APRS_MS   = 30 * 24 * 60 * 60 * 1000         // 1 mes
+
+function estaExpirada(item) {
+  const fuente = (item.fuente || "log4om").toLowerCase()
+  const duracion = fuente === "aprs" ? DURACION_APRS_MS : DURACION_LOG4OM_MS
+  // Usar fecha del JSON si existe, si no parsear del nombre
+  let fechaContacto = item.fecha || ""
+  if (!fechaContacto) {
+    const m = (item.archivo || "").match(/(\d{2})-(\d{2})-(\d{4})/)
+    if (m) fechaContacto = `${m[3]}-${m[2]}-${m[1]}`
+  }
+  if (!fechaContacto) return false
+  const ts = new Date(fechaContacto).getTime()
+  if (isNaN(ts)) return false
+  return (Date.now() - ts) > duracion
+}
+
 // ---- Indexado por indicativo -----------------------------------------
 
 function indexar(data) {
@@ -166,6 +182,7 @@ function indexar(data) {
   indicePorIndicativo = {}
   if (!Array.isArray(data)) return
   for (const item of data) {
+    if (estaExpirada(item)) continue
     const cs = (item.call || "").toUpperCase().trim()
     if (!cs) continue
     const meta = parsearNombreArchivo(item.archivo || "")
@@ -179,6 +196,7 @@ function indexar(data) {
       fecha: meta.fecha,
       hora: meta.hora,
       modo: meta.modo,
+      fuente: item.fuente || "log4om",
     }
     qslPlanas.push(normalizado)
     if (!indicePorIndicativo[cs]) indicePorIndicativo[cs] = []
@@ -345,50 +363,29 @@ function tarjetaQSL(q, i) {
     </div>`
 }
 
-// Si la imagen ya no existe en qsl.net (QSL borrada), intenta con el siguiente proxy
-// Si todos fallan, oculta la tarjeta. Actualiza también el contador.
+// Si la imagen falla, reintenta una vez. Si falla de nuevo, muestra aviso.
 function ocultarTarjetaRota(img) {
   if (!img) return
   
-  // Asegurar que tenemos la URL original guardada
-  if (!img.dataset.originalUrl) {
-    const tarjeta = img.closest(".qsl-tarjeta")
-    const originalBtn = tarjeta?.querySelector("img[data-original-url]")
-    if (originalBtn) img.dataset.originalUrl = originalBtn.dataset.originalUrl
-    // Also try from the qslPlanas data
-    if (!img.dataset.originalUrl) {
-      const src = img.src
-      // Check if it's a proxy URL — extract original from qslPlanas
-      for (const q of qslPlanas) {
-        if (q.url === src && q.urlOriginal && q.urlOriginal !== q.url) {
-          img.dataset.originalUrl = q.urlOriginal
-          break
-        }
-      }
-    }
-  }
-  
-  // Verificar si ya intentamos todos los proxies
-  if (!img.dataset.proxyAttempts) {
-    img.dataset.proxyAttempts = 0
-  }
-  const attempts = parseInt(img.dataset.proxyAttempts, 10)
-  
-  if (attempts < 3) { // Máximo 3 intentos con proxies diferentes
-    img.dataset.proxyAttempts = attempts + 1
-    retryImgWithNextProxy(img)
+  if (!img.dataset.retry) {
+    img.dataset.retry = 1
+    const src = img.src
+    img.src = ""
+    setTimeout(() => { img.src = src }, 500)
     return
   }
   
-  // Todos los proxies fallaron, ocultar tarjeta
+  // Reintento fallido — mostrar aviso en la tarjeta
   const tarjeta = img.closest(".qsl-tarjeta")
-  if (tarjeta) tarjeta.classList.add("oculta")
-
-  // Recontar las tarjetas visibles
-  const visibles = document.querySelectorAll(".qsl-galeria .qsl-tarjeta:not(.oculta)").length
-  const contCnt = document.getElementById("qslContador")
-  if (contCnt && visibles !== lightboxItems.length) {
-    contCnt.innerHTML = `<strong>${visibles}</strong> QSL${visibles === 1 ? "" : "s"} disponibles`
+  if (tarjeta) {
+    const info = tarjeta.querySelector(".qsl-tarjeta-info")
+    if (info) {
+      const aviso = document.createElement("div")
+      aviso.className = "qsl-tarjeta-meta"
+      aviso.style.color = "#e74c3c"
+      aviso.textContent = "Imagen no disponible"
+      info.appendChild(aviso)
+    }
   }
 }
 
@@ -412,14 +409,9 @@ function cerrarLightbox() {
 
 function navegarLightbox(dir) {
   if (!lightboxItems.length) return
-  let intentos = lightboxItems.length
-  do {
-    lightboxIndex = (lightboxIndex + dir + lightboxItems.length) % lightboxItems.length
-    const tarjeta = document.querySelectorAll(".qsl-tarjeta")[lightboxIndex]
-    if (!tarjeta || !tarjeta.classList.contains("oculta")) {
-      abrirLightbox(lightboxIndex)
-      return
-    }
+  lightboxIndex = (lightboxIndex + dir + lightboxItems.length) % lightboxItems.length
+  abrirLightbox(lightboxIndex)
+}
     intentos--
   } while (intentos > 0)
 }

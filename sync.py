@@ -25,6 +25,10 @@ def parsearNombreArchivo(nombre):
 def call_from_file(archivo):
     base = os.path.splitext(os.path.basename(archivo))[0]
     partes = base.split("_")
+    # Find segment right before the date (dd-mm-yyyy)
+    for i, p in enumerate(partes):
+        if re.match(r"\d{2}-\d{2}-\d{4}", p) and i > 0:
+            return partes[i - 1].upper()
     if len(partes) >= 3:
         return partes[2].upper()
     return base
@@ -57,21 +61,39 @@ def github_push_json(entries):
 s = ftplib.FTP(FTP_HOST, FTP_USER, FTP_PASS, timeout=30)
 s.cwd("/")
 
-# Download current index from FTP
-buf = BytesIO()
+# Load EXISTING index from GitHub Pages (not FTP!) to preserve LOG4OM entries
 entries = []
+entries_by_file = {}
 try:
+    gh_url = "https://juank329.github.io/ce4jwi-qsls/log_qsl.json"
+    r = requests.get(gh_url, timeout=10)
+    if r.status_code == 200:
+        entries = r.json()
+        if isinstance(entries, list):
+            entries_by_file = {e.get("archivo"): e for e in entries if e.get("archivo")}
+            print(f"[INFO] Index existente en GitHub Pages: {len(entries)} QSLs")
+        else:
+            entries = []
+except Exception as e:
+    print(f"[WARN] No se pudo leer index de GitHub Pages ({e})")
+
+# Also read FTP index as fallback
+try:
+    buf = BytesIO()
     s.retrbinary("RETR log_qsl.json", buf.write)
     buf.seek(0)
-    entries = json.loads(buf.read().decode("utf-8"))
-    if not isinstance(entries, list):
-        entries = []
+    ftp_entries = json.loads(buf.read().decode("utf-8"))
+    if isinstance(ftp_entries, list):
+        for e in ftp_entries:
+            arch = e.get("archivo", "")
+            if arch and arch not in entries_by_file:
+                entries.append(e)
+                entries_by_file[arch] = e
+        print(f"[INFO] Fusionadas {len(ftp_entries)} entradas del FTP")
 except ftplib.error_perm:
-    print("[INFO] log_qsl.json aun no existe en FTP, se creara.")
+    pass
 except Exception as e:
-    print(f"[WARN] No se pudo leer log_qsl.json ({e}), se intentara de nuevo mas tarde.")
-    # No sobreescribir: mantener entries = [] para crear desde cero solo si FTP no tiene nada
-print(f"[INFO] Index actual en FTP: {len(entries)} QSLs")
+    print(f"[WARN] FTP index no leido: {e}")
 
 # List FTP JPGs
 ftp_files = []
@@ -142,17 +164,17 @@ s.quit()
 print(f"[IMG] Nuevas descargadas: {nuevas}")
 
 # Build entries with local GitHub Pages URLs
-entries_by_file = {e.get("archivo"): e for e in entries if e.get("archivo")}
-new_entries = []
+# MODO ADITIVO: solo agregar las nuevas, nunca eliminar
+agregadas = 0
 for jpg in ftp_jpgs:
     if jpg in entries_by_file:
         e = entries_by_file[jpg]
         e["url"] = f"https://juank329.github.io/ce4jwi-qsls/qsl_images/{jpg}"
-        new_entries.append(e)
+        e["fuente"] = e.get("fuente", "log4om")
     else:
         call = call_from_file(jpg)
         meta = parsearNombreArchivo(jpg)
-        nuevo = {
+        entry = {
             "call": call,
             "carpeta": "General",
             "archivo": jpg,
@@ -160,32 +182,14 @@ for jpg in ftp_jpgs:
             "fecha": meta.fecha,
             "hora": meta.hora,
             "modo": meta.modo,
+            "fuente": "log4om",
         }
-        new_entries.append(nuevo)
+        entries.append(entry)
+        entries_by_file[jpg] = entry
+        agregadas += 1
         print(f"[NEW] {jpg} ({call})")
 
-entries = new_entries
-print(f"[SYNC] Total: {len(entries)} QSLs")
-
-# Clean entries > 365 days
-cutoff = datetime.datetime.now(datetime.timezone.utc) - datetime.timedelta(days=365)
-remaining = []
-removed = 0
-for e in entries:
-    fecha_str = e.get("fecha", "")
-    if fecha_str:
-        try:
-            y, m, d = map(int, e["fecha"].split("-"))
-            fecha_qsl = datetime.datetime(y, m, d, tzinfo=datetime.timezone.utc)
-            if fecha_qsl < cutoff:
-                removed += 1
-                continue
-        except:
-            pass
-    remaining.append(e)
-entries = remaining
-if removed:
-    print(f"[CLEAN] Removed {removed} entries > 365 days")
+print(f"[SYNC] Total: {len(entries)} QSLs (agregadas {agregadas} nuevas, 0 eliminadas)")
 
 # Upload updated index back to FTP
 try:
