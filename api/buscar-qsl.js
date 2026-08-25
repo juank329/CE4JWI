@@ -147,9 +147,14 @@ module.exports = async function handler(req, res) {
 
     const resp = await fetch(QSL_JSON_URL, { headers: { "User-Agent": "CE4JWI-Bot/1.0" }, signal: AbortSignal.timeout(10000) });
     if (!resp.ok) throw new Error("HTTP " + resp.status);
-    const allQSLs = await resp.json();
+    const raw = await resp.json();
+
+    const allQSLs = Array.isArray(raw) ? raw : (raw.default || raw.qsls || []);
     const results = allQSLs
-      .filter((item) => (item.call || "").toUpperCase().trim() === callsign)
+      .filter((item) => {
+        const cs = (item.call || item.callsign || "").toUpperCase().trim();
+        return cs === callsign;
+      })
       .sort((a, b) => (b.fecha || "").localeCompare(a.fecha || ""));
 
     res.setHeader("Content-Type", "text/html; charset=utf-8");
