@@ -1,25 +1,4 @@
-const https = require("https");
-
 const QSL_JSON_URL = "https://juank329.github.io/ce4jwi-qsls/log_qsl.json";
-const QSL_IMAGES_BASE = "https://juank329.github.io/ce4jwi-qsls/qsl_images/";
-
-function fetchJSON(url) {
-  return new Promise((resolve, reject) => {
-    const req = https.get(url, { headers: { "User-Agent": "CE4JWI-Bot/1.0" } }, (res) => {
-      if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
-        return fetchJSON(res.headers.location).then(resolve).catch(reject);
-      }
-      let data = "";
-      res.on("data", (chunk) => (data += chunk));
-      res.on("end", () => {
-        try { resolve(JSON.parse(data)); }
-        catch (e) { reject(e); }
-      });
-    });
-    req.on("error", reject);
-    req.setTimeout(10000, () => { req.destroy(); reject(new Error("timeout")); });
-  });
-}
 
 function esc(s) {
   return String(s || "")
@@ -166,7 +145,9 @@ module.exports = async function handler(req, res) {
       return;
     }
 
-    const allQSLs = await fetchJSON(QSL_JSON_URL);
+    const resp = await fetch(QSL_JSON_URL, { headers: { "User-Agent": "CE4JWI-Bot/1.0" }, signal: AbortSignal.timeout(10000) });
+    if (!resp.ok) throw new Error("HTTP " + resp.status);
+    const allQSLs = await resp.json();
     const results = allQSLs
       .filter((item) => (item.call || "").toUpperCase().trim() === callsign)
       .sort((a, b) => (b.fecha || "").localeCompare(a.fecha || ""));
