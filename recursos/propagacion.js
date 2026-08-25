@@ -10,8 +10,8 @@
 (() => {
   "use strict";
 
+  const URL_SERVERLESS = "/api/get-solar";
   const URL_DIRECTA = "https://www.hamqsl.com/solarxml.php";
-  const URL_PROXY = "https://api.allorigins.win/raw?url=" + encodeURIComponent(URL_DIRECTA);
   const INTERVALO_MINUTOS = 15;
 
   const ZONA_CHILE = "America/Santiago";
@@ -338,12 +338,12 @@
 
     let texto = null;
     try {
-      const res = await fetch(URL_PROXY, { signal: AbortSignal.timeout(25000) });
+      const res = await fetch(URL_SERVERLESS, { signal: AbortSignal.timeout(20000) });
       if (!res.ok) throw new Error("HTTP " + res.status);
       texto = await res.text();
     } catch (e1) {
       try {
-        const res2 = await fetch(URL_DIRECTA, { signal: AbortSignal.timeout(25000) });
+        const res2 = await fetch(URL_DIRECTA, { signal: AbortSignal.timeout(20000) });
         if (!res2.ok) throw new Error("HTTP " + res2.status);
         texto = await res2.text();
       } catch (e2) {
