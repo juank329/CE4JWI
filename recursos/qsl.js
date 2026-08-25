@@ -114,43 +114,11 @@ async function fetchQSLData(opciones = {}) {
   throw new Error(`No se pudo cargar el catálogo de QSLs: ${lastErr?.message || "?"}`)
 }
 
-// ---- Proxy imágenes para evitar hotlink qsl.net -------------------
-// Las imágenes nuevas se alojan en GitHub Pages (ce4jwi-qsls/qsl_images/)
-// Las antiguas en qsl.net usan proxies como fallback
-
-const IMG_PROXIES = [
-  u => 'https://images.weserv.nl/?url=' + encodeURIComponent(u.replace('https://', '')),
-  u => 'https://corsproxy.io/?' + encodeURIComponent(u),
-  u => 'https://api.allorigins.win/raw?url=' + encodeURIComponent(u),
-  u => 'https://images.weserv.nl/?url=' + encodeURIComponent(u),
-]
-
-let imgProxyIndex = 0
+// ---- Imágenes ----------------------------------------------------------
+// Todas las QSLs están en GitHub Pages, no se necesitan proxies
 
 function proxyImg(url) {
   return { proxied: url, original: url }
-}
-
-function nextImgProxy() {
-  imgProxyIndex = (imgProxyIndex + 1) % IMG_PROXIES.length
-  console.log(`[IMG PROXY] Cambiando a proxy #${imgProxyIndex + 1}`)
-  return IMG_PROXIES[imgProxyIndex]
-}
-
-// Función para reintentar imágenes rotas con el siguiente proxy
-function retryImgWithNextProxy(img) {
-  if (!img || !img.src) return
-  // Usar la URL original guardada, no la URL ya proxyeada
-  const originalUrl = img.dataset.originalUrl || img.src
-  if (!originalUrl.includes('qsl.net/ce4jwi/')) return
-  
-  const nextProxy = nextImgProxy()
-  const newSrc = nextProxy(originalUrl)
-  
-  if (newSrc !== img.src) {
-    console.log(`[IMG RETRY] Reintentando con proxy: ${newSrc}`)
-    img.src = newSrc
-  }
 }
 
 // ---- Expiración de QSLs -----------------------------------------------
