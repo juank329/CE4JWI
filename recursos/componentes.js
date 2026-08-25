@@ -666,9 +666,24 @@ const ts = Date.now()
   return null
 }
 
+function ultQslExpirada(item) {
+  const fuente = (item.fuente || "log4om").toLowerCase()
+  const duracion = fuente === "aprs" ? 30 * 24 * 60 * 60 * 1000 : 2 * 365 * 24 * 60 * 60 * 1000
+  let fechaContacto = item.fecha || ""
+  if (!fechaContacto) {
+    const m = (item.archivo || "").match(/(\d{2})-(\d{2})-(\d{4})/)
+    if (m) fechaContacto = `${m[3]}-${m[2]}-${m[1]}`
+  }
+  if (!fechaContacto) return false
+  const ts = new Date(fechaContacto).getTime()
+  if (isNaN(ts)) return false
+  return (Date.now() - ts) > duracion
+}
+
 function ultQslElegir(data) {
   if (!Array.isArray(data)) return null
   const conFecha = data
+    .filter((item) => !ultQslExpirada(item))
     .map((item) => ({ item, meta: ultQslParsearNombre(item.archivo || "") }))
     .filter((q) => q.meta.fecha)
     .sort((a, b) => (a.meta.fecha + a.meta.hora).localeCompare(b.meta.fecha + b.meta.hora))
