@@ -36,6 +36,19 @@ def call_from_file(archivo):
 def github_push_json(entries):
     url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/log_qsl.json"
     headers = {"Authorization": f"Bearer {GH_TOKEN}", "Accept": "application/vnd.github+json"}
+
+    # SAFETY: check current count on GitHub Pages - NEVER overwrite with fewer entries
+    try:
+        r_check = requests.get(url, headers=headers, timeout=10)
+        if r_check.status_code == 200:
+            existing = json.loads(base64.b64decode(r_check.json()["content"]).decode())
+            existing_count = len(existing) if isinstance(existing, list) else 0
+            if len(entries) < existing_count:
+                print(f"[ABORT] SAFETY: new JSON has {len(entries)} entries but GitHub Pages has {existing_count}. Refusing to overwrite with fewer entries.")
+                return True
+    except Exception as e:
+        print(f"[WARN] Safety check failed: {e}")
+
     for attempt in range(3):
         try:
             sha = None
