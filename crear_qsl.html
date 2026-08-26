@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Roboto:wght@500;700;900&display=swap" rel="stylesheet">
+  <title>Crear QSL — CE4JWI</title>
+  <link rel="stylesheet" href="recursos/styles.css">
+  <link rel="stylesheet" href="recursos/header-responsive.css">
+  <link rel="stylesheet" href="recursos/slider.css">
+  <link rel="icon" href="public/favicon-32x32.png">
+  <style>
+    :root{--q-blue:#0039a6;--q-red:#d52b1e;--q-surface:#fff;--q-alt:#eef1f7;--q-border:#dfe4ee;--q-text:#1a1f2b;--q-muted:#667085;--q-r:10px}
+    body.login-gate{margin:0;padding:0;display:flex;align-items:center;justify-content:center;min-height:100vh;background:#f4f6fa;font-family:'Inter',sans-serif}
+    .login-box{background:#fff;border:1px solid #dfe4ee;border-radius:16px;padding:2.5rem;box-shadow:0 8px 24px -6px rgba(16,24,40,0.14);text-align:center;max-width:380px;width:90%}
+    .login-box h2{font-family:'Manrope',sans-serif;font-weight:800;color:#1a1f2b;margin-bottom:0.25rem;font-size:1.4rem}
+    .login-box p{color:#667085;font-size:0.85rem;margin-bottom:1.5rem}
+    .login-box input{width:100%;padding:0.75rem 1rem;border:1px solid #dfe4ee;border-radius:var(--q-r);font-size:0.95rem;box-sizing:border-box;outline:none;margin-bottom:1rem}
+    .login-box input:focus{border-color:#0039a6;box-shadow:0 0 0 3px #e8effa}
+    .login-box button{width:100%;padding:0.75rem;border:none;border-radius:var(--q-r);background:#0039a6;color:#fff;font-family:'Manrope',sans-serif;font-weight:700;font-size:0.9rem;cursor:pointer}
+    .login-box button:hover{opacity:0.88}
+    .login-err{color:#d52b1e;font-size:0.8rem;margin-bottom:0.75rem;display:none}
+
+    .app-hidden{display:none!important}
+
+    .qsl-page{max-width:1200px;margin:0 auto;padding:1.5rem}
+    .qsl-section{background:var(--q-surface);border:1px solid var(--q-border);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem;box-shadow:0 1px 2px rgba(16,24,40,0.06)}
+    .qsl-section h3{font-family:'Manrope',sans-serif;font-weight:800;font-size:1.1rem;color:var(--q-text);margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+    .qsl-section h3 .badge{font-family:'JetBrains Mono',monospace;font-size:0.6rem;background:#e8effa;color:#0039a6;padding:0.2rem 0.55rem;border-radius:999px;font-weight:700;letter-spacing:0.04em}
+
+    .qsl-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+    @media(max-width:768px){.qsl-grid-2{grid-template-columns:1fr}}
+
+    .qsl-field{margin-bottom:1rem}
+    .qsl-field label{display:block;font-family:'Manrope',sans-serif;font-weight:700;font-size:0.78rem;color:var(--q-muted);letter-spacing:0.03em;margin-bottom:0.35rem}
+    .qsl-field input,.qsl-field select{width:100%;padding:0.6rem 0.85rem;border:1px solid var(--q-border);border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:0.88rem;background:var(--q-alt);color:var(--q-text);outline:none;box-sizing:border-box;text-transform:uppercase}
+    .qsl-field input:focus,.qsl-field select:focus{border-color:#0039a6;box-shadow:0 0 0 3px #e8effa}
+    .qsl-field select{text-transform:none}
+
+    .qsl-row{display:flex;gap:0.75rem;flex-wrap:wrap}
+    .qsl-row .qsl-field{flex:1;min-width:120px}
+
+    .btn{padding:0.7rem 1.5rem;border:none;border-radius:8px;font-family:'Manrope',sans-serif;font-weight:700;font-size:0.85rem;cursor:pointer;transition:opacity 0.2s}
+    .btn:hover{opacity:0.88}
+    .btn-blue{background:#0039a6;color:#fff}
+    .btn-red{background:#d52b1e;color:#fff}
+    .btn-outline{background:transparent;border:1px solid #dfe4ee;color:#1a1f2b}
+    .btn-outline:hover{border-color:#0039a6;color:#0039a6}
+    .btn-sm{padding:0.45rem 1rem;font-size:0.78rem}
+
+    .preview-box{background:#1a1f2b;border-radius:12px;overflow:hidden;position:relative;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center}
+    .preview-box canvas{max-width:100%;max-height:100%;cursor:move;border-radius:8px}
+    .preview-empty{color:#667085;font-size:0.85rem;text-align:center;padding:2rem}
+
+    .pos-btns{display:flex;gap:0.5rem;margin-bottom:1rem}
+    .pos-btn{flex:1;padding:0.5rem;border:1px solid var(--q-border);border-radius:8px;background:var(--q-alt);color:var(--q-text);font-family:'Manrope',sans-serif;font-weight:700;font-size:0.78rem;cursor:pointer;text-align:center;transition:all 0.15s}
+    .pos-btn.active{background:#0039a6;color:#fff;border-color:#0039a6}
+    .pos-btn:hover:not(.active){border-color:#0039a6}
+
+    .color-row{display:flex;gap:0.75rem;flex-wrap:wrap}
+    .color-field{flex:1;min-width:100px}
+    .color-field label{display:block;font-size:0.7rem;color:var(--q-muted);margin-bottom:0.25rem;font-family:'Manrope',sans-serif;font-weight:700}
+    .color-field input[type="color"]{width:100%;height:36px;border:1px solid var(--q-border);border-radius:6px;cursor:pointer;padding:2px;background:var(--q-alt)}
+
+    .history-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem}
+    .history-card{background:var(--q-alt);border:1px solid var(--q-border);border-radius:10px;overflow:hidden;cursor:pointer;transition:transform 0.2s,box-shadow 0.2s}
+    .history-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px -6px rgba(16,24,40,0.14)}
+    .history-card img{width:100%;display:block}
+    .history-card .hc-info{padding:0.65rem 0.85rem}
+    .history-card .hc-call{font-family:'Manrope',sans-serif;font-weight:800;color:#0039a6;font-size:0.95rem}
+    .history-card .hc-meta{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:#667085;margin-top:0.2rem}
+
+    .toast{position:fixed;bottom:1.5rem;right:1.5rem;background:#0039a6;color:#fff;padding:0.85rem 1.25rem;border-radius:10px;font-family:'Manrope',sans-serif;font-weight:700;font-size:0.85rem;box-shadow:0 8px 24px -6px rgba(16,24,40,0.3);transform:translateY(100px);opacity:0;transition:all 0.3s;z-index:999}
+    .toast.show{transform:translateY(0);opacity:1}
+    .toast.error{background:#d52b1e}
+
+    .qsl-actions{display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:1rem}
+
+    .file-drop{border:2px dashed var(--q-border);border-radius:12px;padding:2rem;text-align:center;cursor:pointer;transition:border-color 0.2s,background 0.2s}
+    .file-drop:hover,.file-drop.dragover{border-color:#0039a6;background:#e8effa}
+    .file-drop p{color:var(--q-muted);font-size:0.85rem;margin:0}
+    .file-drop input{display:none}
+
+    .separator{height:1px;background:var(--q-border);margin:1.5rem 0}
+  </style>
+</head>
+<body>
+
+<!-- APP -->
+<div id="app">
+  <div id="header-container"></div>
+  <div id="marquee-container"></div>
+
+  <main class="main-container">
+    <div class="content">
+      <div class="banner"><h1>Crear QSL</h1></div>
+
+      <!-- SECCION 1: TEMPLATE -->
+      <div class="qsl-section">
+        <h3>Plantilla <span class="badge">PASO 1</span></h3>
+        <div class="file-drop" id="fileDrop" onclick="document.getElementById('fileInput').click()">
+          <p>Arrastra una imagen JPG/PNG o haz clic para seleccionar</p>
+          <input type="file" id="fileInput" accept="image/*">
+        </div>
+        <div class="separator"></div>
+        <div class="qsl-grid-2">
+          <div>
+            <label style="font-family:'Manrope',sans-serif;font-weight:700;font-size:0.78rem;color:#667085;margin-bottom:0.5rem;display:block">Posicion del cuadro</label>
+            <div class="pos-btns">
+              <button class="pos-btn active" data-pos="1" onclick="setPos(1)">Izquierda</button>
+              <button class="pos-btn" data-pos="2" onclick="setPos(2)">Centro</button>
+              <button class="pos-btn" data-pos="3" onclick="setPos(3)">Derecha</button>
+            </div>
+            <div class="color-row">
+              <div class="color-field"><label>Fondo titulos</label><input type="color" id="cFondo" value="#0039a6"></div>
+              <div class="color-field"><label>Texto titulos</label><input type="color" id="cTextoTit" value="#ffffff"></div>
+              <div class="color-field"><label>Fondo datos</label><input type="color" id="cFondoDat" value="#0039a6"></div>
+              <div class="color-field"><label>Texto datos</label><input type="color" id="cTextoDat" value="#566573"></div>
+            </div>
+          </div>
+          <div>
+            <label style="font-family:'Manrope',sans-serif;font-weight:700;font-size:0.78rem;color:#667085;margin-bottom:0.5rem;display:block">Vista previa</label>
+            <div class="preview-box" id="previewBox">
+              <div class="preview-empty" id="previewEmpty">Sube una plantilla para ver la preview</div>
+              <canvas id="previewCanvas" style="display:none"></canvas>
+            </div>
+          </div>
+        </div>
+        <div class="qsl-actions">
+          <button class="btn btn-blue btn-sm" onclick="saveTemplate()">Guardar configuracion</button>
+          <span id="templateStatus" style="font-size:0.78rem;color:#667085;align-self:center"></span>
+        </div>
+      </div>
+
+      <!-- SECCION 2: CONTACTO -->
+      <div class="qsl-section">
+        <h3>Nuevo contacto <span class="badge">PASO 2</span></h3>
+        <div class="qsl-row">
+          <div class="qsl-field"><label>Callsign</label><input type="text" id="fCall" placeholder="XR0ABC"></div>
+          <div class="qsl-field"><label>Fecha</label><input type="date" id="fFecha"></div>
+          <div class="qsl-field"><label>Hora UTC</label><input type="time" id="fHora" step="1"></div>
+        </div>
+        <div class="qsl-row">
+          <div class="qsl-field"><label>Banda</label>
+            <select id="fBanda">
+              <option>160m</option><option>80m</option><option>60m</option><option>40m</option>
+              <option>30m</option><option selected>20m</option><option>17m</option><option>15m</option>
+              <option>12m</option><option>10m</option><option>6m</option><option>2m</option>
+              <option>70cm</option><option>23cm</option>
+            </select>
+          </div>
+          <div class="qsl-field"><label>Modo</label>
+            <select id="fModo">
+              <option selected>FT8</option><option>FT4</option><option>SSB</option><option>CW</option>
+              <option>RTTY</option><option>PSK31</option><option>JT65</option><option>MISC</option>
+            </select>
+          </div>
+          <div class="qsl-field"><label>Frecuencia</label><input type="text" id="fFreq" placeholder="14.074"></div>
+          <div class="qsl-field"><label>RST</label><input type="text" id="fRst" placeholder="-15" value="-15"></div>
+        </div>
+        <div class="qsl-field"><label>Mensaje (opcional)</label><input type="text" id="fMsg" placeholder="FT8 Sent: -15 Rcvd: -19"></div>
+        <div class="qsl-actions">
+          <button class="btn btn-blue" onclick="generarQSL()">Generar y subir QSL</button>
+          <button class="btn btn-outline btn-sm" onclick="limpiarForm()">Limpiar</button>
+        </div>
+      </div>
+
+      <!-- SECCION 3: HISTORIAL -->
+      <div class="qsl-section">
+        <h3>Historial <span class="badge" id="histCount">0</span></h3>
+        <div class="history-grid" id="historyGrid">
+          <div style="grid-column:1/-1;text-align:center;color:#667085;font-size:0.85rem;padding:1.5rem">Aun no se han creado QSLs</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer-container"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- Lightbox -->
+<div class="qsl-lightbox" id="qslLightbox" onclick="closeLB()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:1000;justify-content:center;align-items:center;padding:2rem">
+  <button onclick="closeLB()" style="position:absolute;top:1rem;right:1rem;width:44px;height:44px;border-radius:50%;border:none;background:rgba(255,255,255,0.12);color:#fff;font-size:1.5rem;cursor:pointer">&times;</button>
+  <img id="lbImg" style="max-width:92vw;max-height:88vh;border-radius:12px">
+</div>
+
+<script>
+/* ============ CONFIG ============ */
+var SURL = "https://fuxvowudtaqeyqbnuhss.supabase.co";
+var SKEY = "sb_publishable_Ske2CJsnJH9PiU3gu5M9jw_dzdRVqfN";
+var SHDR = {"apikey":SKEY,"Authorization":"Bearer "+SKEY,"Content-Type":"application/json"};
+
+/* ============ STATE ============ */
+var templateImg = null;
+var templateDataUrl = null;
+var posCuadro = 1;
+var history = [];
+
+var COLORS = {fondo:"#0039a6", textoTit:"#ffffff", fondoDat:"#0039a6", textoDat:"#566573"};
+var ANCHO_CUADRO = 650;
+var ALTO_SIN_AGR = 128;
+var ALTO_CON_AGR = 175;
+var RADIO = 8;
+
+/* ============ INIT ============ */
+(function(){
+  loadSaved();
+  document.getElementById("fFecha").value = new Date().toISOString().slice(0,10);
+  document.getElementById("fHora").value = new Date().toISOString().slice(11,16);
+
+  var fd = document.getElementById("fileDrop");
+  var fi = document.getElementById("fileInput");
+  fd.addEventListener("dragover",function(e){e.preventDefault();fd.classList.add("dragover")});
+  fd.addEventListener("dragleave",function(){fd.classList.remove("dragover")});
+  fd.addEventListener("drop",function(e){e.preventDefault();fd.classList.remove("dragover");if(e.dataTransfer.files.length)loadFile(e.dataTransfer.files[0])});
+  fi.addEventListener("change",function(){if(fi.files.length)loadFile(fi.files[0])});
+
+  ["cFondo","cTextoTit","cFondoDat","cTextoDat"].forEach(function(id){
+    document.getElementById(id).addEventListener("input",function(){
+      COLORS.fondo = document.getElementById("cFondo").value;
+      COLORS.textoTit = document.getElementById("cTextoTit").value;
+      COLORS.fondoDat = document.getElementById("cFondoDat").value;
+      COLORS.textoDat = document.getElementById("cTextoDat").value;
+      redrawPreview();
+    });
+  });
+
+  if(templateDataUrl){
+    var img = new Image();
+    img.onload = function(){templateImg=img;showPreview()};
+    img.src = templateDataUrl;
+  }
+})();
+
+/* ============ FILE ============ */
+function loadFile(file){
+  if(!file.type.startsWith("image/")){showToast("Solo imagenes",true);return}
+  var reader = new FileReader();
+  reader.onload = function(e){
+    templateDataUrl = e.target.result;
+    var img = new Image();
+    img.onload = function(){templateImg=img;showPreview();document.getElementById("templateStatus").textContent="Plantilla cargada"};
+    img.src = templateDataUrl;
+  };
+  reader.readAsDataURL(file);
+}
+
+/* ============ POSICION ============ */
+function setPos(p){
+  posCuadro = p;
+  document.querySelectorAll(".pos-btn").forEach(function(b){b.classList.toggle("active",parseInt(b.dataset.pos)===p)});
+  redrawPreview();
+}
+
+/* ============ PREVIEW ============ */
+function showPreview(){
+  document.getElementById("previewEmpty").style.display="none";
+  var canvas = document.getElementById("previewCanvas");
+  canvas.style.display="block";
+  redrawPreview();
+}
+
+function redrawPreview(){
+  if(!templateImg)return;
+  var canvas = document.getElementById("previewCanvas");
+  var ctx = canvas.getContext("2d");
+  canvas.width = 1920;
+  canvas.height = 1080;
+  ctx.drawImage(templateImg, 0, 0, 1920, 1080);
+  drawDataBox(ctx, 1920, 1080, "CE4JWI", "XR0ABC", "26/08/2026", "1700", "20m", "FT8", "14.074", "-15", "FT8 Sent: -15 Rcvd: -19");
+}
+
+function drawDataBox(ctx, W, H, operador, call, fecha, hora, banda, modo, freq, rst, msg){
+  var X = posCuadro===2 ? (W-(ANCHO_CUADRO))/2 : posCuadro===3 ? W-30-ANCHO_CUADRO : 30;
+  var Y = H - 30 - ALTO_SIN_AGR;
+  var R = RADIO;
+
+  // Row 1: white bg
+  ctx.fillStyle="#fff";
+  roundRect(ctx,X,Y,ANCHO_CUADRO,44,R);ctx.fill();
+  // Col 1: operador
+  ctx.fillStyle=COLORS.fondo;
+  roundRect(ctx,X,Y,150,44,R);ctx.fill();
+  // Col 2: QSO CON
+  ctx.fillStyle=COLORS.fondo;
+  roundRect(ctx,X+315,Y,160,44,R);ctx.fill();
+
+  // Row 2: data headers bg
+  ctx.fillStyle=COLORS.fondo;
+  roundRect(ctx,X,Y+50,ANCHO_CUADRO,39,R);ctx.fill();
+
+  // Row 3: data values
+  ctx.fillStyle="#fff";
+  roundRect(ctx,X,Y+89,ANCHO_CUADRO,39,R);ctx.fill();
+  // thin separator
+  ctx.fillStyle=COLORS.fondoDat;
+  ctx.fillRect(X,Y+87,ANCHO_CUADRO,3);
+
+  // Thank you row (if msg)
+  if(msg){
+    ctx.fillStyle=COLORS.fondoDat;
+    roundRect(ctx,X,Y+134,ANCHO_CUADRO,41,R);ctx.fill();
+  }
+
+  // TEXT: Row 1 labels
+  ctx.fillStyle=COLORS.textoTit;
+  ctx.font="bold 14px 'Manrope','Inter',sans-serif";
+  ctx.fillText("OPERADOR",X+13,Y+28);
+  ctx.fillText("QSO CON",X+340,Y+28);
+
+  ctx.fillStyle=COLORS.textoDat;
+  ctx.font="bold 18px 'JetBrains Mono','Courier New',monospace";
+  ctx.fillText(operador,X+20,Y+28);
+  ctx.fillText(call,X+500,Y+28);
+
+  // TEXT: Row 2 labels
+  ctx.fillStyle=COLORS.textoTit;
+  ctx.font="bold 12px 'Manrope','Inter',sans-serif";
+  var labels2 = ["FECHA","","UTC","","BANDA","","MODO","","FRECUENCIA","","RST"];
+  var lx = [28,0,155,0,228,0,328,0,420,0,595];
+  ctx.fillText("FECHA",X+28,Y+67);
+  ctx.fillText("UTC",X+155,Y+67);
+  ctx.fillText("BANDA",X+228,Y+67);
+  ctx.fillText("MODO",X+328,Y+67);
+  ctx.fillText("FRECUENCIA",X+420,Y+67);
+  ctx.fillText("RST",X+595,Y+67);
+
+  // TEXT: Row 3 values
+  ctx.fillStyle=COLORS.textoDat;
+  ctx.font="16px 'JetBrains Mono','Courier New',monospace";
+  ctx.fillText(fecha,X+12,Y+113);
+  ctx.fillText(hora,X+150,Y+113);
+  ctx.fillText(banda,X+238,Y+113);
+  ctx.fillText(modo,X+330,Y+113);
+  ctx.fillText(freq,X+445,Y+113);
+  ctx.fillText(rst,X+602,Y+113);
+
+  // TEXT: Thank you
+  if(msg){
+    ctx.fillStyle=COLORS.textoDat;
+    ctx.font="14px 'Manrope','Inter',sans-serif";
+    ctx.fillText(msg,X+15,Y+159);
+  }
+}
+
+function roundRect(ctx,x,y,w,h,r){
+  ctx.beginPath();
+  ctx.moveTo(x+r,y);
+  ctx.lineTo(x+w-r,y);
+  ctx.quadraticCurveTo(x+w,y,x+w,y+r);
+  ctx.lineTo(x+w,y+h-r);
+  ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
+  ctx.lineTo(x+r,y+h);
+  ctx.quadraticCurveTo(x,y+h,x,y+h-r);
+  ctx.lineTo(x,y+r);
+  ctx.quadraticCurveTo(x,y,x+r,y);
+  ctx.closePath();
+}
+
+/* ============ GENERAR QSL ============ */
+function generarQSL(){
+  if(!templateImg){showToast("Sube una plantilla primero",true);return}
+  var call = document.getElementById("fCall").value.trim().toUpperCase();
+  if(!call){showToast("Escribe un callsign",true);document.getElementById("fCall").focus();return}
+
+  var fecha = document.getElementById("fFecha").value;
+  var parts = fecha.split("-");
+  fecha = parts[2]+"/"+parts[1]+"/"+parts[0];
+  var hora = document.getElementById("fHora").value.replace(":","");
+  var banda = document.getElementById("fBanda").value;
+  var modo = document.getElementById("fModo").value;
+  var freq = document.getElementById("fFreq").value.trim();
+  var rst = document.getElementById("fRst").value.trim();
+  var msg = document.getElementById("fMsg").value.trim();
+
+  var canvas = document.createElement("canvas");
+  canvas.width = 1920;
+  canvas.height = 1080;
+  var ctx = canvas.getContext("2d");
+  ctx.drawImage(templateImg, 0, 0, 1920, 1080);
+  drawDataBox(ctx, 1920, 1080, "CE4JWI", call, fecha, hora, banda, modo, freq, rst, msg);
+
+  var fname = "CE4JWI_"+call+"_"+fecha.replace(/\//g,"-")+"_"+hora+"_"+modo+".jpg";
+  var dataUrl = canvas.toDataURL("image/jpeg", 0.95);
+
+  showToast("Generando QSL...");
+  uploadToSupabase(dataUrl, fname, call, fecha, hora, banda, modo, freq, rst, msg);
+}
+
+/* ============ SUPABASE ============ */
+function uploadToSupabase(dataUrl, fname, call, fecha, hora, banda, modo, freq, rst, msg){
+  var byteString = atob(dataUrl.split(",")[1]);
+  var ab = new ArrayBuffer(byteString.length);
+  var ia = new Uint8Array(ab);
+  for(var i=0;i<byteString.length;i++) ia[i]=byteString.charCodeAt(i);
+  var blob = new Blob([ab],{type:"image/jpeg"});
+
+  var storageUrl = SURL+"/storage/v1/object/qsl-images/"+fname;
+  fetch(storageUrl,{method:"PUT",headers:{"apikey":SKEY,"Authorization":"Bearer "+SKEY,"Content-Type":"image/jpeg"},body:blob})
+    .then(function(r){if(!r.ok)throw new Error("Storage error");return r.json()})
+    .then(function(){
+      var pubUrl = SURL+"/storage/v1/object/public/qsl-images/"+fname;
+      return fetch(SURL+"/rest/v1/qsls",{method:"POST",headers:SHDR,body:JSON.stringify({
+        callsign:call, fecha:fecha, hora:hora, banda:banda, modo:modo,
+        frecuencia:freq, rst:rst, comentario:msg, url_imagen:pubUrl, operador:"CE4JWI"
+      })});
+    })
+    .then(function(r){if(!r.ok)throw new Error("DB error");return r.json()})
+    .then(function(){
+      showToast("QSL subida: "+call);
+      addHistory(call, fecha, hora, banda, modo, dataUrl);
+      limpiarForm();
+    })
+    .catch(function(e){showToast("Error: "+e.message,true)});
+}
+
+/* ============ HISTORY ============ */
+function addHistory(call, fecha, hora, banda, modo, imgDataUrl){
+  history.unshift({call:call,fecha:fecha,hora:hora,banda:banda,modo:modo,img:imgDataUrl});
+  if(history.length>50)history=history.slice(0,50);
+  renderHistory();
+  saveHistoryLocal();
+}
+
+function renderHistory(){
+  var g = document.getElementById("historyGrid");
+  document.getElementById("histCount").textContent = history.length;
+  if(!history.length){g.innerHTML='<div style="grid-column:1/-1;text-align:center;color:#667085;font-size:0.85rem;padding:1.5rem">Aun no se han creado QSLs</div>';return}
+  g.innerHTML="";
+  history.forEach(function(h){
+    var d = document.createElement("div");
+    d.className="history-card";
+    d.onclick=function(){document.getElementById("lbImg").src=h.img;document.getElementById("qslLightbox").style.display="flex"};
+    d.innerHTML="<img src='"+h.img+"' loading='lazy'><div class='hc-info'><div class='hc-call'>"+h.call+"</div><div class='hc-meta'>"+h.fecha+" "+h.hora+" UTC | "+h.banda+" | "+h.modo+"</div></div>";
+    g.appendChild(d);
+  });
+}
+
+function closeLB(){document.getElementById("qslLightbox").style.display="none"}
+document.addEventListener("keydown",function(e){if(e.key==="Escape")closeLB()});
+
+/* ============ PERSISTENCE ============ */
+function saveTemplate(){
+  try{
+    localStorage.setItem("qsl_template",templateDataUrl||"");
+    localStorage.setItem("qsl_pos",posCuadro);
+    localStorage.setItem("qsl_colors",JSON.stringify(COLORS));
+    document.getElementById("templateStatus").textContent="Guardado";
+    showToast("Configuracion guardada");
+  }catch(e){showToast("Error al guardar",true)}
+}
+
+function saveHistoryLocal(){
+  try{
+    var lite = history.map(function(h){return{call:h.call,fecha:h.fecha,hora:h.hora,banda:h.banda,modo:h.modo,img:h.img}});
+    localStorage.setItem("qsl_history",JSON.stringify(lite));
+  }catch(e){}
+}
+
+function loadSaved(){
+  try{
+    var td = localStorage.getItem("qsl_template");
+    var tp = localStorage.getItem("qsl_pos");
+    var tc = localStorage.getItem("qsl_colors");
+    var th = localStorage.getItem("qsl_history");
+    if(td){templateDataUrl=td}
+    if(tp){posCuadro=parseInt(tp);setPos(posCuadro)}
+    if(tc){COLORS=JSON.parse(tc);document.getElementById("cFondo").value=COLORS.fondo;document.getElementById("cTextoTit").value=COLORS.textoTit;document.getElementById("cFondoDat").value=COLORS.fondoDat;document.getElementById("cTextoDat").value=COLORS.textoDat}
+    if(th){history=JSON.parse(th);renderHistory()}
+  }catch(e){}
+}
+
+/* ============ UTILS ============ */
+function limpiarForm(){
+  document.getElementById("fCall").value="";
+  document.getElementById("fRst").value="-15";
+  document.getElementById("fMsg").value="";
+  document.getElementById("fFreq").value="";
+  document.getElementById("fCall").focus();
+}
+
+function showToast(msg,isError){
+  var t=document.getElementById("toast");
+  t.textContent=msg;
+  t.className="toast show"+(isError?" error":"");
+  setTimeout(function(){t.className="toast"},3000);
+}
+</script>
+
+<script src="recursos/actividades.js" defer></script>
+<script defer src="recursos/componentes.js"></script>
+</body>
+</html>
