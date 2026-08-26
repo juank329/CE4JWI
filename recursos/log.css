@@ -1,228 +1,154 @@
 /* ==========================================================================
    LOG EN TIEMPO REAL — CE4JWI
-   QSL grid desde Supabase, colores del sitio
+   Widget oficial de HRDLog.net modernizado con el diseño del sitio
    ========================================================================== */
 
-/* ---- Barra de busqueda ---- */
-.qsl-search-bar {
-  display: flex;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-  margin-bottom: 1.25rem;
-}
-
-.qsl-search-bar input {
-  flex: 1 1 220px;
-  min-width: 0;
-  padding: 0.75rem 1rem;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  font-family: var(--font-mono);
-  font-size: 0.95rem;
-  text-transform: uppercase;
-  background: var(--surface-alt);
-  color: var(--text);
-  outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
-}
-
-.qsl-search-bar input:focus {
-  border-color: var(--blue);
-  box-shadow: 0 0 0 3px var(--blue-soft);
-}
-
-.qsl-btn {
-  flex: 0 0 auto;
-  padding: 0.75rem 1.5rem;
-  border: none;
-  border-radius: var(--radius-sm);
-  color: white;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 0.85rem;
-  cursor: pointer;
-  transition: opacity 0.2s;
-}
-
-.qsl-btn:hover { opacity: 0.88; }
-.qsl-btn.blue { background: var(--blue); }
-.qsl-btn.red  { background: var(--red); }
-
-/* ---- Estado ---- */
-.qsl-status {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  margin-bottom: 1.25rem;
-  padding: 0.6rem 1rem;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
+/* ---- Estado de carga ---- */
+.log-loading {
+  padding: 3rem 1rem;
+  text-align: center;
   color: var(--text-muted);
-  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
 }
 
-.qsl-spinner {
-  width: 20px;
-  height: 20px;
+.log-spinner {
+  width: 32px;
+  height: 32px;
   border: 3px solid var(--border);
   border-top-color: var(--blue);
   border-radius: 50%;
-  animation: qslSpin 0.8s linear infinite;
-  flex-shrink: 0;
+  animation: logSpin 0.8s linear infinite;
 }
 
-@keyframes qslSpin { to { transform: rotate(360deg); } }
+@keyframes logSpin { to { transform: rotate(360deg); } }
 
-.qsl-count {
-  color: var(--blue);
-  font-weight: 700;
-}
-
-/* ---- Grid de QSLs ---- */
-.qsl-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-  gap: 1.25rem;
-}
-
-/* ---- Tarjeta QSL ---- */
-.qsl-card {
+/* ---- Contenedor del widget ---- */
+#hrdlog {
+  margin-top: 1rem;
   background: var(--surface);
   border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+  box-shadow: var(--shadow-sm);
+  overflow-x: auto;
+}
+
+#hrdlog table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#hrdlog img[src*="HRDL_80x200"] { display: none; }
+
+#hrdlog #hrdl_loading { vertical-align: middle; margin-left: 0.5rem; }
+
+/* ---- Formulario de búsqueda ---- */
+#hrdlog input[type="text"] {
+  padding: 0.45rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface-alt);
+  font-family: inherit;
+  font-size: 0.85rem;
+  color: var(--text);
+  outline: none;
+  transition: border 0.15s;
+}
+
+#hrdlog input[type="text"]:focus { border-color: var(--blue); }
+
+#hrdlog input[type="button"] {
+  padding: 0.45rem 1rem;
+  border: none;
+  border-radius: 8px;
+  background: var(--blue);
+  color: #fff;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+#hrdlog input[type="button"]:hover { background: var(--blue-dark, var(--blue)); }
+
+/* ---- Tabla de QSO ---- */
+#hrdlog .hrdl_table {
+  width: 100%;
+  background: var(--surface) !important;
+  font-family: inherit !important;
+  font-size: 0.9rem;
+  margin-top: 0.75rem;
+  border-collapse: separate;
+  border-spacing: 0;
   border-radius: var(--radius-md);
   overflow: hidden;
-  transition: box-shadow 0.25s, transform 0.25s, border-color 0.25s;
-  cursor: pointer;
   box-shadow: var(--shadow-sm);
 }
 
-.qsl-card:hover {
-  box-shadow: var(--shadow-lg);
-  transform: translateY(-4px);
-  border-color: var(--blue);
-}
-
-.qsl-card img {
-  width: 100%;
-  display: block;
-  background: var(--surface-alt);
-}
-
-.qsl-card-body {
-  padding: 0.85rem 1rem;
-}
-
-.qsl-card-call {
+#hrdlog .hrdl_table th {
+  background: var(--blue) !important;
+  color: #fff;
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: 1.05rem;
-  color: var(--blue);
-  letter-spacing: 0.02em;
-  margin-bottom: 0.35rem;
-}
-
-.qsl-card-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-  margin-bottom: 0.4rem;
-}
-
-.qsl-tag {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.2rem 0.55rem;
-  border-radius: 999px;
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 0.03em;
-}
-
-.qsl-tag.band { background: var(--blue-soft); color: var(--blue); }
-.qsl-tag.mode { background: var(--red-soft); color: var(--red); }
-.qsl-tag.date { background: var(--surface-alt); color: var(--text-muted); }
-
-.qsl-card-comment {
-  font-size: 0.78rem;
-  color: var(--text-muted);
-  font-family: var(--font-mono);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  line-height: 1.4;
-  margin-top: 0.15rem;
-}
-
-/* ---- Lightbox ---- */
-.qsl-lightbox {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.92);
-  z-index: 1000;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem;
-}
-
-.qsl-lightbox.active { display: flex; }
-
-.qsl-lightbox img {
-  max-width: 92vw;
-  max-height: 88vh;
-  border-radius: var(--radius-md);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-}
-
-.qsl-lb-close {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.65rem 0.9rem;
   border: none;
-  background: rgba(255, 255, 255, 0.12);
-  color: white;
-  font-size: 1.5rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.18s;
-}
-
-.qsl-lb-close:hover { background: rgba(255, 255, 255, 0.25); }
-
-.qsl-lb-info {
-  position: absolute;
-  bottom: 1.5rem;
-  left: 0;
-  right: 0;
   text-align: center;
-  color: white;
 }
 
-.qsl-lb-call {
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: 1.1rem;
+#hrdlog .hrdl_table th[colspan] {
+  background: var(--blue) !important;
+  text-align: center;
+  letter-spacing: 0.08em;
 }
 
-.qsl-lb-detail {
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.75);
-  margin-top: 0.3rem;
+#hrdlog .hrdl_table td {
+  padding: 0.55rem 0.9rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+  font-family: inherit !important;
+}
+
+#hrdlog .hrdl_table tr.hrdl_odd td  { background: #fff !important; }
+#hrdlog .hrdl_table tr.hrdl_even td { background: var(--surface-alt) !important; }
+
+#hrdlog .hrdl_table tr:last-child td { border-bottom: none; }
+
+#hrdlog .hrdl_table tr:hover td { background: var(--surface-hover, var(--surface-alt)) !important; }
+
+#hrdlog .hrdl_table img {
+  border-radius: 3px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+  vertical-align: middle;
+}
+
+#hrdlog .hrdl_table a {
+  color: var(--blue);
+  font-weight: 700;
+}
+
+/* ---- Placa DXCC ---- */
+.log-dxcc {
+  margin-top: 1.25rem;
+  text-align: center;
+}
+
+.log-dxcc img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
 }
 
 /* ---- Responsive ---- */
-@media (max-width: 600px) {
-  .qsl-grid { grid-template-columns: 1fr; }
-  .qsl-search-bar { flex-direction: column; }
-  .qsl-btn { width: 100%; }
+@media (max-width: 768px) {
+  #hrdlog { padding: 0.9rem; }
+  #hrdlog .hrdl_table th,
+  #hrdlog .hrdl_table td { padding: 0.5rem 0.6rem; }
 }
