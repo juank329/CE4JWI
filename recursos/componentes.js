@@ -628,17 +628,9 @@ function ultQslParsearNombre(nombre) {
 }
 
 async function ultQslFetch() {
-  try {
-    const raw = localStorage.getItem(ULT_QSL_CACHE_KEY)
-    if (raw) {
-      const cached = JSON.parse(raw)
-      if (Date.now() - cached.ts < ULT_QSL_TTL_MS && Array.isArray(cached.data)) {
-        return cached.data
-      }
-    }
-  } catch { /* ignorar */ }
-
-const ts = Date.now()
+  // El widget "Último Contacto" siempre pide datos frescos (no usa caché local)
+  // para que la última QSL del candado aparezca sin depender de localStorage.
+  const ts = Date.now()
   const intentos = [
     { url: `/api/qsl-catalogo?t=${ts}`,                                             nombre: "Catalogo unificado" },
     { url: `${ULT_QSL_URL}?t=${ts}`,                                                nombre: "GitHub Pages" },
