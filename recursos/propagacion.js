@@ -332,15 +332,54 @@
     el.innerHTML = "Datos de hoy " + formatearFecha(ahora) + fuente;
   }
 
+  function fetchConTimeout(url, ms) {
+    const ctrl = "AbortController" in window ? new AbortController() : null;
+    const promesa = fetch(url, ctrl ? { signal: ctrl.signal } : {});
+    const t = setTimeout(() => { if (ctrl) ctrl.abort(); }, ms);
+    return promesa.finally(() => clearTimeout(t));
+  }
+
+  const PROXIES = [
+    (u) => URL_SERVERLESS + "?url=" + encodeURIComponent(u),
+    (u) => "https://api.allorigins.win/raw?url=" + encodeURIComponent(u),
+    (u) => "https://api.codetabs.com/v1/proxy?quest=" + encodeURIComponent(u),
+    (u) => "https://test.cors.workers.dev/?" + u
+  ];
+
+  const anyPromesa = typeof Promise.any === "function"
+    ? Promise.any.bind(Promise)
+    : function (arr) {
+        return new Promise((res, rej) => {
+          let pendientes = arr.length;
+          if (!pendientes) { rej(new Error("Sin peticiones")); return; }
+          arr.forEach((p) => Promise.resolve(p).then(res, () => { if (--pendientes === 0) rej(new Error("Todas fallaron")); }));
+        });
+      };
+
+  async function obtenerTextoXML(ms) {
+    const urls = [URL_DIRECTA, URL_DIRECTA, URL_DIRECTA, URL_DIRECTA];
+    const promesas = PROXIES.map((proxy, i) =>
+      fetchConTimeout(proxy(urls[i]), ms).then(async (res) => {
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        let texto = await res.text();
+        try {
+          const obj = JSON.parse(texto);
+          if (typeof obj.contents === "string") texto = obj.contents;
+        } catch (e) { /* no es json envuelto */ }
+        if (!texto || !texto.includes("<solar")) throw new Error("XML no valido");
+        return texto;
+      })
+    );
+    return anyPromesa(promesas);
+  }
+
   async function cargarDatos(manual) {
     if (manual) mostrarEstado("cargando", "Actualizando condiciones…");
     marcarBotonCargando(true);
 
     let texto = null;
     try {
-      const res = await fetch(URL_SERVERLESS, { signal: AbortSignal.timeout(20000) });
-      if (!res.ok) throw new Error("HTTP " + res.status);
-      texto = await res.text();
+      texto = await obtenerTextoXML(20000);
     } catch (e1) {
       try {
         const res2 = await fetch(URL_DIRECTA, { signal: AbortSignal.timeout(20000) });
