@@ -32,5 +32,8 @@ jobs:
           FTP_HOST: ${{ secrets.FTP_HOST }}
           FTP_USER: ${{ secrets.FTP_USER }}
           FTP_PASS: ${{ secrets.FTP_PASS }}
+          FTP2_HOST: ${{ secrets.FTP2_HOST }}
+          FTP2_USER: ${{ secrets.FTP2_USER }}
+          FTP2_PASS: ${{ secrets.FTP2_PASS }}
           GH_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: python sync.py

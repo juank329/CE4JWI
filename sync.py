@@ -2,13 +2,24 @@ import ftplib, json, requests, base64, os, sys, time, datetime, re, subprocess
 from io import BytesIO
 from PIL import Image
 
-FTP_HOST = os.environ['FTP_HOST']
-FTP_USER = os.environ['FTP_USER']
-FTP_PASS = os.environ['FTP_PASS']
 GH_TOKEN = os.environ['GH_TOKEN']
 GITHUB_REPO = "juank329/ce4jwi-qsls"
 IMAGES_DIR = "qsl_images"
-MIN_JPG_SIZE = 5000  # QSL images are ~100-300KB minimum
+MIN_JPG_SIZE = 5000
+
+FTP_ACCOUNTS = []
+# CE4JWI account
+ce4jwi_host = os.environ.get('FTP_HOST', '')
+ce4jwi_user = os.environ.get('FTP_USER', '')
+ce4jwi_pass = os.environ.get('FTP_PASS', '')
+if ce4jwi_user:
+    FTP_ACCOUNTS.append({'host': ce4jwi_host, 'user': ce4jwi_user, 'pass': ce4jwi_pass, 'label': 'CE4JWI'})
+# XR4MAU account
+xr4mau_host = os.environ.get('FTP2_HOST', '')
+xr4mau_user = os.environ.get('FTP2_USER', '')
+xr4mau_pass = os.environ.get('FTP2_PASS', '')
+if xr4mau_user:
+    FTP_ACCOUNTS.append({'host': xr4mau_host, 'user': xr4mau_user, 'pass': xr4mau_pass, 'label': 'XR4MAU'})
 
 os.makedirs(IMAGES_DIR, exist_ok=True)
 
@@ -70,11 +81,7 @@ def github_push_json(entries):
         time.sleep(2)
     return False
 
-# Connect FTP
-s = ftplib.FTP(FTP_HOST, FTP_USER, FTP_PASS, timeout=30)
-s.cwd("/")
-
-# Load EXISTING index from GitHub Pages (not FTP!) to preserve LOG4OM entries
+# Load EXISTING index from GitHub Pages to preserve LOG4OM entries
 entries = []
 entries_by_file = {}
 try:
@@ -90,33 +97,11 @@ try:
 except Exception as e:
     print(f"[WARN] No se pudo leer index de GitHub Pages ({e})")
 
-# Also read FTP index as fallback
-try:
-    buf = BytesIO()
-    s.retrbinary("RETR log_qsl.json", buf.write)
-    buf.seek(0)
-    ftp_entries = json.loads(buf.read().decode("utf-8"))
-    if isinstance(ftp_entries, list):
-        for e in ftp_entries:
-            arch = e.get("archivo", "")
-            if arch and arch not in entries_by_file:
-                entries.append(e)
-                entries_by_file[arch] = e
-        print(f"[INFO] Fusionadas {len(ftp_entries)} entradas del FTP")
-except ftplib.error_perm:
-    pass
-except Exception as e:
-    print(f"[WARN] FTP index no leido: {e}")
-
-# List FTP JPGs
-ftp_files = []
-s.retrlines("NLST", ftp_files.append)
-ftp_jpgs = [f for f in ftp_files if f.lower().endswith('.jpg')]
-print(f"[INFO] JPGs en FTP: {len(ftp_jpgs)}")
-
-# Download new images with validation
+# Process each FTP account
 ya_descargadas = set(os.listdir(IMAGES_DIR))
-# First: re-validate existing local files that might be corrupt from previous runs
+nuevas = 0
+
+# Validate existing local files before downloading
 corruptas_previas = 0
 for jpg in list(ya_descargadas):
     if not jpg.lower().endswith('.jpg'):
@@ -141,49 +126,82 @@ for jpg in list(ya_descargadas):
 if corruptas_previas:
     print(f"[IMG] Eliminadas {corruptas_previas} imagenes corruptas/parciales previas")
 
-nuevas = 0
-for jpg in ftp_jpgs:
-    if jpg not in ya_descargadas:
-        local_path = os.path.join(IMAGES_DIR, jpg)
+all_ftp_jpgs = []
+for acct in FTP_ACCOUNTS:
+    label = acct['label']
+    print(f"\n{'='*50}")
+    print(f"[FTP] Conectando a cuenta {label}: {acct['user']}@{acct['host']}")
+    try:
+        s = ftplib.FTP(acct['host'], acct['user'], acct['pass'], timeout=30)
+        s.cwd("/")
+
+        # Read FTP index as fallback for this account
         try:
-            with open(local_path, 'wb') as f:
-                s.retrbinary(f"RETR {jpg}", f.write)
-            # Validate: file must be large enough and be a valid JPEG
-            size = os.path.getsize(local_path)
-            if size < MIN_JPG_SIZE:
-                print(f"[IMG] Descartada {jpg}: solo {size} bytes (minimo {MIN_JPG_SIZE})")
-                os.remove(local_path)
-                continue
-            try:
-                with Image.open(local_path) as im:
-                    im.verify()
-            except Exception:
-                print(f"[IMG] Descartada {jpg}: no es un JPEG valido o esta corrupta")
-                os.remove(local_path)
-                continue
-            nuevas += 1
-            print(f"[IMG] Descargada y validada: {jpg} ({size} bytes)")
+            buf = BytesIO()
+            s.retrbinary("RETR log_qsl.json", buf.write)
+            buf.seek(0)
+            ftp_entries = json.loads(buf.read().decode("utf-8"))
+            if isinstance(ftp_entries, list):
+                for e in ftp_entries:
+                    arch = e.get("archivo", "")
+                    if arch and arch not in entries_by_file:
+                        entries.append(e)
+                        entries_by_file[arch] = e
+                print(f"[{label}] Fusionadas {len(ftp_entries)} entradas del FTP")
+        except ftplib.error_perm:
+            pass
         except Exception as e:
-            print(f"[IMG] Error descargando {jpg}: {e}")
-            # Borrar archivo parcial si quedo en disco
-            local_path = os.path.join(IMAGES_DIR, jpg)
-            if os.path.exists(local_path):
-                os.remove(local_path)
-                print(f"[IMG] Archivo parcial eliminado: {jpg}")
+            print(f"[{label}] FTP index no leido: {e}")
 
-# Re-scan local dir after cleanup to get accurate list
+        # List FTP JPGs
+        ftp_files = []
+        s.retrlines("NLST", ftp_files.append)
+        ftp_jpgs = [f for f in ftp_files if f.lower().endswith('.jpg')]
+        print(f"[{label}] JPGs en FTP: {len(ftp_jpgs)}")
+        all_ftp_jpgs.extend(ftp_jpgs)
+
+        # Download new images
+        for jpg in ftp_jpgs:
+            if jpg not in ya_descargadas:
+                local_path = os.path.join(IMAGES_DIR, jpg)
+                try:
+                    with open(local_path, 'wb') as f:
+                        s.retrbinary(f"RETR {jpg}", f.write)
+                    size = os.path.getsize(local_path)
+                    if size < MIN_JPG_SIZE:
+                        print(f"[{label}] Descartada {jpg}: solo {size} bytes")
+                        os.remove(local_path)
+                        continue
+                    try:
+                        with Image.open(local_path) as im:
+                            im.verify()
+                    except Exception:
+                        print(f"[{label}] Descartada {jpg}: JPEG invalido")
+                        os.remove(local_path)
+                        continue
+                    nuevas += 1
+                    print(f"[{label}] Descargada: {jpg} ({size} bytes)")
+                except Exception as e:
+                    print(f"[{label}] Error descargando {jpg}: {e}")
+                    if os.path.exists(local_path):
+                        os.remove(local_path)
+
+        s.quit()
+        print(f"[{label}] Sincronizacion FTP completada")
+    except Exception as e:
+        print(f"[{label}] ERROR de conexion FTP: {e}")
+
+# Re-scan local dir after all downloads
 ya_descargadas = set(os.listdir(IMAGES_DIR))
-s.quit()
-print(f"[IMG] Nuevas descargadas: {nuevas}")
+print(f"[IMG] Total nuevas descargadas: {nuevas}")
 
-# Build entries with local GitHub Pages URLs
-# MODO ADITIVO: solo agregar las nuevas, nunca eliminar
+# Build entries with local GitHub Pages URLs - ADDITIVE only
 agregadas = 0
-for jpg in ftp_jpgs:
+for jpg in all_ftp_jpgs:
     if jpg in entries_by_file:
         e = entries_by_file[jpg]
         e["url"] = f"https://juank329.github.io/ce4jwi-qsls/qsl_images/{jpg}"
-        e["fuente"] = e.get("fuente", "log4om")
+        e["fuente"] = e.get("fuente", "aprs")
     else:
         call = call_from_file(jpg)
         meta = parsearNombreArchivo(jpg)
@@ -195,7 +213,7 @@ for jpg in ftp_jpgs:
             "fecha": meta.fecha,
             "hora": meta.hora,
             "modo": meta.modo,
-            "fuente": "log4om",
+            "fuente": "aprs",
         }
         entries.append(entry)
         entries_by_file[jpg] = entry
@@ -204,16 +222,17 @@ for jpg in ftp_jpgs:
 
 print(f"[SYNC] Total: {len(entries)} QSLs (agregadas {agregadas} nuevas, 0 eliminadas)")
 
-# Upload updated index back to FTP
-try:
-    s2 = ftplib.FTP(FTP_HOST, FTP_USER, FTP_PASS, timeout=30)
-    s2.cwd("/")
-    data = json.dumps(entries, ensure_ascii=False).encode("utf-8")
-    s2.storbinary("STOR log_qsl.json", BytesIO(data))
-    s2.quit()
-    print(f"[OK] FTP index updated: {len(entries)} entries")
-except Exception as e:
-    print(f"[WARN] Could not update FTP index: {e}")
+# Upload updated index back to each FTP
+for acct in FTP_ACCOUNTS:
+    try:
+        s2 = ftplib.FTP(acct['host'], acct['user'], acct['pass'], timeout=30)
+        s2.cwd("/")
+        data = json.dumps(entries, ensure_ascii=False).encode("utf-8")
+        s2.storbinary("STOR log_qsl.json", BytesIO(data))
+        s2.quit()
+        print(f"[OK] FTP {acct['label']} index updated: {len(entries)} entries")
+    except Exception as e:
+        print(f"[WARN] Could not update FTP {acct['label']} index: {e}")
 
 # Git push images
 if nuevas > 0:
