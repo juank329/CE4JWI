@@ -202,21 +202,6 @@ const COMPONENTES = {
       <p style="margin:0;color:#666;font-size:0.9rem;">America/Santiago</p>
     </div>
   </div>
-  <script>
-    (function(){
-      function actualizarReloj(){
-        var el = document.getElementById("relojLocal");
-        if (!el) return;
-        try{
-          el.textContent = new Date().toLocaleTimeString("es-CL", { timeZone: "America/Santiago", hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false });
-        }catch(e){
-          el.textContent = new Date().toLocaleTimeString("es-CL", { hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false });
-        }
-      }
-      actualizarReloj();
-      setInterval(actualizarReloj, 1000);
-    })();
-  </script>
   
 
 
@@ -897,6 +882,23 @@ function renderizarMarquee() {
 }
 
 /**
+ * Inicia el reloj local de la barra lateral
+ */
+function iniciarReloj() {
+  const el = document.getElementById("relojLocal");
+  if (!el) return;
+  function actualizar() {
+    try {
+      el.textContent = new Date().toLocaleTimeString("es-CL", { timeZone: "America/Santiago", hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false });
+    } catch (e) {
+      el.textContent = new Date().toLocaleTimeString("es-CL", { hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false });
+    }
+  }
+  actualizar();
+  setInterval(actualizar, 1000);
+}
+
+/**
  * Inicializa todos los componentes de la página
  */
 function inicializarComponentes() {
@@ -905,6 +907,9 @@ function inicializarComponentes() {
   cargarComponente("marquee", "marquee-container")
   cargarComponente("sidebar", "sidebar-container")
   cargarComponente("footer", "footer-container")
+
+  // Iniciar el reloj local de la barra lateral
+  iniciarReloj()
 
   // Renderizar la marquesina de próximas actividades
   renderizarMarquee()
