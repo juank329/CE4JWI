@@ -26,6 +26,7 @@
   const PREFIJOS = /^(CA|CD|CE|XQ|XR|CB|3G)/i;
 
   const PROXIES = [
+    (u) => '/api/aprs-proxy?url=' + encodeURIComponent(u),
     (u) => 'https://api.allorigins.win/raw?url=' + encodeURIComponent(u),
     (u) => 'https://api.allorigins.win/get?url=' + encodeURIComponent(u),
     (u) => 'https://test.cors.workers.dev/?' + u,

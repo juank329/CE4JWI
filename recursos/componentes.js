@@ -197,12 +197,26 @@ const COMPONENTES = {
       <h3>Hora Local</h3>
     </div>
     <div class="widget-content widget-clock">
-      <h3><a style="text-decoration:none;" href="https://www.zeitverschiebung.net/es/city/3870294">
-        <span style="color:gray;">Hora actual en</span><br />Maule, Chile
-      </a></h3>
-      <iframe src="https://www.zeitverschiebung.net/clock-widget-iframe-v2?language=es&size=medium&timezone=America%2FSantiago" width="100%" height="115" frameborder="0" seamless loading="lazy"></iframe>
+      <h3><span style="color:gray;">Hora actual en</span><br />Maule, Chile</h3>
+      <p id="relojLocal" style="font-size:2.2rem;font-weight:700;color:#1a4d8f;margin:0.5rem 0 0;font-family:'JetBrains Mono',monospace;">--:--:--</p>
+      <p style="margin:0;color:#666;font-size:0.9rem;">America/Santiago</p>
     </div>
   </div>
+  <script>
+    (function(){
+      function actualizarReloj(){
+        var el = document.getElementById("relojLocal");
+        if (!el) return;
+        try{
+          el.textContent = new Date().toLocaleTimeString("es-CL", { timeZone: "America/Santiago", hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false });
+        }catch(e){
+          el.textContent = new Date().toLocaleTimeString("es-CL", { hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false });
+        }
+      }
+      actualizarReloj();
+      setInterval(actualizarReloj, 1000);
+    })();
+  </script>
   
 
 
