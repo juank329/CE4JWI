@@ -197,9 +197,8 @@ const COMPONENTES = {
       <h3>Hora Local</h3>
     </div>
     <div class="widget-content widget-clock">
-      <h3><span style="color:gray;">Hora actual en</span><br />Maule, Chile</h3>
+      <h3><span style="color:gray;">Hora actual</span> · Local Talca</h3>
       <p id="relojLocal" style="font-size:2.2rem;font-weight:700;color:#1a4d8f;margin:0.5rem 0 0;font-family:'JetBrains Mono',monospace;">--:--:--</p>
-      <p style="margin:0;color:#666;font-size:0.9rem;">America/Santiago</p>
     </div>
   </div>
   
