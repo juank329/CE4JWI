@@ -97,6 +97,49 @@ try:
 except Exception as e:
     print(f"[WARN] No se pudo leer index de GitHub Pages ({e})")
 
+# Load MANUAL QSLs from Supabase (candado) so they persist in the index
+# and never get lost. Uses SUPABASE_URL + SUPABASE_KEY (service_role) del entorno.
+try:
+    sb_url = os.environ.get('SUPABASE_URL', '')
+    sb_key = os.environ.get('SUPABASE_KEY', '')
+    if sb_url and sb_key:
+        headers = {"Authorization": f"Bearer {sb_key}", "apikey": sb_key}
+        rr = requests.get(f"{sb_url}/rest/v1/qsls?select=*&order=fecha.desc", headers=headers, timeout=15)
+        if rr.status_code == 200:
+            filas = rr.json()
+            if isinstance(filas, list):
+                sb_agregadas = 0
+                for f in filas:
+                    if not f or not f.get("callsign") or not f.get("archivo"):
+                        continue
+                    arch = f["archivo"]
+                    # Las manuales viven en el bucket publico de Supabase
+                    url_img = f.get("url_imagen") or f"{sb_url}/storage/v1/object/public/qsl-images/{arch}"
+                    nuevo = {
+                        "call": (f.get("callsign") or "").upper().strip(),
+                        "carpeta": f.get("carpeta") or f.get("actividad") or f.get("banda") or "General",
+                        "archivo": arch,
+                        "url": url_img,
+                        "fecha": f.get("fecha") or "",
+                        "hora": f.get("hora") or "",
+                        "modo": f.get("modo") or "",
+                        "fuente": "manual",
+                    }
+                    if arch not in entries_by_file:
+                        entries.append(nuevo)
+                        entries_by_file[arch] = nuevo
+                        sb_agregadas += 1
+                        print(f"[SUPABASE] Manual agregada: {arch} ({nuevo['call']})")
+                print(f"[SUPABASE] {sb_agregadas} QSL manuales del candado fusionadas desde Supabase")
+            else:
+                print(f"[WARN] Supabase devolvio formato inesperado, se ignora")
+        else:
+            print(f"[WARN] Supabase respondio {rr.status_code}, se ignora ({rr.text[:120]})")
+    else:
+        print(f"[INFO] Sin SUPABASE_URL/SUPABASE_KEY en entorno, se omite fusion de manuales")
+except Exception as e:
+    print(f"[WARN] No se pudo fusionar Supabase: {e}")
+
 # Process each FTP account
 ya_descargadas = set(os.listdir(IMAGES_DIR))
 nuevas = 0

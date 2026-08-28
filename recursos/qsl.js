@@ -84,11 +84,13 @@ async function fetchQSLData(opciones = {}) {
     }
   }
 
-  // 2) Intentar en orden: GitHub Pages (CORS OK) → proxies qsl.net
+  // 2) Intentar en orden: catalogo unificado (GitHub + Supabase) → GitHub Pages directa → proxies qsl.net
   const ts = Date.now()
+  const catalogo = `/api/qsl-catalogo?t=${ts}`
   const directa = `${QSL_JSON_URL}?t=${ts}`
   const directa_qslnet = `${QSL_JSON_URL_QSLNET}?t=${ts}`
   const intentos = [
+    { url: catalogo, nombre: "Catalogo unificado" },
     { url: directa,                                                              nombre: "GitHub Pages" },
     { url: `https://api.allorigins.win/raw?url=${encodeURIComponent(directa_qslnet)}`, nombre: "allorigins" },
     { url: `https://corsproxy.io/?url=${encodeURIComponent(directa_qslnet)}`,          nombre: "corsproxy.io" },
@@ -103,7 +105,8 @@ async function fetchQSLData(opciones = {}) {
       const r = await fetch(intento.url, { signal: ctrl.signal, cache: "no-store" })
       clearTimeout(t)
       if (!r.ok) throw new Error(`HTTP ${r.status}`)
-      const data = await r.json()
+      let data = await r.json()
+      if (intento.nombre === "Catalogo unificado") data = data.results || []
       guardarCache(data)
       return { data, fuente: intento.nombre }
     } catch (e) {

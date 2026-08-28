@@ -35,5 +35,7 @@ jobs:
           FTP2_HOST: ${{ secrets.FTP2_HOST }}
           FTP2_USER: ${{ secrets.FTP2_USER }}
           FTP2_PASS: ${{ secrets.FTP2_PASS }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
           GH_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: python sync.py

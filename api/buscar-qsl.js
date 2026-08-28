@@ -1,5 +1,37 @@
 const QSL_JSON_URL = "https://juank329.github.io/ce4jwi-qsls/log_qsl.json";
 
+async function obtenerSupabase(SURL, SKEY) {
+  try {
+    const r = await fetch(SURL + "/rest/v1/qsls?select=*&order=fecha.desc", {
+      headers: {
+        Authorization: "Bearer " + SKEY,
+        apikey: SKEY,
+        "Content-Type": "application/json",
+      },
+      signal: AbortSignal.timeout(10000),
+    });
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    const raw = await r.json();
+    if (!Array.isArray(raw)) return [];
+    return raw
+      .filter((f) => f && f.callsign && f.archivo)
+      .map((f) => ({
+        call: (f.callsign || "").toUpperCase().trim(),
+        carpeta: f.carpeta || f.actividad || f.banda || "General",
+        archivo: f.archivo,
+        url: f.url_imagen ||
+          SURL + "/storage/v1/object/public/qsl-images/" + encodeURIComponent(f.archivo),
+        fecha: f.fecha || "",
+        hora: f.hora || "",
+        modo: f.modo || "",
+        fuente: f.fuente || "manual",
+      }));
+  } catch (e) {
+    console.warn("[buscar-qsl] Supabase fallo:", e.message || e);
+    return [];
+  }
+}
+
 function esc(s) {
   return String(s || "")
     .replace(/&/g, "&amp;")
@@ -145,12 +177,27 @@ module.exports = async function handler(req, res) {
       return;
     }
 
-    const resp = await fetch(QSL_JSON_URL, { headers: { "User-Agent": "CE4JWI-Bot/1.0" }, signal: AbortSignal.timeout(10000) });
-    if (!resp.ok) throw new Error("HTTP " + resp.status);
-    const raw = await resp.json();
+    const [respGithub, supabase] = await Promise.all([
+      fetch(QSL_JSON_URL, { headers: { "User-Agent": "CE4JWI-Bot/1.0" }, signal: AbortSignal.timeout(10000) }),
+      (process.env.SUPABASE_URL && process.env.SUPABASE_KEY)
+        ? obtenerSupabase(process.env.SUPABASE_URL, process.env.SUPABASE_KEY)
+        : Promise.resolve([]),
+    ]);
+    if (!respGithub.ok) throw new Error("HTTP " + respGithub.status);
+    const raw = await respGithub.json();
 
     const allQSLs = Array.isArray(raw) ? raw : (raw.default || raw.qsls || []);
-    const results = allQSLs
+    // Fusionar por `archivo` para no duplicar las que estan en ambas fuentes
+    const porArchivo = {};
+    for (const item of allQSLs) {
+      if (item && item.archivo) porArchivo[item.archivo] = item;
+    }
+    for (const item of supabase) {
+      if (item && item.archivo && !porArchivo[item.archivo]) porArchivo[item.archivo] = item;
+    }
+    const fusionado = Object.values(porArchivo);
+
+    const results = fusionado
       .filter((item) => {
         const cs = (item.call || item.callsign || "").toUpperCase().trim();
         return cs === callsign;
@@ -160,7 +207,7 @@ module.exports = async function handler(req, res) {
     res.setHeader("Content-Type", "text/html; charset=utf-8");
     res.setHeader("Cache-Control", "s-maxage=300, stale-while-revalidate=600");
     res.writeHead(200);
-    res.end(renderPage(callsign, results, allQSLs.length));
+    res.end(renderPage(callsign, results, fusionado.length));
   } catch (e) {
     res.setHeader("Content-Type", "text/html; charset=utf-8");
     res.writeHead(500);
