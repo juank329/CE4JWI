@@ -609,7 +609,7 @@ function actualizarAnioFooter() {
 
 const ULT_QSL_URL = "https://juank329.github.io/ce4jwi-qsls/log_qsl.json"
 const ULT_QSL_URL_QSLNET = "https://qsl.net/ce4jwi/log_qsl.json"
-const ULT_QSL_CACHE_KEY = "ce4jwi_qsl_cache_v1"
+const ULT_QSL_CACHE_KEY = "ce4jwi_qsl_cache_v2"
 const ULT_QSL_TTL_MS = 1 * 60 * 1000
 const ULT_QSL_REFRESH_MS = 1 * 60 * 1000
 let ultQslActual = null
@@ -772,6 +772,9 @@ function ultQslCerrarLightbox() {
 
 function ultQslInit() {
   if (!document.getElementById("ultQslWidget")) return
+
+  // Limpiar la clave de caché v1 (datos obsoletos de versiones anteriores)
+  try { localStorage.removeItem("ce4jwi_qsl_cache_v1") } catch { /* ignorar */ }
 
   const render = async () => {
     const data = await ultQslFetch()

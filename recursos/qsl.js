@@ -14,7 +14,7 @@
 
 const QSL_JSON_URL = "https://juank329.github.io/ce4jwi-qsls/log_qsl.json"
 const QSL_JSON_URL_QSLNET = "https://qsl.net/ce4jwi/log_qsl.json"
-const QSL_CACHE_KEY = "ce4jwi_qsl_cache_v1"
+const QSL_CACHE_KEY = "ce4jwi_qsl_cache_v2"
 const QSL_CACHE_TTL_MS = 5 * 60 * 1000  // 5 minutos
 
 let indicePorIndicativo = {}
@@ -241,19 +241,30 @@ function buscarQSL(ev) {
     return
   }
 
-  // Si todavía no tenemos datos, los pedimos
+  // Si todavía no tenemos datos, o el catálogo no trae datos frescos, forzamos la descarga.
   if (qslPlanas.length === 0) {
-    setEstado("Cargando catálogo de QSLs desde qsl.net…")
+    setEstado("Cargando catálogo de QSLs…")
     cargarYBuscar(indicativo)
     return
   }
 
   renderBusqueda(indicativo)
+
+  // Re-validar siempre en segundo plano: si el catálogo cambió (p.ej. una QSL
+  // manual del candado recién subida), la búsqueda se actualiza sola.
+  fetchQSLData({ forzar: true })
+    .then(({ data }) => {
+      indexar(data)
+      if (document.getElementById("qslCall")?.value.toUpperCase().trim() === indicativo) {
+        renderBusqueda(indicativo)
+      }
+    })
+    .catch(() => {})
 }
 
 async function cargarYBuscar(indicativo) {
   try {
-    const { data, fuente } = await fetchQSLData()
+    const { data, fuente } = await fetchQSLData({ forzar: true })
     indexar(data)
     setEstado("")
     const nota = fuente === "proxy"
@@ -416,6 +427,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (qslPlanas.length === 0 && !window._qslPrecargando) {
     window._qslPrecargando = true
+
+    // Limpiar la clave de caché v1 (datos obsoletos de versiones anteriores)
+    try { localStorage.removeItem("ce4jwi_qsl_cache_v1") } catch { /* ignorar */ }
 
     // 1) Instante: usar la copia local si existe
     const cache = cargarCache()
