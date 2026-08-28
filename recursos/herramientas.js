@@ -248,12 +248,21 @@ function obtenerVozIngles() {
   if (!("speechSynthesis" in window)) return null
   const voces = window.speechSynthesis.getVoices()
   if (!voces.length) return null
-  const pref = ["en-US", "en-GB", "en-AU", "en-CA", "en-NZ", "en-IE", "en-ZA"]
-  for (const p of pref) {
-    const v = voces.find((voz) => voz.lang.replace("_", "-").toUpperCase() === p)
+  const en = voces.filter((voz) => voz.lang.toLowerCase().startsWith("en"))
+  if (!en.length) return null
+
+  const preferidas = ["Google US English", "Google UK English Female", "Google UK English Male", "Microsoft Aria Online", "Microsoft Guy Online", "Microsoft Jenny Online", "Microsoft Christopher Online", "Microsoft Zira", "Microsoft David", "Google english"]
+  for (const nombre of preferidas) {
+    const v = en.find((voz) => voz.name === nombre || voz.name.replace("_", " ").toLowerCase().includes(nombre.toLowerCase()))
     if (v) return v
   }
-  return voces.find((voz) => voz.lang.toLowerCase().startsWith("en")) || null
+
+  const pref = ["en-US", "en-GB", "en-AU", "en-CA", "en-NZ", "en-IE", "en-ZA"]
+  for (const p of pref) {
+    const v = en.find((voz) => voz.lang.replace("_", "-").toUpperCase() === p)
+    if (v) return v
+  }
+  return en[0]
 }
 
 function leerVoz(texto) {
@@ -268,20 +277,16 @@ function leerVoz(texto) {
     window.speechSynthesis.onvoiceschanged = () => { vocesCargadas = window.speechSynthesis.getVoices() }
   }
 
-  const palabras = texto.split(/[\s,]+/).filter(Boolean)
+  const u = new SpeechSynthesisUtterance(texto)
   const voz = obtenerVozIngles()
-
-  palabras.forEach((palabra) => {
-    const u = new SpeechSynthesisUtterance(palabra)
-    if (voz) {
-      u.voice = voz
-      u.lang = voz.lang
-    } else {
-      u.lang = "en-US"
-    }
-    u.rate = 0.8
-    u.pitch = 1.1
-    u.volume = 1
-    window.speechSynthesis.speak(u)
-  })
+  if (voz) {
+    u.voice = voz
+    u.lang = voz.lang
+  } else {
+    u.lang = "en-US"
+  }
+  u.rate = 0.9
+  u.pitch = 1
+  u.volume = 1
+  window.speechSynthesis.speak(u)
 }
