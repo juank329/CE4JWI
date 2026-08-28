@@ -640,7 +640,8 @@ async function ultQslFetch() {
 
 const ts = Date.now()
   const intentos = [
-    { url: `${ULT_QSL_URL}?t=${ts}`,                                             nombre: "GitHub Pages" },
+    { url: `/api/qsl-catalogo?t=${ts}`,                                             nombre: "Catalogo unificado" },
+    { url: `${ULT_QSL_URL}?t=${ts}`,                                                nombre: "GitHub Pages" },
     { url: `https://api.allorigins.win/raw?url=${encodeURIComponent(`${ULT_QSL_URL_QSLNET}?t=${ts}`)}`, nombre: "allorigins" },
     { url: `https://corsproxy.io/?url=${encodeURIComponent(`${ULT_QSL_URL_QSLNET}?t=${ts}`)}`,          nombre: "corsproxy.io" },
     { url: `https://r.jina.ai/http://${encodeURIComponent(`${ULT_QSL_URL_QSLNET}?t=${ts}`)}`,           nombre: "jina.ai" },
@@ -652,7 +653,8 @@ const ts = Date.now()
       const r = await fetch(intento.url, { signal: ctrl.signal, cache: "no-store" })
       clearTimeout(t)
       if (!r.ok) throw new Error(`HTTP ${r.status}`)
-      const data = await r.json()
+      let data = await r.json()
+      if (intento.nombre === "Catalogo unificado") data = data.results || []
       try {
         localStorage.setItem(ULT_QSL_CACHE_KEY, JSON.stringify({ ts: Date.now(), data }))
       } catch { /* ignorar */ }
@@ -682,7 +684,26 @@ function ultQslElegir(data) {
   if (!Array.isArray(data)) return null
   const conFecha = data
     .filter((item) => !ultQslExpirada(item))
-    .map((item) => ({ item, meta: ultQslParsearNombre(item.archivo || "") }))
+    .map((item) => {
+      const meta = ultQslParsearNombre(item.archivo || "")
+      // Preferir los campos directos del JSON (bots y manuales) sobre el parseo del nombre
+      let fechaOrden = meta.fecha
+      let fechaLegible = meta.fechaLegible
+      let hora = meta.hora
+      if (item.fecha) {
+        const partes = String(item.fecha).split("/")
+        if (partes.length === 3) {
+          fechaOrden = `${partes[2]}-${partes[1]}-${partes[0]}`
+          fechaLegible = `${partes[0]}/${partes[1]}/${partes[2]}`
+        } else if (/^\d{4}-\d{2}-\d{2}/.test(item.fecha)) {
+          fechaOrden = item.fecha.slice(0, 10)
+          const p = item.fecha.split("-")
+          fechaLegible = `${p[2]}/${p[1]}/${p[0]}`
+        }
+      }
+      if (item.hora) hora = String(item.hora).replace(/(\d{2}):(\d{2}).*/, "$1:$2")
+      return { item, meta: { ...meta, fecha: fechaOrden, fechaLegible, hora } }
+    })
     .filter((q) => q.meta.fecha)
     .sort((a, b) => (a.meta.fecha + a.meta.hora).localeCompare(b.meta.fecha + b.meta.hora))
   const ultima = conFecha[conFecha.length - 1]
