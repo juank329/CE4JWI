@@ -266,27 +266,23 @@ function obtenerVozIngles() {
 }
 
 function leerVoz(texto) {
-  if (!("speechSynthesis" in window)) {
-    alert("Tu navegador no soporta lectura en voz alta.")
-    return
+  if (!texto) return
+  try { window.speechSynthesis && window.speechSynthesis.cancel() } catch (e) {}
+  let audio = document.getElementById("ttsAudio")
+  if (!audio) {
+    audio = document.createElement("audio")
+    audio.id = "ttsAudio"
+    document.body.appendChild(audio)
   }
-  window.speechSynthesis.cancel()
+  const frase = String(texto)
+    .split(/[\s,]+/)
+    .filter(Boolean)
+    .join(" ")
+    .replace(/[^a-zA-Z0-9\s]/g, "")
+    .trim()
+  if (!frase) return
+  audio.src = "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=" + encodeURIComponent(frase)
+  audio.volume = 1
+  audio.play().catch(function () {})
 
-  if (!vocesCargadas) {
-    vocesCargadas = window.speechSynthesis.getVoices()
-    window.speechSynthesis.onvoiceschanged = () => { vocesCargadas = window.speechSynthesis.getVoices() }
-  }
-
-  const u = new SpeechSynthesisUtterance(texto)
-  const voz = obtenerVozIngles()
-  if (voz) {
-    u.voice = voz
-    u.lang = voz.lang
-  } else {
-    u.lang = "en-US"
-  }
-  u.rate = 0.9
-  u.pitch = 1
-  u.volume = 1
-  window.speechSynthesis.speak(u)
 }
