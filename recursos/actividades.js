@@ -651,4 +651,13 @@ const ACTIVIDADES = [
   date: "30 Agosto 2026",
   url: "dia_de_la_provincia_de_talca_2026.html",
 },
+{
+  id: 67,
+  title: "Día Nacional del Circo Chileno 2026",
+  image: "public/dia del circo chileno 2026.webp",
+  status: "PRÓXIMAMENTE",
+  description: "Activación especial por el Día Nacional del Circo Chileno. Contacto por APRS (CQ CIRCO) y DMR TG 73040 ADN Systems. QSL automática.",
+  date: "5 Septiembre 2026",
+  url: "dia_nacional_del_circo_chileno_2026.html",
+},
 ]
