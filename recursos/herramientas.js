@@ -265,15 +265,34 @@ function obtenerVozIngles() {
   return en[0]
 }
 
-function leerVoz(texto) {
-  if (!texto) return
-  try { window.speechSynthesis && window.speechSynthesis.cancel() } catch (e) {}
+let vozConFallo = false
+
+function reproducirGoogleTTS(frase) {
   let audio = document.getElementById("ttsAudio")
   if (!audio) {
     audio = document.createElement("audio")
     audio.id = "ttsAudio"
     document.body.appendChild(audio)
   }
+  audio.src =
+    "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&ttsspeed=1&tl=en&q=" +
+    encodeURIComponent(frase)
+  audio.volume = 1
+  audio.play().catch(function () {
+    // Primer intento fallido: re-probar con la URL clásica (algunas redes bloquean una variante y no la otra)
+    audio.src =
+      "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=" +
+      encodeURIComponent(frase)
+    audio.play().catch(function () {})
+  })
+}
+
+function leerVoz(texto) {
+  if (!texto) return
+  try {
+    if ("speechSynthesis" in window) window.speechSynthesis.cancel()
+  } catch (e) {}
+
   const frase = String(texto)
     .split(/[\s,]+/)
     .filter(Boolean)
@@ -281,8 +300,33 @@ function leerVoz(texto) {
     .replace(/[^a-zA-Z0-9\s]/g, "")
     .trim()
   if (!frase) return
-  audio.src = "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=" + encodeURIComponent(frase)
-  audio.volume = 1
-  audio.play().catch(function () {})
 
+  // 1) Voz del sistema (Web Speech API): local y sin depender de Google
+  if ("speechSynthesis" in window && !vozConFallo) {
+    const u = new SpeechSynthesisUtterance(frase)
+    u.rate = 0.95
+    u.lang = "en-US"
+    const voz = obtenerVozIngles()
+    if (voz) u.voice = voz
+    let usado = false
+    const irAGool = function () {
+      if (usado) return
+      usado = true
+      try { window.speechSynthesis.cancel() } catch (e2) {}
+      reproducirGoogleTTS(frase)
+    }
+    u.onerror = function () {
+      // El sistema no tiene voz util: pasamos a Google y recordamos no reintentar speechSynthesis
+      vozConFallo = true
+      irAGool()
+    }
+    setTimeout(function () {
+      if (!usado && !window.speechSynthesis.speaking) irAGool()
+    }, 900)
+    window.speechSynthesis.speak(u)
+    return
+  }
+
+  // 2) Respaldo: Google TTS
+  reproducirGoogleTTS(frase)
 }
