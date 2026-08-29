@@ -660,4 +660,22 @@ const ACTIVIDADES = [
   date: "5 Septiembre 2026",
   url: "dia_nacional_del_circo_chileno_2026.html",
 },
+{
+  id: 68,
+  title: "Día Nacional de la Cueca 2026",
+  image: "public/Dia_Nacional_de_la_Cueca_2026.webp",
+  status: "PRÓXIMAMENTE",
+  description: "Activación especial por el Día Nacional de la Cueca, el baile nacional de Chile. Contacto por APRS (CQ CUECA) y DMR TG 73040 ADN Systems. QSL automática.",
+  date: "17 Septiembre 2026",
+  url: "dia_nacional_de_la_cueca_2026.html",
+},
+{
+  id: 69,
+  title: "Día del Huaso y de la Chilenidad 2026",
+  image: "public/dia del huado y de la chilenidad 2026.webp",
+  status: "PRÓXIMAMENTE",
+  description: "Activación especial por el Día del Huaso y de la Chilenidad. Contacto por APRS (CQ HUASO) y DMR TG 73040 ADN Systems. QSL automática.",
+  date: "17 Septiembre 2026",
+  url: "dia_del_huaso_y_de_la_chilenidad_2026.html",
+},
 ]
