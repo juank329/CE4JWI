@@ -9,6 +9,152 @@
   <link rel="stylesheet" href="recursos/header-responsive.css">
   <link rel="stylesheet" href="recursos/slider.css">
   <link rel="icon" href="public/favicon-32x32.png">
+  <style>
+    .ranking-section { margin: 3rem 0; }
+    .ranking-header { text-align: center; margin-bottom: 1.5rem; }
+    .ranking-header h2 { margin-bottom: 0.3rem; }
+    .ranking-header .total-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #8B4513, #D2691E);
+      color: #fff;
+      padding: 0.4rem 1.2rem;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1rem;
+      margin-top: 0.5rem;
+      box-shadow: 0 4px 15px rgba(139,69,19,0.3);
+    }
+    .ranking-table-wrap {
+      overflow-x: auto;
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+      background: #fff;
+    }
+    .ranking-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+    .ranking-table thead th {
+      background: linear-gradient(135deg, #8B4513, #D2691E);
+      color: #fff;
+      padding: 1rem 1.2rem;
+      text-align: left;
+      font-weight: 600;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      position: sticky;
+      top: 0;
+      z-index: 2;
+    }
+    .ranking-table thead th:first-child {
+      text-align: center;
+      width: 40px;
+    }
+    .ranking-table tbody tr {
+      transition: background 0.2s;
+      border-bottom: 1px solid #eef2f7;
+    }
+    .ranking-table tbody tr:hover { background: #fdf5e6; }
+    .ranking-table tbody td {
+      padding: 0.85rem 1.2rem;
+      font-size: 0.95rem;
+      color: #1a1c1e;
+      vertical-align: middle;
+    }
+    .ranking-table thead th:nth-child(3),
+    .ranking-table tbody td:nth-child(3) {
+      text-align: center;
+    }
+    .ranking-table tbody td:first-child {
+      text-align: center;
+      font-weight: 800;
+      font-size: 1rem;
+      color: #8B4513;
+    }
+    .call-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #fdf5e6, #faebd7);
+      color: #8B4513;
+      padding: 0.25rem 0.7rem;
+      border-radius: 6px;
+      font-weight: 700;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9rem;
+      border: 1px solid #d2b48c;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .call-badge:hover {
+      background: #d2b48c;
+      color: #5c2d00;
+      border-color: #8B4513;
+      text-decoration: underline;
+    }
+    .mode-badge {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 5px;
+      font-weight: 600;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+    }
+    .mode-aprs { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
+    .mode-dmr { background: #fff3e0; color: #e65100; border: 1px solid #ffcc80; }
+    .mode-dv { background: #f3e5f5; color: #7b1fa2; border: 1px solid #ce93d8; }
+    .mode-fm { background: #e3f2fd; color: #1565c0; border: 1px solid #90caf9; }
+    .mode-ssb { background: #fce4ec; color: #c62828; border: 1px solid #ef9a9a; }
+    .mode-ft8 { background: #f3e5f5; color: #7b1fa2; border: 1px solid #ce93d8; }
+    .station-chip {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin: 1px;
+    }
+    .station-ce4jwi {
+      color: #fff;
+      background: #0D47A1;
+    }
+    .station-xr4mau {
+      color: #fff;
+      background: #2E7D32;
+    }
+    .ranking-empty {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: #6c757d;
+      font-size: 1rem;
+    }
+    .ranking-empty .spinner {
+      display: inline-block;
+      width: 32px;
+      height: 32px;
+      border: 3px solid #e0e0e0;
+      border-top-color: #8B4513;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin-bottom: 0.8rem;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .ranking-footer {
+      text-align: center;
+      margin-top: 1rem;
+      font-size: 0.8rem;
+      color: #999;
+    }
+    @media (max-width: 600px) {
+      .ranking-table thead th,
+      .ranking-table tbody td {
+        padding: 0.6rem 0.7rem;
+        font-size: 0.8rem;
+      }
+      .call-badge { font-size: 0.78rem; padding: 0.2rem 0.5rem; }
+    }
+  </style>
 </head>
 <body>
   <div id="header-container"></div>
@@ -44,17 +190,17 @@
 
         <h2>Activación Especial</h2>
         <p>
-          Con motivo de esta efeméride, la estación <strong>CE4JWI</strong> realizará una activación especial con QSL conmemorativa. El contacto podrá realizarse por los siguientes modos:
+          Con motivo de esta efeméride, las estaciones <strong>CE4JWI-7</strong> y <strong>XR4MAU-7</strong> realizarán una activación especial con QSL conmemorativa. El contacto podrá realizarse por los siguientes modos:
         </p>
 
         <h2>Modos de Activación</h2>
 
         <div style="text-align:center; margin:2rem 0;">
-          <img src="public/modos adn-APRS.webp" alt="Modos de activación - CE4JWI" style="max-width:80%; width:80%; border-radius:8px;">
+          <img src="public/modos adn-APRS.webp" alt="Modos de activación - CE4JWI / XR4MAU" style="max-width:80%; width:80%; border-radius:8px;">
         </div>
 
         <ul>
-          <li><strong>APRS:</strong> Responder al llamado <strong>CQ TALCA</strong> en la frecuencia de 144.390 MHz</li>
+          <li><strong>APRS:</strong> Responder al llamado <strong>CQ TALCA</strong> en la frecuencia de 144.390 MHz (<strong>CE4JWI-7</strong> / <strong>XR4MAU-7</strong>)</li>
           <li><strong>DMR:</strong> Talkgroup <strong>TG 73040</strong> de la red ADN Systems</li>
         </ul>
 
@@ -66,6 +212,40 @@
         <h2>QSL</h2>
         <p>Al finalizar tu contacto, la QSL conmemorativa se genera automáticamente. Puedes consultarla en la sección de QSL del sitio web o recibir el enlace por APRS.</p>
 
+        <div class="ranking-section">
+          <div class="ranking-header">
+            <h2>Estaciones Participantes</h2>
+            <div class="total-badge">14 contactos &middot; 11 participantes</div>
+          </div>
+          <div class="ranking-table-wrap">
+            <table class="ranking-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Indicativo</th>
+                  <th>Contactos</th>
+                  <th>Modos</th>
+                  <th>Estaciones contactadas</th>
+                </tr>
+              </thead>
+              <tbody id="ranking-tbody">
+                <tr><td>1</td><td><a class="call-badge" href="https://www.qrz.com/db/LU2BR" target="_blank">LU2BR</a></td><td>2</td><td><span class="mode-badge mode-aprs">APRS</span></td><td><span class="station-chip station-ce4jwi">CE4JWI-7</span> <span class="station-chip station-xr4mau">XR4MAU-7</span></td></tr>
+                <tr><td>2</td><td><a class="call-badge" href="https://www.qrz.com/db/LU5VRN" target="_blank">LU5VRN</a></td><td>2</td><td><span class="mode-badge mode-aprs">APRS</span></td><td><span class="station-chip station-ce4jwi">CE4JWI-7</span> <span class="station-chip station-xr4mau">XR4MAU-7</span></td></tr>
+                <tr><td>3</td><td><a class="call-badge" href="https://www.qrz.com/db/W4CVT" target="_blank">W4CVT</a></td><td>2</td><td><span class="mode-badge mode-aprs">APRS</span></td><td><span class="station-chip station-ce4jwi">CE4JWI-7</span> <span class="station-chip station-xr4mau">XR4MAU-7</span></td></tr>
+                <tr><td>4</td><td><a class="call-badge" href="https://www.qrz.com/db/CA3PVF" target="_blank">CA3PVF</a></td><td>1</td><td><span class="mode-badge mode-aprs">APRS</span></td><td><span class="station-chip station-ce4jwi">CE4JWI-7</span></td></tr>
+                <tr><td>5</td><td><a class="call-badge" href="https://www.qrz.com/db/CA6GUI" target="_blank">CA6GUI</a></td><td>1</td><td><span class="mode-badge mode-aprs">APRS</span></td><td><span class="station-chip station-ce4jwi">CE4JWI-7</span></td></tr>
+                <tr><td>6</td><td><a class="call-badge" href="https://www.qrz.com/db/CX3JG" target="_blank">CX3JG</a></td><td>1</td><td><span class="mode-badge mode-aprs">APRS</span></td><td><span class="station-chip station-ce4jwi">CE4JWI-7</span></td></tr>
+                <tr><td>7</td><td><a class="call-badge" href="https://www.qrz.com/db/CX4AT" target="_blank">CX4AT</a></td><td>1</td><td><span class="mode-badge mode-aprs">APRS</span></td><td><span class="station-chip station-ce4jwi">CE4JWI-7</span></td></tr>
+                <tr><td>8</td><td><a class="call-badge" href="https://www.qrz.com/db/EA7FP" target="_blank">EA7FP</a></td><td>1</td><td><span class="mode-badge mode-aprs">APRS</span></td><td><span class="station-chip station-ce4jwi">CE4JWI-7</span></td></tr>
+                <tr><td>9</td><td><a class="call-badge" href="https://www.qrz.com/db/LU6EGD" target="_blank">LU6EGD</a></td><td>1</td><td><span class="mode-badge mode-aprs">APRS</span></td><td><span class="station-chip station-ce4jwi">CE4JWI-7</span></td></tr>
+                <tr><td>10</td><td><a class="call-badge" href="https://www.qrz.com/db/LU7QAY" target="_blank">LU7QAY</a></td><td>1</td><td><span class="mode-badge mode-aprs">APRS</span></td><td><span class="station-chip station-ce4jwi">CE4JWI-7</span></td></tr>
+                <tr><td>11</td><td><a class="call-badge" href="https://www.qrz.com/db/LU9DUV" target="_blank">LU9DUV</a></td><td>1</td><td><span class="mode-badge mode-aprs">APRS</span></td><td><span class="station-chip station-ce4jwi">CE4JWI-7</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="ranking-footer">Datos generados desde los logs ADIF de los bots APRS &middot; actualización en vivo</div>
+        </div>
+
       </section>
     </div>
     <div id="sidebar-container"></div>
@@ -75,5 +255,36 @@
 
   <script src="recursos/actividades.js" defer></script>
   <script src="recursos/componentes.js?v=2"></script>
+  <script>
+    (function () {
+      var tbody = document.getElementById("ranking-tbody");
+      if (!tbody) return;
+      fetch("/api/ranking?actividad=talca", { cache: "no-cache" })
+        .then(function (r) {
+          if (!r.ok) throw new Error("HTTP " + r.status);
+          return r.json();
+        })
+        .then(function (d) {
+          if (!d.ok || !Array.isArray(d.filas)) throw new Error("formato invalido");
+          var badge = document.querySelector(".ranking-header .total-badge");
+          if (badge) badge.textContent = d.totalContactos + " contactos \u00b7 " + d.participantes + " participantes";
+          tbody.innerHTML = d.filas.map(function (f, i) {
+            var chips = f.estaciones.map(function (s) {
+              var cls = s.indexOf("CE4JWI") === 0 ? "station-ce4jwi" : "station-xr4mau";
+              return '<span class="station-chip ' + cls + '">' + s + "</span>";
+            }).join(" ");
+            var modos = f.modos.map(function (m) {
+              var mm = m === "PKT" ? "APRS" : m;
+              var cls = mm === "APRS" ? "mode-aprs" : mm === "DMR" ? "mode-dmr" : "mode-fm";
+              return '<span class="mode-badge ' + cls + '">' + mm + "</span>";
+            }).join(" ");
+            return '<tr><td>' + (i + 1) + '</td><td><a class="call-badge" href="https://www.qrz.com/db/' + f.call + '" target="_blank">' + f.call + "</a></td><td>" + f.contactos + "</td><td>" + modos + "</td><td>" + chips + "</td></tr>";
+          }).join("");
+        })
+        .catch(function (e) {
+          console.warn("Ranking en vivo no disponible: " + e);
+        });
+    })();
+  </script>
 </body>
 </html>

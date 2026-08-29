@@ -647,7 +647,7 @@ const ACTIVIDADES = [
   title: "Día de la Provincia de Talca 2026",
   image: "public/DIA DE LA PROVINCIA DE TALCA 2026.webp",
   status: "PRÓXIMAMENTE",
-  description: "Activación especial por el Día de la Provincia de Talca. Contacto por APRS (CQ TALCA) y DMR TG 73040 ADN Systems. QSL automática.",
+  description: "Activación especial por el Día de la Provincia de Talca con CE4JWI-7 y XR4MAU-7. Contacto por APRS (CQ TALCA) y DMR TG 73040 ADN Systems. QSL automática.",
   date: "30 Agosto 2026",
   url: "dia_de_la_provincia_de_talca_2026.html",
 },
