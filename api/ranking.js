@@ -1,21 +1,23 @@
-// Ranking en vivo de las actividades CE4JWI / XR4MAU.
-// Lee los ADIF que cada bot sube por FTP a su propio qsl.net tras cada QSO.
+// Ranking definitivo de la actividad Talca 2026 (resultado fijado al cierre).
+// Fuente inamovible: los ADIF congelados en /ranking-data/talca/ de este mismo
+// repo (git = copia permanente). No depende de qsl.net ni de Supabase en vivo,
+// por lo que la tabla ya NO cambia ni se pierde aunque los bots sigan corriendo.
+
+const RAW_BASE = "https://raw.githubusercontent.com/juank329/CE4JWI/main/ranking-data/talca";
 
 const FUENTES = {
   talca: {
     estaciones: [
-      { clave: "CE4JWI", indicativo: "CE4JWI", url: "https://qsl.net/ce4jwi/log_ce4jwi.adi" },
-      { clave: "XR4MAU", indicativo: "XR4MAU", url: "https://qsl.net/xr4mau/log_talca.adi" },
+      { clave: "CE4JWI", indicativo: "CE4JWI", url: RAW_BASE + "/log_ce4jwi.adi" },
+      { clave: "XR4MAU", indicativo: "XR4MAU", url: RAW_BASE + "/log_talca.adi" },
     ],
   },
 };
 
-// QSL manuales de la actividad (DMR/DV) que cada operador sube desde el candado.
-// Viven en Supabase (tabla qsls) con carpeta TALCA; publicas via la clave publishable.
-const SUPABASE = {
-  url: "https://fuxvowudtaqeyqbnuhss.supabase.co",
-  key: "sb_publishable_Ske2CJsnJH9PiU3gu5M9jw_dzdRVqfN",
-  carpeta: "TALCA",
+// QSL manuales de la actividad (DMR/DV), congeladas al cierre en /
+// ranking-data/talca/manuales.json (respaldo permanente de Supabase).
+const MANUALES = {
+  url: RAW_BASE + "/manuales.json",
   estaciones: ["CE4JWI", "XR4MAU"],
 };
 
@@ -26,18 +28,9 @@ function normalizarModo(m) {
   return mm;
 }
 
-async function leerSupabase() {
+async function leerManuales() {
   try {
-    const params = new URLSearchParams({
-      select: "*",
-      carpeta: "ilike.*" + SUPABASE.carpeta + "*",
-      limit: "200",
-      order: "fecha.desc",
-    });
-    const r = await fetch(SUPABASE.url + "/rest/v1/qsls?" + params.toString(), {
-      headers: { apikey: SUPABASE.key, Authorization: "Bearer " + SUPABASE.key },
-      signal: AbortSignal.timeout(8000),
-    });
+    const r = await fetch(MANUALES.url, { signal: AbortSignal.timeout(8000) });
     if (!r.ok) throw new Error("HTTP " + r.status);
     const filas = await r.json();
     const qsos = (Array.isArray(filas) ? filas : [])
@@ -105,15 +98,15 @@ async function handler(req, res) {
     }
   }
 
-  // QSL manuales (DMR/DV) de Supabase: cada QSO cuenta como contacto de ambas estaciones.
-  const sup = await leerSupabase();
+  // QSL manuales (DMR/DV) congeladas: cada QSO cuenta como contacto de ambas estaciones.
+  const sup = await leerManuales();
   for (const q of sup.qsos) {
     if (cfg.estaciones.some((s) => s.indicativo === q.call)) continue;
     if (!porCall.has(q.call)) {
       porCall.set(q.call, { call: q.call, contactos: 0, modos: [], estaciones: [] });
     }
     const f = porCall.get(q.call);
-    for (const clave of SUPABASE.estaciones) {
+    for (const clave of MANUALES.estaciones) {
       f.contactos += 1;
       if (!f.modos.includes(q.modo)) f.modos.push(q.modo);
       if (!f.estaciones.includes(clave)) f.estaciones.push(clave);
@@ -128,7 +121,7 @@ async function handler(req, res) {
   res.status(200).json({
     ok: true,
     actividad,
-    actualizado: new Date().toISOString(),
+    actualizado: "2026-08-30T23:59:59-04:00",
     totalContactos: filas.reduce((s, f) => s + f.contactos, 0),
     participantes: filas.length,
     filas,

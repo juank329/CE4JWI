@@ -1,0 +1,619 @@
+{
+  "ok": true,
+  "actividad": "talca",
+  "actualizado": "2026-08-30T23:30:42.772Z",
+  "totalContactos": 85,
+  "participantes": 57,
+  "filas": [
+    {
+      "call": "CA4NDW",
+      "contactos": 4,
+      "modos": [
+        "PKT",
+        "DMR"
+      ],
+      "estaciones": [
+        "CE4JWI",
+        "XR4MAU"
+      ]
+    },
+    {
+      "call": "9M2RAN",
+      "contactos": 2,
+      "modos": [
+        "DV"
+      ],
+      "estaciones": [
+        "CE4JWI",
+        "XR4MAU"
+      ]
+    },
+    {
+      "call": "CA4BRR",
+      "contactos": 2,
+      "modos": [
+        "DMR"
+      ],
+      "estaciones": [
+        "CE4JWI",
+        "XR4MAU"
+      ]
+    },
+    {
+      "call": "CA4FAX",
+      "contactos": 2,
+      "modos": [
+        "PKT"
+      ],
+      "estaciones": [
+        "CE4JWI",
+        "XR4MAU"
+      ]
+    },
+    {
+      "call": "CA4SVL",
+      "contactos": 2,
+      "modos": [
+        "DMR"
+      ],
+      "estaciones": [
+        "CE4JWI",
+        "XR4MAU"
+      ]
+    },
+    {
+      "call": "EA3FJT",
+      "contactos": 2,
+      "modos": [
+        "PKT"
+      ],
+      "estaciones": [
+        "CE4JWI",
+        "XR4MAU"
+      ]
+    },
+    {
+      "call": "HJ7OZ",
+      "contactos": 2,
+      "modos": [
+        "PKT"
+      ],
+      "estaciones": [
+        "CE4JWI",
+        "XR4MAU"
+      ]
+    },
+    {
+      "call": "LU2BR",
+      "contactos": 2,
+      "modos": [
+        "PKT"
+      ],
+      "estaciones": [
+        "CE4JWI",
+        "XR4MAU"
+      ]
+    },
+    {
+      "call": "LU2DHU",
+      "contactos": 2,
+      "modos": [
+        "PKT"
+      ],
+      "estaciones": [
+        "CE4JWI",
+        "XR4MAU"
+      ]
+    },
+    {
+      "call": "LU2EQI",
+      "contactos": 2,
+      "modos": [
+        "PKT"
+      ],
+      "estaciones": [
+        "CE4JWI",
+        "XR4MAU"
+      ]
+    },
+    {
+      "call": "LU4EOU",
+      "contactos": 2,
+      "modos": [
+        "PKT"
+      ],
+      "estaciones": [
+        "CE4JWI",
+        "XR4MAU"
+      ]
+    },
+    {
+      "call": "LU5VRN",
+      "contactos": 2,
+      "modos": [
+        "PKT"
+      ],
+      "estaciones": [
+        "CE4JWI",
+        "XR4MAU"
+      ]
+    },
+    {
+      "call": "LU6EGD",
+      "contactos": 2,
+      "modos": [
+        "PKT"
+      ],
+      "estaciones": [
+        "CE4JWI",
+        "XR4MAU"
+      ]
+    },
+    {
+      "call": "LU7QAY",
+      "contactos": 2,
+      "modos": [
+        "PKT"
+      ],
+      "estaciones": [
+        "CE4JWI",
+        "XR4MAU"
+      ]
+    },
+    {
+      "call": "LU7QGC",
+      "contactos": 2,
+      "modos": [
+        "PKT"
+      ],
+      "estaciones": [
+        "CE4JWI",
+        "XR4MAU"
+      ]
+    },
+    {
+      "call": "LU8HEG",
+      "contactos": 2,
+      "modos": [
+        "PKT"
+      ],
+      "estaciones": [
+        "CE4JWI",
+        "XR4MAU"
+      ]
+    },
+    {
+      "call": "LU9TRL",
+      "contactos": 2,
+      "modos": [
+        "PKT"
+      ],
+      "estaciones": [
+        "CE4JWI",
+        "XR4MAU"
+      ]
+    },
+    {
+      "call": "LW3DFA",
+      "contactos": 2,
+      "modos": [
+        "PKT"
+      ],
+      "estaciones": [
+        "CE4JWI",
+        "XR4MAU"
+      ]
+    },
+    {
+      "call": "LW6DAZ",
+      "contactos": 2,
+      "modos": [
+        "PKT"
+      ],
+      "estaciones": [
+        "CE4JWI",
+        "XR4MAU"
+      ]
+    },
+    {
+      "call": "LW7EDH",
+      "contactos": 2,
+      "modos": [
+        "PKT"
+      ],
+      "estaciones": [
+        "CE4JWI",
+        "XR4MAU"
+      ]
+    },
+    {
+      "call": "LW7ELF",
+      "contactos": 2,
+      "modos": [
+        "PKT"
+      ],
+      "estaciones": [
+        "CE4JWI",
+        "XR4MAU"
+      ]
+    },
+    {
+      "call": "W4CVT",
+      "contactos": 2,
+      "modos": [
+        "PKT"
+      ],
+      "estaciones": [
+        "CE4JWI",
+        "XR4MAU"
+      ]
+    },
+    {
+      "call": "WP4TZM",
+      "contactos": 2,
+      "modos": [
+        "PKT"
+      ],
+      "estaciones": [
+        "CE4JWI",
+        "XR4MAU"
+      ]
+    },
+    {
+      "call": "YC1SNI",
+      "contactos": 2,
+      "modos": [
+        "PKT"
+      ],
+      "estaciones": [
+        "CE4JWI",
+        "XR4MAU"
+      ]
+    },
+    {
+      "call": "YG1CBG",
+      "contactos": 2,
+      "modos": [
+        "PKT"
+      ],
+      "estaciones": [
+        "CE4JWI",
+        "XR4MAU"
+      ]
+    },
+    {
+      "call": "YV5GHW",
+      "contactos": 2,
+      "modos": [
+        "PKT"
+      ],
+      "estaciones": [
+        "CE4JWI",
+        "XR4MAU"
+      ]
+    },
+    {
+      "call": "9W3EZY",
+      "contactos": 1,
+      "modos": [
+        "PKT"
+      ],
+      "estaciones": [
+        "XR4MAU"
+      ]
+    },
+    {
+      "call": "9W3FAB",
+      "contactos": 1,
+      "modos": [
+        "PKT"
+      ],
+      "estaciones": [
+        "XR4MAU"
+      ]
+    },
+    {
+      "call": "9W8LLY",
+      "contactos": 1,
+      "modos": [
+        "PKT"
+      ],
+      "estaciones": [
+        "XR4MAU"
+      ]
+    },
+    {
+      "call": "CA3MKF",
+      "contactos": 1,
+      "modos": [
+        "PKT"
+      ],
+      "estaciones": [
+        "CE4JWI"
+      ]
+    },
+    {
+      "call": "CA3PVF",
+      "contactos": 1,
+      "modos": [
+        "PKT"
+      ],
+      "estaciones": [
+        "CE4JWI"
+      ]
+    },
+    {
+      "call": "CA6GUI",
+      "contactos": 1,
+      "modos": [
+        "PKT"
+      ],
+      "estaciones": [
+        "CE4JWI"
+      ]
+    },
+    {
+      "call": "CO5ABC",
+      "contactos": 1,
+      "modos": [
+        "PKT"
+      ],
+      "estaciones": [
+        "CE4JWI"
+      ]
+    },
+    {
+      "call": "CO5RMM",
+      "contactos": 1,
+      "modos": [
+        "PKT"
+      ],
+      "estaciones": [
+        "XR4MAU"
+      ]
+    },
+    {
+      "call": "CX2JO",
+      "contactos": 1,
+      "modos": [
+        "PKT"
+      ],
+      "estaciones": [
+        "CE4JWI"
+      ]
+    },
+    {
+      "call": "CX2TG",
+      "contactos": 1,
+      "modos": [
+        "PKT"
+      ],
+      "estaciones": [
+        "CE4JWI"
+      ]
+    },
+    {
+      "call": "CX3JG",
+      "contactos": 1,
+      "modos": [
+        "PKT"
+      ],
+      "estaciones": [
+        "CE4JWI"
+      ]
+    },
+    {
+      "call": "CX4AT",
+      "contactos": 1,
+      "modos": [
+        "PKT"
+      ],
+      "estaciones": [
+        "CE4JWI"
+      ]
+    },
+    {
+      "call": "EA1062RCU",
+      "contactos": 1,
+      "modos": [
+        "PKT"
+      ],
+      "estaciones": [
+        "CE4JWI"
+      ]
+    },
+    {
+      "call": "EA3HCR",
+      "contactos": 1,
+      "modos": [
+        "PKT"
+      ],
+      "estaciones": [
+        "CE4JWI"
+      ]
+    },
+    {
+      "call": "EA5JXM",
+      "contactos": 1,
+      "modos": [
+        "PKT"
+      ],
+      "estaciones": [
+        "CE4JWI"
+      ]
+    },
+    {
+      "call": "EA7FP",
+      "contactos": 1,
+      "modos": [
+        "PKT"
+      ],
+      "estaciones": [
+        "CE4JWI"
+      ]
+    },
+    {
+      "call": "EA7JWA",
+      "contactos": 1,
+      "modos": [
+        "PKT"
+      ],
+      "estaciones": [
+        "CE4JWI"
+      ]
+    },
+    {
+      "call": "EA7KGO",
+      "contactos": 1,
+      "modos": [
+        "PKT"
+      ],
+      "estaciones": [
+        "XR4MAU"
+      ]
+    },
+    {
+      "call": "EB7RU",
+      "contactos": 1,
+      "modos": [
+        "PKT"
+      ],
+      "estaciones": [
+        "CE4JWI"
+      ]
+    },
+    {
+      "call": "HJ1BNL",
+      "contactos": 1,
+      "modos": [
+        "PKT"
+      ],
+      "estaciones": [
+        "XR4MAU"
+      ]
+    },
+    {
+      "call": "HK1I",
+      "contactos": 1,
+      "modos": [
+        "PKT"
+      ],
+      "estaciones": [
+        "XR4MAU"
+      ]
+    },
+    {
+      "call": "KP4LCA",
+      "contactos": 1,
+      "modos": [
+        "PKT"
+      ],
+      "estaciones": [
+        "CE4JWI"
+      ]
+    },
+    {
+      "call": "LU1QAO",
+      "contactos": 1,
+      "modos": [
+        "PKT"
+      ],
+      "estaciones": [
+        "CE4JWI"
+      ]
+    },
+    {
+      "call": "LU6JAM",
+      "contactos": 1,
+      "modos": [
+        "PKT"
+      ],
+      "estaciones": [
+        "CE4JWI"
+      ]
+    },
+    {
+      "call": "LU9DUV",
+      "contactos": 1,
+      "modos": [
+        "PKT"
+      ],
+      "estaciones": [
+        "CE4JWI"
+      ]
+    },
+    {
+      "call": "OA4DXG",
+      "contactos": 1,
+      "modos": [
+        "PKT"
+      ],
+      "estaciones": [
+        "CE4JWI"
+      ]
+    },
+    {
+      "call": "VU3JXD",
+      "contactos": 1,
+      "modos": [
+        "PKT"
+      ],
+      "estaciones": [
+        "XR4MAU"
+      ]
+    },
+    {
+      "call": "YB0TNS",
+      "contactos": 1,
+      "modos": [
+        "PKT"
+      ],
+      "estaciones": [
+        "XR4MAU"
+      ]
+    },
+    {
+      "call": "YC2UAI",
+      "contactos": 1,
+      "modos": [
+        "PKT"
+      ],
+      "estaciones": [
+        "XR4MAU"
+      ]
+    },
+    {
+      "call": "YC2UGE",
+      "contactos": 1,
+      "modos": [
+        "PKT"
+      ],
+      "estaciones": [
+        "XR4MAU"
+      ]
+    },
+    {
+      "call": "YD2BBH",
+      "contactos": 1,
+      "modos": [
+        "PKT"
+      ],
+      "estaciones": [
+        "XR4MAU"
+      ]
+    }
+  ],
+  "fuentes": [
+    {
+      "estacion": "CE4JWI",
+      "qsos": 43
+    },
+    {
+      "estacion": "XR4MAU",
+      "qsos": 36
+    }
+  ],
+  "supabase": {
+    "qsos": 4
+  }
+}
