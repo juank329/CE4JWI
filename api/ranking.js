@@ -10,6 +10,45 @@ const FUENTES = {
   },
 };
 
+// QSL manuales de la actividad (DMR/DV) que cada operador sube desde el candado.
+// Viven en Supabase (tabla qsls) con carpeta TALCA; publicas via la clave publishable.
+const SUPABASE = {
+  url: "https://fuxvowudtaqeyqbnuhss.supabase.co",
+  key: "sb_publishable_Ske2CJsnJH9PiU3gu5M9jw_dzdRVqfN",
+  carpeta: "TALCA",
+  estaciones: ["CE4JWI", "XR4MAU"],
+};
+
+function normalizarModo(m) {
+  const mm = String(m || "").toUpperCase();
+  if (mm === "DIGITALVOICE") return "DV";
+  if (mm === "PKT") return "APRS";
+  return mm;
+}
+
+async function leerSupabase() {
+  try {
+    const params = new URLSearchParams({
+      select: "*",
+      carpeta: "ilike.*" + SUPABASE.carpeta + "*",
+      limit: "200",
+      order: "fecha.desc",
+    });
+    const r = await fetch(SUPABASE.url + "/rest/v1/qsls?" + params.toString(), {
+      headers: { apikey: SUPABASE.key, Authorization: "Bearer " + SUPABASE.key },
+      signal: AbortSignal.timeout(8000),
+    });
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    const filas = await r.json();
+    const qsos = (Array.isArray(filas) ? filas : [])
+      .filter((f) => f && f.callsign)
+      .map((f) => ({ call: String(f.callsign).toUpperCase(), modo: normalizarModo(f.modo) }));
+    return { qsos, error: null };
+  } catch (e) {
+    return { qsos: [], error: String(e) };
+  }
+}
+
 function extraer(texto, campo) {
   const re = new RegExp("<" + campo + ":(\\d+)>([\\s\\S]*?)(?=<[A-Za-z_]+:|$)");
   const m = texto.match(re);
@@ -66,6 +105,21 @@ async function handler(req, res) {
     }
   }
 
+  // QSL manuales (DMR/DV) de Supabase: cada QSO cuenta como contacto de ambas estaciones.
+  const sup = await leerSupabase();
+  for (const q of sup.qsos) {
+    if (cfg.estaciones.some((s) => s.indicativo === q.call)) continue;
+    if (!porCall.has(q.call)) {
+      porCall.set(q.call, { call: q.call, contactos: 0, modos: [], estaciones: [] });
+    }
+    const f = porCall.get(q.call);
+    for (const clave of SUPABASE.estaciones) {
+      f.contactos += 1;
+      if (!f.modos.includes(q.modo)) f.modos.push(q.modo);
+      if (!f.estaciones.includes(clave)) f.estaciones.push(clave);
+    }
+  }
+
   const filas = [...porCall.values()].sort(
     (a, b) => b.contactos - a.contactos || a.call.localeCompare(b.call)
   );
@@ -84,6 +138,7 @@ async function handler(req, res) {
       qsos: r.qsos.length,
       error: r.error || null,
     })),
+    supabase: { qsos: sup.qsos.length, error: sup.error },
   });
 }
 
