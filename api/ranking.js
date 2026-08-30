@@ -4,8 +4,8 @@
 const FUENTES = {
   talca: {
     estaciones: [
-      { clave: "CE4JWI-7", indicativo: "CE4JWI", url: "https://qsl.net/ce4jwi/log_ce4jwi.adi" },
-      { clave: "XR4MAU-7", indicativo: "XR4MAU", url: "https://qsl.net/xr4mau/log_talca.adi" },
+      { clave: "CE4JWI", indicativo: "CE4JWI", url: "https://qsl.net/ce4jwi/log_ce4jwi.adi" },
+      { clave: "XR4MAU", indicativo: "XR4MAU", url: "https://qsl.net/xr4mau/log_talca.adi" },
     ],
   },
 };
