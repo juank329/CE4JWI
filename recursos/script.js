@@ -54,6 +54,14 @@ function renderActivities() {
 
   sortedActivitiesCache = [...activities].filter(a => {
     const hoy = new Date(); hoy.setHours(0,0,0,0)
+    // Regla dinámica: ocultar las actividades FUTURAS hasta 1 semana (7 días)
+    // antes de su fecha, para que no le quiten protagonismo a la actividad en
+    // curso. Las pasadas y las cercanas (<= 7 días) SIEMPRE se muestran.
+    const fechaInicio = parseSpanishDate(a.date)
+    const limite = new Date(hoy)
+    limite.setDate(limite.getDate() + 7)
+    if (fechaInicio > hoy && fechaInicio > limite) return false
+    // Mecanismo adicional showAfter (fecha fija) si está definido
     if (a.showAfter && hoy < new Date(a.showAfter + "T00:00:00")) return false
     return true
   }).sort((a, b) => {

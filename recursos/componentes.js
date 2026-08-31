@@ -854,9 +854,21 @@ function renderizarMarquee() {
   const hoy = new Date()
   hoy.setHours(0, 0, 0, 0)
 
-  // Próximas (fecha de inicio en el futuro o de hoy en adelante)
+  // Próximas (fecha de inicio en el futuro o de hoy en adelante).
+  // Regla dinámica: se ocultan las futuras hasta 1 semana (7 días) antes de su
+  // fecha, para no quitarle protagonismo a la actividad en curso. Las pasadas
+  // y las que están a <= 7 días de su fecha siempre se muestran.
+  const fechaHoy = new Date()
+  fechaHoy.setHours(0, 0, 0, 0)
+  const limiteSemana = new Date(fechaHoy)
+  limiteSemana.setDate(limiteSemana.getDate() + 7)
   const proximas = ACTIVIDADES
     .filter((a) => mqEstadoEfectivo(a) === "PRÓXIMAMENTE")
+    .filter((a) => {
+      const ini = mqParseFecha(a.date)
+      if (ini > fechaHoy && ini > limiteSemana) return false
+      return true
+    })
     .filter((a) => !a.showAfter || hoy >= new Date(a.showAfter + "T00:00:00"))
     .sort((a, b) => mqParseFecha(a.date) - mqParseFecha(b.date))
 
