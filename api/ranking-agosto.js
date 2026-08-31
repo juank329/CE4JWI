@@ -3,8 +3,12 @@
 // al repo PUBLICO juank329/ce4jwi-qsls en /ranking-data/agosto/log_agosto.adi.
 // Solo columna CE4JWI (los QSOs son APRS, estacion base CE4JWI).
 
-const GITHUB_RAW = "https://raw.githubusercontent.com/juank329/ce4jwi-qsls/main";
-const ADIF_URL = GITHUB_RAW + "/ranking-data/agosto/log_agosto.adi";
+// Uso la GitHub Contents API (no raw.githubusercontent.com) porque devuelve el
+// contenido SIEMPRE actualizado (base64) y evita la caché CDN de raw, que podia
+// servir versiones atrasadas del ADIF y mantener el ranking desincronizado.
+const GITHUB_API = "https://api.github.com/repos/juank329/ce4jwi-qsls/contents";
+const ADIF_PATH = "ranking-data/agosto/log_agosto.adi";
+const ADIF_URL = GITHUB_API + "/" + ADIF_PATH;
 const FILTRO_ESTACION = "CE4JWI";
 
 function normalizarModo(m) {
@@ -51,9 +55,16 @@ async function handler(req, res) {
   let qsos = [];
   let error = null;
   try {
-    const r = await fetch(ADIF_URL, { signal: AbortSignal.timeout(10000) });
+    // Forzar contenido fresco: el gestor de caché de la CDN no debe interponerse
+    // y github no cachea la Contents API entre peticiones distintas.
+    const r = await fetch(ADIF_URL, {
+      signal: AbortSignal.timeout(10000),
+      headers: { "Cache-Control": "no-cache", "Accept": "application/vnd.github+json" },
+    });
     if (!r.ok) throw new Error("HTTP " + r.status);
-    qsos = parseADIF(await r.text());
+    const datos = await r.json();
+    const contenido = Buffer.from(String(datos.content || "").replace(/\s+/g, ""), "base64").toString("utf-8");
+    qsos = parseADIF(contenido);
   } catch (e) {
     error = String(e);
     qsos = [];
@@ -80,7 +91,7 @@ async function handler(req, res) {
       || a.call.localeCompare(b.call)
   );
 
-  res.setHeader("Cache-Control", "public, max-age=30, s-maxage=60");
+  res.setHeader("Cache-Control", "no-cache, s-maxage=0");
   res.status(200).json({
     ok: true,
     actividad: "agosto",
