@@ -1702,6 +1702,16 @@ table code,
 .page-content h2,
 .page-content h3,
 .page-content .titulo { font-size: 1.15rem; }
+.page-content h2,
+.page-content h3 {
+  margin-top: 1.6rem;
+  margin-bottom: 0.4rem;
+}
+.page-content h1.destacar,
+.page-content h3.destacar {
+  margin-top: 1.4rem;
+  margin-bottom: 0.4rem;
+}
 .page-content h4 { font-size: 0.95rem; font-weight: 700; }
 .page-content p {
   font-size: 1rem;
