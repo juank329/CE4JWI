@@ -714,4 +714,13 @@ const ACTIVIDADES = [
   date: "21 Septiembre 2026",
   url: "dia_nacional_del_trabajador_radial_2026.html",
 },
+{
+  id: 74,
+  title: "¡Pasamos Agosto! 2026",
+  image: "public/pasamos agosto!!!.webp",
+  status: "PRÓXIMAMENTE",
+  description: "Activación especial ¡Pasamos Agosto! La estación CE4JWI celebra el fin del invierno con QSL conmemorativa. Contacto por APRS (AGOSTO). QSL automática.",
+  date: "31 Agosto 2026",
+  url: "pasamos_agosto_2026.html",
+},
 ]
