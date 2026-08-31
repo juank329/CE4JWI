@@ -678,4 +678,13 @@ const ACTIVIDADES = [
   date: "17 Septiembre 2026",
   url: "dia_del_huaso_y_de_la_chilenidad_2026.html",
 },
+{
+  id: 70,
+  title: "Día Nacional del Donante de Órganos y Tejidos del Cuerpo Humano 2026",
+  image: "public/dia nacional del donante de organos 2026.webp",
+  status: "PRÓXIMAMENTE",
+  description: "Activación especial por el Día Nacional del Donante de Órganos y Tejidos del Cuerpo Humano. Contacto por DMR TG 73040 BM, Plataforma Peanut sala ACTIVA2 y HF en bandas de 10 y 40 m. QSL automática.",
+  date: "27 Septiembre 2026",
+  url: "dia_nacional_del_donante_de_organos_y_tejidos_del_cuerpo_humano_2026.html",
+},
 ]
