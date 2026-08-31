@@ -705,4 +705,13 @@ const ACTIVIDADES = [
   date: "21 Septiembre 2026",
   url: "dia_internacional_de_la_paz_2026.html",
 },
+{
+  id: 73,
+  title: "Día Nacional del Trabajador Radial 2026",
+  image: "public/dia nacional del trabajador radial 2026.webp",
+  status: "PRÓXIMAMENTE",
+  description: "Activación especial por el Día Nacional del Trabajador Radial. Contacto por APRS (CQ RADIO) y DMR TG 73040 ADN Systems. QSL automática.",
+  date: "21 Septiembre 2026",
+  url: "dia_nacional_del_trabajador_radial_2026.html",
+},
 ]
