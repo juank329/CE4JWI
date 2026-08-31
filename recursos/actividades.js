@@ -696,4 +696,13 @@ const ACTIVIDADES = [
   date: "27 Septiembre 2026",
   url: "dia_mundial_del_turismo_2026.html",
 },
+{
+  id: 72,
+  title: "Día Internacional de la Paz 2026",
+  image: "public/DIA INTERNACIONAL DE LA PAZ  2026.webp",
+  status: "PRÓXIMAMENTE",
+  description: "Activación especial por el Día Internacional de la Paz. Contacto por APRS (CQ PAZ) y DMR TG 73040 ADN Systems. QSL automática.",
+  date: "21 Septiembre 2026",
+  url: "dia_internacional_de_la_paz_2026.html",
+},
 ]
