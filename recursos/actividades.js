@@ -723,4 +723,13 @@ const ACTIVIDADES = [
   date: "31 Agosto 2026",
   url: "pasamos_agosto_2026.html",
 },
+{
+  id: 75,
+  title: "Septiembre Mes de la Patria 2026",
+  image: "public/mes de la patria  2026.webp",
+  status: "PRÓXIMAMENTE",
+  description: "Activación especial por el Mes de la Patria 2026. La estación CE4JWI celebra las Fiestas Patrias con QSL conmemorativa. Contacto por APRS (CQ PATRIA) y DMR TG 73040 ADN Systems. QSL automática.",
+  date: "01 Septiembre 2026",
+  url: "septiembre_mes_de_la_patria_2026.html",
+},
 ]
