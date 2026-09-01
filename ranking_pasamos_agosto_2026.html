@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ranking ¡Pasamos Agosto! 2026 - CE4JWI</title>
-  <meta name="description" content="Ranking en tiempo real de los contactos APRS por la activación ¡Pasamos Agosto! 2026 de la estación CE4JWI. QSL conmemorativa automática.">
+  <meta name="description" content="Ranking definitivo de los contactos APRS de la activación ¡Pasamos Agosto! 2026 de la estación CE4JWI. Resultado congelado al cierre.">
   <link rel="stylesheet" href="recursos/styles.css">
   <link rel="stylesheet" href="recursos/header-responsive.css">
   <link rel="stylesheet" href="recursos/slider.css">
@@ -191,19 +191,15 @@
         </p>
 
         <p>
-          Este ranking se actualiza <strong>en tiempo real</strong> con cada contacto APRS registrado por la
-          estación <strong>CE4JWI</strong> durante la activación ¡Pasamos Agosto! (31 de agosto de 2026).
-          Responde al llamado APRS con la frase <strong>AGOSTO</strong> en 144.390 MHz y tu indicativo
-          aparecerá automáticamente en esta tabla.
+          Este es el <strong>ranking definitivo</strong> de la activación ¡Pasamos Agosto! (31 de agosto de 2026),
+          con todos los contactos <strong>APRS</strong> registrados por la estación <strong>CE4JWI</strong>.
+          Resultado congelado al cierre de la actividad.
         </p>
 
         <div class="ranking-section">
           <div class="ranking-header">
             <h2>Estaciones Participantes</h2>
             <div class="total-badge">Cargando&hellip;</div>
-          </div>
-          <div class="ranking-tools">
-            <button class="refresh-btn" type="button" onclick="cargarRanking(true)">Actualizar ahora</button>
           </div>
           <div class="ranking-updated" id="ranking-updated"></div>
           <div class="ranking-table-wrap">
@@ -218,11 +214,11 @@
                 </tr>
               </thead>
               <tbody id="ranking-tbody">
-                <tr><td colspan="5"><div class="ranking-empty"><div class="spinner"></div><div>Cargando ranking en tiempo real&hellip;</div></div></td></tr>
+                <tr><td colspan="5"><div class="ranking-empty"><div class="spinner"></div><div>Cargando ranking&hellip;</div></div></td></tr>
               </tbody>
             </table>
           </div>
-          <div class="ranking-footer">Datos en vivo desde el repositorio público de QSL &middot; actualización automática</div>
+          <div class="ranking-footer">Resultado definitivo al cierre de la actividad &middot; 31 de agosto de 2026</div>
         </div>
 
       </section>
@@ -244,13 +240,9 @@
         if (!h) return "";
         return h;
       }
-      window.cargarRanking = function (manual) {
-        var tbody = document.getElementById("ranking-tbody");
-        if (!tbody) return;
-        if (manual) {
-          tbody.innerHTML = '<tr><td colspan="5"><div class="ranking-empty"><div class="spinner"></div><div>Actualizando&hellip;</div></div></td></tr>';
-        }
-        fetch("/api/ranking-agosto", { cache: "no-cache" })
+      var tbody = document.getElementById("ranking-tbody");
+      if (tbody) {
+        fetch("/api/ranking-agosto")
           .then(function (r) {
             if (!r.ok) throw new Error("HTTP " + r.status);
             return r.json();
@@ -262,17 +254,16 @@
             var upd = document.getElementById("ranking-updated");
             if (upd && d.actualizado) {
               var t = new Date(d.actualizado);
-              if (!isNaN(t.getTime())) upd.textContent = "Actualizado: " + t.toLocaleTimeString("es-CL");
+              if (!isNaN(t.getTime())) upd.textContent = "Resultado definitivo al cierre de la actividad \u00b7 " + t.toLocaleDateString("es-CL");
             }
             if (!d.filas.length) {
-              tbody.innerHTML = '<tr><td colspan="5"><div class="ranking-empty">Aún no hay contactos registrados. ¡Sé el primero en responder AGOSTO!</div></td></tr>';
+              tbody.innerHTML = '<tr><td colspan="5"><div class="ranking-empty">No hay contactos registrados.</div></td></tr>';
               return;
             }
             tbody.innerHTML = d.filas.map(function (f, i) {
               var modos = f.modos.map(function (m) {
                 var mm = m === "PKT" ? "APRS" : m;
-                var cls = mm === "APRS" ? "mode-aprs" : "mode-aprs";
-                return '<span class="mode-badge ' + cls + '">' + mm + "</span>";
+                return '<span class="mode-badge mode-aprs">' + mm + "</span>";
               }).join(" ");
               var ult = (f.ultima ? formatearHora(f.ultima.hora) : "");
               var fecha = (f.ultima ? formatearFecha(f.ultima.fecha) : "");
@@ -281,12 +272,10 @@
             }).join("");
           })
           .catch(function (e) {
-            console.warn("Ranking en tiempo real no disponible: " + e);
-            tbody.innerHTML = '<tr><td colspan="5"><div class="ranking-empty">No se pudo cargar el ranking en este momento. Intenta de nuevo.</div></td></tr>';
+            console.warn("Ranking no disponible: " + e);
+            tbody.innerHTML = '<tr><td colspan="5"><div class="ranking-empty">No se pudo cargar el ranking.</div></td></tr>';
           });
-      };
-      window.cargarRanking(false);
-      setInterval(function () { window.cargarRanking(false); }, 30000);
+      }
     })();
   </script>
 </body>
