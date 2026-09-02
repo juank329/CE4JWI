@@ -26,7 +26,7 @@
     }
     .ranking-live {
       display: inline-block;
-      background: #DC042C;
+      background: #0e8a5f;
       color: #fff;
       font-weight: 700;
       font-size: 0.75rem;
@@ -46,9 +46,7 @@
       border-radius: 50%;
       margin-right: 0.35rem;
       vertical-align: middle;
-      animation: pulse-live 1.2s ease-in-out infinite;
     }
-    @keyframes pulse-live { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
     .ranking-updated { text-align: center; font-size: 0.8rem; color: #999; margin-bottom: 1rem; }
     .ranking-table-wrap {
       overflow-x: auto;
@@ -209,12 +207,12 @@
 
         <div class="ranking-title">
           <h2>Ranking de la Actividad</h2>
-          <p>Ranking <strong>en vivo</strong> de los contactos APRS con la frase <strong>CQ PATRIA</strong>. Cada nuevo contacto se suma automáticamente a esta tabla.</p>
+          <p>Ranking <strong>definitivo</strong> de los contactos APRS con la frase <strong>CQ PATRIA</strong>. Registro cerrado al término de la actividad.</p>
         </div>
 
         <div class="ranking-section">
           <div class="ranking-header">
-            <h2>Estaciones Participantes <span class="ranking-live">En vivo</span></h2>
+            <h2>Estaciones Participantes <span class="ranking-live">Cerrado</span></h2>
             <div class="total-badge">Cargando&hellip;</div>
           </div>
           <div class="ranking-updated" id="ranking-updated"></div>
@@ -234,7 +232,7 @@
               </tbody>
             </table>
           </div>
-          <div class="ranking-footer">Actualización automática &middot; Mes de la Patria 2026 &middot; CE4JWI</div>
+          <div class="ranking-footer">Ranking definitivo &middot; Mes de la Patria 2026 &middot; CE4JWI</div>
         </div>
 
       </section>
@@ -250,19 +248,18 @@
     (function () {
       var tbody = document.getElementById("ranking-tbody");
       if (!tbody) return;
-      var INTERVALO_MS = 30000;
 
       function pintar(d) {
         if (!d.ok || !Array.isArray(d.filas)) throw new Error("formato invalido");
         var badge = document.querySelector(".ranking-header .total-badge");
         if (badge) badge.textContent = d.totalContactos + " contactos \u00b7 " + d.participantes + " participantes";
         var upd = document.getElementById("ranking-updated");
-        if (upd) {
-          var t = new Date();
-          upd.textContent = "Actualizado en vivo \u00b7 " + t.toLocaleTimeString("es-CL");
+        if (upd && d.actualizado) {
+          var t = new Date(d.actualizado);
+          upd.textContent = "Ranking cerrado el " + t.toLocaleDateString("es-CL") + " a las " + t.toLocaleTimeString("es-CL");
         }
         if (!d.filas.length) {
-          tbody.innerHTML = '<tr><td colspan="5"><div class="ranking-empty">Aun no hay contactos registrados. Envia CQ PATRIA a CE4JWI en 144.390 MHz.</div></td></tr>';
+          tbody.innerHTML = '<tr><td colspan="5"><div class="ranking-empty">Aun no hay contactos registrados.</div></td></tr>';
           return;
         }
         tbody.innerHTML = d.filas.map(function (f, i) {
@@ -284,12 +281,11 @@
           })
           .catch(function (e) {
             console.warn("Ranking no disponible: " + e);
-            tbody.innerHTML = '<tr><td colspan="5"><div class="ranking-empty">No se pudo cargar el ranking en vivo.</div></td></tr>';
+            tbody.innerHTML = '<tr><td colspan="5"><div class="ranking-empty">No se pudo cargar el ranking.</div></td></tr>';
           });
       }
 
       cargar();
-      setInterval(cargar, INTERVALO_MS);
     })();
   </script>
 </body>
