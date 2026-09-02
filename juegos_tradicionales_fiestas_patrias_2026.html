@@ -131,7 +131,9 @@
     .ranking-footer { text-align: center; margin-top: 1rem; font-size: 0.8rem; color: #999; }
     .ranking-title { text-align: center; margin: 2rem 0 1rem; }
     .ranking-title h2 { color: #0b4f84; }
-    .puntaje-stars { color: #d6bb9c; font-size: 0.85rem; white-space: nowrap; }
+    .puntaje-stars { white-space: nowrap; letter-spacing: 2px; }
+    .star-full { color: #b8860b; font-size: 1.2rem; text-shadow: 0 1px 2px rgba(0,0,0,0.25); }
+    .star-empty { color: #c8c8c8; font-size: 1.2rem; }
     .trophy-gold {
       display: inline-block;
       font-size: 1.3rem;
@@ -330,19 +332,6 @@
         });
       }
 
-      function puntajeTexto(f) {
-        var juegos = (f && Array.isArray(f.juegos)) ? f.juegos : [];
-        var seis = ["trompo","emboque","palo_encebado","carreras_en_saco","tirar_la_cuerda","elevar_volantines"];
-        var puntos = juegos.length;
-        var estrellas = "";
-        for (var i = 0; i < 6; i++) {
-          estrellas += (i < puntos) ? "â˜…" : "â˜†";
-        }
-        var nombres = juegos.map(function (j) { return NOMBRE_JUEGOS[j] || j; });
-        var titulo = nombres.length ? nombres.join(", ") : "Sin juegos completados";
-        return '<span class="puntaje-stars" title="' + titulo + '">' + estrellas + '</span>';
-      }
-
       function pintar(d) {
         if (!d.ok || !Array.isArray(d.filas)) throw new Error("formato invalido");
         var badge = document.querySelector(".ranking-header .total-badge");
@@ -359,14 +348,17 @@
         }
         tbody.innerHTML = d.filas.map(function (f, i) {
           var juegos = (f && Array.isArray(f.juegos)) ? f.juegos : [];
-          var puntos = f.total || 0;
+          var points = f.total || 0;
           var ptsCell;
-          if (puntos >= 6) {
+          if (points >= 6) {
             ptsCell = '<span class="trophy-gold" title="Coleccion completada: 6/6">&#127942;</span>';
           } else {
-            var est = "";
-            for (var k = 0; k < 6; k++) est += (k < puntos) ? "\u2605" : "\u2606";
-            ptsCell = '<span class="puntaje-stars">' + est + "</span>";
+            var llenas = "", vacias = "";
+            for (var k = 0; k < 6; k++) {
+              if (k < points) llenas += "\u2605";
+              else vacias += "\u2606";
+            }
+            ptsCell = '<span class="puntaje-stars">' + (llenas ? '<span class="star-full">' + llenas + "</span>" : "") + (vacias ? '<span class="star-empty">' + vacias + "</span>" : "") + "</span>";
           }
           var frasesHtml = juegos.map(function (j) {
             var nombre = NOMBRE_JUEGOS[j] || j;
