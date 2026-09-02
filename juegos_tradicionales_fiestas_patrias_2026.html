@@ -116,6 +116,18 @@
       border: 1px solid #0b4f84;
     }
     .time-cell { color: #555; font-size: 0.85rem; }
+    .juego-frase {
+      display: inline-block;
+      background: #d6bb9c;
+      color: #000;
+      font-family: 'Courier New', monospace;
+      font-weight: 700;
+      font-size: 0.72rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      margin: 0.1rem 0.2rem 0.1rem 0;
+      letter-spacing: 0.5px;
+    }
     .ranking-empty { text-align: center; padding: 3rem 1rem; color: #6c757d; font-size: 1rem; }
     .ranking-empty .spinner {
       display: inline-block;
@@ -168,6 +180,14 @@
       .ranking-table tbody td { padding: 0.6rem 0.7rem; font-size: 0.8rem; }
       .call-badge { font-size: 0.78rem; padding: 0.2rem 0.5rem; }
       .juegos-grid { grid-template-columns: repeat(2, 1fr); }
+      .juego-frase { font-size: 0.62rem; padding: 0.12rem 0.4rem; }
+    }
+    @media (max-width: 400px) {
+      .ranking-table thead th,
+      .ranking-table tbody td { padding: 0.5rem 0.4rem; font-size: 0.74rem; }
+      .ranking-table th:nth-child(2),
+      .ranking-table td:nth-child(2) { display: none; }
+      .juego-frase { font-size: 0.58rem; padding: 0.1rem 0.35rem; }
     }
   </style>
 </head>
@@ -257,13 +277,12 @@
                   <th>#</th>
                   <th>Pts</th>
                   <th>Indicativo</th>
-                  <th>Puntaje</th>
+                  <th>Juego / Frase</th>
                   <th>Modo</th>
-                  <th>Último contacto</th>
                 </tr>
               </thead>
               <tbody id="ranking-tbody">
-                <tr><td colspan="6"><div class="ranking-empty"><div class="spinner"></div><div>Cargando ranking&hellip;</div></div></td></tr>
+                <tr><td colspan="5"><div class="ranking-empty"><div class="spinner"></div><div>Cargando ranking&hellip;</div></div></td></tr>
               </tbody>
             </table>
           </div>
@@ -292,6 +311,14 @@
         carreras_en_saco: "Carreras en Saco",
         tirar_la_cuerda: "Tirar la Cuerda",
         elevar_volantines: "Elevar Volantines"
+      };
+      var FRASE_JUEGOS = {
+        trompo: "TROMPO",
+        emboque: "EMBOQUE",
+        palo_encebado: "P. ENCEB",
+        carreras_en_saco: "SACO",
+        tirar_la_cuerda: "CUERDA",
+        elevar_volantines: "VOLANTIN"
       };
 
       function pintarEstadoJuegos(d) {
@@ -328,14 +355,16 @@
         }
         pintarEstadoJuegos(d);
         if (!d.filas.length) {
-          tbody.innerHTML = '<tr><td colspan="6"><div class="ranking-empty">Aun no hay contactos registrados.</div></td></tr>';
+          tbody.innerHTML = '<tr><td colspan="5"><div class="ranking-empty">Aun no hay contactos registrados.</div></td></tr>';
           return;
         }
         tbody.innerHTML = d.filas.map(function (f, i) {
-          var ult = (f.ultima && f.ultima.hora ? f.ultima.hora : "00:00");
-          var fecha = (f.ultima && f.ultima.fecha ? f.ultima.fecha : "");
-          var ultima = (fecha ? fecha + " " : "") + ult;
-          return '<tr><td>' + (i + 1) + '</td><td>' + f.total + '/6</td><td><a class="call-badge" href="https://www.qrz.com/db/' + f.call + '" target="_blank">' + f.call + '</a></td><td>' + puntajeTexto(f) + '</td><td><span class="mode-badge">APRS</span></td><td class="time-cell">' + ultima + '</td></tr>';
+          var juegos = (f && Array.isArray(f.juegos)) ? f.juegos : [];
+          var frasesHtml = juegos.map(function (j) {
+            return '<span class="juego-frase">' + (FRASE_JUEGOS[j] || j) + '</span>';
+          }).join(" ");
+          if (!frasesHtml) frasesHtml = '<span class="juego-frase">-</span>';
+          return '<tr><td>' + (i + 1) + '</td><td>' + f.total + '/6</td><td><a class="call-badge" href="https://www.qrz.com/db/' + f.call + '" target="_blank">' + f.call + '</a></td><td>' + frasesHtml + '</td><td><span class="mode-badge">APRS</span></td></tr>';
         }).join("");
       }
 
@@ -350,7 +379,7 @@
           })
           .catch(function (e) {
             console.warn("Ranking no disponible: " + e);
-            tbody.innerHTML = '<tr><td colspan="6"><div class="ranking-empty">No se pudo cargar el ranking.</div></td></tr>';
+            tbody.innerHTML = '<tr><td colspan="5"><div class="ranking-empty">No se pudo cargar el ranking.</div></td></tr>';
           });
       }
 
