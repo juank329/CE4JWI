@@ -656,7 +656,7 @@ const ACTIVIDADES = [
   title: "Día Nacional del Circo Chileno 2026",
   image: "public/dia del circo chileno 2026.webp",
   status: "PRÓXIMAMENTE",
-  description: "Activación especial por el Día Nacional del Circo Chileno. Contacto por APRS (CQ CIRCO) y DMR TG 73040 ADN Systems. QSL automática.",
+  description: "Activación especial por el Día Nacional del Circo Chileno con el indicativo especial XR4MAU. Contacto por APRS (CQ CIRCO) y DMR TG 73040 ADN Systems. QSL automática.",
   date: "5 Septiembre 2026",
   url: "dia_nacional_del_circo_chileno_2026.html",
 },
