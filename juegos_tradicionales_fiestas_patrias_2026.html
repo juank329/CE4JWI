@@ -116,6 +116,9 @@
       margin: 0.1rem 0.2rem 0.1rem 0;
       letter-spacing: 0.5px;
     }
+    .juego-frase.hoy { background: #0e8a5f; color: #fff; }
+    .juego-frase.ayer { background: #b0b7bd; color: #fff; }
+    .juego-frase.futuro { background: #4a7db5; color: #fff; }
     .ranking-empty { text-align: center; padding: 3rem 1rem; color: #6c757d; font-size: 1rem; }
     .ranking-empty .spinner {
       display: inline-block;
@@ -175,6 +178,8 @@
     .juego-card .desc { font-size: 0.78rem; color: #555; margin-top: 0.4rem; }
     .juego-card.activo { border-color: #0e8a5f; box-shadow: 0 0 0 3px rgba(14,138,95,0.2); }
     .juego-card.activo .frase { background: #0e8a5f; }
+    .juego-card.cerrado { border-color: #b0b7bd; background: #f1f3f4; opacity: 0.75; }
+    .juego-card.cerrado .frase { background: #8a9298; }
     .juego-card .dias { font-size: 0.72rem; color: #999; margin-top: 0.3rem; }
     .juego-card .dias b { color: #0b4f84; }
     @media (max-width: 600px) {
@@ -313,6 +318,10 @@
         tirar_la_cuerda: "Tirar la Cuerda",
         elevar_volantines: "Elevar Volantines"
       };
+
+      var JUEGO_HOY = "emboque";
+      var ORDEN_JUEGOS = ["trompo", "emboque", "palo_encebado", "carreras_en_saco", "tirar_la_cuerda", "elevar_volantines"];
+
       var FRASE_JUEGOS = {
         trompo: "TROMPO",
         emboque: "EMBOQUE",
@@ -328,7 +337,12 @@
         d.juegos.forEach(function (j, idx) {
           var card = cards[idx];
           if (!card) return;
-          if (j.activo) card.classList.add("activo");
+          card.classList.remove("activo", "cerrado");
+          if (j.id === JUEGO_HOY) {
+            card.classList.add("activo");
+          } else if (ORDEN_JUEGOS.indexOf(j.id) < ORDEN_JUEGOS.indexOf(JUEGO_HOY)) {
+            card.classList.add("cerrado");
+          }
         });
       }
 
@@ -363,7 +377,12 @@
           var frasesHtml = juegos.map(function (j) {
             var nombre = NOMBRE_JUEGOS[j] || j;
             var frase = FRASE_JUEGOS[j] || j;
-            return '<span class="juego-frase" title="Frase: ' + frase + '">' + nombre + '</span>';
+            var clase = "futuro";
+            var idx = ORDEN_JUEGOS.indexOf(j);
+            var idxHoy = ORDEN_JUEGOS.indexOf(JUEGO_HOY);
+            if (idx === idxHoy) clase = "hoy";
+            else if (idx < idxHoy) clase = "ayer";
+            return '<span class="juego-frase ' + clase + '" title="Frase: ' + frase + '">' + nombre + '</span>';
           }).join(" ");
           if (!frasesHtml) frasesHtml = '<span class="juego-frase">-</span>';
           return '<tr><td>' + (i + 1) + '</td><td>' + ptsCell + '</td><td><a class="call-badge" href="https://www.qrz.com/db/' + f.call + '" target="_blank">' + f.call + '</a></td><td>' + frasesHtml + '</td></tr>';
