@@ -4,7 +4,7 @@
 // Fuente de datos: los ADIF que el bot sube automaticamente a qsl.net, uno por juego:
 //   log_trompo.adi            (El Trompo)
 //   log_emboque.adi           (El Emboque)
-//   log_palo_encebado.adi     (El Palo Encebado)
+//   log_palo_encebado.adi     (El Palo Ensebado)
 //   log_carreras_en_saco.adi  (Carreras en Saco)
 //   log_tirar_la_cuerda.adi   (Tirar la Cuerda)
 //   log_elevar_volantines.adi (Elevar Volantines)
@@ -34,8 +34,8 @@ const JUEGOS = [
   },
   {
     id: "palo_encebado",
-    nombre: "El Palo Encebado",
-    frase: "PALO ENCEBADO",
+    nombre: "El Palo Ensebado",
+    frase: "PALO ENSEBADO",
     adif: "log_palo_encebado.adi",
     emoji: "🪵",
     desc: "Sube el palo enjabonado hasta el premio de la punta.",
