@@ -737,8 +737,8 @@ const ACTIVIDADES = [
   title: "Juegos Tradicionales de Fiestas Patrias 2026",
   image: "public/Juegos tradicionales en fiestas patrias 2026.webp",
   status: "EN VIVO",
-  description: "Activación especial Juegos Tradicionales de Fiestas Patrias en Chile. Solo APRS a CE4JWI-7. 6 juegos y 6 QSL: El Trompo, El Emboque, Palo Encebado, Carreras en Saco, Tirar la Cuerda y Elevar Volantines. Ranking en vivo.",
-  date: "02 Septiembre 2026",
+  description: "Activación especial Juegos Tradicionales de Fiestas Patrias en Chile. Solo APRS a CE4JWI-7. 6 juegos y 6 QSL (una por día): El Trompo, El Emboque, Palo Encebado, Carreras en Saco, Tirar la Cuerda y Elevar Volantines. Ranking en vivo.",
+  date: "02-07 Septiembre 2026",
   url: "juegos_tradicionales_fiestas_patrias_2026.html",
 },
 ]
