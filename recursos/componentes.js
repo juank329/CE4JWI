@@ -43,10 +43,6 @@ const COMPONENTES = {
           Herramientas
         </button>
         <div class="nav-dropdown-menu">
-          <a href="herramienta-fonetico.html" class="nav-link" data-page="fonetico">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12a8 8 0 1 1 8 8"/><path d="M4 12v6"/><path d="M4 12l3-3M4 12l3 3"/></svg>
-            Código Fonético y Morse
-          </a>
           <a href="QSO_logger.html" class="nav-link" data-page="qsologger">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/><path d="M8 4v5"/></svg>
             Generador de QSLs

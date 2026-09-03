@@ -1,4 +1,4 @@
-/* ==========================================================================
+﻿/* ==========================================================================
    CE4JWI - Diseno plano bandera de Chile
    Paleta: blanco + azul turqui + rojo (colores planos, sin degradados)
    Tipografia: Manrope (display) / Inter (texto) / JetBrains Mono (datos)
@@ -141,7 +141,7 @@ a { color: inherit; }
   font: inherit;
 }
 
-/* Dropdown solo con icono (sin texto): botón circular */
+/* Dropdown solo con icono (sin texto): botÃ³n circular */
 .nav-dropdown-toggle.nav-icon-only {
   justify-content: center;
   width: 40px;
@@ -328,7 +328,7 @@ a { color: inherit; }
   50% { box-shadow: 0 0 0 5px rgba(52, 199, 89, 0); }
 }
 
-/* Ítems de la marquesina como enlace a la actividad */
+/* Ãtems de la marquesina como enlace a la actividad */
 .marquee-link {
   color: var(--white);
   text-decoration: none;
@@ -412,7 +412,7 @@ a { color: inherit; }
   .activity-grid { grid-template-columns: repeat(3, 1fr); }
 }
 
-/* Variante de 4 columnas (página Novedades) */
+/* Variante de 4 columnas (pÃ¡gina Novedades) */
 @media (min-width: 1024px) {
   .activity-grid--wide { grid-template-columns: repeat(4, 1fr); }
 }
@@ -619,7 +619,7 @@ a { color: inherit; }
   margin: 0 0 0.5rem;
 }
 
-/* ---- Widget "Último Contacto" ---- */
+/* ---- Widget "Ãšltimo Contacto" ---- */
 .ult-qsl-cargando,
 .ult-qsl-vacio {
   font-family: var(--font-mono);
@@ -688,7 +688,7 @@ a { color: inherit; }
   font-style: italic;
 }
 
-/* Lightbox Última QSL */
+/* Lightbox Ãšltima QSL */
 .ult-qsl-lightbox {
   display: none;
   position: fixed;
@@ -1279,7 +1279,7 @@ ol { margin-left: 1.5rem; font-weight: bold; }
   .page-content { padding: 1.25rem; }
 }
 
-/* ============================= Paginación ============================= */
+/* ============================= PaginaciÃ³n ============================= */
 .pagination {
   display: flex;
   flex-wrap: wrap;
@@ -1419,141 +1419,6 @@ ol { margin-left: 1.5rem; font-weight: bold; }
 .dmr-callsign { font-family: var(--font-mono); font-weight: 700; color: var(--text); font-size: 1rem !important; }
 .dmr-ubicacion { color: var(--text-muted) !important; font-size: 0.8rem !important; }
 
-/* Fonetico / Morse */
-.fonetico-resultado {
-  background: var(--surface-alt);
-  border-radius: var(--radius-sm);
-  padding: 1.25rem;
-  margin-bottom: 2rem;
-}
-
-.fonetico-resultado h4 {
-  font-family: var(--font-display);
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--text-muted);
-  margin-bottom: 0.4rem;
-}
-
-.fonetico-resultado p {
-  font-family: var(--font-mono);
-  font-size: 1.05rem;
-  color: var(--blue);
-  word-break: break-word;
-  margin-bottom: 1rem;
-}
-
-.fonetico-tabla {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  gap: 0.6rem;
-}
-
-.fonetico-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.2rem;
-  background: var(--surface-alt);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 0.75rem 0.5rem;
-  text-align: center;
-  cursor: pointer;
-  outline: none;
-  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s, background 0.15s;
-}
-
-.fonetico-item:hover {
-  border-color: var(--blue);
-  box-shadow: var(--shadow-sm);
-  transform: translateY(-2px);
-}
-
-.fonetico-item:focus-visible {
-  border-color: var(--blue);
-  box-shadow: 0 0 0 3px rgba(0, 57, 166, 0.2);
-}
-
-.fonetico-item.playing {
-  border-color: var(--red);
-  background: #fdeeee;
-  box-shadow: 0 0 0 3px rgba(213, 43, 30, 0.15);
-}
-
-.fonetico-letra {
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: 1.2rem;
-  color: var(--red);
-}
-
-.fonetico-palabra {
-  font-size: 0.85rem;
-  color: var(--text-soft);
-}
-
-.fonetico-morse {
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-  color: var(--blue);
-  letter-spacing: 0.1em;
-}
-
-.fonetico-actions {
-  margin-top: 0.35rem;
-  display: flex;
-  gap: 0.35rem;
-}
-
-.fonetico-play,
-.fonetico-speak {
-  width: 30px;
-  height: 30px;
-  border: 1px solid var(--border);
-  border-radius: 50%;
-  background: var(--surface);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.15s, color 0.15s, border-color 0.15s;
-}
-
-.fonetico-play { color: var(--blue); }
-.fonetico-speak { color: var(--red); }
-
-.fonetico-item:hover .fonetico-play,
-.fonetico-item:hover .fonetico-speak {
-  background: var(--blue);
-  color: #fff;
-  border-color: var(--blue);
-}
-
-.fonetico-speak:hover {
-  background: var(--red);
-  color: #fff;
-  border-color: var(--red);
-  transform: scale(1.1);
-}
-
-.fonetico-item.playing .fonetico-play {
-  background: var(--red);
-  color: #fff;
-  border-color: var(--red);
-  animation: foneticoPulse 0.6s ease-in-out infinite;
-}
-
-.fonetico-speak:focus-visible,
-.fonetico-item:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(0, 57, 166, 0.2);
-}
-
-@keyframes foneticoPulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.15); }
-}
 
 /* Contenedor del log en tiempo real (iframe externo hrdlog.net) */
 .iss-map-container {
@@ -1763,13 +1628,13 @@ img, svg, video, iframe, embed, object {
   .marquee-badge { font-size: 0.56rem; padding: 0.15rem 0.5rem; }
 }
 
-/* Widget QRZ: pila vertical en móvil */
+/* Widget QRZ: pila vertical en mÃ³vil */
 @media (max-width: 480px) {
   .widget-content form#topcall { flex-direction: column; }
   .widget-content input#tsubmit { width: 100%; }
 }
 
-/* Formularios de herramientas: pila vertical en móvil */
+/* Formularios de herramientas: pila vertical en mÃ³vil */
 @media (max-width: 480px) {
   .tool-form { flex-direction: column; }
   .tool-form button { width: 100%; }

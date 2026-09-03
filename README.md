@@ -7,7 +7,6 @@ Sitio web personal del indicativo **CE4JWI** — radioaficionado activo desde la
 - `index.html` — portada con tarjetas de actividades
 - `novedades.html` — artículos y novedades
 - `herramienta-indicativos.html` — buscador de indicativos chilenos (SUBTEL)
-- `herramienta-fonetico.html` — código fonético ICAO + código Morse
 - `herramienta-satelites.html` — seguimiento de satélites FM en vivo (Leaflet)
 - `herramienta-propagacion.html` — propagación HF en tiempo real (reporte N0NBH vía proxy CORS)
 - `qsls.html` — buscador de QSLs (catálogo desde https://juank329.github.io/ce4jwi-qsls/log_qsl.json, con qsl.net como respaldo)
