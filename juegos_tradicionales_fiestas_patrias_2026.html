@@ -116,9 +116,12 @@
       margin: 0.1rem 0.2rem 0.1rem 0;
       letter-spacing: 0.5px;
     }
-    .juego-frase.hoy { background: #0e8a5f; color: #fff; }
-    .juego-frase.ayer { background: #b0b7bd; color: #fff; }
-    .juego-frase.futuro { background: #4a7db5; color: #fff; }
+    .juego-frase.j-trompo { background: #e67e22; color: #fff; }
+    .juego-frase.j-emboque { background: #0e8a5f; color: #fff; }
+    .juego-frase.j-palo_encebado { background: #8d5a2b; color: #fff; }
+    .juego-frase.j-carreras_en_saco { background: #7d3c98; color: #fff; }
+    .juego-frase.j-tirar_la_cuerda { background: #c0392b; color: #fff; }
+    .juego-frase.j-elevar_volantines { background: #2980b9; color: #fff; }
     .ranking-empty { text-align: center; padding: 3rem 1rem; color: #6c757d; font-size: 1rem; }
     .ranking-empty .spinner {
       display: inline-block;
@@ -319,7 +322,7 @@
         elevar_volantines: "Elevar Volantines"
       };
 
-      var JUEGO_HOY = "emboque";
+      var JUEGO_HOY = "palo_encebado";
       var ORDEN_JUEGOS = ["trompo", "emboque", "palo_encebado", "carreras_en_saco", "tirar_la_cuerda", "elevar_volantines"];
 
       var FRASE_JUEGOS = {
@@ -377,11 +380,8 @@
           var frasesHtml = juegos.map(function (j) {
             var nombre = NOMBRE_JUEGOS[j] || j;
             var frase = FRASE_JUEGOS[j] || j;
-            var clase = "futuro";
-            var idx = ORDEN_JUEGOS.indexOf(j);
-            var idxHoy = ORDEN_JUEGOS.indexOf(JUEGO_HOY);
-            if (idx === idxHoy) clase = "hoy";
-            else if (idx < idxHoy) clase = "ayer";
+            // Color único por juego para diferenciarlos en el ranking
+            var clase = "j-" + j;
             return '<span class="juego-frase ' + clase + '" title="Frase: ' + frase + '">' + nombre + '</span>';
           }).join(" ");
           if (!frasesHtml) frasesHtml = '<span class="juego-frase">-</span>';
