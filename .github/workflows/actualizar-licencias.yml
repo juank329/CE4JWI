@@ -1,0 +1,45 @@
+name: Actualizar Licencias SUBTEL (mensual)
+
+on:
+  schedule:
+    # Día 8 de cada mes, 08:00 UTC (para dar margen a SUBTEL de publicar)
+    - cron: '0 8 8 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  actualizar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout CE4JWI
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.PAT_TOKEN }}
+          ref: main
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install pypdf
+
+      - name: Descargar PDFs y regenerar licencias
+        run: python build_indicativos.py
+
+      - name: Commit y push si hubo cambios
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add recursos/indicativos-data.js recursos/indicativos.json
+            git commit -m "Auto: actualiza licencias SUBTEL (mensual)"
+            git push
+            echo "Cambios subidos."
+          else
+            echo "Sin cambios en las licencias este mes."
+          fi
