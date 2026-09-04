@@ -15296,7 +15296,7 @@ window.INDICATIVOS_DATA = [
         "catKey":  "nov",
         "zona":  "4",
         "region":  "Región del Libertador General Bernardo O'Higgins",
-        "comuna":  "San Fernando 25/09/202 9 CONTACTO: radioaficionados@subtel.gob.cl (2) 2588 8000 anexo 3059 Informes_RA_30_06_2026 (2) 66 / 112 LISTADO DE RADIOAFICIONADOS(AS) CATEGORÍAS NOVICIO, GENERAL Y SUPERIOR (JUNIO 2026) Licencia Señal Distintiva Nombre Región Comuna Fecha Vencimiento La señal distintiva está compuesta por tres elementos inseparables, dos letras para identificar la categoría, un número para identificar la zona ylas tres letras finales de la estación. (art. 5 de la Res. Ex. 1228 / 2008) fuente: https://www.bcn.cl/leychile/navegar?idNorma=280338 13896-7 CA6RKR LALANNE FUCHSLOCHER JAVIER FERNANDO Región de los Ríos La Unión",
+        "comuna":  "San Fernando",
         "vence":  "25/09/2029",
         "licencia":  "898642-8"
     },

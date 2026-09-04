@@ -403,6 +403,22 @@ def parsear_registros(texto, cat_default, cat_key_default):
 def limpiar_comuna(raw):
     """Corrige comunas partidas o con grafía distinta a la del mapa."""
     c = raw
+    # Si pypdf fusionó un pie/encabezado de SUBTEL al final de la línea
+    # (ocurre al cerrar una página), cortamos la comuna justo en ese marcador.
+    marcadores_pie = [
+        "CONTACTO:", "subtel.gob.cl", "anexo", "Informes_RA",
+        "bcn.cl", "idNorma", "LISTADO DE", "Fecha Vencimiento",
+        "La señal distintiva",
+    ]
+    for mk in marcadores_pie:
+        ti = c.upper().find(mk.upper())
+        if ti != -1:
+            c = c[:ti]
+            break
+    c = c.strip()
+    # Quitar la fecha de vencimiento que a veces queda pegada a la comuna
+    # ("San Fernando 25/09/202 9" -> "San Fernando") tolerando espacios internos
+    c = re.sub(r"\s+\d{1,2}\s*/\s*\d{1,2}\s*/\s*[\d\s]{2,6}\s*$", "", c).strip()
     # quitar espacios internos anómalos de tipo "Ch illán" -> "Chillán"
     c = re.sub(r"(?<=\b[A-Za-zÁÉÍÓÚÑáéíóúñ]) (?=[a-záéíóúñ])", "", c)
     c = re.sub(r"\s+", " ", c).strip()
@@ -496,7 +512,13 @@ def _cargar_historial():
     if os.path.exists(OUT_HIST):
         try:
             with open(OUT_HIST, encoding="utf-8") as f:
-                return json.load(f)
+                obj = json.load(f)
+            # formato actual: {version, actualizado, personas:{...}}
+            if isinstance(obj, dict) and "personas" in obj:
+                return obj["personas"]
+            # formato viejo: campo por campo (personaKey -> [entradas])
+            if isinstance(obj, dict):
+                return obj
         except Exception:
             log(f"  AVISO: no pude leer {OUT_HIST}; empiezo historial vacío")
     return {}

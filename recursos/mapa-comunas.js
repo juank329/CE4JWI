@@ -71,6 +71,7 @@ window.COMUNAS_COORDS = {
   "Coronel": { lat: -37.0011, lng: -73.1532 },
   "Corral": { lat: -39.8781, lng: -73.4320 },
   "Coihaique": { lat: -45.5799, lng: -72.0531 },
+  "Coyhaique": { lat: -45.5799, lng: -72.0531 },
   "Cunco": { lat: -38.9264, lng: -72.0387 },
   "Curacautín": { lat: -38.4344, lng: -71.8793 },
   "Curacaví": { lat: -33.4067, lng: -71.1284 },

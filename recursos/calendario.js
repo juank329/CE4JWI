@@ -1,10 +1,14 @@
 /**
  * Calendario CE4JWI - Tipo Apple Calendar
- * Combina eventos de Google Calendar (vía iCal CORS proxy) con eventos locales.
+ * Los eventos provienen SOLO de Google Calendar. Un workflow (GitHub Actions)
+ * descarga el feed iCal y genera recursos/eventos-calendario.json (espejo
+ * automático, servido con la web, sin CORS). Aquí se carga ese JSON como
+ * fuente principal y se intenta refrescar en vivo con el iCal vía proxies.
+ * No se añaden eventos desde la web: todo se publica en Google Calendar.
  */
 
 const CAL_ICAL_URL = "https://calendar.google.com/calendar/ical/f96d6d8a7b251e7bf0283bbc1059276e07026b7d0aef13b59e00df2dcb71d1a2@group.calendar.google.com/public/basic.ics"
-const CAL_LOCAL_JSON = "recursos/eventos-calendario.json"
+const CAL_JSON_LOCAL = "recursos/eventos-calendario.json"
 const CAL_CACHE_KEY = "ce4jwi_cal_cache_v1"
 const CAL_CACHE_TTL = 6 * 60 * 60 * 1000  // 6h
 
@@ -126,7 +130,20 @@ async function fetchEventos() {
   const cache = cargarCache()
   if (cache) return cache
 
-  // 2) Intentar iCal vía proxies CORS
+  // 2) Fuente principal: JSON generado por el workflow desde Google Calendar.
+  //    Servido con la web -> siempre disponible y sin problemas CORS.
+  let base = null
+  try {
+    const r = await fetchConTimeout(CAL_JSON_LOCAL, 8000)
+    if (r.ok) {
+      const arr = await r.json()
+      if (Array.isArray(arr) && arr.length > 0) base = arr
+    }
+  } catch (e) {
+    console.warn("[cal] JSON local no disponible:", e.message || e)
+  }
+
+  // 3) Refresco en vivo: intentar el iCal vía proxies CORS (datos más frescos)
   const proxies = [
     { url: (u) => `https://cors.sh/${u}`,                          nombre: "cors.sh" },
     { url: (u) => `https://api.allorigins.win/raw?url=${encodeURIComponent(u)}`, nombre: "allorigins" },
@@ -147,15 +164,12 @@ async function fetchEventos() {
     }
   }
 
-  // 3) Fallback: JSON local
-  try {
-    const r = await fetchConTimeout(CAL_LOCAL_JSON, 5000)
-    if (r.ok) {
-      const data = await r.json()
-      guardarCache(data)
-      return data
-    }
-  } catch {}
+  // 4) Si el iCal en vivo falló, usamos el JSON generado (se mantiene fresco
+  //    vía workflow). Al ser un espejo de Google, sigue siendo "solo Google".
+  if (base) {
+    guardarCache(base)
+    return base
+  }
 
   return []
 }
