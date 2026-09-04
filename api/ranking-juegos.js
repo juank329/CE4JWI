@@ -36,7 +36,7 @@ const JUEGOS = [
     id: "palo_encebado",
     nombre: "El Palo Ensebado",
     frase: "PALO ENSEBADO",
-    adif: "log_palo_encebado.adi",
+    adif: "log_palo_ensebado.adi",
     emoji: "🪵",
     desc: "Sube el palo enjabonado hasta el premio de la punta.",
   },
