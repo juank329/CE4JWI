@@ -328,7 +328,7 @@
       var FRASE_JUEGOS = {
         trompo: "TROMPO",
         emboque: "EMBOQUE",
-        palo_encebado: "P. ENSEB",
+        palo_encebado: "ENSEBADO",
         carreras_en_saco: "SACO",
         tirar_la_cuerda: "CUERDA",
         elevar_volantines: "VOLANTIN"
@@ -382,7 +382,8 @@
             var frase = FRASE_JUEGOS[j] || j;
             // Color único por juego para diferenciarlos en el ranking
             var clase = "j-" + j;
-            return '<span class="juego-frase ' + clase + '" title="Frase: ' + frase + '">' + nombre + '</span>';
+            // En el ranking se muestra la frase corta; el nombre completo va en el tooltip
+            return '<span class="juego-frase ' + clase + '" title="' + nombre + '">' + frase + '</span>';
           }).join(" ");
           if (!frasesHtml) frasesHtml = '<span class="juego-frase">-</span>';
           return '<tr><td>' + (i + 1) + '</td><td>' + ptsCell + '</td><td><a class="call-badge" href="https://www.qrz.com/db/' + f.call + '" target="_blank">' + f.call + '</a></td><td>' + frasesHtml + '</td></tr>';
