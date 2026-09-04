@@ -6,10 +6,11 @@
  * se pre-procesan en build-time a un JSON estático
  * (./recursos/indicativos.json) que cargamos con caché + proxy CORS.
  *
- * Cuando el usuario quiere actualizar los datos (cada ~1 mes):
- *   1) Descargar PDFs actualizados de SUBTEL.
- *   2) Correr el script de regeneración (build-indicativos.js).
- *   3) Commit + push → Netlify lo publica.
+ * Cuando se quiere actualizar los datos (una vez por mes):
+ *   1) Correr el script de regeneración (build_indicativos.py), que descarga
+ *      los PDFs de SUBTEL y genera indicativos-data.js + indicativos.json.
+ *   2) Commit + push → se publica. (El workflow .github/workflows/actualizar-licencias.yml
+ *      automatiza todo esto cada mes.)
  *
  * Estrategia de carga (en orden, primera que funcione):
  *   1) Datos embebidos (./recursos/indicativos-data.js): siempre frescos, funcionan con file://
@@ -34,6 +35,9 @@ const cacheIndicativos = {}
 let REGIONES = []
 let ANIOS_VENCE = []
 let indicePorIndicativo = {}
+let personaPorIndicativo = {}   // indicativoHistórico -> personaKey
+let entradasPersona = {}         // personaKey -> [{indicativo, categoria, catKey, vence}]
+let personaDeFila = {}           // indicativoVigente -> personaKey
 
 // ====================== HELPERS ======================================
 function escapar(s) {
@@ -164,7 +168,58 @@ function aplicarDatos(filas) {
     if (!indicePorIndicativo[cs]) indicePorIndicativo[cs] = []
     indicePorIndicativo[cs].push(r)
   }
+  construirHistorial(filas)
   poblarSelectores()
+}
+
+// ====================== HISTORIAL ===================================
+function _normKey(s) {
+  return (s || "")
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim()
+}
+
+function _personaKeyDeFila(r) {
+  return [_normKey(r.nombre), _normKey(r.comuna), _normKey(r.region)].join("|")
+}
+
+function construirHistorial(filas) {
+  personaPorIndicativo = {}
+  entradasPersona = {}
+  personaDeFila = {}
+
+  const meta = window.INDICATIVOS_HISTORIAL
+  const personas = meta && meta.personas ? meta.personas : {}
+
+  // mapa personaKey -> entradas de historial
+  for (const key in personas) {
+    const entradas = personas[key].map((e) => ({
+      indicativo: (e.indicativo || "").toUpperCase(),
+      categoria: e.categoria || "",
+      catKey: e.catKey || "",
+      vence: e.vence || "",
+    }))
+    if (!entradas.length) continue
+    entradasPersona[key] = entradas
+    for (const e of entradas) {
+      if (e.indicativo) personaPorIndicativo[e.indicativo] = key
+    }
+  }
+
+  // persona de cada fila vigente (nombre+comuna+región → su historial completo)
+  for (const r of filas) {
+    personaDeFila[r.indicativo] = _personaKeyDeFila(r)
+  }
+}
+
+function historialDeIndicativo(ind) {
+  const key = personaPorIndicativo[(ind || "").toUpperCase()] ||
+              personaDeFila[(ind || "").toUpperCase()]
+  if (!key) return null
+  return { key, entradas: entradasPersona[key] || [] }
 }
 
 function todasLasFilas() {
@@ -188,7 +243,24 @@ function aplicarFiltros() {
   const filas = todasLasFilas()
   const qLower = q.toLowerCase()
 
-  return filas.filter((r) => {
+  // Si el query es un indicativo exacto que ya no está vigente pero existe en
+  // el historial (ej: la persona subió de CD→CA→CE→XQ y cambió de indicativo),
+  // resolvemos la persona y traemos su fila vigente para mostrar el recorrido.
+  let filasExtra = []
+  if (q && !q.includes("*") && q.replace(/\s+/g, "").length <= 8 && q.replace(/\s+/g, "").length >= 3) {
+    const qSinEspacio = q.replace(/\s+/g, "").toUpperCase()
+    const yaEnFilaVigente = filas.some((r) => (r.indicativo || "").replace(/\s+/g, "").toUpperCase() === qSinEspacio)
+    if (!yaEnFilaVigente) {
+      const key = personaPorIndicativo[qSinEspacio]
+      if (key) {
+        // fila(s) vigente(s) de esa persona
+        filasExtra = filas.filter((r) => _personaKeyDeFila(r) === key)
+      }
+    }
+  }
+  const candidatas = filasExtra.length ? [...filas, ...filasExtra] : filas
+
+  return candidatas.filter((r) => {
     if (cat   && r.catKey !== cat) return false
     if (zona  && r.zona   !== zona) return false
     if (region && r.region !== region) return false
@@ -332,6 +404,29 @@ function filaATr(r) {
     esp: "esp",     // Distintivo Especial (rojo)
   }[r.catKey] || "grl"
   const zonaBadge = r.zona ? `<span class="badge-zona">Zona ${escapar(r.zona)}</span>` : ""
+
+  let filaHistorial = ""
+  const hist = historialDeIndicativo(r.indicativo)
+  if (hist && hist.entradas.length > 1) {
+    const actual = (r.indicativo || "").toUpperCase().replace(/\s+/g, "")
+    const otros = hist.entradas.filter((e) => (e.indicativo || "").toUpperCase().replace(/\s+/g, "") !== actual)
+    if (otros.length) {
+      filaHistorial = `
+      <tr class="indi-historial-fila">
+        <td colspan="7" class="indi-historial">
+          <span class="indi-historial-label">Historial:</span>
+          ${otros.map((e) => {
+            const cc = {
+              grl: "grl", nov: "nov", asp: "asp", sup: "sup", esp: "esp",
+            }[e.catKey] || "grl"
+            const v = e.vence ? ` · vence ${escapar(e.vence)}` : ""
+            return `<span class="hist-chip chip-${cc}" title="${escapar(e.categoria)}${v}">${escapar(e.indicativo)}</span>`
+          }).join(" ")}
+        </td>
+      </tr>`
+    }
+  }
+
   return `
     <tr>
       <td><span class="indicativo">${escapar(r.indicativo)}</span></td>
@@ -341,11 +436,25 @@ function filaATr(r) {
       <td>${escapar(r.region)}</td>
       <td>${escapar(r.comuna)}</td>
       <td class="vence">${escapar(r.vence)}</td>
-    </tr>`
+    </tr>` + filaHistorial
 }
 
 // ====================== INIT ========================================
+function pintarMetaFechas() {
+  const el = document.getElementById("indiActualizado")
+  if (!el) return
+  const meta = window.INDICATIVOS_META
+  let txt = ""
+  if (meta && meta.actualizado) {
+    txt = meta.actualizado
+  } else {
+    txt = new Date().toLocaleDateString("es-CL", { month: "long", year: "numeric" })
+  }
+  el.textContent = txt.charAt(0).toUpperCase() + txt.slice(1)
+}
+
 document.addEventListener("DOMContentLoaded", () => {
+  pintarMetaFechas()
   // Carga silenciosa: si hay caché, los datos aparecen al instante,
   // y se refrescan en background.
   cargarIndicativos({ silencioso: !!cargarCache() })

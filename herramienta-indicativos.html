@@ -14,11 +14,6 @@
   <link rel="stylesheet" href="recursos/header-responsive.css">
   <link rel="stylesheet" href="recursos/slider.css">
   <link rel="stylesheet" href="recursos/indicativos.css">
-  <style>
-    .figura-zonas img {
-      max-width: 460px;
-    }
-  </style>
   <link rel="icon" href="public/favicon-32x32.png">
 </head>
 <body>
@@ -104,12 +99,8 @@
         <div class="tip">
           <span class="etiqueta">DATO ÚTIL</span>
           <p>La UIT asignó a Chile los prefijos CA–CE, XQ–XR y 3G–3I, y la SUBTEL los distribuye según la licencia: Novicio (CA), General (CE), Aspirante (CD) y Superior (XQ). Además, las licencias se reparten en 9 zonas radiales que siguen el orden geográfico de norte a sur: de la zona 1 (Tarapacá y Arica y Parinacota) a la zona 9 (Magallanes). Así, un indicativo como CE4JWI ya nos cuenta que es un radioaficionado General de la zona centro.</p>
+          <p class="dato-actualizacion" style="margin-top:0.75em;font-size:0.85em;opacity:0.85;">Última actualización de los datos: <strong id="indiActualizado">…</strong></p>
         </div>
-
-        <figure class="figura figura-zonas">
-          <img src="public/zonas de radioaficionados de chile.jpg" alt="Las 9 zonas radiales de Chile usadas por SUBTEL">
-          <figcaption class="leyenda">Las 9 zonas radiales que usa SUBTEL para los indicativos chilenos</figcaption>
-        </figure>
 
       </section>
 
@@ -121,6 +112,7 @@
   <script src="recursos/actividades.js" defer></script>
   <script defer src="recursos/componentes.js?v=2"></script>
   <script defer src="recursos/indicativos-data.js"></script>
+  <script defer src="recursos/indicativos-historial.js"></script>
   <script defer src="recursos/indicativos.js"></script>
 </body>
 </html>

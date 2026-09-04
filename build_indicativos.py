@@ -43,9 +43,20 @@ LOCAL_ASP = os.path.join(RECURSOS_DIR, "Listado_Aspirantes")
 
 OUT_JS = os.path.join(RECURSOS_DIR, "indicativos-data.js")
 OUT_JSON = os.path.join(RECURSOS_DIR, "indicativos.json")
+OUT_HIST = os.path.join(RECURSOS_DIR, "indicativos-historial.json")
+OUT_HIST_JS = os.path.join(RECURSOS_DIR, "indicativos-historial.js")
 FLAG_FILE = os.path.join(tempfile.gettempdir(), "indicativos-commit.txt")
 
+# Con esta versión se recalcula el historial acumulado desde cero (útil si
+# cambia la lógica de agrupación). Los datos de cada mes son la "fuente".
+HIST_VERSION = 1
+
 BASE_PDF = "https://www.subtel.gob.cl/wp-content/uploads"
+
+MESES_ES = [
+    "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+    "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre",
+]
 PAGINA_SUBTEL = (
     "https://www.subtel.gob.cl/inicio-concesionario/"
     "servicios-de-telecomunicaciones/servicios-de-radio-aficionados/"
@@ -196,14 +207,27 @@ def leer_pdf_local(nombre_base):
 
 
 def obtener_pdf(nombre_base, anio, mes):
-    """Devuelve bytes del PDF (descargado o local)."""
+    """Devuelve (ruta,nombre,anio,mes) del PDF realmente usado (descargado o local)."""
+    # Prioridad: PDF local del mes exacto (ya lo tenemos → sin descargar). Luego
+    # autodescubrimiento por red. Al final, cualquier PDF local disponible.
+    local = os.path.join(RECURSOS_DIR, f"{nombre_base}_{anio:04d}_{mes:02d}.pdf")
+    if os.path.exists(local):
+        log(f"  usando PDF local del mes ({os.path.basename(local)})")
+        with open(local, "rb") as f:
+            return local, nombre_base, anio, mes, f.read()
+
     data = buscar_pdf(nombre_base, anio, mes)
     if data:
-        return data
+        tmp = os.path.join(tempfile.gettempdir(), f"{nombre_base}_{anio:04d}_{mes:02d}.pdf")
+        return tmp, nombre_base, anio, mes, data
+
     _p, data = leer_pdf_local(nombre_base)
     if data:
         log(f"  usando PDF local en recursos/")
-        return data
+        mm = re.search(r"(\d{4})_(\d{2})", os.path.basename(_p))
+        if mm:
+            anio, mes = int(mm.group(1)), int(mm.group(2))
+        return _p, nombre_base, anio, mes, data
     raise RuntimeError(f"No se pudo obtener {nombre_base}")
 
 
@@ -394,7 +418,7 @@ def ordenar(registros):
     return sorted(registros, key=lambda r: r["indicativo"])
 
 
-def escribir(data_js, data_json):
+def escribir(data_js, data_json, fecha_act="", anio_act=0, mes_act=0):
     need_commit = False
 
     def _fmt(regs):
@@ -416,6 +440,12 @@ def escribir(data_js, data_json):
 
     cuerpo = _fmt(data_js)
     contenido_js = "window.INDICATIVOS_DATA = [\n" + cuerpo + "\n];\n"
+    contenido_js += (
+        "\nwindow.INDICATIVOS_META = "
+        + json.dumps({"actualizado": fecha_act, "anio": anio_act, "mes": mes_act},
+                     ensure_ascii=False)
+        + ";\n"
+    )
     contenido_json = json.dumps(data_json, ensure_ascii=False, indent=4)
 
     old_js = open(OUT_JS, encoding="utf-8").read() if os.path.exists(OUT_JS) else None
@@ -444,19 +474,132 @@ def escribir(data_js, data_json):
 
 
 # ---------------------------------------------------------------------------
+# Historial por persona
+# ---------------------------------------------------------------------------
+def _norm(s):
+    """Normaliza un texto para usarlo como clave de persona:
+    minúsculas, sin acentos, sin espacios redundantes ni puntuación."""
+    if not s:
+        return ""
+    import unicodedata
+    nfkd = unicodedata.normalize("NFKD", str(s))
+    sin_acentos = "".join(c for c in nfkd if not unicodedata.combining(c))
+    return re.sub(r"[\s]+", " ", re.sub(r"[^a-z0-9]+", " ", sin_acentos.lower())).strip()
+
+
+def _persona_key(r):
+    """Clave que agrupa a la misma persona: nombre + comuna + región."""
+    return "|".join([_norm(r.get("nombre", "")), _norm(r.get("comuna", "")), _norm(r.get("region", ""))])
+
+
+def _cargar_historial():
+    if os.path.exists(OUT_HIST):
+        try:
+            with open(OUT_HIST, encoding="utf-8") as f:
+                return json.load(f)
+        except Exception:
+            log(f"  AVISO: no pude leer {OUT_HIST}; empiezo historial vacío")
+    return {}
+
+
+def actualizar_historial(regs_actuales):
+    """Acumula el historial de personas a lo largo de los meses.
+    regs_actuales: lista de dicts del mes vigente (con indicativo, nombre,
+    comuna, region, categoria, catKey, vence, licencia).
+
+    Devuelve el dict de historial: personaKey -> lista ordenada de entradas.
+    """
+    hist = _cargar_historial()
+
+    for r in regs_actuales:
+        key = _persona_key(r)
+        ind = r["indicativo"].strip().upper()
+        entradas = hist.setdefault(key, [])
+        # Verificamos si este indicativo ya está registrado para la persona
+        existe = next((e for e in entradas if e["indicativo"] == ind), None)
+        if existe:
+            # Mantener la categoría/vencimiento más reciente
+            existe["categoria"] = r["categoria"]
+            existe["catKey"] = r["catKey"]
+            existe["vence"] = r["vence"] or existe.get("vence", "")
+            existe["licencia"] = r["licencia"] or existe.get("licencia", "")
+        else:
+            entradas.append({
+                "indicativo": ind,
+                "categoria": r["categoria"],
+                "catKey": r["catKey"],
+                "vence": r["vence"] or "",
+                "licencia": r["licencia"] or "",
+                "comuna": r.get("comuna", ""),
+                "region": r.get("region", ""),
+                "nombre": r.get("nombre", ""),
+            })
+
+    return hist
+
+
+def escribir_historial(hist, fecha_act):
+    """Escribe indicativos-historial.json y su versión JS. Devuelve True si hubo cambios."""
+    need = False
+
+    # Orden de las entradas: por indicativo para consistencia
+    for key in hist:
+        hist[key].sort(key=lambda e: e["indicativo"])
+
+    objeto = {
+        "version": HIST_VERSION,
+        "actualizado": fecha_act,
+        "personas": hist,
+    }
+
+    contenido_json = json.dumps(objeto, ensure_ascii=False, indent=2)
+
+    old_json = open(OUT_HIST, encoding="utf-8").read() if os.path.exists(OUT_HIST) else None
+    if old_json != contenido_json:
+        with open(OUT_HIST, "w", encoding="utf-8") as f:
+            f.write(contenido_json)
+        need = True
+        log(f"  actualizado: {OUT_HIST}")
+
+    # Versión JS para carga con file://
+    contenido_js = (
+        "window.INDICATIVOS_HISTORIAL = "
+        + json.dumps(objeto, ensure_ascii=False)
+        + ";\n"
+    )
+    old_js = open(OUT_HIST_JS, encoding="utf-8").read() if os.path.exists(OUT_HIST_JS) else None
+    if old_js != contenido_js:
+        with open(OUT_HIST_JS, "w", encoding="utf-8") as f:
+            f.write(contenido_js)
+        need = True
+        log(f"  actualizado: {OUT_HIST_JS}")
+
+    return need
+
+
+# ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
 def main():
     hoy = datetime.date.today()
     anio, mes = hoy.year, hoy.month
+    if "--anio" in sys.argv:
+        anio = int(sys.argv[sys.argv.index("--anio") + 1])
+    if "--mes" in sys.argv:
+        mes = int(sys.argv[sys.argv.index("--mes") + 1])
     log("=== Actualización de licencias SUBTEL ===")
 
     nov = obtener_pdf("Listado_NOV_GRAL_SUP", anio, mes)
     asp = obtener_pdf("Listado_Aspirantes", anio, mes)
 
+    # Fecha del listado = la del PDF realmente usado (nombre _AAAA_MM)
+    _, _, list_anio, list_mes, _nov = nov
+    _, _, _, _, _asp = asp
+    anio, mes = list_anio, list_mes
+
     log("Parseando PDFs...")
-    txt_nov = extraer_texto_pdf(nov)
-    txt_asp = extraer_texto_pdf(asp)
+    txt_nov = extraer_texto_pdf(_nov)
+    txt_asp = extraer_texto_pdf(_asp)
 
     if not (txt_nov and txt_asp):
         log("ERROR: no se pudo extraer texto de los PDFs (falta pypdf).")
@@ -476,9 +619,18 @@ def main():
         sys.exit(3)
 
     ordenado = ordenar(total)
-    need = escribir(ordenado, ordenado)
+    fecha_act = f"{MESES_ES[mes - 1]} {anio}"
+
+    # Historial acumulado por persona (para ver CD→CA→CE→XQ de cada uno)
+    hist = actualizar_historial(ordenado)
+    n_personas = len(hist)
+    n_entradas = sum(len(v) for v in hist.values())
+    log(f"Historial: {n_personas} personas | {n_entradas} entradas")
+
+    need = escribir(ordenado, ordenado, fecha_act=fecha_act, anio_act=anio, mes_act=mes)
+    need_hist = escribir_historial(hist, fecha_act)
     log("=== Listo ===")
-    log("commit" if need else "sin cambios")
+    log("commit" if (need or need_hist) else "sin cambios")
     sys.exit(0)
 
 

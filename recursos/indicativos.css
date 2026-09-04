@@ -313,3 +313,43 @@
   .indi-tabla-wrap { overflow-x: auto; }
   .indi-tabla { min-width: 580px; }
 }
+
+/* ---- Historial por persona (CD→CA→CE→XQ) ---- */
+.indi-historial-fila td {
+  background: color-mix(in srgb, var(--surface-alt) 60%, transparent);
+  padding: 0.45rem 1rem;
+  border-top: none;
+}
+
+.indi-historial {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+}
+
+.indi-historial-label {
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  font-size: 0.68rem;
+  letter-spacing: 0.05em;
+}
+
+.hist-chip {
+  display: inline-block;
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.72rem;
+  border: 1px solid var(--border);
+  cursor: default;
+}
+
+.chip-grl  { background: rgba(0, 90, 180, 0.14);  color: var(--blue); }
+.chip-nov  { background: rgba(34, 139, 34, 0.14); color: #2e8b57; }
+.chip-asp  { background: rgba(230, 140, 0, 0.14);  color: #c47a00; }
+.chip-sup  { background: rgba(130, 60, 200, 0.14); color: #7b2fd0; }
+.chip-esp  { background: rgba(200, 50, 50, 0.14);  color: #c0392b; }

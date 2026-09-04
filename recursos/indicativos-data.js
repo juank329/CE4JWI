@@ -126500,3 +126500,5 @@ window.INDICATIVOS_DATA = [
         "licencia":  "18333-4"
     }
 ];
+
+window.INDICATIVOS_META = {"actualizado": "Junio 2026", "anio": 2026, "mes": 6};
