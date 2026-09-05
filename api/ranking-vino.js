@@ -1,11 +1,15 @@
-// Ranking EN VIVO de la actividad "Dia Nacional del Vino Chileno" (XR4MAU).
+// Ranking de la actividad "Dia Nacional del Vino Chileno" (XR4MAU).
 // Solo APRS (PKT) a XR4MAU-7 con la frase VINO CHILENO.
 //
-// Fuente de datos: el ADIF que el bot sube automaticamente a qsl.net:
-//   https://qsl.net/xr4mau/log_vino.adi
-//
-// Cada linea <CALL:..> de un ADIF = un QSO de la actividad. Se lee en tiempo
-// real, por lo que cada contacto nuevo aparece apenas el bot sube el ADIF.
+// La actividad TERMINO: el ranking queda CONGELADO desde el final.json de este
+// mismo repo (ranking-data/vino/final.json), copia permanente en git que ya no
+// depende del ADIF de qsl.net (log_vino.adi), por lo que los contactos no se
+// borran ni cambian.
+
+const fs = require("fs");
+const path = require("path");
+
+const FINAL_PATH = path.join(__dirname, "..", "ranking-data", "vino", "final.json");
 
 const BASE = "https://qsl.net/xr4mau";
 
@@ -38,6 +42,20 @@ async function leerAdif(nombre) {
 
 function handler(req, res) {
   return (async () => {
+    let congelado = false;
+    try {
+      if (fs.existsSync(FINAL_PATH)) {
+        const datos = JSON.parse(fs.readFileSync(FINAL_PATH, "utf8"));
+        datos.congelado = true;
+        congelado = true;
+        res.setHeader("Cache-Control", "public, max-age=3600, s-maxage=86400");
+        res.status(200).json(datos);
+        return;
+      }
+    } catch (e) {
+      console.error("AVISO leyendo final.json del vino, usando ADIF en vivo:", e);
+    }
+
     const qsos = await leerAdif(ADIF);
     const porCall = new Map();
 
@@ -75,7 +93,7 @@ function handler(req, res) {
       totalContactos: filas.reduce((s, f) => s + f.total, 0),
       participantes: filas.length,
       filas,
-      congelado: false,
+      congelado: congelado,
     });
   })().catch((e) => {
     res.status(500).json({ ok: false, error: String(e) });
