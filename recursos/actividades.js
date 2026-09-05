@@ -741,4 +741,14 @@ const ACTIVIDADES = [
   date: "02-07 Septiembre 2026",
   url: "juegos_tradicionales_fiestas_patrias_2026.html",
 },
+{
+  id: 77,
+  title: "Día Nacional del Vino Chileno 2026",
+  image: "public/dia nacional del vino chileno.webp",
+  status: "EN VIVO",
+  description:
+    "Activación especial Día Nacional del Vino Chileno. Solo APRS con la frase VINO CHILENO a la estación XR4MAU-7. QSL conmemorativa automática y ranking en tiempo real.",
+  date: "4 Septiembre 2026",
+  url: "dia_del_vino_chileno_2026.html",
+},
 ]
