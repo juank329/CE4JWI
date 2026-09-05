@@ -195,6 +195,26 @@ const COMPONENTES = {
 
 
 
+  <!-- Widget: Top Indicativos (todas las actividades) -->
+  <div class="widget">
+    <div class="widget-header">
+      <svg class="widget-icon green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M8 21h8"/>
+        <path d="M12 17v4"/>
+        <path d="M7 4h10v5a5 5 0 0 1-10 0V4z"/>
+        <path d="M17 9a3 3 0 0 1 0 6"/>
+        <path d="M7 9a3 3 0 0 0 0 6"/>
+      </svg>
+      <h3>Top Indicativos</h3>
+    </div>
+    <div class="content">
+      <p style="margin:0 0 .3rem;font-size:.72rem;color:#666;">Contactos sumados de todas las actividades</p>
+      <ol id="rankingGeneralList" style="margin:0;padding:0;list-style:none;">
+        <li style="color:#888;font-size:.8rem;padding:.15rem 0;">Cargando ranking…</li>
+      </ol>
+    </div>
+  </div>
+
   <!-- Widget: Visitas en la Web! -->
   <div class="widget">
     <div class="widget-header">
@@ -899,6 +919,130 @@ function renderizarMarquee() {
 }
 
 /**
+ * Widget "Top Indicativos": ranking general sumando todas las actividades.
+ * Pinta el top 10 en la barra lateral y agrega la bandera de cada call
+ * usando la API de RadioID.net (para el pais) y flagcdn (bandera PNG).
+ */
+function cargarRankingGeneral() {
+  const cont = document.getElementById("rankingGeneralList");
+  if (!cont) return;
+
+  // Pais (nombre) -> ISO alpha-2 usando la API de RadioID.net cuando el call
+  // esta registrado (base DMR). Respaldo: derivar el ISO desde el prefijo.
+  const PAISES_ISO = {
+    "chile":"CL","argentina":"AR","argentina republic":"AR","uruguay":"UY","bolivia":"BO","brasil":"BR","brazil":"BR",
+    "peru":"PE","paraguay":"PY","ecuador":"EC","colombia":"CO","venezuela":"VE","panama":"PA",
+    "españa":"ES","espana":"ES","spain":"ES","portugal":"PT","italy":"IT","italia":"IT",
+    "france":"FR","francia":"FR","germany":"DE","alemania":"DE","england":"GB","united kingdom":"GB",
+    "netherlands":"NL","belgium":"BE","switzerland":"CH","austria":"AT","poland":"PL","ukraine":"UA",
+    "russia":"RU","sweden":"SE","norway":"NO","denmark":"DK","finland":"FI","greece":"GR","hungary":"HU",
+    "usa":"US","united states":"US","estados unidos":"US","canada":"CA","canada:":"CA","mexico":"MX",
+    "méxico":"MX","cuba":"CU","puerto rico":"PR","dominican republic":"DO","costa rica":"CR",
+    "guatemala":"GT","honduras":"HN","el salvador":"SV","nicaragua":"NI","jamaica":"JM",
+    "australia":"AU","new zealand":"NZ","japan":"JP","china":"CN","south korea":"KR","korea":"KR",
+    "india":"IN","indonesia":"ID","malaysia":"MY","philippines":"PH","filipinas":"PH",
+    "thailand":"TH","vietnam":"VN","singapore":"SG","south africa":"ZA","sudafrica":"ZA",
+    "egypt":"EG","morocco":"MA","algiers":"DZ","algeria":"DZ","turkey":"TR","israel":"IL",
+    "ireland":"IE","iceland":"IS","czech republic":"CZ","czechia":"CZ","slovakia":"SK","croatia":"HR",
+    "romania":"RO","bulgaria":"BG","serbia":"RS","slovenia":"SI","lithuania":"LT","latvia":"LV",
+    "estonia":"EE","belarus":"BY","kazakhstan":"KZ","mongolia":"MN","pakistan":"PK",
+    "sri lanka":"LK","nepal":"NP","bangladesh":"BD","fiji":"FJ","greenland":"GL"
+  };
+
+  // Prefijo de indicativo (2-3 letras iniciales) -> ISO alpha-2
+  function isoPorPrefijo(call) {
+    const p = call.slice(0, 2);
+    const prefs = {
+      "CE":"CL","CA":"CL","CB":"CL","CC":"CL","CD":"CL","CF":"CL","CG":"CL","CH":"CL","CI":"CL","CJ":"CL","CK":"CL","CL":"CL","CM":"CL","CN":"CL","CO":"CL","CP":"CL","CQ":"CL","CR":"CL","CS":"CL","CT":"CL","CU":"CL","CV":"CL","CW":"CL","CY":"CL",
+      "CX":"UY","LU":"AR","LQ":"AR","LT":"AR","LW":"AR","LY":"AR","LZ":"AR","7L":"AR","7T":"AR","8B":"AR","A6":"AR",
+      "PY":"BR","PP":"BR","PQ":"BR","PR":"BR","PS":"BR","PT":"BR","PV":"BR","PW":"BR","PX":"BR","PZ":"BR","ZW":"BR","ZY":"BR","8B":"BR","AD":"BR",
+      "CP":"BO","5C":"MA","CX":"UY","4F":"PH","4I":"PH","DV":"PH","DU":"PH",
+      "EA":"ES","EB":"ES","EC":"ES","ED":"ES","EE":"ES","EF":"ES","EG":"ES","EH":"ES","EI":"IR","EJ":"IE","EK":"AM","EL":"LR","EM":"UA","EN":"UA","EO":"UA","EP":"IR","ER":"MD","ES":"EE","ET":"ET","EU":"BY",
+      "W":"US","K":"US","N":"US","A":"US","AA":"US","AC":"US","AK":"US","AL":"US","KA":"US","KB":"US","KC":"US","KD":"US","KE":"US","KF":"US","KG":"US","KH":"US","KI":"US","KJ":"US","KK":"US","KL":"US","KM":"US","KN":"US","KO":"US","KP":"US","KQ":"US","KR":"US","KS":"US","KT":"US","KU":"US","KV":"US","KW":"US","KX":"US","KY":"US","KZ":"US","WA":"US","WB":"US","WC":"US","WD":"US","WE":"US","WF":"US","WG":"US","WH":"US","WI":"US","WJ":"US","WK":"US","WL":"US","WM":"US","WN":"US","WO":"US","WP":"US","WQ":"US","WR":"US","WS":"US","WT":"US","WU":"US","WV":"US","WW":"US","WX":"US","WY":"US","WZ":"US","NP":"US","NQ":"US","NR":"US","NS":"US","NT":"US","NU":"US","NV":"US","NW":"US","NX":"US","NY":"US","NZ":"US",
+      "VE":"CA","VA":"CA","VB":"CA","VC":"CA","VD":"CA","VY":"CA","VO":"CA","VX":"CA","VY":"CA","VY":"CA","C6":"BS","C9":"MZ","C7":"MV",
+      "XE":"MX","XD":"MX","XF":"MX","XG":"MX","XH":"MX","XI":"MX","XJ":"MX","XL":"MX","XM":"MX","XN":"MX","XP":"MX","XQ":"MX","XR":"MX","XS":"MX","XT":"MX","XU":"MX","XV":"MX","XW":"MX","XX":"MX","XY":"MX","XZ":"MX","4A":"MX","6D":"MX",
+      "YV":"VE","YY":"VE","4M":"VE","HF":"PL","HP":"PA","HO":"PA","HR":"HN","HT":"NI","HU":"SV","TI":"CR","TE":"CR","TG":"GT","TN":"CG","TT":"TD","TU":"CI","TY":"BJ","TZ":"ML","T7":"SM","T9":"BA",
+      "YB":"ID","YC":"ID","YD":"ID","YE":"ID","YF":"ID","YG":"ID","YH":"ID","YI":"IQ","YJ":"VU","YK":"SY","YL":"LV","YM":"TR","YN":"NI","YO":"RO","YP":"AL","YQ":"DO","YR":"RO","YS":"SV","YT":"AL","YU":"RS","YV":"VE","YW":"VE","YX":"VE","YY":"VE","YZ":"RS","7A":"ID","8A":"ID","9A":"HR","9K":"KW","9M":"MY","9N":"NP","9V":"SG","9W":"MY","9X":"RW","9Y":"TT","9Z":"TT",
+      "DL":"DE","DK":"DE","DA":"DE","DB":"DE","DC":"DE","DF":"DE","DH":"DE","DJ":"DE","DM":"DE","DN":"DE","DO":"DE","DP":"DE","DQ":"DE","DR":"DE","DS":"DE","DT":"DE","DV":"DE","DX":"PH","DZ":"PH",
+      "F":"FR","G":"GB","M":"GB","GW":"GB","GD":"GB","GI":"GB","GM":"GB","GU":"GB","2E":"GB","2M":"GB","2W":"GB",
+      "I":"IT","IK":"IT","IU":"IT","IZ":"IT","IN":"IT","IP":"IT","IS":"IT","ISM":"IT",
+      "JA":"JP","JH":"JP","JI":"JP","JJ":"JP","JK":"JP","JL":"JP","JM":"JP","JN":"JP","JO":"JP","JP":"JP","JQ":"JP","JR":"JP","JS":"JP","JT":"MN","JY":"JO",
+      "PA":"NL","PB":"NL","PC":"NL","PD":"NL","PE":"NL","PF":"NL","PG":"NL","PH":"NL","PI":"NL","PJ":"NL","PK":"NL","PL":"NL","PZ":"BR",
+      "OH":"FI","OJ":"FI","OG":"FI","OF":"FI","TA":"TR","TC":"TR","TB":"TR","TM":"TR",
+      "UA":"RU","UB":"UA","UC":"BY","UD":"AZ","UE":"RU","UF":"RU","UG":"GE","UH":"RU","UI":"RU","UJ":"UZ","UK":"UZ","UL":"KZ","UM":"BY","UN":"KZ","UO":"RU","UP":"KZ","UQ":"BY","UR":"UA","US":"UA","UT":"UA","UU":"UA","UV":"UA","UW":"UA","UX":"UA","UY":"UA","UZ":"UA",
+      "VK":"AU","VI":"AU","VH":"AU","VJ":"AU","VM":"AU","VK":"AU","VZ":"AU","AX":"AU","X":"AU",
+      "ZL":"NZ","ZM":"NZ","ZK":"NZ","ZP":"PY","ZS":"ZA","ZR":"ZA","ZU":"ZA","ZV":"ZA","ZW":"ZA","ZX":"ZA","ZY":"BR","Z3":"MK","Z6":"XK",
+      "4X":"IL","4Z":"IL","5B":"CY","5H":"TZ","5N":"NG","5R":"MG","5T":"MR","5U":"NE","5V":"TG","5W":"WS","5X":"UG","5Z":"KE","6M":"HK","6Y":"JM","7P":"LS","7Q":"MW","7X":"DZ","8P":"BB","8R":"GY","8S":"SE","8Z":"SA","9J":"ZM","9O":"CD",
+      "E5":"CK","E7":"BA","EX":"KG","EY":"TJ","EZ":"TM","FJ":"GF","FM":"MQ","FG":"GP","FH":"YT","FK":"NC","FO":"PF","FP":"PM","FR":"RE","FS":"PM","FT":"TF"
+    };
+    const c = prefs[p];
+    if (c) return c;
+    const p3 = call.slice(0, 3);
+    if (/^[A-Z]{1}\d/.test(call)) return "US"; // AH, K1, N5, W1...
+    if (/^9[0-49]/.test(call)) return "MY";
+    if (/^7[0-9]/.test(call)) return "JP";
+    if (/^8[0-9]/.test(call)) return "JP";
+    return "";
+  }
+
+  function ccDePais(nombre) {
+    const n = (nombre || "").toLowerCase().trim().replace(/\s+/g, " ");
+    return PAISES_ISO[n] || PAISES_ISO[n.replace(/-/g, " ")] || "";
+  }
+
+  function ponerBandera(call, cc) {
+    const celda = document.getElementById("band-" + call);
+    if (!celda || !/^[A-Z]{2}$/.test(cc || "")) return;
+    celda.innerHTML = '<img src="https://flagcdn.com/w40/' + cc.toLowerCase() + '.png" alt="' + cc + '" width="22" height="15" style="border:1px solid #ddd;border-radius:2px;display:block;">';
+  }
+
+  function cargarBandera(call) {
+    const ck = "bco_iso_" + call;
+    try {
+      const cache = localStorage.getItem(ck);
+      if (cache !== null) { ponerBandera(call, cache); return; }
+    } catch (e) { /* sin localStorage */ }
+    fetch("https://radioid.net/api/users?callsign=" + encodeURIComponent(call) + "&callsign_sel==")
+      .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
+      .then(function (j) {
+        let cc = "";
+        if (j && Array.isArray(j.results) && j.results.length && j.results[0] && j.results[0].country) {
+          cc = ccDePais(j.results[0].country);
+        }
+        if (!cc) cc = isoPorPrefijo(call);
+        try { localStorage.setItem(ck, cc); } catch (e) {}
+        ponerBandera(call, cc);
+      })
+      .catch(function () {
+        const cc = isoPorPrefijo(call);
+        try { localStorage.setItem(ck, cc); } catch (e) {}
+        ponerBandera(call, cc);
+      });
+  }
+
+  fetch("/api/ranking-general")
+    .then(function (r) {
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      return r.json();
+    })
+    .then(function (d) {
+      if (!d || !d.ok || !Array.isArray(d.top)) throw new Error("formato invalido");
+      const filas = d.top.slice(0, 10);
+      cont.innerHTML = filas.map(function (f, i) {
+        return '<li style="display:flex;align-items:center;gap:6px;padding:.25rem 0;border-bottom:1px solid #f0f0f0;">'
+          + '<span id="band-' + f.call + '" style="display:inline-block;width:22px;height:15px;vertical-align:-2px;flex:0 0 22px;border:1px solid #ddd;border-radius:2px;background:#f7f7f7;"></span>'
+          + '<a href="https://www.qrz.com/db/' + f.call + '" target="_blank" rel="noopener" style="flex:1;font-family:JetBrains Mono,monospace;font-weight:700;color:#1a4d8f;font-size:.78rem;text-decoration:none;">' + f.call + '</a>'
+          + '<span style="font-weight:700;color:#16a34a;font-size:.8rem;">' + f.puntos + '</span>'
+          + '</li>';
+      }).join("") || '<li style="color:#888;font-size:.8rem;">Sin datos todavia.</li>';
+      filas.forEach(function (f) { cargarBandera(f.call); });
+    })
+    .catch(function (e) {
+      cont.innerHTML = '<li style="color:#a00;font-size:.8rem;">Ranking no disponible.</li>';
+    });
+}
+
+/**
  * Inicia el reloj local de la barra lateral
  */
 function iniciarReloj() {
@@ -927,6 +1071,9 @@ function inicializarComponentes() {
 
   // Iniciar el reloj local de la barra lateral
   iniciarReloj()
+
+  // Widget "Top Indicativos" de la barra lateral
+  cargarRankingGeneral()
 
   // Renderizar la marquesina de próximas actividades
   renderizarMarquee()
