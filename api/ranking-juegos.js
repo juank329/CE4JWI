@@ -44,7 +44,7 @@ const JUEGOS = [
     id: "carreras_en_saco",
     nombre: "Carreras en Saco",
     frase: "CARRERAS EN SACO",
-    adif: "log_carreras_en_saco.adi",
+    adif: "log_carrera_saco.adi",
     emoji: "🛶",
     desc: "Salta en el saco hasta la meta.",
   },
