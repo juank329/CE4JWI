@@ -6,7 +6,7 @@
 //   log_emboque.adi           (El Emboque)
 //   log_palo_encebado.adi     (El Palo Ensebado)
 //   log_carreras_en_saco.adi  (Carreras en Saco)
-//   log_tirar_la_cuerda.adi   (Tirar la Cuerda)
+//   log_tirar_cuerda.adi     (Tirar la Cuerda)
 //   log_elevar_volantines.adi (Elevar Volantines)
 //
 // Cada linea <CALL:..> de un ADIF = un QSO de ESE juego. El ranking suma por
@@ -52,7 +52,7 @@ const JUEGOS = [
     id: "tirar_la_cuerda",
     nombre: "Tirar la Cuerda",
     frase: "TIRAR LA CUERDA",
-    adif: "log_tirar_la_cuerda.adi",
+    adif: "log_tirar_cuerda.adi",
     emoji: "🪢",
     desc: "Jalaste la cuerda en el tradicional pulso.",
   },

@@ -8,6 +8,7 @@ const FUENTES = [
   { base: "https://qsl.net/ce4jwi", adif: "log_carrera_saco.adi", actividad: "Carrera en Saco" },
   { base: "https://qsl.net/ce4jwi", adif: "log_trompo.adi", actividad: "El Trompo" },
   { base: "https://qsl.net/ce4jwi", adif: "log_emboque.adi", actividad: "El Emboque" },
+  { base: "https://qsl.net/ce4jwi", adif: "log_tirar_cuerda.adi", actividad: "Tirar la Cuerda" },
   { base: "https://qsl.net/ce4jwi", adif: "log_ce4jwi.adi", actividad: "General CE4JWI" },
   { base: "https://qsl.net/xr4mau", adif: "log_circo.adi", actividad: "Dia del Circo" },
   { base: "https://qsl.net/xr4mau", adif: "log_vino.adi", actividad: "Vino Chileno" },
