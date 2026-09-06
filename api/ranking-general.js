@@ -14,7 +14,7 @@ const FUENTES = [
   { base: "https://qsl.net/xr4mau", adif: "log_vino.adi", actividad: "Vino Chileno" },
 ];
 
-const PROPIAS = new Set(["CE4JWI", "XR4MAU", "CE4JWI7", "XR4MAU10", "CE4JWI10"]);
+const PROPIAS = new Set(["CE4JWI", "XR4MAU"]);
 
 async function leerAdif(base, nombre) {
   try {
@@ -26,7 +26,7 @@ async function leerAdif(base, nombre) {
     for (const linea of lines) {
       const m = linea.match(/<CALL:\d+>(\S+).*?<QSO_DATE:8>(\d{8}).*?<TIME_ON:6>(\d{6}).*?<EOR>/);
       if (!m) continue;
-      const call = m[1].replace(/[-/]/g, "").toUpperCase();
+      const call = m[1].replace(/[-/].*$/, "").toUpperCase();
       if (PROPIAS.has(call)) continue;
       qsos.push({
         call,

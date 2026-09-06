@@ -25,7 +25,7 @@ async function leerAdif(nombre) {
     for (const linea of lines) {
       const m = linea.match(/<CALL:\d+>(\S+).*?<QSO_DATE:8>(\d{8}).*?<TIME_ON:6>(\d{6}).*?<EOR>/);
       if (!m) continue;
-      const call = m[1].replace(/[-/]/g, "").toUpperCase();
+      const call = m[1].replace(/[-/].*$/, "").toUpperCase();
       const d = m[2];
       const h = m[3];
       qsos.push({
