@@ -121,6 +121,8 @@ async function fetchQSLData(opciones = {}) {
 // Todas las QSLs están en GitHub Pages, no se necesitan proxies
 
 function proxyImg(url) {
+  // Normaliza bases malformadas del tipo "juank329.github.io/juank329/..." -> "juank329.github.io/..."
+  if (url) url = url.replace("github.io/juank329/", "github.io/")
   return { proxied: url, original: url }
 }
 
