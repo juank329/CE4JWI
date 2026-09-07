@@ -7,7 +7,7 @@
 //   log_palo_encebado.adi     (El Palo Ensebado)
 //   log_carreras_en_saco.adi  (Carreras en Saco)
 //   log_tirar_cuerda.adi     (Tirar la Cuerda)
-//   log_elevar_volantines.adi (Elevar Volantines)
+//   log_volantin.adi          (Elevar Volantines)
 //
 // Cada linea <CALL:..> de un ADIF = un QSO de ESE juego. El ranking suma por
 // indicativo cuantos de los 6 juegos completo (0-6). Se lee en tiempo real, por lo
@@ -60,7 +60,7 @@ const JUEGOS = [
     id: "elevar_volantines",
     nombre: "Elevar Volantines",
     frase: "ELEVAR VOLANTINES",
-    adif: "log_elevar_volantines.adi",
+    adif: "log_volantin.adi",
     emoji: "🪁",
     desc: "Llevaste tu volantín a lo alto del cielo.",
   },
