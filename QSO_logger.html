@@ -329,15 +329,6 @@
                 </div>
               </div>
               <div class="form-group">
-                <label>Color de fondo</label>
-                <div class="color-swatch-row">
-                  <span class="color-swatch" id="swatchBg">
-                    <input type="color" id="bgColor" value="#d1dbe6">
-                  </span>
-                  <span class="color-swatch-value" id="swatchBgVal">#d1dbe6</span>
-                </div>
-              </div>
-              <div class="form-group">
                 <label>Letras de títulos</label>
                 <div class="color-swatch-row">
                   <span class="color-swatch" id="swatchTitleCajon">
@@ -375,69 +366,6 @@
             <div class="qsl-size-note">
               <strong>Tamaño recomendado de la imagen: 1920 x 1080 px</strong>
               <span>Tu imagen queda guardada en este equipo y se usará cada vez que vuelvas. Si no subes ninguna, la QSL sale en fondo blanco.</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="qsl-section">
-        <div class="qsl-section-title">Datos del Operador</div>
-        <div class="qsl-config-row">
-          <div class="form-group">
-            <label>Nombre del operador</label>
-            <input type="text" id="opName" placeholder="Tu nombre">
-          </div>
-          <div class="form-group">
-            <label>Domicilio</label>
-            <input type="text" id="opDomicilio" placeholder="Calle 123">
-          </div>
-          <div class="form-group">
-            <label>Ciudad</label>
-            <input type="text" id="opCiudad" placeholder="Talca">
-          </div>
-          <div class="form-group">
-            <label>País</label>
-            <input type="text" id="opPais" placeholder="Chile">
-          </div>
-          <div class="form-group">
-            <label>Grid Locator</label>
-            <input type="text" id="opGrid" placeholder="FF45" style="text-transform: uppercase;">
-          </div>
-          <div class="form-group">
-            <label>Zona ITU</label>
-            <input type="text" id="opItu" placeholder="14">
-          </div>
-          <div class="form-group">
-            <label>Zona CQ</label>
-            <input type="text" id="opCq" placeholder="12">
-          </div>
-          <div class="form-group">
-            <label>Alineación de los datos</label>
-            <div class="qsl-position-options compact">
-              <input type="radio" name="qslAlin" id="alin1" value="1">
-              <label for="alin1">Izquierda</label>
-              <input type="radio" name="qslAlin" id="alin2" value="2" checked>
-              <label for="alin2">Centrado</label>
-              <input type="radio" name="qslAlin" id="alin3" value="3">
-              <label for="alin3">Derecha</label>
-            </div>
-          </div>
-          <div class="form-group qsl-margin-colortitulo">
-            <label>Color del título</label>
-            <div class="color-swatch-row">
-              <span class="color-swatch" id="swatchTitle">
-                <input type="color" id="titleColor" value="#1e3a5f">
-              </span>
-              <span class="color-swatch-value" id="swatchTitleVal">#ffffff</span>
-            </div>
-          </div>
-          <div class="form-group qsl-margin-colordatos">
-            <label>Color de los datos del operador</label>
-            <div class="color-swatch-row">
-              <span class="color-swatch" id="swatchOp">
-                <input type="color" id="opColor" value="#1e3a5f">
-              </span>
-              <span class="color-swatch-value" id="swatchOpVal">#ffffff</span>
             </div>
           </div>
         </div>
@@ -600,11 +528,6 @@
       return el ? el.value : '#154360';
     }
 
-    function obtenerColorFondo() {
-      const el = document.getElementById('bgColor');
-      return el ? el.value : '#d1dbe6';
-    }
-
     function obtenerColorTituloCajon() {
       const el = document.getElementById('titleCajonColor');
       return el ? el.value : '#ffffff';
@@ -642,24 +565,12 @@
     }
 
     function obtenerConfigQSL() {
-      const selAlin = document.querySelector('input[name="qslAlin"]:checked');
       return {
         actividad: '',
-        opNombre: (document.getElementById('opName') ? document.getElementById('opName').value : '').trim(),
-        opDomicilio: (document.getElementById('opDomicilio') ? document.getElementById('opDomicilio').value : '').trim(),
-        opCiudad: (document.getElementById('opCiudad') ? document.getElementById('opCiudad').value : '').trim(),
-        opPais: (document.getElementById('opPais') ? document.getElementById('opPais').value : '').trim(),
-        opGrid: (document.getElementById('opGrid') ? document.getElementById('opGrid').value : '').trim(),
-        opZonaItu: (document.getElementById('opItu') ? document.getElementById('opItu').value : '').trim(),
-        opZonaCq: (document.getElementById('opCq') ? document.getElementById('opCq').value : '').trim(),
-        colorTitulo: (document.getElementById('titleColor') ? document.getElementById('titleColor').value : '#1e3a5f'),
-        colorDatos: (document.getElementById('opColor') ? document.getElementById('opColor').value : '#1e3a5f'),
         colorTexto: obtenerColorTexto(),
         colorCuadro: obtenerColorCuadro(),
-        colorFondo: obtenerColorFondo(),
         colorTituloCajon: obtenerColorTituloCajon(),
-        colorWhite: obtenerColorWhite(),
-        opAlineacion: selAlin ? selAlin.value : '2'
+        colorWhite: obtenerColorWhite()
       };
     }
 
@@ -815,83 +726,8 @@
       return limpio;
     }
 
-    function textoConBorde(ctx, texto, x, y, color) {
-      ctx.strokeStyle = 'rgba(0,0,0,0.75)';
-      ctx.lineWidth = 6;
-      ctx.strokeText(texto, x, y);
-      ctx.fillStyle = color || '#ffffff';
-      ctx.fillText(texto, x, y);
-    }
-
-    function dibujarCabecera(ctx, datos) {
-      const alineacion = datos.opAlineacion || '2';
-      let x;
-      let align;
-      if (alineacion === '1') { x = 60; align = 'left'; }
-      else if (alineacion === '3') { x = 1860; align = 'right'; }
-      else { x = 960; align = 'center'; }
-
-      const colorTitulo = datos.colorTitulo || '#1e3a5f';
-      const colorDatos = datos.colorDatos || '#1e3a5f';
-
-      ctx.save();
-      ctx.textAlign = align;
-      ctx.textBaseline = 'top';
-
-      if (datos.actividad) {
-        ctx.font = 'bold 58px Arial';
-        textoConBorde(ctx, datos.actividad, x, 35, colorTitulo);
-      }
-      if (datos.opNombre) {
-        ctx.font = 'bold 40px Arial';
-        textoConBorde(ctx, datos.opNombre, x, 115, colorDatos);
-      }
-      const lineaDireccion = [datos.opDomicilio, datos.opCiudad, datos.opPais].filter(Boolean).join(' - ');
-      if (lineaDireccion) {
-        ctx.font = 'bold 30px Arial';
-        textoConBorde(ctx, lineaDireccion, x, 175, colorDatos);
-      }
-      const lineaZonas = [
-        datos.opGrid ? 'GRID: ' + datos.opGrid : '',
-        datos.opZonaItu ? 'ITU: ' + datos.opZonaItu : '',
-        datos.opZonaCq ? 'CQ: ' + datos.opZonaCq : ''
-      ].filter(Boolean).join('  |  ');
-      if (lineaZonas) {
-        ctx.font = 'bold 30px Arial';
-        textoConBorde(ctx, lineaZonas, x, 235, colorDatos);
-      }
-
-      ctx.restore();
-    }
-
-    function dibujarCanvas() {
-      const canvas = document.getElementById('qslCanvas');
-      const ctx = canvas.getContext('2d');
-      ctx.clearRect(0, 0, 1920, 1080);
-      ctx.fillStyle = '#222831';
-      ctx.fillRect(0, 0, 1920, 1080);
-
-      if (imgFondo) {
-        ctx.drawImage(imgFondo, 0, 0, 1920, 1080);
-      } else {
-        dibujarFondoGenerado(ctx);
-      }
-
-      const vista = qsos.length === 0
-        ? Object.assign({}, DATOS_EJEMPLO, {
-            posicion: obtenerPosicion(),
-            conAgradecimiento: mostrarAgradecimiento(),
-            colorTexto: obtenerColorTexto(),
-            colorCuadro: obtenerColorCuadro()
-          }, filtrarConfigVacia(obtenerConfigQSL()))
-        : obtenerDatosVista();
-
-      dibujarCabecera(ctx, vista);
-      dibujarCajon(ctx, vista);
-    }
-
     function dibujarFondoGenerado(ctx) {
-      ctx.fillStyle = obtenerColorFondo();
+      ctx.fillStyle = '#d1dbe6';
       ctx.fillRect(0, 0, 1920, 1080);
       ctx.strokeStyle = '#b8c4d2';
       ctx.lineWidth = 3;
@@ -1002,15 +838,6 @@
       const cajaIni = document.getElementById('boxColor').value;
       document.getElementById('swatchBox').style.background = cajaIni;
       document.getElementById('swatchBoxVal').textContent = cajaIni;
-      const tituloIni = document.getElementById('titleColor').value;
-      document.getElementById('swatchTitle').style.background = tituloIni;
-      document.getElementById('swatchTitleVal').textContent = tituloIni;
-      const opIni = document.getElementById('opColor').value;
-      document.getElementById('swatchOp').style.background = opIni;
-      document.getElementById('swatchOpVal').textContent = opIni;
-      const bgIni = document.getElementById('bgColor').value;
-      document.getElementById('swatchBg').style.background = bgIni;
-      document.getElementById('swatchBgVal').textContent = bgIni;
       const titleCajonIni = document.getElementById('titleCajonColor').value;
       document.getElementById('swatchTitleCajon').style.background = titleCajonIni;
       document.getElementById('swatchTitleCajonVal').textContent = titleCajonIni;
@@ -1028,7 +855,7 @@
       let coloresGuardados = null;
       try { coloresGuardados = JSON.parse(localStorage.getItem('qso_logger_colores')); } catch (e) { /* ignorar */ }
       if (coloresGuardados) {
-        ['textColor', 'boxColor', 'bgColor', 'titleCajonColor', 'whiteColor', 'titleColor', 'opColor'].forEach(id => {
+        ['textColor', 'boxColor', 'titleCajonColor', 'whiteColor'].forEach(id => {
           if (coloresGuardados[id]) {
             const el = document.getElementById(id);
             if (el) el.value = coloresGuardados[id];
@@ -1042,11 +869,8 @@
         };
         aplicar('textColor', 'swatchText', 'swatchTextVal');
         aplicar('boxColor', 'swatchBox', 'swatchBoxVal');
-        aplicar('bgColor', 'swatchBg', 'swatchBgVal');
         aplicar('titleCajonColor', 'swatchTitleCajon', 'swatchTitleCajonVal');
         aplicar('whiteColor', 'swatchWhite', 'swatchWhiteVal');
-        aplicar('titleColor', 'swatchTitle', 'swatchTitleVal');
-        aplicar('opColor', 'swatchOp', 'swatchOpVal');
       }
 
       function guardarColores() {
@@ -1054,18 +878,11 @@
           localStorage.setItem('qso_logger_colores', JSON.stringify({
             textColor: document.getElementById('textColor').value,
             boxColor: document.getElementById('boxColor').value,
-            bgColor: document.getElementById('bgColor').value,
             titleCajonColor: document.getElementById('titleCajonColor').value,
-            whiteColor: document.getElementById('whiteColor').value,
-            titleColor: document.getElementById('titleColor').value,
-            opColor: document.getElementById('opColor').value
+            whiteColor: document.getElementById('whiteColor').value
           }));
         } catch (e) { /* ignorar */ }
       }
-
-      document.querySelectorAll('input[name="qslAlin"]').forEach(r => {
-        r.addEventListener('change', dibujarCanvas);
-      });
 
       document.getElementById('textColor').addEventListener('input', (e) => {
         document.getElementById('swatchText').style.background = e.target.value;
@@ -1075,23 +892,6 @@
       document.getElementById('boxColor').addEventListener('input', (e) => {
         document.getElementById('swatchBox').style.background = e.target.value;
         document.getElementById('swatchBoxVal').textContent = e.target.value;
-        dibujarCanvas();
-      });
-      document.getElementById('titleColor').addEventListener('input', (e) => {
-        document.getElementById('swatchTitle').style.background = e.target.value;
-        document.getElementById('swatchTitleVal').textContent = e.target.value;
-        dibujarCanvas();
-      });
-      document.getElementById('opColor').addEventListener('input', (e) => {
-        document.getElementById('swatchOp').style.background = e.target.value;
-        document.getElementById('swatchOpVal').textContent = e.target.value;
-        guardarColores();
-        dibujarCanvas();
-      });
-      document.getElementById('bgColor').addEventListener('input', (e) => {
-        document.getElementById('swatchBg').style.background = e.target.value;
-        document.getElementById('swatchBgVal').textContent = e.target.value;
-        guardarColores();
         dibujarCanvas();
       });
       document.getElementById('titleCajonColor').addEventListener('input', (e) => {
@@ -1110,11 +910,6 @@
 
       ['myCallsign', 'theirCallsign', 'frequency', 'band', 'mode', 'rstSent', 'comments', 'qsoDateTime'].forEach(id => {
         document.getElementById(id).addEventListener('input', dibujarCanvas);
-      });
-
-      ['opName', 'opDomicilio', 'opCiudad', 'opPais', 'opGrid', 'opItu', 'opCq'].forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.addEventListener('input', dibujarCanvas);
       });
 
       document.getElementById('qslBackground').addEventListener('change', (e) => {
@@ -1263,22 +1058,11 @@
         conAgradecimiento: mostrarAgradecimiento(),
         colorTexto: obtenerColorTexto(),
         colorCuadro: obtenerColorCuadro(),
-        colorFondo: config.colorFondo,
         colorTituloCajon: config.colorTituloCajon,
         colorWhite: config.colorWhite,
-        colorTitulo: config.colorTitulo,
-        colorDatos: config.colorDatos,
         cuadro_x: cuadroX,
         cuadro_y: cuadroY,
-        actividad: config.actividad,
-        opNombre: config.opNombre,
-        opDomicilio: config.opDomicilio,
-        opCiudad: config.opCiudad,
-        opPais: config.opPais,
-        opGrid: config.opGrid,
-        opZonaItu: config.opZonaItu,
-        opZonaCq: config.opZonaCq,
-        opAlineacion: config.opAlineacion
+        actividad: config.actividad
       };
     }
 
@@ -1303,7 +1087,6 @@
         } else {
           dibujarFondoGenerado(ctx);
         }
-        dibujarCabecera(ctx, dataQSL);
         dibujarCajon(ctx, dataQSL);
         try {
           canvas.toBlob((blob) => resolve(blob), 'image/jpeg', 0.85);
