@@ -309,15 +309,6 @@
         <div class="qsl-section-title">Diseño de la QSL</div>
         <div class="qsl-config-row">
           <div class="form-group">
-            <label>Posición del cuadro de datos</label>
-            <div class="qsl-position-options">
-              <input type="radio" name="qslPos" id="pos1" value="1" checked>
-              <label for="pos1">1 Izquierda</label>
-              <input type="radio" name="qslPos" id="pos2" value="2">
-              <label for="pos2">2 Centro</label>
-              <input type="radio" name="qslPos" id="pos3" value="3">
-              <label for="pos3">3 Derecha</label>
-            </div>
             <div class="qsl-color-row">
               <div class="form-group">
                 <label>Color del texto</label>
@@ -385,16 +376,6 @@
               <strong>Tamaño recomendado de la imagen: 1920 x 1080 px</strong>
               <span>Tu imagen queda guardada en este equipo y se usará cada vez que vuelvas. Si no subes ninguna, la QSL sale en fondo blanco.</span>
             </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="qsl-section">
-        <div class="qsl-section-title">Datos de la Actividad</div>
-        <div class="qsl-config-row">
-          <div class="form-group" style="grid-column: 1 / -1;">
-            <label>Nombre de la Actividad y/o Indicativo</label>
-            <input type="text" id="actividadName" placeholder="Ej: Aniversario CE4JWI 2026 o tu indicativo para QSL personal">
           </div>
         </div>
       </div>
@@ -663,7 +644,7 @@
     function obtenerConfigQSL() {
       const selAlin = document.querySelector('input[name="qslAlin"]:checked');
       return {
-        actividad: (document.getElementById('actividadName') ? document.getElementById('actividadName').value : '').trim(),
+        actividad: '',
         opNombre: (document.getElementById('opName') ? document.getElementById('opName').value : '').trim(),
         opDomicilio: (document.getElementById('opDomicilio') ? document.getElementById('opDomicilio').value : '').trim(),
         opCiudad: (document.getElementById('opCiudad') ? document.getElementById('opCiudad').value : '').trim(),
@@ -1082,10 +1063,6 @@
         } catch (e) { /* ignorar */ }
       }
 
-      document.querySelectorAll('input[name="qslPos"]').forEach(r => {
-        r.addEventListener('change', dibujarCanvas);
-      });
-
       document.querySelectorAll('input[name="qslAlin"]').forEach(r => {
         r.addEventListener('change', dibujarCanvas);
       });
@@ -1135,7 +1112,7 @@
         document.getElementById(id).addEventListener('input', dibujarCanvas);
       });
 
-      ['actividadName', 'opName', 'opDomicilio', 'opCiudad', 'opPais', 'opGrid', 'opItu', 'opCq'].forEach(id => {
+      ['opName', 'opDomicilio', 'opCiudad', 'opPais', 'opGrid', 'opItu', 'opCq'].forEach(id => {
         const el = document.getElementById(id);
         if (el) el.addEventListener('input', dibujarCanvas);
       });
@@ -1193,8 +1170,9 @@
         const escalaY = canvasQSL.height / rect.height;
         const mx = (e.clientX - rect.left) * escalaX;
         const my = (e.clientY - rect.top) * escalaY;
+        const altoCajon = mostrarAgradecimiento() ? ALTO_CAJON : ALTO_CAJON - ALTO_CAJON_SIN_AGRADECIMIENTO;
         cuadroX = Math.max(0, Math.min(1920 - LARGO_CAJON, Math.round(mx - offsetX)));
-        cuadroY = Math.max(0, Math.min(1080 - ALTO_CAJON, Math.round(my - offsetY)));
+        cuadroY = Math.max(0, Math.min(1080 - altoCajon, Math.round(my - offsetY)));
         dibujarCanvas();
       });
 
