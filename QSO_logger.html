@@ -25,6 +25,31 @@
       gap: 16px;
       margin-bottom: 16px;
     }
+    .adif-import-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+      padding: 16px;
+      border: 2px dashed #cbd5e1;
+      border-radius: 12px;
+      background: #f8fafc;
+    }
+    .adif-input {
+      padding: 10px 12px !important;
+      border: 1px solid #e2e8f0 !important;
+      border-radius: 8px !important;
+      background: #fff !important;
+      font-size: 13px !important;
+      width: auto !important;
+      min-width: 240px;
+    }
+    .adif-note {
+      font-size: 12px;
+      color: #64748b;
+      margin-top: 4px;
+    }
     .qsl-config-row .form-group input[type="file"] {
       padding: 8px 12px;
     }
@@ -375,6 +400,18 @@
     <div class="card">
       <div class="table-header">
         <h2>Registro de Contactos</h2>
+      </div>
+
+      <div class="adif-import-row">
+        <div class="form-group" style="flex:1; margin-bottom:0;">
+          <label>Importar contactos desde ADIF</label>
+          <input type="file" id="adifFile" accept=".adi,.adif,text/plain" class="adif-input">
+          <div class="adif-note">
+            Carga un archivo ADIF y todos los QSOs se agregan de una vez. Luego usa "Descargar QSLs" para generar el paquete completo.
+          </div>
+        </div>
+        <button class="btn btn-secondary" id="btnImportAdif" onclick="importarAdif()">Importar ADIF</button>
+        <span class="sync-status" id="adifStatus"></span>
       </div>
 
       <div class="form-row">
@@ -1289,8 +1326,11 @@
       emptyState.style.display = 'none';
       
       tbody.innerHTML = qsos.map((qso, index) => {
-        const dt = new Date(qso.dateTime + ':00Z');
-        const dateStr = dt.toLocaleDateString('es-ES', { timeZone: 'UTC' }) + ' ' + dt.toLocaleTimeString('es-ES', { timeZone: 'UTC', hour: '2-digit', minute: '2-digit' });
+        const dt = qso.dateTime ? new Date(qso.dateTime + ':00Z') : null;
+        const fechaValida = dt && !isNaN(dt.getTime());
+        const dateStr = fechaValida
+          ? dt.toLocaleDateString('es-ES', { timeZone: 'UTC' }) + ' ' + dt.toLocaleTimeString('es-ES', { timeZone: 'UTC', hour: '2-digit', minute: '2-digit' })
+          : (qso.dateTime || 'Sin fecha');
         
         return `
           <tr>
@@ -1343,6 +1383,85 @@
 
     function saveQsos() {
       localStorage.setItem('qsos', JSON.stringify(qsos));
+    }
+
+    function parsearAdif(texto) {
+      const registros = [];
+      const bloques = texto.split(/<EOR\s*>/i);
+      const reCampo = /<([A-Z0-9_]+):(\d+)(?::[^>]*)?>/gi;
+      for (const bloque of bloques) {
+        if (!/<[A-Z0-9_]+:\d+/i.test(bloque)) continue;
+        const campos = {};
+        reCampo.lastIndex = 0;
+        let m;
+        while ((m = reCampo.exec(bloque)) !== null) {
+          const tag = m[1].toUpperCase();
+          const len = parseInt(m[2], 10);
+          const inicioValor = reCampo.lastIndex;
+          if (inicioValor + len <= bloque.length) {
+            campos[tag] = bloque.substring(inicioValor, inicioValor + len).trim();
+          }
+          reCampo.lastIndex = inicioValor + len;
+        }
+        if (campos.CALL) registros.push(campos);
+      }
+      return registros;
+    }
+
+    function qsoDesdeAdif(campos, operadorDefault, contador) {
+      const fecha = campos.QSO_DATE || '';
+      const hora = (campos.TIME_ON || campos.TIME_OFF || '').slice(0, 4);
+      const dateTime = fecha
+        ? `${fecha.slice(0,4)}-${fecha.slice(4,6)}-${fecha.slice(6,8)}T${hora ? hora.slice(0,2) + ':' + hora.slice(2,4) : '00:00'}`
+        : '';
+      return {
+        id: Date.now() + contador,
+        dateTime: dateTime,
+        myCallsign: (campos.STATION_CALLSIGN || operadorDefault || '').toUpperCase().trim(),
+        theirCallsign: (campos.CALL || '').toUpperCase().trim(),
+        frequency: campos.FREQ || '',
+        band: campos.BAND || '',
+        mode: (campos.MODE || '').toUpperCase(),
+        rstSent: campos.RST_SENT || '59',
+        rstRcvd: campos.RST_RCVD || '',
+        comments: campos.COMMENT || ''
+      };
+    }
+
+    function importarAdif() {
+      const input = document.getElementById('adifFile');
+      const file = input && input.files && input.files[0];
+      const estado = document.getElementById('adifStatus');
+      if (!file) {
+        if (estado) estado.textContent = 'Selecciona un archivo ADIF primero.';
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        const camposList = parsearAdif(String(ev.target.result || ''));
+        if (camposList.length === 0) {
+          if (estado) estado.textContent = 'No se encontraron QSOs válidos en el archivo.';
+          return;
+        }
+        const operador = (document.getElementById('myCallsign').value || '').trim().toUpperCase()
+          || (qsos[0] && qsos[0].myCallsign) || 'CE4JWI';
+        const nuevos = camposList.map((campos, i) => {
+          const q = qsoDesdeAdif(campos, operador, i);
+          q.qslData = datosQslPara(q);
+          return q;
+        });
+        qsos = qsos.concat(nuevos);
+        saveQsos();
+        renderQsos();
+        if (operador) localStorage.setItem('myCallsign', operador);
+        if (estado) estado.textContent = `${nuevos.length} QSOs importados desde ADIF.`;
+        dibujarCanvas();
+        input.value = '';
+      };
+      reader.onerror = () => {
+        if (estado) estado.textContent = 'Error al leer el archivo.';
+      };
+      reader.readAsText(file, 'UTF-8');
     }
 
     function downloadAdif() {
