@@ -13,7 +13,6 @@ Sitio web personal del indicativo **CE4JWI** — radioaficionado activo desde la
 - `QSO_logger.html` — generador de ADIF
 - `calendario.html` — calendario de actividades
 - `carrousel.js` — carrusel de imágenes para las páginas de efeméride
-- `crear_qsl.html` — "candado" para generar QSLs a mano (sube a qsl.net)
 - `generar.py`, `generar-indice.py` — scripts para actualizar el catálogo de QSLs
 - `recursos/` — CSS, JS, PDFs locales, imágenes
 - `public/` — imágenes y favicon
