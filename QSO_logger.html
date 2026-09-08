@@ -1436,6 +1436,7 @@
       const dateTime = fecha
         ? `${fecha.slice(0,4)}-${fecha.slice(4,6)}-${fecha.slice(6,8)}T${hora ? hora.slice(0,2) + ':' + hora.slice(2,4) : '00:00'}`
         : '';
+      const comentario = limpiarComentarioAdif(campos.COMMENT || '');
       return {
         id: Date.now() + contador,
         dateTime: dateTime,
@@ -1446,8 +1447,15 @@
         mode: (campos.MODE || '').toUpperCase(),
         rstSent: campos.RST_SENT || '59',
         rstRcvd: campos.RST_RCVD || '',
-        comments: campos.COMMENT || ''
+        comments: comentario
       };
+    }
+
+    function limpiarComentarioAdif(comentario) {
+      const texto = String(comentario || '').trim();
+      if (!texto) return '';
+      if (/^(QSL\s+(ya\s+)?enviada por el bot|enviada por el bot)/i.test(texto)) return '';
+      return texto;
     }
 
     function importarAdif() {
