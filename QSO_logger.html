@@ -719,26 +719,48 @@
       const fecha = fechaRaw ? `${fechaRaw.slice(8,10)}-${fechaRaw.slice(5,7)}-${fechaRaw.slice(0,4)}` : '';
       const hora = horaRaw || '';
 
-      const operador = (myCallEl ? myCallEl.value : '').toUpperCase().trim() || 'TU CALL';
-      const colega = limpiarCall((theirCallEl ? theirCallEl.value : '').toUpperCase()) || 'TU CALL';
       const comentario = (commentsEl ? commentsEl.value : '').trim();
       const config = obtenerConfigQSL();
 
-      return Object.assign({
+      const ultimo = qsos.length ? qsos[qsos.length - 1] : null;
+      const base = {
         posicion: obtenerPosicion(),
-        operador: operador,
-        colega: colega,
+        operador: (ultimo && ultimo.myCallsign) || 'TU CALL',
+        colega: (ultimo && limpiarCall(ultimo.theirCallsign)) || 'TU CALL',
+        fecha: ultimo && ultimo.dateTime ? formatoFechaQsl(ultimo.dateTime) : '',
+        hora: ultimo && ultimo.dateTime ? (ultimo.dateTime.split('T')[1] || '').slice(0, 5) : '',
+        banda: (ultimo && ultimo.band) || '',
+        modo: (ultimo && ultimo.mode) || '',
+        frecuencia: (ultimo && ultimo.frequency) || '',
+        rst: (ultimo && ultimo.rstSent) || '59',
+        agradecimiento: (ultimo && (ultimo.comments || '').trim()) || AGRADECIMIENTO_DEFECTO,
+        conAgradecimiento: mostrarAgradecimiento(),
+        colorTexto: obtenerColorTexto(),
+        colorCuadro: obtenerColorCuadro()
+      };
+
+      const escrito = {
+        operador: (myCallEl ? myCallEl.value : '').toUpperCase().trim(),
+        colega: limpiarCall((theirCallEl ? theirCallEl.value : '').toUpperCase()),
         fecha: fecha,
         hora: hora,
         banda: bandEl ? bandEl.value : '',
         modo: modeEl ? modeEl.value : '',
         frecuencia: freqEl ? freqEl.value : '',
         rst: rstEl ? rstEl.value : '',
-        agradecimiento: comentario || AGRADECIMIENTO_DEFECTO,
-        conAgradecimiento: mostrarAgradecimiento(),
-        colorTexto: obtenerColorTexto(),
-        colorCuadro: obtenerColorCuadro()
-      }, config);
+        agradecimiento: comentario
+      };
+
+      return Object.assign({}, base, filtrarConfigVacia(escrito), config);
+    }
+
+    function formatoFechaQsl(dateTime) {
+      const partes = String(dateTime || '').split('T');
+      const fechaRaw = partes[0] || '';
+      const horaRaw = (partes[1] || '').slice(0, 5);
+      const fecha = fechaRaw ? `${fechaRaw.slice(8,10)}-${fechaRaw.slice(5,7)}-${fechaRaw.slice(0,4)}` : '';
+      const hora = horaRaw || '';
+      return fecha;
     }
 
     const DATOS_EJEMPLO = {
