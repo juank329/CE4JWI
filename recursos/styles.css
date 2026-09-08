@@ -129,6 +129,13 @@ a { color: inherit; }
   color: var(--white);
 }
 
+.nav-link svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  vertical-align: middle;
+}
+
 /* ===== Menu desplegable "Herramientas" ===== */
 .nav-dropdown {
   position: relative;
@@ -154,7 +161,7 @@ a { color: inherit; }
   height: 22px;
 }
 
-.nav-dropdown-caret {
+.nav-link .nav-dropdown-caret {
   width: 13px;
   height: 13px;
   transition: transform 0.2s ease;
