@@ -726,6 +726,31 @@
       return limpio;
     }
 
+    function dibujarCanvas() {
+      const canvas = document.getElementById('qslCanvas');
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, 1920, 1080);
+      ctx.fillStyle = '#222831';
+      ctx.fillRect(0, 0, 1920, 1080);
+
+      if (imgFondo) {
+        ctx.drawImage(imgFondo, 0, 0, 1920, 1080);
+      } else {
+        dibujarFondoGenerado(ctx);
+      }
+
+      const vista = qsos.length === 0
+        ? Object.assign({}, DATOS_EJEMPLO, {
+            posicion: obtenerPosicion(),
+            conAgradecimiento: mostrarAgradecimiento(),
+            colorTexto: obtenerColorTexto(),
+            colorCuadro: obtenerColorCuadro()
+          }, filtrarConfigVacia(obtenerConfigQSL()))
+        : obtenerDatosVista();
+
+      dibujarCajon(ctx, vista);
+    }
+
     function dibujarFondoGenerado(ctx) {
       ctx.fillStyle = '#d1dbe6';
       ctx.fillRect(0, 0, 1920, 1080);
