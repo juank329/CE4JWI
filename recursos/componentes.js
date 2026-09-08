@@ -37,7 +37,6 @@ const COMPONENTES = {
     <nav class="nav" id="mainNav">
       <a href="index.html" class="nav-link" data-page="index"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><g transform="scale(1.33333)"><path d="M13,13.25l-.342,1.447c-.208,.909-1.017,1.553-1.949,1.553h-1.959" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path><path d="M3.75,7.353l-1.123,.567c-.813,.411-1.246,1.319-1.053,2.209l.335,1.545c.199,.92,1.013,1.576,1.955,1.576h1.137s-1.084-5-1.084-5c-.099-.403-.166-.817-.166-1.25,0-2.899,2.351-5.25,5.25-5.25s5.25,2.351,5.25,5.25c0,.433-.067,.847-.166,1.25l-1.084,5h1.137c.941,0,1.755-.656,1.955-1.576l.335-1.545c.193-.89-.24-1.799-1.053-2.209l-1.123-.567" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></g></svg> ACTIVIDADES</a>
       <a href="calendario.html" class="nav-link" data-page="calendario"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M17 14C17.5523 14 18 13.5523 18 13C18 12.4477 17.5523 12 17 12C16.4477 12 16 12.4477 16 13C16 13.5523 16.4477 14 17 14Z" fill="currentColor"/><path d="M17 18C17.5523 18 18 17.5523 18 17C18 16.4477 17.5523 16 17 16C16.4477 16 16 16.4477 16 17C16 17.5523 16.4477 18 17 18Z" fill="currentColor"/><path d="M13 13C13 13.5523 12.5523 14 12 14C11.4477 14 11 13.5523 11 13C11 12.4477 11.4477 12 12 12C12.5523 12 13 12.4477 13 13Z" fill="currentColor"/><path d="M13 17C13 17.5523 12.5523 18 12 18C11.4477 18 11 17.5523 11 17C11 16.4477 11.4477 16 12 16C12.5523 16 13 16.4477 13 17Z" fill="currentColor"/><path d="M7 14C7.55229 14 8 13.5523 8 13C8 12.4477 7.55229 12 7 12C6.44772 12 6 12.4477 6 13C6 13.5523 6.44772 14 7 14Z" fill="currentColor"/><path d="M7 18C7.55229 18 8 17.5523 8 17C8 16.4477 7.55229 16 7 16C6.44772 16 6 16.4477 6 17C6 17.5523 6.44772 18 7 18Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M7 1.75C7.41421 1.75 7.75 2.08579 7.75 2.5V3.26272C8.412 3.24999 9.14133 3.24999 9.94346 3.25H14.0564C14.8586 3.24999 15.588 3.24999 16.25 3.26272V2.5C16.25 2.08579 16.5858 1.75 17 1.75C17.4142 1.75 17.75 2.08579 17.75 2.5V3.32709C18.0099 3.34691 18.2561 3.37182 18.489 3.40313C19.6614 3.56076 20.6104 3.89288 21.3588 4.64124C22.1071 5.38961 22.4392 6.33855 22.5969 7.51098C22.75 8.65018 22.75 10.1058 22.75 11.9435V14.0564C22.75 15.8941 22.75 17.3498 22.5969 18.489C22.4392 19.6614 22.1071 20.6104 21.3588 21.3588C20.6104 22.1071 19.6614 22.4392 18.489 22.5969C17.3498 22.75 15.8942 22.75 14.0565 22.75H9.94359C8.10585 22.75 6.65018 22.75 5.51098 22.5969C4.33856 22.4392 3.38961 22.1071 2.64124 21.3588C1.89288 20.6104 1.56076 19.6614 1.40314 18.489C1.24997 17.3498 1.24998 15.8942 1.25 14.0564V11.9436C1.24998 10.1058 1.24997 8.65019 1.40314 7.51098C1.56076 6.33855 1.89288 5.38961 2.64124 4.64124C3.38961 3.89288 4.33856 3.56076 5.51098 3.40313C5.7439 3.37182 5.99006 3.34691 6.25 3.32709V2.5C6.25 2.08579 6.58579 1.75 7 1.75ZM5.71085 4.88976C4.70476 5.02502 4.12511 5.27869 3.7019 5.7019C3.27869 6.12511 3.02502 6.70476 2.88976 7.71085C2.86685 7.88123 2.8477 8.06061 2.83168 8.25H21.1683C21.1523 8.06061 21.1331 7.88124 21.1102 7.71085C20.975 6.70476 20.7213 6.12511 20.2981 5.7019C19.8749 5.27869 19.2952 5.02502 18.2892 4.88976C17.2615 4.75159 15.9068 4.75 14 4.75H10C8.09318 4.75 6.73851 4.75159 5.71085 4.88976ZM2.75 12C2.75 11.146 2.75032 10.4027 2.76309 9.75H21.2369C21.2497 10.4027 21.25 11.146 21.25 12V14C21.25 15.9068 21.2484 17.2615 21.1102 18.2892C20.975 19.2952 20.7213 19.8749 20.2981 20.2981C19.8749 20.7213 19.2952 20.975 18.2892 21.1102C17.2615 21.2484 15.9068 21.25 14 21.25H10C8.09318 21.25 6.73851 21.2484 5.71085 21.1102C4.70476 20.975 4.12511 20.7213 3.7019 20.2981C3.27869 19.8749 3.02502 19.2952 2.88976 18.2892C2.75159 17.2615 2.75 15.9068 2.75 14V12Z" fill="currentColor"/></svg> CALENDARIO</a>
-      <a href="qsls.html" class="nav-link" data-page="descarga"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 1.25C12.4142 1.25 12.75 1.58579 12.75 2V8.18934L14.4697 6.46967C14.7626 6.17678 15.2374 6.17678 15.5303 6.46967C15.8232 6.76256 15.8232 7.23744 15.5303 7.53033L12.5303 10.5303C12.2374 10.8232 11.7626 10.8232 11.4697 10.5303L8.46967 7.53033C8.17678 7.23744 8.17678 6.76256 8.46967 6.46967C8.76256 6.17678 9.23744 6.17678 9.53033 6.46967L11.25 8.18934V2C11.25 1.58579 11.5858 1.25 12 1.25ZM16.2536 2.05354C16.2941 1.64131 16.6612 1.34001 17.0734 1.38056C18.7643 1.54688 20.0677 1.93602 21.0659 2.93422C21.9607 3.82903 22.366 4.96906 22.5603 6.41379C22.75 7.82528 22.75 9.63432 22.75 11.9427V12.0575C22.75 12.3718 22.75 12.677 22.7495 12.9731C22.7498 12.982 22.75 12.991 22.75 13C22.75 13.0099 22.7498 13.0197 22.7494 13.0295C22.746 14.8816 22.7225 16.3794 22.5603 17.5864C22.366 19.0311 21.9607 20.1711 21.0659 21.066C20.1711 21.9608 19.031 22.3661 17.5863 22.5603C16.1748 22.7501 14.3658 22.7501 12.0574 22.7501H11.9426C9.63423 22.7501 7.82519 22.7501 6.41371 22.5603C4.96897 22.3661 3.82895 21.9608 2.93414 21.066C2.03933 20.1711 1.63399 19.0311 1.43975 17.5864C1.27747 16.3794 1.25397 14.8816 1.25057 13.0295C1.25019 13.0197 1.25 13.0099 1.25 13C1.25 12.991 1.25016 12.982 1.25047 12.9731C1.25 12.677 1.25 12.3718 1.25 12.0575V11.9427C1.24999 9.63432 1.24998 7.82528 1.43975 6.41379C1.63399 4.96906 2.03933 3.82903 2.93414 2.93422C3.93234 1.93602 5.23569 1.54688 6.92658 1.38056C7.33881 1.34001 7.70585 1.64131 7.7464 2.05354C7.78695 2.46576 7.48564 2.8328 7.07342 2.87335C5.51402 3.02674 4.62954 3.36014 3.9948 3.99488C3.42514 4.56454 3.09825 5.33526 2.92637 6.61366C2.75159 7.91364 2.75 9.62186 2.75 12.0001C2.75 12.0842 2.75 12.1675 2.75001 12.25H5.16026C5.20556 12.25 5.25031 12.25 5.29454 12.2499C6.06705 12.2491 6.67886 12.2485 7.22924 12.5016C7.77961 12.7547 8.17729 13.2197 8.67941 13.8067C8.70816 13.8403 8.73725 13.8743 8.76673 13.9087L9.37216 14.6151C10.0059 15.3544 10.1838 15.5373 10.3975 15.6356C10.6113 15.734 10.8659 15.75 11.8397 15.75H12.1603C13.1341 15.75 13.3887 15.734 13.6025 15.6356C13.8162 15.5373 13.9941 15.3544 14.6278 14.6151L15.2333 13.9087C15.2628 13.8743 15.2918 13.8403 15.3206 13.8067C15.8227 13.2197 16.2204 12.7547 16.7708 12.5016C17.3211 12.2485 17.933 12.2491 18.7055 12.2499C18.7497 12.25 18.7944 12.25 18.8397 12.25H21.25C21.25 12.1675 21.25 12.0842 21.25 12.0001C21.25 9.62186 21.2484 7.91364 21.0736 6.61366C20.9018 5.33526 20.5749 4.56454 20.0052 3.99488C19.3705 3.36014 18.486 3.02674 16.9266 2.87335C16.5144 2.8328 16.2131 2.46576 16.2536 2.05354ZM21.2465 13.75H18.8397C17.8659 13.75 17.6113 13.766 17.3975 13.8644C17.1838 13.9627 17.0059 14.1456 16.3722 14.8849L15.7667 15.5913C15.7372 15.6257 15.7082 15.6597 15.6794 15.6933C15.1773 16.2803 14.7796 16.7453 14.2292 16.9984C13.6789 17.2515 13.067 17.2509 12.2945 17.2501C12.2503 17.25 12.2056 17.25 12.1603 17.25H11.8397C11.7944 17.25 11.7497 17.25 11.7055 17.2501C10.933 17.2509 10.3211 17.2515 9.77076 16.9984C9.22039 16.7453 8.82271 16.2803 8.32059 15.6933C8.29184 15.6597 8.26275 15.6257 8.23327 15.5913L7.62784 14.8849C6.9941 14.1456 6.81622 13.9627 6.60245 13.8644C6.38869 13.766 6.13407 13.75 5.16026 13.75H2.7535C2.76294 15.2527 2.79778 16.4301 2.92637 17.3865C3.09825 18.6649 3.42514 19.4356 3.9948 20.0053C4.56445 20.5749 5.33517 20.9018 6.61358 21.0737C7.91356 21.2485 9.62177 21.2501 12 21.2501C14.3782 21.2501 16.0864 21.2485 17.3864 21.0737C18.6648 20.9018 19.4355 20.5749 20.0052 20.0053C20.5749 19.4356 20.9018 18.6649 21.0736 17.3865C21.2022 16.4301 21.2371 15.2527 21.2465 13.75Z" fill="currentColor"/></svg> DESCARGA DE QSLs</a>
       <div class="nav-dropdown" id="navDropdownHerramientas">
         <button type="button" class="nav-link nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false" aria-label="Herramientas">
           Herramientas
@@ -143,23 +142,7 @@ const COMPONENTES = {
       </div>
   </div>
       
-  <!-- Widget: Último Contacto (última QSL generada) -->
-  <div class="widget">
-    <div class="widget-header">
-      <svg class="widget-icon teal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
-      </svg>
-      <h3>Último Contacto</h3>
-    </div>
-    <div class="widget-content">
-      <div class="ult-qsl" id="ultQslWidget">
-        <div class="ult-qsl-cargando">Cargando última QSL…</div>
-      </div>
-    </div>
-  </div>
-      
-  
-  <!-- Widget: Buscar en QRZ.COM -->
+<!-- Widget: Buscar en QRZ.COM -->
   <div class="widget">
     <div class="widget-header">
       <img src="public/qrz_com.png" alt="QRZ" width="18" height="18">
@@ -239,12 +222,6 @@ const COMPONENTES = {
   </div>
 </aside>
 
-<!-- Lightbox Última QSL -->
-<div class="ult-qsl-lightbox" id="ultQslLightbox">
-  <button class="ult-qsl-lightbox-close" id="ultQslLightboxClose" aria-label="Cerrar">×</button>
-  <img class="ult-qsl-lightbox-img" id="ultQslLightboxImg" src="" alt="Última QSL">
-  <div class="ult-qsl-lightbox-info" id="ultQslLightboxInfo"></div>
-</div>
   `,
 
   footer: `
@@ -615,207 +592,6 @@ function actualizarAnioFooter() {
   if (span) span.textContent = new Date().getFullYear()
 }
 
-// ---- Widget "Último Contacto" (última QSL generada) -----------------
-
-const ULT_QSL_URL = "https://juank329.github.io/ce4jwi-qsls/log_qsl.json"
-const ULT_QSL_URL_QSLNET = "https://qsl.net/ce4jwi/log_qsl.json"
-const ULT_QSL_CACHE_KEY = "ce4jwi_qsl_cache_v2"
-const ULT_QSL_TTL_MS = 1 * 60 * 1000
-const ULT_QSL_REFRESH_MS = 1 * 60 * 1000
-let ultQslActual = null
-let ultQslTimer = null
-
-function ultQslParsearNombre(nombre) {
-  const mFecha = nombre.match(/(\d{2})-(\d{2})-(\d{4})/)
-  const mHora = nombre.match(/_(\d{4})_(?=[^_]*\.[a-z]+$)/i)
-  const mModo = nombre.match(/_([A-Z0-9]+)\.[a-z]+$/i)
-  return {
-    fecha: mFecha ? `${mFecha[3]}-${mFecha[2]}-${mFecha[1]}` : "",
-    fechaLegible: mFecha ? `${mFecha[1]}/${mFecha[2]}/${mFecha[3]}` : "",
-    hora: mHora ? `${mHora[1].slice(0, 2)}:${mHora[1].slice(2, 4)}` : "",
-    modo: mModo ? mModo[1] : "",
-  }
-}
-
-async function ultQslFetch() {
-  // El widget "Último Contacto" siempre pide datos frescos (no usa caché local)
-  // para que la última QSL del candado aparezca sin depender de localStorage.
-  const ts = Date.now()
-  const intentos = [
-    { url: `/api/qsl-catalogo?t=${ts}`,                                             nombre: "Catalogo unificado" },
-    { url: `${ULT_QSL_URL}?t=${ts}`,                                                nombre: "GitHub Pages" },
-    { url: `https://api.allorigins.win/raw?url=${encodeURIComponent(`${ULT_QSL_URL_QSLNET}?t=${ts}`)}`, nombre: "allorigins" },
-    { url: `https://corsproxy.io/?url=${encodeURIComponent(`${ULT_QSL_URL_QSLNET}?t=${ts}`)}`,          nombre: "corsproxy.io" },
-    { url: `https://r.jina.ai/http://${encodeURIComponent(`${ULT_QSL_URL_QSLNET}?t=${ts}`)}`,           nombre: "jina.ai" },
-  ]
-  for (const intento of intentos) {
-    try {
-      const ctrl = new AbortController()
-      const t = setTimeout(() => ctrl.abort(), 10000)
-      const r = await fetch(intento.url, { signal: ctrl.signal, cache: "no-store" })
-      clearTimeout(t)
-      if (!r.ok) throw new Error(`HTTP ${r.status}`)
-      let data = await r.json()
-      if (intento.nombre === "Catalogo unificado") data = data.results || []
-      try {
-        localStorage.setItem(ULT_QSL_CACHE_KEY, JSON.stringify({ ts: Date.now(), data }))
-      } catch { /* ignorar */ }
-      return data
-    } catch (e) {
-      console.warn(`[ultQsl] ${intento.nombre} falló:`, e.message || e)
-    }
-  }
-  return null
-}
-
-function ultQslExpirada(item) {
-  const fuente = (item.fuente || "log4om").toLowerCase()
-  const duracion = fuente === "aprs" ? 30 * 24 * 60 * 60 * 1000 : 2 * 365 * 24 * 60 * 60 * 1000
-  let fechaContacto = item.fecha || ""
-  if (!fechaContacto) {
-    const m = (item.archivo || "").match(/(\d{2})-(\d{2})-(\d{4})/)
-    if (m) fechaContacto = `${m[3]}-${m[2]}-${m[1]}`
-  }
-  if (!fechaContacto) return false
-  const ts = new Date(fechaContacto).getTime()
-  if (isNaN(ts)) return false
-  return (Date.now() - ts) > duracion
-}
-
-function ultQslElegir(data) {
-  if (!Array.isArray(data)) return null
-  const conFecha = data
-    .filter((item) => !ultQslExpirada(item))
-    .map((item) => {
-      const meta = ultQslParsearNombre(item.archivo || "")
-      // Preferir los campos directos del JSON (bots y manuales) sobre el parseo del nombre
-      let fechaOrden = meta.fecha
-      let fechaLegible = meta.fechaLegible
-      let hora = meta.hora
-      if (item.fecha) {
-        const partes = String(item.fecha).split("/")
-        if (partes.length === 3) {
-          fechaOrden = `${partes[2]}-${partes[1]}-${partes[0]}`
-          fechaLegible = `${partes[0]}/${partes[1]}/${partes[2]}`
-        } else if (/^\d{4}-\d{2}-\d{2}/.test(item.fecha)) {
-          fechaOrden = item.fecha.slice(0, 10)
-          const p = item.fecha.split("-")
-          fechaLegible = `${p[2]}/${p[1]}/${p[0]}`
-        }
-      }
-      if (item.hora) hora = String(item.hora).replace(/(\d{2}):(\d{2}).*/, "$1:$2")
-      return { item, meta: { ...meta, fecha: fechaOrden, fechaLegible, hora } }
-    })
-    .filter((q) => q.meta.fecha)
-    .sort((a, b) => (a.meta.fecha + a.meta.hora).localeCompare(b.meta.fecha + b.meta.hora))
-  const ultima = conFecha[conFecha.length - 1]
-  return ultima
-    ? {
-        indicativo: (ultima.item.call || "").toUpperCase().trim(),
-        actividad: (ultima.item.carpeta || "").replace(/_/g, " "),
-        url: ultima.item.url || "",
-        archivo: ultima.item.archivo || "",
-        ...ultima.meta,
-      }
-    : null
-}
-
-function ultQslRender(q) {
-  const cont = document.getElementById("ultQslWidget")
-  if (!cont) return
-
-  if (!q) {
-    cont.innerHTML = `<div class="ult-qsl-vacio">Aún no hay QSLs generadas.</div>`
-    return
-  }
-
-  cont.innerHTML = `
-    <div class="ult-qsl-card" id="ultQslCard">
-      <div class="ult-qsl-img-wrap">
-        <img class="ult-qsl-img" src="${q.url.replace(/"/g, "&quot;")}" alt="QSL ${q.indicativo}"
-             onerror="ultQslOcultar(this)">
-      </div>
-      <div class="ult-qsl-datos">
-        <div class="ult-qsl-call">${q.indicativo}</div>
-        <div class="ult-qsl-actividad">${q.actividad}</div>
-        <div class="ult-qsl-meta">
-          ${q.fechaLegible || ""} ${q.hora || ""} · ${q.modo || ""}
-        </div>
-      </div>
-    </div>
-    <div class="ult-qsl-hint">Haz clic en la QSL para ampliarla</div>
-  `
-
-  const card = document.getElementById("ultQslCard")
-  if (card) {
-    card.addEventListener("click", () => ultQslAbrirLightbox(q))
-  }
-}
-
-function ultQslOcultar(img) {
-  const wrap = img?.closest(".ult-qsl-img-wrap")
-  if (wrap) {
-    wrap.innerHTML = `<div class="ult-qsl-vacio">Imagen no disponible</div>`
-  }
-}
-
-function ultQslAbrirLightbox(q) {
-  if (!q) return
-  ultQslActual = q
-  const img = document.getElementById("ultQslLightboxImg")
-  const info = document.getElementById("ultQslLightboxInfo")
-  const lb = document.getElementById("ultQslLightbox")
-  if (!img || !lb) return
-  img.src = q.url
-  info.innerHTML = `
-    <strong>${q.indicativo}</strong> · ${q.actividad}<br>
-    ${q.fechaLegible || ""} ${q.hora || ""} · ${q.modo || ""}`
-  lb.classList.add("active")
-  document.body.style.overflow = "hidden"
-}
-
-function ultQslCerrarLightbox() {
-  const lb = document.getElementById("ultQslLightbox")
-  if (lb) lb.classList.remove("active")
-  document.body.style.overflow = ""
-}
-
-function ultQslInit() {
-  if (!document.getElementById("ultQslWidget")) return
-
-  // Limpiar la clave de caché v1 (datos obsoletos de versiones anteriores)
-  try { localStorage.removeItem("ce4jwi_qsl_cache_v1") } catch { /* ignorar */ }
-
-  const render = async () => {
-    const data = await ultQslFetch()
-    ultQslRender(ultQslElegir(data))
-  }
-  render()
-
-  // Cerrar lightbox: botón ×, click fuera o Escape
-  document.getElementById("ultQslLightboxClose")?.addEventListener("click", ultQslCerrarLightbox)
-  document.getElementById("ultQslLightbox")?.addEventListener("click", (e) => {
-    if (e.target === document.getElementById("ultQslLightbox")) ultQslCerrarLightbox()
-  })
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") ultQslCerrarLightbox()
-  })
-
-  // Refrescar al instante cuando la página QSL actualiza el catálogo,
-  // cuando otra pestaña guarda la caché, o al volver a esta pestaña.
-  window.addEventListener("qsl:actualizado", render)
-  window.addEventListener("storage", (e) => {
-    if (e.key === ULT_QSL_CACHE_KEY) render()
-  })
-  document.addEventListener("visibilitychange", () => {
-    if (document.visibilityState === "visible") render()
-  })
-
-  // Refresco periódico de respaldo
-  clearInterval(ultQslTimer)
-  ultQslTimer = setInterval(render, ULT_QSL_REFRESH_MS)
-}
-
 // ---- Marquesina "PRÓXIMAS ACTIVIDADES" -----------------------------
 const MQ_MESES = {
   Enero: 0, Febrero: 1, Marzo: 2, Abril: 3, Mayo: 4, Junio: 5,
@@ -1093,8 +869,6 @@ function inicializarComponentes() {
   // Inicializar slider del sidebar
   inicializarSlider()
 
-  // Widget "Último Contacto" (última QSL generada)
-  ultQslInit()
 
   // Cargar el clima en vivo de la Región del Maule en el footer
   cargarClimaMaule()

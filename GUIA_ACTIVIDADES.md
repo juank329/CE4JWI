@@ -109,9 +109,10 @@ El bot `buscador.py` (en `Desktop\log4om_qslnet`) hace todo:
 3. El bot, por cada QSO:
    - genera el JPG de la QSL desde `plantilla_qsl.png`,
    - lo sube por FTP a qsl.net,
-   - actualiza `log_qsl.json` en qsl.net (lo baja, agrega el registro y lo sube)
-     y publica la misma copia en GitHub Pages (`juank329/ce4jwi-qsls`).
-4. La sección "Descarga de QSLs" (`qsls.html`) las mostrará automáticamente.
+   - actualiza `log_qsl.json` en qsl.net (lo baja, agrega el registro y lo sube).
+4. Las QSLs quedan disponibles en `https://qsl.net/ce4jwi/` (y `qsl.net/xr4mau/`
+   para XR4MAU). El índice `log_qsl.json` se mantiene al día con la tarea
+   programada `CE4JWI_Reindex_QSLs` (script `BOT\_mantenimiento\reindex_qsls.py`).
 
 > Para que el QSO tenga la actividad correcta, usa el nombre de la actividad
 > en el campo COMMENT de Log4OM. Ese nombre define la carpeta/etiqueta de la QSL.

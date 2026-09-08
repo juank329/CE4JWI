@@ -9,12 +9,11 @@ Sitio web personal del indicativo **CE4JWI** — radioaficionado activo desde la
 - `herramienta-indicativos.html` — buscador de indicativos chilenos (SUBTEL)
 - `herramienta-satelites.html` — seguimiento de satélites FM en vivo (Leaflet)
 - `herramienta-propagacion.html` — propagación HF en tiempo real (reporte N0NBH vía proxy CORS)
-- `qsls.html` — buscador de QSLs (catálogo desde https://juank329.github.io/ce4jwi-qsls/log_qsl.json, con qsl.net como respaldo)
-- `descargar_qsls.html` — página con datos de ejemplo (usa datos generados por `generar.py`; requiere carpeta `qsl/`)
 - `log.html` — log en tiempo real (iframe externo)
 - `QSO_logger.html` — generador de ADIF
 - `calendario.html` — calendario de actividades
 - `carrousel.js` — carrusel de imágenes para las páginas de efeméride
+- `crear_qsl.html` — "candado" para generar QSLs a mano (sube a qsl.net)
 - `generar.py`, `generar-indice.py` — scripts para actualizar el catálogo de QSLs
 - `recursos/` — CSS, JS, PDFs locales, imágenes
 - `public/` — imágenes y favicon
