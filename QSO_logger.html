@@ -133,6 +133,24 @@
       height: auto;
       border-radius: 8px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      cursor: grab;
+    }
+    .qsl-preview-wrap canvas.dragging {
+      cursor: grabbing;
+    }
+    .qsl-drag-hint {
+      margin-top: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      font-size: 12px;
+      color: #64748b;
+    }
+    .qsl-drag-hint .btn {
+      padding: 4px 10px;
+      font-size: 12px;
     }
     .qsl-section {
       margin-bottom: 28px;
@@ -281,6 +299,10 @@
 
       <div class="qsl-preview-wrap">
         <canvas id="qslCanvas" width="1920" height="1080"></canvas>
+        <div class="qsl-drag-hint">
+          <span>Arrastra el cuadro de datos sobre la vista previa para ubicarlo donde quieras.</span>
+          <button type="button" class="btn btn-secondary" id="btnResetPos">Restablecer posición</button>
+        </div>
       </div>
 
       <div class="qsl-section">
@@ -313,6 +335,33 @@
                     <input type="color" id="boxColor" value="#154360">
                   </span>
                   <span class="color-swatch-value" id="swatchBoxVal">#154360</span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Color de fondo</label>
+                <div class="color-swatch-row">
+                  <span class="color-swatch" id="swatchBg">
+                    <input type="color" id="bgColor" value="#d1dbe6">
+                  </span>
+                  <span class="color-swatch-value" id="swatchBgVal">#d1dbe6</span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Letras de títulos</label>
+                <div class="color-swatch-row">
+                  <span class="color-swatch" id="swatchTitleCajon">
+                    <input type="color" id="titleCajonColor" value="#ffffff">
+                  </span>
+                  <span class="color-swatch-value" id="swatchTitleCajonVal">#ffffff</span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Fondos blancos</label>
+                <div class="color-swatch-row">
+                  <span class="color-swatch" id="swatchWhite">
+                    <input type="color" id="whiteColor" value="#ffffff">
+                  </span>
+                  <span class="color-swatch-value" id="swatchWhiteVal">#ffffff</span>
                 </div>
               </div>
               <div class="form-group qsl-showthanks">
@@ -549,11 +598,16 @@
     let utcInterval;
     let imgFondo = null;
     let editandoId = null;
+    let cuadroX = null;
+    let cuadroY = null;
     const PLANTILLA = 'recursos/plantilla_qsl.png';
 
     const posiciones = { 1: 30, 2: 960 - 325, 3: 1920 - 30 - 650 };
     const Y_BASE = 1080 - 30 - 175;
     const AGRADECIMIENTO_DEFECTO = 'Gracias por el QSO, 73 Cordiales!';
+    const LARGO_CAJON = 650;
+    const ALTO_CAJON = 175;
+    const ALTO_CAJON_SIN_AGRADECIMIENTO = 41;
 
     function obtenerColorTexto() {
       const el = document.getElementById('textColor');
@@ -563,6 +617,37 @@
     function obtenerColorCuadro() {
       const el = document.getElementById('boxColor');
       return el ? el.value : '#154360';
+    }
+
+    function obtenerColorFondo() {
+      const el = document.getElementById('bgColor');
+      return el ? el.value : '#d1dbe6';
+    }
+
+    function obtenerColorTituloCajon() {
+      const el = document.getElementById('titleCajonColor');
+      return el ? el.value : '#ffffff';
+    }
+
+    function obtenerColorWhite() {
+      const el = document.getElementById('whiteColor');
+      return el ? el.value : '#ffffff';
+    }
+
+    function posicionCajon(datos) {
+      if (typeof datos.cuadro_x === 'number' && typeof datos.cuadro_y === 'number') {
+        return { x: datos.cuadro_x, y: datos.cuadro_y, arrastrado: true };
+      }
+      if (cuadroX !== null && cuadroY !== null) {
+        return { x: cuadroX, y: cuadroY, arrastrado: true };
+      }
+      const conAgradecimiento = datos.conAgradecimiento !== undefined ? datos.conAgradecimiento : mostrarAgradecimiento();
+      const ALTO_BARRA = 41;
+      return {
+        x: posiciones[datos.posicion] || 30,
+        y: Y_BASE + (conAgradecimiento ? 0 : ALTO_BARRA),
+        arrastrado: false
+      };
     }
 
     function obtenerPosicion() {
@@ -588,6 +673,11 @@
         opZonaCq: (document.getElementById('opCq') ? document.getElementById('opCq').value : '').trim(),
         colorTitulo: (document.getElementById('titleColor') ? document.getElementById('titleColor').value : '#1e3a5f'),
         colorDatos: (document.getElementById('opColor') ? document.getElementById('opColor').value : '#1e3a5f'),
+        colorTexto: obtenerColorTexto(),
+        colorCuadro: obtenerColorCuadro(),
+        colorFondo: obtenerColorFondo(),
+        colorTituloCajon: obtenerColorTituloCajon(),
+        colorWhite: obtenerColorWhite(),
         opAlineacion: selAlin ? selAlin.value : '2'
       };
     }
@@ -603,44 +693,47 @@
     }
 
     function dibujarCajon(ctx, datos) {
-      const X = posiciones[datos.posicion] || 30;
+      const pos = posicionCajon(datos);
+      const X = pos.x;
+      const Y = pos.y;
       const colorTexto = datos.colorTexto || obtenerColorTexto();
       const colorCuadro = datos.colorCuadro || obtenerColorCuadro();
+      const colorTituloCajon = datos.colorTituloCajon || obtenerColorTituloCajon();
+      const colorWhite = datos.colorWhite || obtenerColorWhite();
       const conAgradecimiento = datos.conAgradecimiento !== undefined ? datos.conAgradecimiento : mostrarAgradecimiento();
       const ALTO_BARRA = 41;
-      const Y = Y_BASE + (conAgradecimiento ? 0 : ALTO_BARRA);
 
       ctx.save();
       ctx.font = 'bold 22px Arial';
       ctx.textBaseline = 'top';
 
-      ctx.fillStyle = '#ffffff';
-      roundRect(ctx, X, Y, 650, 44, 8); ctx.fill();
+      ctx.fillStyle = colorWhite;
+      roundRect(ctx, X, Y, LARGO_CAJON, 44, 8); ctx.fill();
       ctx.fillStyle = colorCuadro;
       roundRect(ctx, X, Y, 150, 44, 8); ctx.fill();
       roundRect(ctx, X + 315, Y, 160, 44, 8); ctx.fill();
 
       ctx.fillStyle = colorCuadro;
-      roundRect(ctx, X, Y + 50, 650, 39, 8); ctx.fill();
+      roundRect(ctx, X, Y + 50, LARGO_CAJON, 39, 8); ctx.fill();
 
-      ctx.fillStyle = '#ffffff';
-      roundRect(ctx, X, Y + 89, 650, 39, 8); ctx.fill();
+      ctx.fillStyle = colorWhite;
+      roundRect(ctx, X, Y + 89, LARGO_CAJON, 39, 8); ctx.fill();
 
       ctx.fillStyle = colorCuadro;
-      ctx.fillRect(X, Y + 80, 650, 10);
+      ctx.fillRect(X, Y + 80, LARGO_CAJON, 10);
 
       if (conAgradecimiento) {
-        ctx.fillStyle = '#ffffff';
-        roundRect(ctx, X, Y + 134, 650, ALTO_BARRA, 8); ctx.fill();
+        ctx.fillStyle = colorWhite;
+        roundRect(ctx, X, Y + 134, LARGO_CAJON, ALTO_BARRA, 8); ctx.fill();
       }
 
-      ctx.fillStyle = '#ffffff';
+      ctx.fillStyle = colorTituloCajon;
       ctx.textAlign = 'left';
       ctx.fillText('OPERADOR', X + 13, Y + 12);
       ctx.fillStyle = colorTexto;
       ctx.font = 'bold 24px Arial';
       ctx.fillText(datos.operador, X + 180, Y + 10);
-      ctx.fillStyle = '#ffffff';
+      ctx.fillStyle = colorTituloCajon;
       ctx.font = 'bold 22px Arial';
       ctx.fillText('QSO CON', X + 340, Y + 12);
       ctx.fillStyle = colorTexto;
@@ -658,7 +751,7 @@
       const valores = [datos.fecha, datos.hora, datos.banda, datos.modo, datos.frecuencia, datos.rst];
 
       ctx.textAlign = 'center';
-      ctx.fillStyle = '#ffffff';
+      ctx.fillStyle = colorTituloCajon;
       ctx.font = 'bold 20px Arial';
       COLUMNAS.forEach((c, i) => {
         ctx.fillText(c.titulo, X + c.centro, Y + 59);
@@ -817,7 +910,7 @@
     }
 
     function dibujarFondoGenerado(ctx) {
-      ctx.fillStyle = '#d1dbe6';
+      ctx.fillStyle = obtenerColorFondo();
       ctx.fillRect(0, 0, 1920, 1080);
       ctx.strokeStyle = '#b8c4d2';
       ctx.lineWidth = 3;
@@ -934,6 +1027,60 @@
       const opIni = document.getElementById('opColor').value;
       document.getElementById('swatchOp').style.background = opIni;
       document.getElementById('swatchOpVal').textContent = opIni;
+      const bgIni = document.getElementById('bgColor').value;
+      document.getElementById('swatchBg').style.background = bgIni;
+      document.getElementById('swatchBgVal').textContent = bgIni;
+      const titleCajonIni = document.getElementById('titleCajonColor').value;
+      document.getElementById('swatchTitleCajon').style.background = titleCajonIni;
+      document.getElementById('swatchTitleCajonVal').textContent = titleCajonIni;
+      const whiteIni = document.getElementById('whiteColor').value;
+      document.getElementById('swatchWhite').style.background = whiteIni;
+      document.getElementById('swatchWhiteVal').textContent = whiteIni;
+
+      let cuadroGuardado = null;
+      try { cuadroGuardado = JSON.parse(localStorage.getItem('qso_logger_cuadro')); } catch (e) { /* ignorar */ }
+      if (cuadroGuardado && typeof cuadroGuardado.x === 'number' && typeof cuadroGuardado.y === 'number') {
+        cuadroX = cuadroGuardado.x;
+        cuadroY = cuadroGuardado.y;
+      }
+
+      let coloresGuardados = null;
+      try { coloresGuardados = JSON.parse(localStorage.getItem('qso_logger_colores')); } catch (e) { /* ignorar */ }
+      if (coloresGuardados) {
+        ['textColor', 'boxColor', 'bgColor', 'titleCajonColor', 'whiteColor', 'titleColor', 'opColor'].forEach(id => {
+          if (coloresGuardados[id]) {
+            const el = document.getElementById(id);
+            if (el) el.value = coloresGuardados[id];
+          }
+        });
+        const aplicar = (id, swatchId, valId) => {
+          const el = document.getElementById(swatchId);
+          const val = document.getElementById(valId);
+          if (el) el.style.background = document.getElementById(id).value;
+          if (val) val.textContent = document.getElementById(id).value;
+        };
+        aplicar('textColor', 'swatchText', 'swatchTextVal');
+        aplicar('boxColor', 'swatchBox', 'swatchBoxVal');
+        aplicar('bgColor', 'swatchBg', 'swatchBgVal');
+        aplicar('titleCajonColor', 'swatchTitleCajon', 'swatchTitleCajonVal');
+        aplicar('whiteColor', 'swatchWhite', 'swatchWhiteVal');
+        aplicar('titleColor', 'swatchTitle', 'swatchTitleVal');
+        aplicar('opColor', 'swatchOp', 'swatchOpVal');
+      }
+
+      function guardarColores() {
+        try {
+          localStorage.setItem('qso_logger_colores', JSON.stringify({
+            textColor: document.getElementById('textColor').value,
+            boxColor: document.getElementById('boxColor').value,
+            bgColor: document.getElementById('bgColor').value,
+            titleCajonColor: document.getElementById('titleCajonColor').value,
+            whiteColor: document.getElementById('whiteColor').value,
+            titleColor: document.getElementById('titleColor').value,
+            opColor: document.getElementById('opColor').value
+          }));
+        } catch (e) { /* ignorar */ }
+      }
 
       document.querySelectorAll('input[name="qslPos"]').forEach(r => {
         r.addEventListener('change', dibujarCanvas);
@@ -961,6 +1108,25 @@
       document.getElementById('opColor').addEventListener('input', (e) => {
         document.getElementById('swatchOp').style.background = e.target.value;
         document.getElementById('swatchOpVal').textContent = e.target.value;
+        guardarColores();
+        dibujarCanvas();
+      });
+      document.getElementById('bgColor').addEventListener('input', (e) => {
+        document.getElementById('swatchBg').style.background = e.target.value;
+        document.getElementById('swatchBgVal').textContent = e.target.value;
+        guardarColores();
+        dibujarCanvas();
+      });
+      document.getElementById('titleCajonColor').addEventListener('input', (e) => {
+        document.getElementById('swatchTitleCajon').style.background = e.target.value;
+        document.getElementById('swatchTitleCajonVal').textContent = e.target.value;
+        guardarColores();
+        dibujarCanvas();
+      });
+      document.getElementById('whiteColor').addEventListener('input', (e) => {
+        document.getElementById('swatchWhite').style.background = e.target.value;
+        document.getElementById('swatchWhiteVal').textContent = e.target.value;
+        guardarColores();
         dibujarCanvas();
       });
       document.getElementById('showThanks').addEventListener('change', dibujarCanvas);
@@ -988,6 +1154,67 @@
           img.src = ev.target.result;
         };
         reader.readAsDataURL(file);
+      });
+
+      const canvasQSL = document.getElementById('qslCanvas');
+      let arrastrando = false;
+      let offsetX = 0;
+      let offsetY = 0;
+
+      function posicionArrastrada() {
+        if (cuadroX !== null && cuadroY !== null) return { x: cuadroX, y: cuadroY };
+        const base = posicionCajon({
+          posicion: obtenerPosicion(),
+          conAgradecimiento: mostrarAgradecimiento()
+        });
+        return { x: base.x, y: base.y };
+      }
+
+      canvasQSL.addEventListener('mousedown', (e) => {
+        const rect = canvasQSL.getBoundingClientRect();
+        const escalaX = canvasQSL.width / rect.width;
+        const escalaY = canvasQSL.height / rect.height;
+        const mx = (e.clientX - rect.left) * escalaX;
+        const my = (e.clientY - rect.top) * escalaY;
+        const pos = posicionArrastrada();
+        const altoCajon = mostrarAgradecimiento() ? ALTO_CAJON : ALTO_CAJON - ALTO_CAJON_SIN_AGRADECIMIENTO;
+        if (mx >= pos.x && mx <= pos.x + LARGO_CAJON && my >= pos.y && my <= pos.y + altoCajon) {
+          arrastrando = true;
+          offsetX = mx - pos.x;
+          offsetY = my - pos.y;
+          canvasQSL.classList.add('dragging');
+        }
+      });
+
+      canvasQSL.addEventListener('mousemove', (e) => {
+        if (!arrastrando) return;
+        const rect = canvasQSL.getBoundingClientRect();
+        const escalaX = canvasQSL.width / rect.width;
+        const escalaY = canvasQSL.height / rect.height;
+        const mx = (e.clientX - rect.left) * escalaX;
+        const my = (e.clientY - rect.top) * escalaY;
+        cuadroX = Math.max(0, Math.min(1920 - LARGO_CAJON, Math.round(mx - offsetX)));
+        cuadroY = Math.max(0, Math.min(1080 - ALTO_CAJON, Math.round(my - offsetY)));
+        dibujarCanvas();
+      });
+
+      function terminarArrastre() {
+        if (!arrastrando) return;
+        arrastrando = false;
+        canvasQSL.classList.remove('dragging');
+        try {
+          localStorage.setItem('qso_logger_cuadro', JSON.stringify({ x: cuadroX, y: cuadroY }));
+        } catch (err) { /* ignorar */ }
+      }
+
+      canvasQSL.addEventListener('mouseup', terminarArrastre);
+      canvasQSL.addEventListener('mouseleave', terminarArrastre);
+
+      document.getElementById('btnResetPos').addEventListener('click', () => {
+        cuadroX = null;
+        cuadroY = null;
+        try { localStorage.removeItem('qso_logger_cuadro'); } catch (err) { /* ignorar */ }
+        dibujarCanvas();
       });
     });
 
@@ -1058,8 +1285,13 @@
         conAgradecimiento: mostrarAgradecimiento(),
         colorTexto: obtenerColorTexto(),
         colorCuadro: obtenerColorCuadro(),
+        colorFondo: config.colorFondo,
+        colorTituloCajon: config.colorTituloCajon,
+        colorWhite: config.colorWhite,
         colorTitulo: config.colorTitulo,
         colorDatos: config.colorDatos,
+        cuadro_x: cuadroX,
+        cuadro_y: cuadroY,
         actividad: config.actividad,
         opNombre: config.opNombre,
         opDomicilio: config.opDomicilio,
