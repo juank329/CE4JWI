@@ -14,7 +14,7 @@ const BASE = "https://qsl.net/ce4jwi";
 const BASE_XR4MAU = "https://qsl.net/xr4mau";
 
 // Actividades con ranking congelado (final.json permanente en el repo)
-const CONGELADAS = ["talca", "agosto", "septiembre", "circo", "vino"];
+const CONGELADAS = ["talca", "agosto", "septiembre", "circo", "vino", "hitos-rio"];
 
 // Actividades en vivo: sus ADIF se leen en tiempo real
 const VIVAS = [
@@ -24,7 +24,7 @@ const VIVAS = [
   { base: BASE, adif: "log_carrera_saco.adi", actividad: "Carreras en Saco" },
   { base: BASE, adif: "log_tirar_cuerda.adi", actividad: "Tirar la Cuerda" },
   { base: BASE, adif: "log_volantin.adi", actividad: "Elevar Volantines" },
-  { base: BASE, adif: "log_rio.adi", actividad: "Hitos de Maule - Rio Maule" },
+  { base: BASE, adif: "log_mina.adi", actividad: "Hitos de Maule - Mina El Chivato" },
   { base: BASE, adif: "log_ce4jwi.adi", actividad: "General CE4JWI" },
 ];
 

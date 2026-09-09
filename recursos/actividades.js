@@ -755,10 +755,20 @@ const ACTIVIDADES = [
   id: 78,
   title: "Hitos de Maule - Río Maule 2026",
   image: "public/hitos_rio.webp",
-  status: "EN VIVO",
+  status: "FINALIZADO",
   description:
     "Activación especial Hitos de Maule - Río Maule. Solo APRS con la frase RIO a la estación CE4JWI-10. QSL conmemorativa automática y ranking en tiempo real.",
   date: "8 Septiembre 2026",
   url: "hitos_rio_maule_2026.html",
+},
+{
+  id: 79,
+  title: "Hitos de Maule - Mina El Chivato 2026",
+  image: "public/hitos_mina.webp",
+  status: "EN VIVO",
+  description:
+    "Activación especial Hitos de Maule - Mina El Chivato. Solo APRS con la frase MINA a la estación CE4JWI-10. QSL conmemorativa automática y ranking en tiempo real.",
+  date: "9 Septiembre 2026",
+  url: "hitos_mina_chivato_2026.html",
 },
 ]
