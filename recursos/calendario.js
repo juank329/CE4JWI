@@ -23,7 +23,7 @@ const CATEGORIAS = [
 
 // ---- Estado ----
 let eventosGlobal = []
-let vistaActual = "mes"  // "mes" | "agenda"
+let vistaActual = "agenda"  // "mes" | "agenda"
 let mesActual = new Date()
 let diaSeleccionado = null
 

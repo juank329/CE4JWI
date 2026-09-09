@@ -636,16 +636,7 @@ function renderizarMarquee() {
     .filter((a) => !a.showAfter || hoy >= new Date(a.showAfter + "T00:00:00"))
     .sort((a, b) => mqParseFecha(a.date) - mqParseFecha(b.date))
 
-  let seleccion
-  if (proximas.length > 0) {
-    seleccion = proximas
-  } else {
-    // Últimas 3 finalizadas (por fecha de inicio descendente)
-    seleccion = ACTIVIDADES
-      .filter((a) => mqEstadoEfectivo(a) === "FINALIZADO")
-      .sort((a, b) => mqParseFecha(b.date) - mqParseFecha(a.date))
-      .slice(0, 3)
-  }
+  let seleccion = proximas
 
   if (seleccion.length === 0) {
     contenedor.innerHTML = '<span class="marquee-item">Próximamente más actividades.</span>'
