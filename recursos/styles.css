@@ -921,6 +921,45 @@ a { color: inherit; }
   font-size: 0.8rem;
 }
 
+/* ===== Botones flotantes de contacto (email + Telegram) ===== */
+.floating-contact {
+  position: fixed;
+  right: 1.2rem;
+  bottom: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  z-index: 999;
+}
+
+.floating-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.2rem;
+  height: 3.2rem;
+  border-radius: 50%;
+  color: var(--white);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.floating-btn:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4);
+}
+
+.floating-btn svg { width: 1.5rem; height: 1.5rem; }
+
+.float-mail { background-color: var(--red); }
+.float-telegram { background-color: #229ed9; }
+
+@media (max-width: 600px) {
+  .floating-contact { right: 0.9rem; bottom: 0.9rem; gap: 0.6rem; }
+  .floating-btn { width: 2.8rem; height: 2.8rem; }
+  .floating-btn svg { width: 1.3rem; height: 1.3rem; }
+}
+
 /* ===== Ticker de clima - Region del Maule ===== */
 .weather-ticker {
   display: flex;
