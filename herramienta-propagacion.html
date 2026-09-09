@@ -8,9 +8,9 @@
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Roboto:wght@500;700;900&display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Roboto:wght@500;700;900&display=swap" media="print" onload="this.media='all'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Roboto:wght@500;700;900&display=swap"></noscript>
-  <title>Propagación HF en Tiempo Real - CE4JWI</title>
-  <meta name="description" content="Condiciones actuales del clima espacial y estado de las bandas HF en tiempo real: flujo solar, índice K, rayos X, viento solar y qué bandas están abiertas ahora para tu radio.">
-  <link rel="stylesheet" href="recursos/styles.css">
+  <title>PropagaciÃ³n HF en Tiempo Real - CE4JWI</title>
+  <meta name="description" content="Condiciones actuales del clima espacial y estado de las bandas HF en tiempo real: flujo solar, Ã­ndice K, rayos X, viento solar y quÃ© bandas estÃ¡n abiertas ahora para tu radio.">
+  <link rel="stylesheet" href="recursos/styles.css?v=2">
   <link rel="stylesheet" href="recursos/header-responsive.css">
   <link rel="stylesheet" href="recursos/slider.css">
   <link rel="icon" href="public/favicon-32x32.png">
@@ -365,18 +365,18 @@
     <div class="content">
 
       <div class="prop-hero">
-        <h1>Propagación HF en Tiempo Real</h1>
-        <p>Clima espacial en vivo y qué bandas de radio están abiertas ahora para tu equipo, calculado con datos reales y la hora actual en Chile.</p>
+        <h1>PropagaciÃ³n HF en Tiempo Real</h1>
+        <p>Clima espacial en vivo y quÃ© bandas de radio estÃ¡n abiertas ahora para tu equipo, calculado con datos reales y la hora actual en Chile.</p>
       </div>
 
       <section class="page-content">
 
-        <div id="propEstado" class="prop-estado cargando">Cargando condiciones del clima espacial…</div>
+        <div id="propEstado" class="prop-estado cargando">Cargando condiciones del clima espacialâ€¦</div>
 
         <form class="prop-form" id="propForm">
           <span class="prop-form-izq">
             <span class="prop-live"><span class="prop-live-dot"></span> En vivo</span>
-            <span class="prop-fecha" id="propFecha">Esperando datos…</span>
+            <span class="prop-fecha" id="propFecha">Esperando datosâ€¦</span>
           </span>
           <button type="button" class="prop-btn-recargar" id="propRecargar">
             <svg class="prop-btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg>
@@ -384,14 +384,14 @@
           </button>
         </form>
 
-        <h3 class="prop-titulo-seccion">Condiciones actuales del Sol y el campo magnético</h3>
+        <h3 class="prop-titulo-seccion">Condiciones actuales del Sol y el campo magnÃ©tico</h3>
         <div class="prop-grid" id="propTarjetas">
-          <div class="prop-card azul"><div class="prop-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg></div><div class="prop-label">Flujo solar (SFI)</div><div class="prop-valor">—</div><div class="prop-sub">Cargando…</div></div>
-          <div class="prop-card naranja"><div class="prop-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h5v5l10-10h-5z"/><path d="M16 8l2-2"/><path d="M21 21l-4-4"/></svg></div><div class="prop-label">Índice K</div><div class="prop-valor">—</div><div class="prop-sub">Cargando…</div></div>
-          <div class="prop-card rojo"><div class="prop-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M21 7v6h-6"/></svg></div><div class="prop-label">Índice A</div><div class="prop-valor">—</div><div class="prop-sub">Cargando…</div></div>
-          <div class="prop-card verde"><div class="prop-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v8"/><path d="M8 12h8"/></svg></div><div class="prop-label">Rayos X</div><div class="prop-valor">—</div><div class="prop-sub">Cargando…</div></div>
-          <div class="prop-card amarillo"><div class="prop-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg></div><div class="prop-label">Manchas solares</div><div class="prop-valor">—</div><div class="prop-sub">Cargando…</div></div>
-          <div class="prop-card azul"><div class="prop-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8a7 7 0 0 1 14 0c0 5-2 7-2 7H7s-2-2-2-7z"/><path d="M9 19h6"/><path d="M10 22h4"/></svg></div><div class="prop-label">Viento solar</div><div class="prop-valor">—</div><div class="prop-sub">Cargando…</div></div>
+          <div class="prop-card azul"><div class="prop-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg></div><div class="prop-label">Flujo solar (SFI)</div><div class="prop-valor">â€”</div><div class="prop-sub">Cargandoâ€¦</div></div>
+          <div class="prop-card naranja"><div class="prop-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h5v5l10-10h-5z"/><path d="M16 8l2-2"/><path d="M21 21l-4-4"/></svg></div><div class="prop-label">Ãndice K</div><div class="prop-valor">â€”</div><div class="prop-sub">Cargandoâ€¦</div></div>
+          <div class="prop-card rojo"><div class="prop-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M21 7v6h-6"/></svg></div><div class="prop-label">Ãndice A</div><div class="prop-valor">â€”</div><div class="prop-sub">Cargandoâ€¦</div></div>
+          <div class="prop-card verde"><div class="prop-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v8"/><path d="M8 12h8"/></svg></div><div class="prop-label">Rayos X</div><div class="prop-valor">â€”</div><div class="prop-sub">Cargandoâ€¦</div></div>
+          <div class="prop-card amarillo"><div class="prop-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg></div><div class="prop-label">Manchas solares</div><div class="prop-valor">â€”</div><div class="prop-sub">Cargandoâ€¦</div></div>
+          <div class="prop-card azul"><div class="prop-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8a7 7 0 0 1 14 0c0 5-2 7-2 7H7s-2-2-2-7z"/><path d="M9 19h6"/><path d="M10 22h4"/></svg></div><div class="prop-label">Viento solar</div><div class="prop-valor">â€”</div><div class="prop-sub">Cargandoâ€¦</div></div>
         </div>
 
         <h3 class="prop-titulo-seccion">Estado de las bandas HF ahora <span class="prop-fecha" id="propHora">(hora de Chile)</span></h3>
@@ -405,8 +405,8 @@
         <div class="prop-bandas" id="propBandas"></div>
 
         <div class="nota">
-          <span class="etiqueta">DATO ÚTIL</span>
-          <p>El estado de cada banda se calcula con los datos reales del clima espacial: flujo solar (SFI), índice K y la hora actual en Chile. SFI alto + K bajo = bandas altas abiertas. SFI bajo o K alto = bandas bajas y ruido. Los datos provienen del reporte N0NBH (NOAA).</p>
+          <span class="etiqueta">DATO ÃšTIL</span>
+          <p>El estado de cada banda se calcula con los datos reales del clima espacial: flujo solar (SFI), Ã­ndice K y la hora actual en Chile. SFI alto + K bajo = bandas altas abiertas. SFI bajo o K alto = bandas bajas y ruido. Los datos provienen del reporte N0NBH (NOAA).</p>
         </div>
 
       </section>

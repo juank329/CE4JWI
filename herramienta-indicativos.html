@@ -10,7 +10,7 @@
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Roboto:wght@500;700;900&display=swap"></noscript>
   <title>Buscar Indicativos SUBTEL - CE4JWI</title>
   <meta name="description" content="Buscador de indicativos de radioaficionados chilenos en los listados oficiales de SUBTEL">
-  <link rel="stylesheet" href="recursos/styles.css">
+  <link rel="stylesheet" href="recursos/styles.css?v=2">
   <link rel="stylesheet" href="recursos/header-responsive.css">
   <link rel="stylesheet" href="recursos/slider.css">
   <link rel="stylesheet" href="recursos/indicativos.css">
@@ -37,7 +37,7 @@
           </div>
 
           <div class="indi-campo">
-            <label for="indiCat">Categoría</label>
+            <label for="indiCat">CategorÃ­a</label>
             <select id="indiCat">
               <option value="">Todas</option>
               <option value="grl">General (CE)</option>
@@ -51,21 +51,21 @@
             <label for="indiZona">Zona</label>
             <select id="indiZona">
               <option value="">Todas</option>
-              <option value="0">0 - Islas (Pascua / Juan Fernández)</option>
-              <option value="1">1 - Tarapacá / Arica y Parinacota</option>
+              <option value="0">0 - Islas (Pascua / Juan FernÃ¡ndez)</option>
+              <option value="1">1 - TarapacÃ¡ / Arica y Parinacota</option>
               <option value="2">2 - Antofagasta / Atacama</option>
-              <option value="3">3 - Coquimbo / Valparaíso / RM</option>
-              <option value="4">4 - O'Higgins / Maule / Ñuble</option>
-              <option value="5">5 - Biobío</option>
-              <option value="6">6 - Araucanía</option>
-              <option value="7">7 - Los Ríos / Los Lagos</option>
-              <option value="8">8 - Aysén</option>
+              <option value="3">3 - Coquimbo / ValparaÃ­so / RM</option>
+              <option value="4">4 - O'Higgins / Maule / Ã‘uble</option>
+              <option value="5">5 - BiobÃ­o</option>
+              <option value="6">6 - AraucanÃ­a</option>
+              <option value="7">7 - Los RÃ­os / Los Lagos</option>
+              <option value="8">8 - AysÃ©n</option>
               <option value="9">9 - Magallanes</option>
             </select>
           </div>
 
           <div class="indi-campo">
-            <label for="indiRegion">Región</label>
+            <label for="indiRegion">RegiÃ³n</label>
             <select id="indiRegion">
               <option value="">Todas</option>
             </select>
@@ -73,11 +73,11 @@
 
           <div class="indi-campo">
             <label for="indiComuna">Comuna</label>
-            <input type="text" id="indiComuna" placeholder="Ej: Talca, Maipú" autocomplete="off">
+            <input type="text" id="indiComuna" placeholder="Ej: Talca, MaipÃº" autocomplete="off">
           </div>
 
           <div class="indi-campo">
-            <label for="indiVence">Vence (año)</label>
+            <label for="indiVence">Vence (aÃ±o)</label>
             <select id="indiVence">
               <option value="">Cualquiera</option>
             </select>
@@ -87,7 +87,7 @@
         <div class="indi-acciones">
           <button type="button" class="btn-buscar" onclick="document.getElementById('indiForm').requestSubmit()">Buscar</button>
           <button type="button" class="btn-limpiar" onclick="limpiarFiltros()">Limpiar</button>
-          <button type="button" class="btn-wildcard" title="Usar * como comodín: CE4* = todos los CE4" onclick="document.getElementById('indiQ').value='CE4*'">Prefijo: CE4*</button>
+          <button type="button" class="btn-wildcard" title="Usar * como comodÃ­n: CE4* = todos los CE4" onclick="document.getElementById('indiQ').value='CE4*'">Prefijo: CE4*</button>
           <button type="button" class="btn-wildcard" onclick="document.getElementById('indiQ').value='*JWI'">Sufijo: *JWI</button>
           <span class="contador" id="indiContador"></span>
         </div>
@@ -97,9 +97,9 @@
         <div id="indiPaginacion" class="indi-paginacion"></div>
 
         <div class="tip">
-          <span class="etiqueta">DATO ÚTIL</span>
-          <p>La UIT asignó a Chile los prefijos CA–CE, XQ–XR y 3G–3I, y la SUBTEL los distribuye según la licencia: Novicio (CA), General (CE), Aspirante (CD) y Superior (XQ). Además, las licencias se reparten en 9 zonas radiales que siguen el orden geográfico de norte a sur: de la zona 1 (Tarapacá y Arica y Parinacota) a la zona 9 (Magallanes). Así, un indicativo como CE4JWI ya nos cuenta que es un radioaficionado General de la zona centro.</p>
-          <p class="dato-actualizacion" style="margin-top:0.75em;font-size:0.85em;opacity:0.85;">Última actualización de los datos: <strong id="indiActualizado">…</strong></p>
+          <span class="etiqueta">DATO ÃšTIL</span>
+          <p>La UIT asignÃ³ a Chile los prefijos CAâ€“CE, XQâ€“XR y 3Gâ€“3I, y la SUBTEL los distribuye segÃºn la licencia: Novicio (CA), General (CE), Aspirante (CD) y Superior (XQ). AdemÃ¡s, las licencias se reparten en 9 zonas radiales que siguen el orden geogrÃ¡fico de norte a sur: de la zona 1 (TarapacÃ¡ y Arica y Parinacota) a la zona 9 (Magallanes). AsÃ­, un indicativo como CE4JWI ya nos cuenta que es un radioaficionado General de la zona centro.</p>
+          <p class="dato-actualizacion" style="margin-top:0.75em;font-size:0.85em;opacity:0.85;">Ãšltima actualizaciÃ³n de los datos: <strong id="indiActualizado">â€¦</strong></p>
         </div>
 
       </section>

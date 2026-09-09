@@ -11,9 +11,9 @@
   
   <title>Generador de QSLs</title>
   
-  <meta name="description" content="Registro de contactos QSO con generación automática de QSL">
+  <meta name="description" content="Registro de contactos QSO con generaciÃ³n automÃ¡tica de QSL">
   
-  <link rel="stylesheet" href="recursos/styles.css">
+  <link rel="stylesheet" href="recursos/styles.css?v=2">
   <link rel="stylesheet" href="recursos/header-responsive.css">
   <link rel="stylesheet" href="recursos/slider.css">
   <link rel="stylesheet" href="recursos/qsologger.css">
@@ -326,12 +326,12 @@
         <canvas id="qslCanvas" width="1920" height="1080"></canvas>
         <div class="qsl-drag-hint">
           <span>Arrastra el cuadro de datos sobre la vista previa para ubicarlo donde quieras.</span>
-          <button type="button" class="btn btn-secondary" id="btnResetPos">Restablecer posición</button>
+          <button type="button" class="btn btn-secondary" id="btnResetPos">Restablecer posiciÃ³n</button>
         </div>
       </div>
 
       <div class="qsl-section">
-        <div class="qsl-section-title">Diseño de la QSL</div>
+        <div class="qsl-section-title">DiseÃ±o de la QSL</div>
         <div class="qsl-config-row">
           <div class="form-group">
             <div class="qsl-color-row">
@@ -354,7 +354,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label>Letras de títulos</label>
+                <label>Letras de tÃ­tulos</label>
                 <div class="color-swatch-row">
                   <span class="color-swatch" id="swatchTitleCajon">
                     <input type="color" id="titleCajonColor" value="#ffffff">
@@ -383,14 +383,14 @@
             <label>Imagen de fondo de la QSL</label>
             <input type="file" id="qslBackground" accept="image/*">
             <div class="qsl-example-row">
-              <label class="qsl-example-label" for="qslSelectEjemplo">¿No tienes imagen?</label>
+              <label class="qsl-example-label" for="qslSelectEjemplo">Â¿No tienes imagen?</label>
               <select id="qslSelectEjemplo">
-                <option value="">— Ninguno —</option>
+                <option value="">â€” Ninguno â€”</option>
               </select>
             </div>
             <div class="qsl-size-note">
-              <strong>Tamaño recomendado de la imagen: 1920 x 1080 px</strong>
-              <span>Tu imagen queda guardada en este equipo y se usará cada vez que vuelvas. Si no subes ninguna, la QSL sale en fondo blanco.</span>
+              <strong>TamaÃ±o recomendado de la imagen: 1920 x 1080 px</strong>
+              <span>Tu imagen queda guardada en este equipo y se usarÃ¡ cada vez que vuelvas. Si no subes ninguna, la QSL sale en fondo blanco.</span>
             </div>
           </div>
         </div>
@@ -493,7 +493,7 @@
       <div class="btn-row">
         <button class="btn btn-primary" id="btnAddQso" onclick="addQso()">Agregar QSO y Generar QSL</button>
         <button class="btn btn-secondary" onclick="clearForm()">Limpiar formulario</button>
-        <button class="btn btn-secondary" id="btnCancelarEdicion" onclick="cancelarEdicion()" style="display:none;">Cancelar edición</button>
+        <button class="btn btn-secondary" id="btnCancelarEdicion" onclick="cancelarEdicion()" style="display:none;">Cancelar ediciÃ³n</button>
         <span class="sync-status" id="syncStatus">Sincronizado (0 QSOs)</span>
       </div>
     </div>
@@ -532,7 +532,7 @@
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
         </svg>
-        <p>No hay QSOs registrados aún</p>
+        <p>No hay QSOs registrados aÃºn</p>
         <p style="font-size: 12px;">Agrega tu primer contacto usando el formulario</p>
       </div>
     </div>
@@ -775,8 +775,8 @@
       agradecimiento: AGRADECIMIENTO_DEFECTO
     };
 
-    // Al previsualizar sin QSOs aún, solo se usan los campos que el colega
-    // escribió; los vacíos se rellenan con los datos de ejemplo.
+    // Al previsualizar sin QSOs aÃºn, solo se usan los campos que el colega
+    // escribiÃ³; los vacÃ­os se rellenan con los datos de ejemplo.
     function filtrarConfigVacia(config) {
       const limpio = {};
       for (const k in config) {
@@ -856,10 +856,10 @@
     const EJEMPLOS_IMAGEN = [
       { id: 'bandera_chile', nombre: 'Bandera Chile', pintar: (ctx) => dibujarBandera(ctx, 'cl') },
       { id: 'bandera_argentina', nombre: 'Bandera Argentina', pintar: (ctx) => dibujarBandera(ctx, 'ar') },
-      { id: 'bandera_espana', nombre: 'Bandera España', pintar: (ctx) => dibujarBandera(ctx, 'es') },
+      { id: 'bandera_espana', nombre: 'Bandera EspaÃ±a', pintar: (ctx) => dibujarBandera(ctx, 'es') },
       { id: 'bandera_brasil', nombre: 'Bandera Brasil', pintar: (ctx) => dibujarBandera(ctx, 'br') },
       { id: 'bandera_alemania', nombre: 'Bandera Alemania', pintar: (ctx) => dibujarBandera(ctx, 'de') },
-      { id: 'bandera_mexico', nombre: 'Bandera México', pintar: (ctx) => dibujarBandera(ctx, 'mx') }
+      { id: 'bandera_mexico', nombre: 'Bandera MÃ©xico', pintar: (ctx) => dibujarBandera(ctx, 'mx') }
     ];
 
     function crearFondoEjemplo(ejemplo) {
@@ -888,7 +888,7 @@
     }
 
     function cargarPlantilla() {
-      // Cada colega usa SU PROPIO fondo. Si ya subió una imagen antes,
+      // Cada colega usa SU PROPIO fondo. Si ya subiÃ³ una imagen antes,
       // se la recordamos; si no, empieza en blanco para que agregue la suya.
       let guardado = null;
       try { guardado = localStorage.getItem('qso_logger_fondo'); } catch (e) { /* ignorar */ }
@@ -1374,7 +1374,7 @@
     }
 
     function deleteQso(id) {
-      if (confirm('¿Eliminar este QSO?')) {
+      if (confirm('Â¿Eliminar este QSO?')) {
         qsos = qsos.filter(q => q.id !== id);
         saveQsos();
         renderQsos();
@@ -1395,7 +1395,7 @@
 
     function clearAllQsos() {
       if (qsos.length === 0) return;
-      if (confirm(`¿Eliminar los ${qsos.length} QSOs cargados?`)) {
+      if (confirm(`Â¿Eliminar los ${qsos.length} QSOs cargados?`)) {
         qsos = [];
         saveQsos();
         renderQsos();
@@ -1470,7 +1470,7 @@
       reader.onload = (ev) => {
         const camposList = parsearAdif(String(ev.target.result || ''));
         if (camposList.length === 0) {
-          if (estado) estado.textContent = 'No se encontraron QSOs válidos en el archivo.';
+          if (estado) estado.textContent = 'No se encontraron QSOs vÃ¡lidos en el archivo.';
           return;
         }
         const operador = (document.getElementById('myCallsign').value || '').trim().toUpperCase()
