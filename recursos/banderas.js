@@ -34,7 +34,7 @@
   };
 
   var PREFS = {
-    "CE":"CL","CA":"CL","CB":"CL","CC":"CL","CD":"CL","CF":"CL","CG":"CL","CH":"CL","CI":"CL","CJ":"CL","CK":"CL","CL":"CL","CM":"CL","CN":"CL","CO":"CL","CP":"CL","CQ":"CL","CR":"CL","CS":"CL","CT":"CL","CU":"CL","CV":"CL","CW":"CL","CY":"CL","CX":"UY",
+    "CA":"CL","CB":"CL","CC":"CL","CD":"CL","CE":"CL","CF":"CA","CG":"CA","CH":"CA","CI":"CA","CJ":"CA","CK":"CA","CL":"CU","CM":"CU","CN":"MA","CO":"CU","CP":"BO","CQ":"PT","CR":"PT","CS":"PT","CT":"PT","CU":"PT","CV":"UY","CW":"UY","CX":"UY","CY":"CA","CZ":"CA",
     "LU":"AR","LQ":"AR","LT":"AR","LW":"AR","LY":"AR","LZ":"AR","7L":"AR","8B":"BR",
     "PY":"BR","PP":"BR","PQ":"BR","PR":"BR","PS":"BR","PT":"BR","PV":"BR","PW":"BR","PX":"BR","PZ":"BR",
     "4F":"PH","4I":"PH","DV":"PH","DU":"PH",
@@ -51,7 +51,7 @@
     "OH":"FI","OJ":"FI","OG":"FI","OF":"FI","TA":"TR","TC":"TR","TB":"TR","TM":"TR",
     "UA":"RU","UB":"UA","UC":"BY","UD":"AZ","UE":"RU","UF":"RU","UG":"GE","UH":"RU","UI":"RU","UJ":"UZ","UK":"UZ","UL":"KZ","UM":"BY","UN":"KZ","UO":"RU","UP":"KZ","UQ":"BY","UR":"UA","US":"UA","UT":"UA","UU":"UA","UV":"UA","UW":"UA","UX":"UA","UY":"UA","UZ":"UA",
     "VK":"AU","VI":"AU","VH":"AU","VJ":"AU","VM":"AU","VZ":"AU","AX":"AU",
-    "ZL":"NZ","ZM":"NZ","ZK":"NZ","ZP":"PY","ZS":"ZA","ZR":"ZA","ZU":"ZA","ZV":"ZA","ZW":"ZA","3":"","Z3":"MK","Z6":"XK",
+    "ZL":"NZ","ZM":"NZ","ZK":"NZ","ZP":"PY","ZS":"ZA","ZR":"ZA","ZU":"ZA","ZV":"ZA","ZW":"ZA","3G":"CL","Z3":"MK","Z6":"XK",
     "4X":"IL","4Z":"IL","5B":"CY","5H":"TZ","5N":"NG","5R":"MG","5T":"MR","5U":"NE","5V":"TG","5W":"WS","5X":"UG","5Z":"KE","6M":"HK","6Y":"JM","7P":"LS","7Q":"MW","7X":"DZ","8P":"BB","8R":"GY","8S":"SE","8Z":"SA","9J":"ZM","9O":"CD",
     "E5":"CK","E7":"BA","EX":"KG","EY":"TJ","EZ":"TM","FJ":"GF","FM":"MQ","FG":"GP","FH":"YT","FK":"NC","FO":"PF","FP":"PM","FR":"RE","FS":"PM","FT":"TF",
     "HC":"EC","HD":"EC","HJ":"CO","HK":"CO","KP":"PR","OA":"PE","OB":"PE","PU":"BR","VG":"CA","VU":"IN"
