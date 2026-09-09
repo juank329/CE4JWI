@@ -632,11 +632,10 @@ a { color: inherit; }
 .widget-content form#topcall {
   display: flex;
   gap: 0.5rem;
-  flex-wrap: wrap;
 }
 
 .widget-content input#tquery {
-  flex: 1 1 160px;
+  flex: 1 1 0;
   min-width: 0;
   max-width: 100%;
   padding: 0.55rem 0.75rem;
