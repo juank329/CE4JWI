@@ -10,10 +10,10 @@
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Roboto:wght@500;700;900&display=swap"></noscript>
   
   
-  <title>Primeros pasos en FT8 y FT4: GuÃ­a para no morir en el intento</title>
+  <title>Primeros pasos en FT8 y FT4: Guía para no morir en el intento</title>
   
   
-  <meta name="description" content="GuÃ­a tÃ©cnica para empezar en FT8 y FT4: WSJT-X, CAT, reloj NTP, frecuencias de actividad, ALC y secuencia de un QSO digital.">
+  <meta name="description" content="Guía técnica para empezar en FT8 y FT4: WSJT-X, CAT, reloj NTP, frecuencias de actividad, ALC y secuencia de un QSO digital.">
   
   <link rel="stylesheet" href="recursos/styles.css?v=2">
   <link rel="stylesheet" href="recursos/header-responsive.css">
@@ -21,10 +21,10 @@
   <link rel="icon" href="public/favicon-32x32.png">
 </head>
 <body>
-  <!-- NO TOCAR: Header cargado automÃ¡ticamente -->
+  <!-- NO TOCAR: Header cargado automáticamente -->
   <div id="header-container"></div>
   
-  <!-- NO TOCAR: Marquesina cargada automÃ¡ticamente -->
+  <!-- NO TOCAR: Marquesina cargada automáticamente -->
   <div id="marquee-container"></div>
 
   <!-- ========== CONTENIDO PRINCIPAL ========== -->
@@ -33,7 +33,7 @@
       
       
       <div class="banner">
-        <h1>Primeros pasos en FT8 y FT4: GuÃ­a para no morir en el intento</h1>
+        <h1>Primeros pasos en FT8 y FT4: Guía para no morir en el intento</h1>
       </div>
 
       <section class="page-content">
@@ -46,39 +46,39 @@
         
           <div class="parrafo">
             <br>
-            <p>Â¡Hola, colegas!</p>
+            <p>¡Hola, colegas!</p>
             <br>
-            <p>Si has estado recorriendo las bandas de HF Ãºltimamente, seguro habrÃ¡s escuchado ese sonido constante que parece un enjambre de abejas electrÃ³nicas. SÃ­, estamos hablando de FT8 y FT4, los modos digitales que revolucionaron la radioaficiÃ³n en condiciones de baja propagaciÃ³n.</p>
+            <p>Si has estado recorriendo las bandas de HF últimamente, seguro habrás escuchado ese sonido constante que parece un enjambre de abejas electrónicas. Sí, estamos hablando de FT8 y FT4, los modos digitales que revolucionaron la radioafición en condiciones de baja propagación.</p>
             <br>
-            <p>Si tienes ganas de probarlos pero te da un poco de respeto la configuraciÃ³n, no te preocupes. AquÃ­ te dejo la guÃ­a tÃ©cnica paso a paso para dejar tu estaciÃ³n lista para el "cace" digital.</p>
+            <p>Si tienes ganas de probarlos pero te da un poco de respeto la configuración, no te preocupes. Aquí te dejo la guía técnica paso a paso para dejar tu estación lista para el "cace" digital.</p>
             <br>
-            <h3 class="titulo">1. Â¿QuÃ© es FT8 y quÃ© es FT4?</h3>
+            <h3 class="titulo">1. ¿Qué es FT8 y qué es FT4?</h3>
             <br>
-            <p>Ambos modos fueron desarrollados por el equipo de <b>WSJT-X</b>, liderado por el Premio Nobel de FÃ­sica <b>K1JT (Joe Taylor)</b>. Su gran aporte es la <b>correcciÃ³n de errores LDPC</b> (Low-Density Parity-Check): cada mensaje lleva redundancia que permite al decodificador reconstruir informaciÃ³n aunque la seÃ±al estÃ© inmersa en el ruido.</p>
+            <p>Ambos modos fueron desarrollados por el equipo de <b>WSJT-X</b>, liderado por el Premio Nobel de Física <b>K1JT (Joe Taylor)</b>. Su gran aporte es la <b>corrección de errores LDPC</b> (Low-Density Parity-Check): cada mensaje lleva redundancia que permite al decodificador reconstruir información aunque la señal esté inmersa en el ruido.</p>
             <br>
             <div class="tabla-scroll">
               <table>
                 <thead>
-                  <tr><th>ParÃ¡metro</th><th>FT8</th><th>FT4</th></tr>
+                  <tr><th>Parámetro</th><th>FT8</th><th>FT4</th></tr>
                 </thead>
                 <tbody>
                   <tr><td>Lanzamiento</td><td>2017</td><td>2019</td></tr>
-                  <tr><td>Velocidad de sÃ­mbolo</td><td>50 baud</td><td>120 baud</td></tr>
-                  <tr><td>ModulaciÃ³n</td><td>4-FSK</td><td>4-FSK</td></tr>
-                  <tr><td>SeparaciÃ³n de tonos</td><td>6,25 Hz</td><td>20,83 Hz</td></tr>
-                  <tr><td>Ventana de transmisiÃ³n</td><td>15 s</td><td>7,5 s</td></tr>
-                  <tr><td>Ancho de banda</td><td>â‰ˆ 50 Hz</td><td>â‰ˆ 90 Hz</td></tr>
-                  <tr><td>SNR mÃ­nima prÃ¡ctica</td><td>â‰ˆ âˆ’21 dB</td><td>â‰ˆ âˆ’14 dB</td></tr>
-                  <tr><td>Uso ideal</td><td>SeÃ±ales dÃ©biles y DX</td><td>Contest y seÃ±ales fuertes</td></tr>
+                  <tr><td>Velocidad de símbolo</td><td>50 baud</td><td>120 baud</td></tr>
+                  <tr><td>Modulación</td><td>4-FSK</td><td>4-FSK</td></tr>
+                  <tr><td>Separación de tonos</td><td>6,25 Hz</td><td>20,83 Hz</td></tr>
+                  <tr><td>Ventana de transmisión</td><td>15 s</td><td>7,5 s</td></tr>
+                  <tr><td>Ancho de banda</td><td>≈ 50 Hz</td><td>≈ 90 Hz</td></tr>
+                  <tr><td>SNR mínima práctica</td><td>≈ −21 dB</td><td>≈ −14 dB</td></tr>
+                  <tr><td>Uso ideal</td><td>Señales débiles y DX</td><td>Contest y señales fuertes</td></tr>
                 </tbody>
               </table>
             </div>
             <br>
-            <p>En pocas palabras: <b>FT8 es mÃ¡s lento pero llega mÃ¡s lejos</b> (decodifica seÃ±ales hasta ~21 dB por debajo del umbral audible), y <b>FT4 es el doble de rÃ¡pido</b>, ideal cuando la propagaciÃ³n es buena y quieres hacer mÃ¡s contactos por hora.</p>
+            <p>En pocas palabras: <b>FT8 es más lento pero llega más lejos</b> (decodifica señales hasta ~21 dB por debajo del umbral audible), y <b>FT4 es el doble de rápido</b>, ideal cuando la propagación es buena y quieres hacer más contactos por hora.</p>
             <br>
             <h3 class="titulo">2. La secuencia de un QSO</h3>
             <br>
-            <p>FT8 organiza el tiempo en <b>ventanas estrictas de 15 segundos</b>. Tu estaciÃ³n transmite ~12 segundos y escucha el resto. El programa alterna automÃ¡ticamente: mientras tÃº transmites, el otro escucha, y viceversa.</p>
+            <p>FT8 organiza el tiempo en <b>ventanas estrictas de 15 segundos</b>. Tu estación transmite ~12 segundos y escucha el resto. El programa alterna automáticamente: mientras tú transmites, el otro escucha, y viceversa.</p>
             <br>
             <figure class="figura">
               <svg viewBox="0 0 720 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Secuencia de un QSO FT8 en ventanas de 15 segundos">
@@ -88,7 +88,7 @@
                   </marker>
                 </defs>
                 <rect width="720" height="250" fill="#ffffff"/>
-                <text x="16" y="24" font-family="Manrope, Inter, sans-serif" font-size="12.5" font-weight="700" fill="#1a1f2b">SECUENCIA DE UN QSO FT8 Â· VENTANA = 15 s (TX â‰ˆ 12 s + margen)</text>
+                <text x="16" y="24" font-family="Manrope, Inter, sans-serif" font-size="12.5" font-weight="700" fill="#1a1f2b">SECUENCIA DE UN QSO FT8 · VENTANA = 15 s (TX ≈ 12 s + margen)</text>
 
                 <rect x="16" y="44" width="104" height="50" rx="10" fill="#e8effa" stroke="#0039a6"/>
                 <text x="68" y="72" text-anchor="middle" font-family="Manrope, Inter, sans-serif" font-size="12" font-weight="800" fill="#0039a6">TX A</text>
@@ -121,18 +121,18 @@
                 <text x="40" y="213" font-family="Manrope, Inter, sans-serif" font-size="11" fill="#1a1f2b">CE4JWI (A) transmite</text>
                 <rect x="210" y="200" width="16" height="16" rx="4" fill="#fbe9e7" stroke="#d52b1e"/>
                 <text x="234" y="213" font-family="Manrope, Inter, sans-serif" font-size="11" fill="#1a1f2b">Corresponsal (B) transmite</text>
-                <text x="16" y="240" font-family="Manrope, Inter, sans-serif" font-size="11" fill="#3d4552">QSO completo en â‰ˆ 90 segundos Â· el reporte "R-09" es el RST recibido y "RR73" significa "reporte recibido + 73"</text>
+                <text x="16" y="240" font-family="Manrope, Inter, sans-serif" font-size="11" fill="#3d4552">QSO completo en ≈ 90 segundos · el reporte "R-09" es el RST recibido y "RR73" significa "reporte recibido + 73"</text>
               </svg>
-              <figcaption class="leyenda">Figura 1 - Las 6 ventanas de un QSO FT8 tÃ­pico entre dos estaciones</figcaption>
+              <figcaption class="leyenda">Figura 1 - Las 6 ventanas de un QSO FT8 típico entre dos estaciones</figcaption>
             </figure>
             <br>
             <h3 class="titulo">3. El software esencial</h3>
             <br>
-            <p>Descarga <b>WSJT-X</b> (o su alternativa popular, <b>JTDX</b>). Ambos son gratuitos y compatibles con Windows, macOS y Linux. Al instalarlo, lo primero en <b>Settings â†’ Station</b>: tu indicativo y tu <b>Grid Locator</b> exacto (el tuyo, no el de la capital).</p>
+            <p>Descarga <b>WSJT-X</b> (o su alternativa popular, <b>JTDX</b>). Ambos son gratuitos y compatibles con Windows, macOS y Linux. Al instalarlo, lo primero en <b>Settings → Station</b>: tu indicativo y tu <b>Grid Locator</b> exacto (el tuyo, no el de la capital).</p>
             <br>
             <div class="tip">
               <span class="etiqueta">Consejo</span>
-              Revisa que tu indicativo no tenga espacios ni caracteres raros: WSJT-X lo usa para filtrar llamadas y para el registro automÃ¡tico en tu logbook. En <b>Settings â†’ General</b> puedes activar "Display available decode depth" para ver los reportes de calidad.
+              Revisa que tu indicativo no tenga espacios ni caracteres raros: WSJT-X lo usa para filtrar llamadas y para el registro automático en tu logbook. En <b>Settings → General</b> puedes activar "Display available decode depth" para ver los reportes de calidad.
             </div>
             <br>
             <h3 class="titulo">4. La interfaz de audio y el control de la radio (CAT)</h3>
@@ -141,19 +141,19 @@
             <br>
             <div class="lista">
                 <ul>
-                  <li><b>Audio:</b> la PC recibe el audio del receptor para decodificarlo y envÃ­a audio modulado para transmitir. Las radios modernas traen una tarjeta de sonido interna por cable USB. Si tu equipo es mÃ¡s clÃ¡sico, una interfaz externa tipo <b>Digirig</b> o <b>SignaLink</b> harÃ¡ el trabajo perfectamente.</li>
-                  <li><b>CAT Control:</b> en <b>Settings â†’ Radio</b> selecciona el modelo de tu equipo, el puerto COM y la velocidad (baud). Gracias al CAT, WSJT-X mueve la frecuencia y activa el PTT automÃ¡ticamente. Algunos equipos usan PTT por el propio cable USB (VOX/CAT), otros por RTS o DTR.</li>
+                  <li><b>Audio:</b> la PC recibe el audio del receptor para decodificarlo y envía audio modulado para transmitir. Las radios modernas traen una tarjeta de sonido interna por cable USB. Si tu equipo es más clásico, una interfaz externa tipo <b>Digirig</b> o <b>SignaLink</b> hará el trabajo perfectamente.</li>
+                  <li><b>CAT Control:</b> en <b>Settings → Radio</b> selecciona el modelo de tu equipo, el puerto COM y la velocidad (baud). Gracias al CAT, WSJT-X mueve la frecuencia y activa el PTT automáticamente. Algunos equipos usan PTT por el propio cable USB (VOX/CAT), otros por RTS o DTR.</li>
                 </ul>
             </div>
             <br>
             <div class="aviso">
-              <span class="etiqueta">Â¡El secreto mÃ¡s importante!</span>
-              FT8 funciona en ventanas estrictas de 15 segundos. Si el reloj de tu computadora estÃ¡ desfasado <b>mÃ¡s de 1 segundo</b>, no decodificarÃ¡s a nadie ni nadie te escucharÃ¡. No confÃ­es en el reloj de Windows: usa un sincronizador <b>NTP</b> (NetTime o Dimension 4) para mantener la hora de tu PC al milisegundo mediante servidores de internet.
+              <span class="etiqueta">¡El secreto más importante!</span>
+              FT8 funciona en ventanas estrictas de 15 segundos. Si el reloj de tu computadora está desfasado <b>más de 1 segundo</b>, no decodificarás a nadie ni nadie te escuchará. No confíes en el reloj de Windows: usa un sincronizador <b>NTP</b> (NetTime o Dimension 4) para mantener la hora de tu PC al milisegundo mediante servidores de internet.
             </div>
             <br>
             <h3 class="titulo">5. Frecuencias de actividad</h3>
             <br>
-            <p>WSJT-X trae configuradas las frecuencias tÃ­picas del plan de banda para cada modo. Estas son las referencias mÃ¡s usadas en HF:</p>
+            <p>WSJT-X trae configuradas las frecuencias típicas del plan de banda para cada modo. Estas son las referencias más usadas en HF:</p>
             <br>
             <div class="tabla-scroll">
               <table>
@@ -176,40 +176,40 @@
             <br>
             <div class="nota">
               <span class="etiqueta">Nota</span>
-              Estas frecuencias son <b>referenciales</b> y varÃ­an segÃºn la normativa de tu paÃ­s. En Chile, verifica siempre los lÃ­mites de tu licencia y no emitas fuera de banda.
+              Estas frecuencias son <b>referenciales</b> y varían según la normativa de tu país. En Chile, verifica siempre los límites de tu licencia y no emitas fuera de banda.
             </div>
             <br>
             <h3 class="titulo">6. Ajusta la potencia (no sature)</h3>
             <br>
-            <p>FT8 es un modo diseÃ±ado para seÃ±ales dÃ©biles. No necesitas transmitir con 100 watts directos. Ajusta el nivel de audio de tu PC para que el <b>ALC</b> de tu radio no se dispare y empieza probando con <b>20 a 30 watts</b>. Te sorprenderÃ¡ los paÃ­ses que puedes alcanzar con esa potencia: la antena y la buena sintonÃ­a aportan mÃ¡s que los watts de mÃ¡s.</p>
+            <p>FT8 es un modo diseñado para señales débiles. No necesitas transmitir con 100 watts directos. Ajusta el nivel de audio de tu PC para que el <b>ALC</b> de tu radio no se dispare y empieza probando con <b>20 a 30 watts</b>. Te sorprenderá los países que puedes alcanzar con esa potencia: la antena y la buena sintonía aportan más que los watts de más.</p>
             <br>
             <div class="aviso">
               <span class="etiqueta">Cuidado con el ALC</span>
-              Un ALC en rojo satura la seÃ±al: genera "splatter" que pisa a las estaciones vecinas y degrada tu propio decodificado. Sube el volumen de audio hasta que el ALC apenas se mueva, sin exceder el 30% de su escala. En radios con "DATA mode", usa esa posiciÃ³n: apaga el procesador y el micrÃ³fono.
+              Un ALC en rojo satura la señal: genera "splatter" que pisa a las estaciones vecinas y degrada tu propio decodificado. Sube el volumen de audio hasta que el ALC apenas se mueva, sin exceder el 30% de su escala. En radios con "DATA mode", usa esa posición: apaga el procesador y el micrófono.
             </div>
             <br>
-            <h3 class="titulo">7. OperaciÃ³n bÃ¡sica</h3>
+            <h3 class="titulo">7. Operación básica</h3>
             <br>
-            <p>En la ventana principal, haz clic en <b>"Enable Tx"</b> con la opciÃ³n <b>"Call 1st"</b> para responder al primer corresponsal que llame, o selecciona <b>"CQ"</b> para que te llamen a ti. El programa ejecuta solo el protocolo: tÃº solo vigilas que el decodificado sea correcto. Cuando veas <b>RR73</b> o <b>73</b>, el QSO estÃ¡ completo y WSJT-X lo guarda automÃ¡ticamente en tu log si configuraste el archivo ADIF.</p>
+            <p>En la ventana principal, haz clic en <b>"Enable Tx"</b> con la opción <b>"Call 1st"</b> para responder al primer corresponsal que llame, o selecciona <b>"CQ"</b> para que te llamen a ti. El programa ejecuta solo el protocolo: tú solo vigilas que el decodificado sea correcto. Cuando veas <b>RR73</b> o <b>73</b>, el QSO está completo y WSJT-X lo guarda automáticamente en tu log si configuraste el archivo ADIF.</p>
             <br>
-            <p>Para cazar DX y concursos con DXpediciones, usa el modo <b>Fox/Hound</b>: la estaciÃ³n "Fox" transmite en secuencias largas mientras los "Hounds" responden en la frecuencia indicada por el propio equipo.</p>
+            <p>Para cazar DX y concursos con DXpediciones, usa el modo <b>Fox/Hound</b>: la estación "Fox" transmite en secuencias largas mientras los "Hounds" responden en la frecuencia indicada por el propio equipo.</p>
             <br>
-            <p>AnÃ­mate a probarlo, configura tu cascada (waterfall) y nos vemos haciendo TX en cualquier momento. Â¡73!</p>
+            <p>Anímate a probarlo, configura tu cascada (waterfall) y nos vemos haciendo TX en cualquier momento. ¡73!</p>
           </div>
           
       </section>
       
-      <!-- â•”â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•— -->
-      <!-- â•‘              FIN DEL CONTENIDO PRINCIPAL                   â•‘ -->
-      <!-- â•šâ•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+      <!-- ╔════════════════════════════════════════════════════════════╗ -->
+      <!-- ║              FIN DEL CONTENIDO PRINCIPAL                   ║ -->
+      <!-- ╚════════════════════════════════════════════════════════════╝ -->
 
     </div>
 
-    <!-- NO TOCAR: Sidebar cargado automÃ¡ticamente (incluye slider) -->
+    <!-- NO TOCAR: Sidebar cargado automáticamente (incluye slider) -->
     <div id="sidebar-container"></div>
   </main>
 
-  <!-- NO TOCAR: Footer cargado automÃ¡ticamente -->
+  <!-- NO TOCAR: Footer cargado automáticamente -->
   <div id="footer-container"></div>
 
   <!-- Script que carga todos los componentes -->
