@@ -771,4 +771,24 @@ const ACTIVIDADES = [
   date: "9 Septiembre 2026",
   url: "hitos_mina_chivato_2026.html",
 },
+{
+  id: 80,
+  title: "Hitos de Maule - Casona Cultural Duao 2026",
+  image: "public/CASONA CULTURAL DUAO.webp",
+  status: "EN VIVO",
+  description:
+    "Activación especial Hitos de Maule - Casona Cultural Duao. Solo APRS con la frase CASONA a la estación CE4JWI-10. QSL conmemorativa automática y ranking en tiempo real.",
+  date: "10 Septiembre 2026",
+  url: "hitos_casona_cultural_duao_2026.html",
+},
+{
+  id: 81,
+  title: "Hitos de Maule - Parroquia San José de Duao 2026",
+  image: "public/PARROQUIA SAN JOSE DE DUAO.webp",
+  status: "PRÓXIMAMENTE",
+  description:
+    "Activación especial Hitos de Maule - Parroquia San José de Duao. Solo APRS con la frase PARROQUIA a la estación CE4JWI-10. QSL conmemorativa automática y ranking en tiempo real.",
+  date: "11 Septiembre 2026",
+  url: "hitos_parroquia_san_jose_duao_2026.html",
+},
 ]
