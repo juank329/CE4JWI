@@ -1,5 +1,11 @@
 {
   "buildCommand": null,
   "outputDirectory": ".",
-  "framework": null
+  "framework": null,
+  "rewrites": [
+    { "source": "/api/ranking-hitos-mina", "destination": "/api/ranking-hitos?actividad=mina" },
+    { "source": "/api/ranking-hitos-rio", "destination": "/api/ranking-hitos?actividad=rio" },
+    { "source": "/api/ranking-hitos-casona", "destination": "/api/ranking-hitos?actividad=casona" },
+    { "source": "/api/ranking-hitos-parroquia", "destination": "/api/ranking-hitos?actividad=parroquia" }
+  ]
 }
