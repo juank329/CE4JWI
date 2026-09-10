@@ -148,7 +148,7 @@ a { color: inherit; }
   font: inherit;
 }
 
-/* Dropdown solo con icono (sin texto): botÃ³n circular */
+/* Dropdown solo con icono (sin texto): botón circular */
 .nav-dropdown-toggle.nav-icon-only {
   justify-content: center;
   width: 40px;
@@ -335,7 +335,7 @@ a { color: inherit; }
   50% { box-shadow: 0 0 0 5px rgba(52, 199, 89, 0); }
 }
 
-/* Ãtems de la marquesina como enlace a la actividad */
+/* Ítems de la marquesina como enlace a la actividad */
 .marquee-link {
   color: var(--white);
   text-decoration: none;
@@ -419,7 +419,7 @@ a { color: inherit; }
   .activity-grid { grid-template-columns: repeat(3, 1fr); }
 }
 
-/* Variante de 4 columnas (pÃ¡gina Novedades) */
+/* Variante de 4 columnas (página Novedades) */
 @media (min-width: 1024px) {
   .activity-grid--wide { grid-template-columns: repeat(4, 1fr); }
 }
@@ -1202,7 +1202,7 @@ ol { margin-left: 1.5rem; font-weight: bold; }
   .page-content { padding: 1.25rem; }
 }
 
-/* ============================= PaginaciÃ³n ============================= */
+/* ============================= Paginación ============================= */
 .pagination {
   display: flex;
   flex-wrap: wrap;
@@ -1551,13 +1551,13 @@ img, svg, video, iframe, embed, object {
   .marquee-badge { font-size: 0.56rem; padding: 0.15rem 0.5rem; }
 }
 
-/* Widget QRZ: pila vertical en mÃ³vil */
+/* Widget QRZ: mantener input + botón BUSCAR en fila (botón a la derecha) en móvil */
 @media (max-width: 480px) {
-  .widget-content form#topcall { flex-direction: column; }
-  .widget-content input#tsubmit { width: 100%; }
+  .widget-content form#topcall { flex-direction: row; flex-wrap: nowrap; }
+  .widget-content input#tsubmit { flex: 0 0 auto; width: auto; padding: 0.55rem 0.75rem; }
 }
 
-/* Formularios de herramientas: pila vertical en mÃ³vil */
+/* Formularios de herramientas: pila vertical en móvil */
 @media (max-width: 480px) {
   .tool-form { flex-direction: column; }
   .tool-form button { width: 100%; }
