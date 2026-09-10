@@ -180,9 +180,9 @@
             body { padding: 10px; }
             .container { padding: 16px; }
             .grid-qsl { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
-            .search-box { flex-wrap: wrap; }
-            input[type="text"] { flex: 1 1 100%; }
-            button { flex: 1 1 100%; }
+            .search-box { flex-wrap: nowrap; }
+            input[type="text"] { flex: 1 1 auto; min-width: 56px; }
+            button { flex: 0 0 auto; padding: 12px 14px; }
         }
         @media (max-width: 380px) {
             .grid-qsl { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
