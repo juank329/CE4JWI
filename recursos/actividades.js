@@ -765,7 +765,7 @@ const ACTIVIDADES = [
   id: 79,
   title: "Hitos de Maule - Mina El Chivato 2026",
   image: "public/hitos_mina.webp",
-  status: "EN VIVO",
+  status: "FINALIZADO",
   description:
     "Activación especial Hitos de Maule - Mina El Chivato. Solo APRS con la frase MINA a la estación CE4JWI-10. QSL conmemorativa automática y ranking en tiempo real.",
   date: "9 Septiembre 2026",
