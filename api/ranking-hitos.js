@@ -47,7 +47,9 @@ const ACTIVIDADES = {
 
 function fechaVencida(cfg) {
   if (!cfg.fin) return false;
-  const hoy = new Date().toISOString().slice(0, 10);
+  // Fecha local de Chile (UTC-4, igual que el campo "actualizado").
+  const t = new Date().getTime() - 4 * 3600000;
+  const hoy = new Date(t).toISOString().slice(0, 10);
   return cfg.fin < hoy;
 }
 
