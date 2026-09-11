@@ -11,7 +11,6 @@ const fs = require("fs");
 const path = require("path");
 
 const BASE = "https://qsl.net/ce4jwi";
-const BASE_XR4MAU = "https://qsl.net/xr4mau";
 
 // Actividades con ranking congelado (final.json permanente en el repo)
 const CONGELADAS = ["talca", "agosto", "septiembre", "circo", "vino", "hitos-rio"];
@@ -26,7 +25,7 @@ const VIVAS = [
   { base: BASE, adif: "log_volantin.adi", actividad: "Elevar Volantines" },
   { base: BASE, adif: "log_mina.adi", actividad: "Hitos de Maule - Mina El Chivato" },
   { base: BASE, adif: "log_ce4jwi.adi", actividad: "General CE4JWI" },
-  { base: BASE_XR4MAU, adif: "log_choripan.adi", actividad: "Día del Choripán en Chile 2026" },
+  { base: BASE, adif: "log_choripan.adi", actividad: "Día del Choripán en Chile 2026" },
 ];
 
 const PROPIAS = new Set(["CE4JWI", "XR4MAU"]);

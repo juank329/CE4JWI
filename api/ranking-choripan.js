@@ -1,8 +1,8 @@
 // Ranking EN VIVO de la actividad "Dia del Choripán en Chile 2026" (XR4MAU-10).
-// Fuente: el ADIF que el bot XR4MAU-10 sube a qsl.net/xr4mau/log_choripan.adi.
+// Fuente: el ADIF que el bot XR4MAU-10 sube a qsl.net/ce4jwi/log_choripan.adi.
 // Cada contacto con la frase CHORIPAN suma 1 punto.
 
-const BASE = "https://qsl.net/xr4mau";
+const BASE = "https://qsl.net/ce4jwi";
 
 async function handler(req, res) {
   try {
