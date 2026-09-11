@@ -791,4 +791,14 @@ const ACTIVIDADES = [
   date: "11 Septiembre 2026",
   url: "hitos_parroquia_san_jose_duao_2026.html",
 },
+{
+  id: 82,
+  title: "Día del Choripán en Chile 2026",
+  image: "public/Dia del Choripan en Chile.webp",
+  status: "EN VIVO",
+  description:
+    "Activación especial Día del Choripán en Chile. Solo APRS con la frase CHORIPAN a la estación XR4MAU-10. QSL conmemorativa automática y ranking en tiempo real.",
+  date: "10 Septiembre 2026",
+  url: "dia_del_choripan_en_chile_2026.html",
+},
 ]

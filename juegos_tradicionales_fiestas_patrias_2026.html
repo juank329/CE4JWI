@@ -352,6 +352,19 @@
 
       function pintar(d) {
         if (!d.ok || !Array.isArray(d.filas)) throw new Error("formato invalido");
+        var live = document.querySelector(".ranking-live");
+        if (live) {
+          var fin = d.congelado === true;
+          live.textContent = fin ? "Finalizado" : "En vivo";
+          live.style.background = fin ? "#6c757d" : "#0e8a5f";
+          live.className = "ranking-live" + (fin ? " finalizado" : "");
+          if (fin && !document.getElementById("rk-fin-style")) {
+            var st = document.createElement("style");
+            st.id = "rk-fin-style";
+            st.textContent = ".ranking-live.finalizado::before{animation:none !important;opacity:1 !important}";
+            document.head.appendChild(st);
+          }
+        }
         var badge = document.querySelector(".ranking-header .total-badge");
         if (badge) badge.textContent = d.totalContactos + " puntos \u00b7 " + d.participantes + " participantes";
         var upd = document.getElementById("ranking-updated");

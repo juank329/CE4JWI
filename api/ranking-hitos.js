@@ -23,23 +23,33 @@ const ACTIVIDADES = {
     adif: "log_mina.adi",
     final: path.join(__dirname, "..", "ranking-data", "hitos-mina", "final.json"),
     congelado: true,
+    fin: null,
   },
   rio: {
     adif: "log_rio.adi",
     final: path.join(__dirname, "..", "ranking-data", "hitos-rio", "final.json"),
     congelado: true,
+    fin: null,
   },
   casona: {
     adif: "log_casona.adi",
     final: null,
     congelado: false,
+    fin: "2026-09-10",
   },
   parroquia: {
     adif: "log_parroquia.adi",
     final: null,
     congelado: false,
+    fin: "2026-09-11",
   },
 };
+
+function fechaVencida(cfg) {
+  if (!cfg.fin) return false;
+  const hoy = new Date().toISOString().slice(0, 10);
+  return cfg.fin < hoy;
+}
 
 function servirCongelado(res, cfg) {
   const datos = JSON.parse(fs.readFileSync(cfg.final, "utf8"));
@@ -57,7 +67,7 @@ function servirCongelado(res, cfg) {
   });
 }
 
-async function servirEnVivo(res, cfg) {
+async function servirEnVivo(res, cfg, congelado) {
   try {
     const resp = await fetch(`${BASE}/${cfg.adif}`);
     const texto = resp.ok ? await resp.text() : "";
@@ -110,7 +120,7 @@ async function servirEnVivo(res, cfg) {
       totalContactos: filas.reduce((s, f) => s + f.total, 0),
       participantes: filas.length,
       filas,
-      congelado: false,
+      congelado: !!congelado,
     });
   } catch (e) {
     res.status(500).json({ ok: false, error: String(e) });
@@ -124,15 +134,19 @@ async function handler(req, res) {
     res.status(404).json({ ok: false, error: "actividad desconocida: " + actividad });
     return;
   }
-  if (cfg.congelado) {
-    try {
-      servirCongelado(res, cfg);
-    } catch (e) {
-      res.status(500).json({ ok: false, error: "final.json no disponible", detalle: String(e) });
+  if (cfg.congelado || fechaVencida(cfg)) {
+    if (cfg.final) {
+      try {
+        servirCongelado(res, cfg);
+      } catch (e) {
+        res.status(500).json({ ok: false, error: "final.json no disponible", detalle: String(e) });
+      }
+      return;
     }
+    await servirEnVivo(res, cfg, true);
     return;
   }
-  await servirEnVivo(res, cfg);
+  await servirEnVivo(res, cfg, false);
 }
 
 module.exports = handler;
