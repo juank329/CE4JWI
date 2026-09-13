@@ -1,21 +1,23 @@
-// Ranking DEFINITIVO/consolidado de actividades cerradas.
+// Ranking DEFINITIVO/consolidado de todas las actividades CERRADAS.
 //
 // Sirve el final.json (copia permanente en git) de cualquier actividad
-// congelada mediante ?actividad=<clave>. Reemplaza a los endpoints
-// individuales ranking-chilenidad, ranking-choripan y ranking-juegos
-// para mantenerse bajo el limite de 12 funciones serverless del plan
-// Hobby de Vercel. Las URLs antiguas se conservan con rewrites en
-// vercel.json (misma estrategia que ranking-hitos.js).
+// congelada mediante ?actividad=<clave>. Consolida en UNA funcion todas
+// las actividades terminadas (talca, agosto, septiembre, circo, vino,
+// hitos-*, chilenidad, choripan, juegos) para mantenerse bajo el limite
+// de 12 funciones serverless del plan Hobby de Vercel.
+//
+// REGLA PARA PROXIMAS ACTIVIDADES:
+// 1. Mientras la actividad esta EN VIVO usa un endpoint dedicado (ej:
+//    ranking-<nueva>.js) que lea su ADIF en qsl.net.
+// 2. Al terminar la actividad: generar ranking-data/<clave>/final.json,
+//    agregar un rewrite en vercel.json hacia /api/ranking-final?actividad=
+//    y borrar el endpoint en vivo. Asi el total de funciones nunca crece.
 
 const fs = require("fs");
 const path = require("path");
 
 function handler(req, res) {
-  const actividad = req.query && req.query.actividad;
-  if (!actividad) {
-    res.status(400).json({ ok: false, error: "falta ?actividad=" });
-    return;
-  }
+  const actividad = (req.query && req.query.actividad) || "talca";
   const ruta = path.join(__dirname, "..", "ranking-data", String(actividad), "final.json");
   let datos;
   try {
