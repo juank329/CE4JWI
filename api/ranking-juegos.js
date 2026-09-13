@@ -15,6 +15,14 @@
 
 const BASE = "https://qsl.net/ce4jwi";
 
+const FIN = "2026-09-07"; // fin de la actividad Juegos Tradicionales (02-07 Septiembre 2026)
+
+function fechaVencida() {
+  const t = new Date().getTime() - 4 * 3600000;
+  const hoy = new Date(t).toISOString().slice(0, 10);
+  return FIN < hoy;
+}
+
 const JUEGOS = [
   {
     id: "trompo",
@@ -150,7 +158,7 @@ function handler(req, res) {
         activo: juegosVivos.get(j.id) || false,
       })),
       filas,
-      congelado: false,
+      congelado: fechaVencida(),
     });
   })().catch((e) => {
     res.status(500).json({ ok: false, error: String(e) });

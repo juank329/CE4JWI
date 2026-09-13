@@ -25,6 +25,7 @@ const VIVAS = [
   { base: BASE, adif: "log_volantin.adi", actividad: "Elevar Volantines" },
   { base: BASE, adif: "log_mina.adi", actividad: "Hitos de Maule - Mina El Chivato" },
   { base: BASE, adif: "log_ce4jwi.adi", actividad: "General CE4JWI" },
+  { base: BASE, adif: "log_maule.adi", actividad: "Fiesta de la Chilenidad Maule 2026" },
   { base: BASE, adif: "log_choripan.adi", actividad: "Día del Choripán en Chile 2026" },
 ];
 

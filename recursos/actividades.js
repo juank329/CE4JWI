@@ -801,4 +801,14 @@ const ACTIVIDADES = [
   date: "10 Septiembre 2026",
   url: "dia_del_choripan_en_chile_2026.html",
 },
+{
+  id: 83,
+  title: "Fiesta de la Chilenidad Maule 2026",
+  image: "public/CHILENIDAD MAULE 2026.webp",
+  status: "EN VIVO",
+  description:
+    "Activación especial Fiesta de la Chilenidad Maule. Solo APRS con la frase MAULE a la estación XR4MAU-10. QSL conmemorativa automática y ranking en tiempo real.",
+  date: "12 Septiembre 2026",
+  url: "fiesta_de_la_chilenidad_maule_2026.html",
+},
 ]

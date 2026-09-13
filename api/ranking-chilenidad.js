@@ -1,10 +1,10 @@
-// Ranking EN VIVO de la actividad "Dia del Choripán en Chile 2026" (XR4MAU-10).
-// Fuente: el ADIF que el bot XR4MAU-10 sube a qsl.net/ce4jwi/log_choripan.adi.
-// Cada contacto con la frase CHORIPAN suma 1 punto.
+// Ranking EN VIVO de la actividad "Fiesta de la Chilenidad Maule 2026" (XR4MAU-10).
+// Fuente: el ADIF que el bot XR4MAU-10 sube a qsl.net/ce4jwi/log_maule.adi.
+// Cada contacto con la frase MAULE suma 1 punto.
 
 const BASE = "https://qsl.net/ce4jwi";
 
-const FIN = "2026-09-10"; // fin de la actividad Día del Choripán en Chile 2026
+const FIN = "2026-09-12"; // fin de la actividad Fiesta de la Chilenidad Maule 2026
 
 function fechaVencida() {
   const t = new Date().getTime() - 4 * 3600000;
@@ -14,7 +14,7 @@ function fechaVencida() {
 
 async function handler(req, res) {
   try {
-    const resp = await fetch(`${BASE}/log_choripan.adi`);
+    const resp = await fetch(`${BASE}/log_maule.adi`);
     const texto = resp.ok ? await resp.text() : "";
     const qsos = [];
     for (const linea of texto.split(/\r?\n/)) {
@@ -59,8 +59,8 @@ async function handler(req, res) {
     res.setHeader("Cache-Control", "no-store");
     res.status(200).json({
       ok: true,
-      actividad: "dia-del-choripan-2026",
-      nombre: "Día del Choripán en Chile 2026",
+      actividad: "fiesta-de-la-chilenidad-2026",
+      nombre: "Fiesta de la Chilenidad Maule 2026",
       actualizado,
       totalContactos: filas.reduce((s, f) => s + f.total, 0),
       participantes: filas.length,
