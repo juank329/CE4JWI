@@ -6,6 +6,9 @@
     { "source": "/api/ranking-hitos-mina", "destination": "/api/ranking-hitos?actividad=mina" },
     { "source": "/api/ranking-hitos-rio", "destination": "/api/ranking-hitos?actividad=rio" },
     { "source": "/api/ranking-hitos-casona", "destination": "/api/ranking-hitos?actividad=casona" },
-    { "source": "/api/ranking-hitos-parroquia", "destination": "/api/ranking-hitos?actividad=parroquia" }
+    { "source": "/api/ranking-hitos-parroquia", "destination": "/api/ranking-hitos?actividad=parroquia" },
+    { "source": "/api/ranking-chilenidad", "destination": "/api/ranking-final?actividad=chilenidad" },
+    { "source": "/api/ranking-choripan", "destination": "/api/ranking-final?actividad=choripan" },
+    { "source": "/api/ranking-juegos", "destination": "/api/ranking-final?actividad=juegos" }
   ]
 }
