@@ -33,15 +33,15 @@ const ACTIVIDADES = {
   },
   casona: {
     adif: "log_casona.adi",
-    final: null,
-    congelado: false,
-    fin: "2026-09-10",
+    final: path.join(__dirname, "..", "ranking-data", "hitos-casona", "final.json"),
+    congelado: true,
+    fin: null,
   },
   parroquia: {
     adif: "log_parroquia.adi",
-    final: null,
-    congelado: false,
-    fin: "2026-09-11",
+    final: path.join(__dirname, "..", "ranking-data", "hitos-parroquia", "final.json"),
+    congelado: true,
+    fin: null,
   },
 };
 

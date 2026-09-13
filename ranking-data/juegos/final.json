@@ -1,0 +1,1783 @@
+{
+  "ok": true,
+  "actividad": "juegos-tradicionales-fiestas-patrias",
+  "nombre": "Juegos Tradicionales de Fiestas Patrias en Chile",
+  "actualizado": "2026-09-12T21:08:00-04:00",
+  "totalContactos": 311,
+  "participantes": 107,
+  "juegos": [
+    {
+      "id": "trompo",
+      "nombre": "El Trompo",
+      "frase": "TROMPO",
+      "emoji": "🪀",
+      "activo": true
+    },
+    {
+      "id": "emboque",
+      "nombre": "El Emboque",
+      "frase": "EMBOQUE",
+      "emoji": "⚱️",
+      "activo": true
+    },
+    {
+      "id": "palo_encebado",
+      "nombre": "El Palo Ensebado",
+      "frase": "PALO ENSEBADO",
+      "emoji": "🪵",
+      "activo": true
+    },
+    {
+      "id": "carreras_en_saco",
+      "nombre": "Carreras en Saco",
+      "frase": "CARRERAS EN SACO",
+      "emoji": "🛶",
+      "activo": true
+    },
+    {
+      "id": "tirar_la_cuerda",
+      "nombre": "Tirar la Cuerda",
+      "frase": "TIRAR LA CUERDA",
+      "emoji": "🪢",
+      "activo": true
+    },
+    {
+      "id": "elevar_volantines",
+      "nombre": "Elevar Volantines",
+      "frase": "ELEVAR VOLANTINES",
+      "emoji": "🪁",
+      "activo": true
+    }
+  ],
+  "filas": [
+    {
+      "call": "YV5GHW",
+      "total": 6,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "08/09/2026",
+        "hora": "14:50:04"
+      },
+      "juegos": [
+        "trompo",
+        "emboque",
+        "palo_encebado",
+        "carreras_en_saco",
+        "tirar_la_cuerda",
+        "elevar_volantines"
+      ]
+    },
+    {
+      "call": "LU9DUV",
+      "total": 6,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "07/09/2026",
+        "hora": "20:19:34"
+      },
+      "juegos": [
+        "trompo",
+        "emboque",
+        "palo_encebado",
+        "carreras_en_saco",
+        "tirar_la_cuerda",
+        "elevar_volantines"
+      ]
+    },
+    {
+      "call": "OA4DVG",
+      "total": 6,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "07/09/2026",
+        "hora": "15:32:18"
+      },
+      "juegos": [
+        "trompo",
+        "emboque",
+        "palo_encebado",
+        "carreras_en_saco",
+        "tirar_la_cuerda",
+        "elevar_volantines"
+      ]
+    },
+    {
+      "call": "ZP6CEA",
+      "total": 6,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "07/09/2026",
+        "hora": "14:53:51"
+      },
+      "juegos": [
+        "trompo",
+        "emboque",
+        "palo_encebado",
+        "carreras_en_saco",
+        "tirar_la_cuerda",
+        "elevar_volantines"
+      ]
+    },
+    {
+      "call": "CX3JG",
+      "total": 6,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "07/09/2026",
+        "hora": "13:24:19"
+      },
+      "juegos": [
+        "trompo",
+        "emboque",
+        "palo_encebado",
+        "carreras_en_saco",
+        "tirar_la_cuerda",
+        "elevar_volantines"
+      ]
+    },
+    {
+      "call": "EA7FP",
+      "total": 6,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "07/09/2026",
+        "hora": "13:16:06"
+      },
+      "juegos": [
+        "trompo",
+        "emboque",
+        "palo_encebado",
+        "carreras_en_saco",
+        "tirar_la_cuerda",
+        "elevar_volantines"
+      ]
+    },
+    {
+      "call": "LU9TRL",
+      "total": 6,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "07/09/2026",
+        "hora": "13:07:43"
+      },
+      "juegos": [
+        "trompo",
+        "emboque",
+        "palo_encebado",
+        "carreras_en_saco",
+        "tirar_la_cuerda",
+        "elevar_volantines"
+      ]
+    },
+    {
+      "call": "CX2TG",
+      "total": 6,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "07/09/2026",
+        "hora": "13:00:16"
+      },
+      "juegos": [
+        "trompo",
+        "emboque",
+        "palo_encebado",
+        "carreras_en_saco",
+        "tirar_la_cuerda",
+        "elevar_volantines"
+      ]
+    },
+    {
+      "call": "LU2BR",
+      "total": 6,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "07/09/2026",
+        "hora": "12:30:44"
+      },
+      "juegos": [
+        "trompo",
+        "emboque",
+        "palo_encebado",
+        "carreras_en_saco",
+        "tirar_la_cuerda",
+        "elevar_volantines"
+      ]
+    },
+    {
+      "call": "LU6EGD",
+      "total": 6,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "07/09/2026",
+        "hora": "12:28:53"
+      },
+      "juegos": [
+        "trompo",
+        "emboque",
+        "palo_encebado",
+        "carreras_en_saco",
+        "tirar_la_cuerda",
+        "elevar_volantines"
+      ]
+    },
+    {
+      "call": "CA3PVF",
+      "total": 6,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "07/09/2026",
+        "hora": "12:26:26"
+      },
+      "juegos": [
+        "trompo",
+        "emboque",
+        "palo_encebado",
+        "carreras_en_saco",
+        "tirar_la_cuerda",
+        "elevar_volantines"
+      ]
+    },
+    {
+      "call": "CA4NDW",
+      "total": 6,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "07/09/2026",
+        "hora": "02:20:50"
+      },
+      "juegos": [
+        "trompo",
+        "emboque",
+        "palo_encebado",
+        "carreras_en_saco",
+        "tirar_la_cuerda",
+        "elevar_volantines"
+      ]
+    },
+    {
+      "call": "LU2DHU",
+      "total": 6,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "07/09/2026",
+        "hora": "01:29:02"
+      },
+      "juegos": [
+        "trompo",
+        "emboque",
+        "palo_encebado",
+        "carreras_en_saco",
+        "tirar_la_cuerda",
+        "elevar_volantines"
+      ]
+    },
+    {
+      "call": "YC2UAI",
+      "total": 6,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "07/09/2026",
+        "hora": "01:21:03"
+      },
+      "juegos": [
+        "trompo",
+        "emboque",
+        "palo_encebado",
+        "carreras_en_saco",
+        "tirar_la_cuerda",
+        "elevar_volantines"
+      ]
+    },
+    {
+      "call": "CA4FAX",
+      "total": 6,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "07/09/2026",
+        "hora": "00:50:54"
+      },
+      "juegos": [
+        "trompo",
+        "emboque",
+        "palo_encebado",
+        "carreras_en_saco",
+        "tirar_la_cuerda",
+        "elevar_volantines"
+      ]
+    },
+    {
+      "call": "YG1CBG",
+      "total": 6,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "07/09/2026",
+        "hora": "00:46:00"
+      },
+      "juegos": [
+        "trompo",
+        "emboque",
+        "palo_encebado",
+        "carreras_en_saco",
+        "tirar_la_cuerda",
+        "elevar_volantines"
+      ]
+    },
+    {
+      "call": "XR4MAU",
+      "total": 6,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "07/09/2026",
+        "hora": "00:37:29"
+      },
+      "juegos": [
+        "trompo",
+        "emboque",
+        "palo_encebado",
+        "carreras_en_saco",
+        "tirar_la_cuerda",
+        "elevar_volantines"
+      ]
+    },
+    {
+      "call": "LU4EOU",
+      "total": 5,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "07/09/2026",
+        "hora": "16:55:14"
+      },
+      "juegos": [
+        "trompo",
+        "emboque",
+        "palo_encebado",
+        "tirar_la_cuerda",
+        "elevar_volantines"
+      ]
+    },
+    {
+      "call": "LW3DFA",
+      "total": 5,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "07/09/2026",
+        "hora": "14:59:41"
+      },
+      "juegos": [
+        "trompo",
+        "emboque",
+        "palo_encebado",
+        "tirar_la_cuerda",
+        "elevar_volantines"
+      ]
+    },
+    {
+      "call": "CX2JO",
+      "total": 5,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "07/09/2026",
+        "hora": "14:22:27"
+      },
+      "juegos": [
+        "trompo",
+        "palo_encebado",
+        "carreras_en_saco",
+        "tirar_la_cuerda",
+        "elevar_volantines"
+      ]
+    },
+    {
+      "call": "LU7QAY",
+      "total": 5,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "07/09/2026",
+        "hora": "13:14:02"
+      },
+      "juegos": [
+        "trompo",
+        "palo_encebado",
+        "carreras_en_saco",
+        "tirar_la_cuerda",
+        "elevar_volantines"
+      ]
+    },
+    {
+      "call": "LU2EQI",
+      "total": 5,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "07/09/2026",
+        "hora": "12:53:18"
+      },
+      "juegos": [
+        "trompo",
+        "emboque",
+        "palo_encebado",
+        "tirar_la_cuerda",
+        "elevar_volantines"
+      ]
+    },
+    {
+      "call": "CA3MKF",
+      "total": 5,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "07/09/2026",
+        "hora": "12:43:09"
+      },
+      "juegos": [
+        "trompo",
+        "emboque",
+        "palo_encebado",
+        "tirar_la_cuerda",
+        "elevar_volantines"
+      ]
+    },
+    {
+      "call": "W4CVT",
+      "total": 5,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "07/09/2026",
+        "hora": "12:24:00"
+      },
+      "juegos": [
+        "trompo",
+        "emboque",
+        "palo_encebado",
+        "carreras_en_saco",
+        "elevar_volantines"
+      ]
+    },
+    {
+      "call": "YD7VTG",
+      "total": 5,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "07/09/2026",
+        "hora": "03:33:53"
+      },
+      "juegos": [
+        "trompo",
+        "palo_encebado",
+        "carreras_en_saco",
+        "tirar_la_cuerda",
+        "elevar_volantines"
+      ]
+    },
+    {
+      "call": "9W8RBR",
+      "total": 5,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "07/09/2026",
+        "hora": "02:20:32"
+      },
+      "juegos": [
+        "emboque",
+        "palo_encebado",
+        "carreras_en_saco",
+        "tirar_la_cuerda",
+        "elevar_volantines"
+      ]
+    },
+    {
+      "call": "YD2VLD",
+      "total": 5,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "07/09/2026",
+        "hora": "01:25:22"
+      },
+      "juegos": [
+        "trompo",
+        "palo_encebado",
+        "carreras_en_saco",
+        "tirar_la_cuerda",
+        "elevar_volantines"
+      ]
+    },
+    {
+      "call": "YD2BBH",
+      "total": 5,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "07/09/2026",
+        "hora": "00:55:59"
+      },
+      "juegos": [
+        "emboque",
+        "palo_encebado",
+        "carreras_en_saco",
+        "tirar_la_cuerda",
+        "elevar_volantines"
+      ]
+    },
+    {
+      "call": "9W3EZY",
+      "total": 5,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "07/09/2026",
+        "hora": "00:43:52"
+      },
+      "juegos": [
+        "emboque",
+        "palo_encebado",
+        "carreras_en_saco",
+        "tirar_la_cuerda",
+        "elevar_volantines"
+      ]
+    },
+    {
+      "call": "9W3FAB",
+      "total": 5,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "07/09/2026",
+        "hora": "00:39:26"
+      },
+      "juegos": [
+        "emboque",
+        "palo_encebado",
+        "carreras_en_saco",
+        "tirar_la_cuerda",
+        "elevar_volantines"
+      ]
+    },
+    {
+      "call": "LU2XCV",
+      "total": 5,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "06/09/2026",
+        "hora": "21:14:14"
+      },
+      "juegos": [
+        "trompo",
+        "emboque",
+        "palo_encebado",
+        "carreras_en_saco",
+        "tirar_la_cuerda"
+      ]
+    },
+    {
+      "call": "HJ7OZ",
+      "total": 4,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "07/09/2026",
+        "hora": "13:21:32"
+      },
+      "juegos": [
+        "emboque",
+        "palo_encebado",
+        "tirar_la_cuerda",
+        "elevar_volantines"
+      ]
+    },
+    {
+      "call": "EA3FJT",
+      "total": 4,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "07/09/2026",
+        "hora": "13:04:25"
+      },
+      "juegos": [
+        "trompo",
+        "palo_encebado",
+        "tirar_la_cuerda",
+        "elevar_volantines"
+      ]
+    },
+    {
+      "call": "YY4BAJ",
+      "total": 4,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "07/09/2026",
+        "hora": "12:58:19"
+      },
+      "juegos": [
+        "emboque",
+        "palo_encebado",
+        "carreras_en_saco",
+        "elevar_volantines"
+      ]
+    },
+    {
+      "call": "WP4TZM",
+      "total": 4,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "07/09/2026",
+        "hora": "12:34:54"
+      },
+      "juegos": [
+        "emboque",
+        "palo_encebado",
+        "carreras_en_saco",
+        "elevar_volantines"
+      ]
+    },
+    {
+      "call": "YD3AFS",
+      "total": 4,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "07/09/2026",
+        "hora": "02:10:44"
+      },
+      "juegos": [
+        "palo_encebado",
+        "carreras_en_saco",
+        "tirar_la_cuerda",
+        "elevar_volantines"
+      ]
+    },
+    {
+      "call": "YB0TNS",
+      "total": 4,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "07/09/2026",
+        "hora": "02:07:49"
+      },
+      "juegos": [
+        "palo_encebado",
+        "carreras_en_saco",
+        "tirar_la_cuerda",
+        "elevar_volantines"
+      ]
+    },
+    {
+      "call": "YD6HMM",
+      "total": 4,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "07/09/2026",
+        "hora": "00:41:19"
+      },
+      "juegos": [
+        "palo_encebado",
+        "carreras_en_saco",
+        "tirar_la_cuerda",
+        "elevar_volantines"
+      ]
+    },
+    {
+      "call": "KP4LCA",
+      "total": 4,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "06/09/2026",
+        "hora": "15:20:20"
+      },
+      "juegos": [
+        "trompo",
+        "palo_encebado",
+        "carreras_en_saco",
+        "tirar_la_cuerda"
+      ]
+    },
+    {
+      "call": "LW7EDH",
+      "total": 4,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "06/09/2026",
+        "hora": "12:49:28"
+      },
+      "juegos": [
+        "trompo",
+        "emboque",
+        "palo_encebado",
+        "tirar_la_cuerda"
+      ]
+    },
+    {
+      "call": "TG9NZR",
+      "total": 4,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "05/09/2026",
+        "hora": "18:10:56"
+      },
+      "juegos": [
+        "trompo",
+        "emboque",
+        "palo_encebado",
+        "carreras_en_saco"
+      ]
+    },
+    {
+      "call": "YD5NPC",
+      "total": 3,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "07/09/2026",
+        "hora": "03:40:53"
+      },
+      "juegos": [
+        "palo_encebado",
+        "carreras_en_saco",
+        "elevar_volantines"
+      ]
+    },
+    {
+      "call": "YG1RBS",
+      "total": 3,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "07/09/2026",
+        "hora": "02:52:09"
+      },
+      "juegos": [
+        "palo_encebado",
+        "carreras_en_saco",
+        "elevar_volantines"
+      ]
+    },
+    {
+      "call": "YD6HHD",
+      "total": 3,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "07/09/2026",
+        "hora": "01:03:25"
+      },
+      "juegos": [
+        "palo_encebado",
+        "carreras_en_saco",
+        "elevar_volantines"
+      ]
+    },
+    {
+      "call": "PY2KMR",
+      "total": 3,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "07/09/2026",
+        "hora": "00:45:40"
+      },
+      "juegos": [
+        "carreras_en_saco",
+        "tirar_la_cuerda",
+        "elevar_volantines"
+      ]
+    },
+    {
+      "call": "XE1ZKC",
+      "total": 3,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "07/09/2026",
+        "hora": "00:43:32"
+      },
+      "juegos": [
+        "palo_encebado",
+        "carreras_en_saco",
+        "elevar_volantines"
+      ]
+    },
+    {
+      "call": "YD2SMG",
+      "total": 3,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "07/09/2026",
+        "hora": "00:42:34"
+      },
+      "juegos": [
+        "emboque",
+        "carreras_en_saco",
+        "elevar_volantines"
+      ]
+    },
+    {
+      "call": "YY6RTJ",
+      "total": 3,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "06/09/2026",
+        "hora": "06:07:00"
+      },
+      "juegos": [
+        "trompo",
+        "emboque",
+        "tirar_la_cuerda"
+      ]
+    },
+    {
+      "call": "YD6SRR",
+      "total": 3,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "05/09/2026",
+        "hora": "06:41:51"
+      },
+      "juegos": [
+        "emboque",
+        "palo_encebado",
+        "carreras_en_saco"
+      ]
+    },
+    {
+      "call": "OA4DEX",
+      "total": 2,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "07/09/2026",
+        "hora": "21:57:48"
+      },
+      "juegos": [
+        "tirar_la_cuerda",
+        "elevar_volantines"
+      ]
+    },
+    {
+      "call": "OA4DEW",
+      "total": 2,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "07/09/2026",
+        "hora": "21:55:13"
+      },
+      "juegos": [
+        "tirar_la_cuerda",
+        "elevar_volantines"
+      ]
+    },
+    {
+      "call": "LU5VRN",
+      "total": 2,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "07/09/2026",
+        "hora": "13:46:03"
+      },
+      "juegos": [
+        "palo_encebado",
+        "elevar_volantines"
+      ]
+    },
+    {
+      "call": "HJ1BNL",
+      "total": 2,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "07/09/2026",
+        "hora": "12:25:04"
+      },
+      "juegos": [
+        "carreras_en_saco",
+        "elevar_volantines"
+      ]
+    },
+    {
+      "call": "YD0BQO",
+      "total": 2,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "07/09/2026",
+        "hora": "04:31:11"
+      },
+      "juegos": [
+        "carreras_en_saco",
+        "elevar_volantines"
+      ]
+    },
+    {
+      "call": "YD4AAE",
+      "total": 2,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "07/09/2026",
+        "hora": "04:08:50"
+      },
+      "juegos": [
+        "palo_encebado",
+        "elevar_volantines"
+      ]
+    },
+    {
+      "call": "PY2NSA",
+      "total": 2,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "07/09/2026",
+        "hora": "00:52:56"
+      },
+      "juegos": [
+        "tirar_la_cuerda",
+        "elevar_volantines"
+      ]
+    },
+    {
+      "call": "LU1XLI",
+      "total": 2,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "06/09/2026",
+        "hora": "16:38:14"
+      },
+      "juegos": [
+        "carreras_en_saco",
+        "tirar_la_cuerda"
+      ]
+    },
+    {
+      "call": "YD3BEQ",
+      "total": 2,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "05/09/2026",
+        "hora": "10:24:19"
+      },
+      "juegos": [
+        "palo_encebado",
+        "carreras_en_saco"
+      ]
+    },
+    {
+      "call": "YD7KVL",
+      "total": 2,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "05/09/2026",
+        "hora": "08:37:40"
+      },
+      "juegos": [
+        "palo_encebado",
+        "carreras_en_saco"
+      ]
+    },
+    {
+      "call": "YG5NMS",
+      "total": 2,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "05/09/2026",
+        "hora": "07:38:35"
+      },
+      "juegos": [
+        "palo_encebado",
+        "carreras_en_saco"
+      ]
+    },
+    {
+      "call": "YD3ATQ",
+      "total": 2,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "05/09/2026",
+        "hora": "07:08:35"
+      },
+      "juegos": [
+        "palo_encebado",
+        "carreras_en_saco"
+      ]
+    },
+    {
+      "call": "CA6GUI",
+      "total": 2,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "04/09/2026",
+        "hora": "20:58:28"
+      },
+      "juegos": [
+        "emboque",
+        "palo_encebado"
+      ]
+    },
+    {
+      "call": "CE4TQY",
+      "total": 2,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "04/09/2026",
+        "hora": "20:05:52"
+      },
+      "juegos": [
+        "trompo",
+        "palo_encebado"
+      ]
+    },
+    {
+      "call": "HJ6JBV",
+      "total": 2,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "04/09/2026",
+        "hora": "16:46:51"
+      },
+      "juegos": [
+        "emboque",
+        "palo_encebado"
+      ]
+    },
+    {
+      "call": "EA7JWA",
+      "total": 2,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "04/09/2026",
+        "hora": "16:12:12"
+      },
+      "juegos": [
+        "trompo",
+        "palo_encebado"
+      ]
+    },
+    {
+      "call": "EA3HCR",
+      "total": 2,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "03/09/2026",
+        "hora": "19:52:45"
+      },
+      "juegos": [
+        "trompo",
+        "emboque"
+      ]
+    },
+    {
+      "call": "OA4DXG",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "07/09/2026",
+        "hora": "13:09:11"
+      },
+      "juegos": [
+        "elevar_volantines"
+      ]
+    },
+    {
+      "call": "YD7YTB",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "07/09/2026",
+        "hora": "04:52:33"
+      },
+      "juegos": [
+        "elevar_volantines"
+      ]
+    },
+    {
+      "call": "YD2BQC",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "07/09/2026",
+        "hora": "03:16:36"
+      },
+      "juegos": [
+        "elevar_volantines"
+      ]
+    },
+    {
+      "call": "CO5ABC",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "06/09/2026",
+        "hora": "21:31:54"
+      },
+      "juegos": [
+        "tirar_la_cuerda"
+      ]
+    },
+    {
+      "call": "LU8HRC",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "06/09/2026",
+        "hora": "18:12:01"
+      },
+      "juegos": [
+        "tirar_la_cuerda"
+      ]
+    },
+    {
+      "call": "LW6DAZ",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "06/09/2026",
+        "hora": "18:01:02"
+      },
+      "juegos": [
+        "tirar_la_cuerda"
+      ]
+    },
+    {
+      "call": "YC1SNI",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "06/09/2026",
+        "hora": "16:48:07"
+      },
+      "juegos": [
+        "tirar_la_cuerda"
+      ]
+    },
+    {
+      "call": "HJ1JCM",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "06/09/2026",
+        "hora": "15:47:21"
+      },
+      "juegos": [
+        "tirar_la_cuerda"
+      ]
+    },
+    {
+      "call": "CA3EQX",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "06/09/2026",
+        "hora": "15:21:22"
+      },
+      "juegos": [
+        "tirar_la_cuerda"
+      ]
+    },
+    {
+      "call": "OA4DOS",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "06/09/2026",
+        "hora": "15:20:52"
+      },
+      "juegos": [
+        "tirar_la_cuerda"
+      ]
+    },
+    {
+      "call": "YC6BH",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "06/09/2026",
+        "hora": "15:19:27"
+      },
+      "juegos": [
+        "tirar_la_cuerda"
+      ]
+    },
+    {
+      "call": "YD6ASL",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "06/09/2026",
+        "hora": "15:12:26"
+      },
+      "juegos": [
+        "tirar_la_cuerda"
+      ]
+    },
+    {
+      "call": "YY3CCL",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "06/09/2026",
+        "hora": "14:03:54"
+      },
+      "juegos": [
+        "tirar_la_cuerda"
+      ]
+    },
+    {
+      "call": "9W8NIC",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "06/09/2026",
+        "hora": "05:50:00"
+      },
+      "juegos": [
+        "tirar_la_cuerda"
+      ]
+    },
+    {
+      "call": "HK1I",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "06/09/2026",
+        "hora": "03:08:10"
+      },
+      "juegos": [
+        "carreras_en_saco"
+      ]
+    },
+    {
+      "call": "YD2AGT",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "06/09/2026",
+        "hora": "01:37:34"
+      },
+      "juegos": [
+        "carreras_en_saco"
+      ]
+    },
+    {
+      "call": "LU7QGC",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "05/09/2026",
+        "hora": "22:04:25"
+      },
+      "juegos": [
+        "carreras_en_saco"
+      ]
+    },
+    {
+      "call": "LU2JFC",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "05/09/2026",
+        "hora": "19:56:49"
+      },
+      "juegos": [
+        "carreras_en_saco"
+      ]
+    },
+    {
+      "call": "EA5JOO",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "05/09/2026",
+        "hora": "18:14:35"
+      },
+      "juegos": [
+        "carreras_en_saco"
+      ]
+    },
+    {
+      "call": "YC3BQZ",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "05/09/2026",
+        "hora": "14:41:16"
+      },
+      "juegos": [
+        "carreras_en_saco"
+      ]
+    },
+    {
+      "call": "YC3AWK",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "05/09/2026",
+        "hora": "07:41:54"
+      },
+      "juegos": [
+        "carreras_en_saco"
+      ]
+    },
+    {
+      "call": "YD3AQR",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "05/09/2026",
+        "hora": "07:39:19"
+      },
+      "juegos": [
+        "carreras_en_saco"
+      ]
+    },
+    {
+      "call": "9W8AKN",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "05/09/2026",
+        "hora": "07:26:30"
+      },
+      "juegos": [
+        "carreras_en_saco"
+      ]
+    },
+    {
+      "call": "YG3FLB",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "05/09/2026",
+        "hora": "05:08:56"
+      },
+      "juegos": [
+        "palo_encebado"
+      ]
+    },
+    {
+      "call": "YG3EKK",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "05/09/2026",
+        "hora": "05:06:48"
+      },
+      "juegos": [
+        "palo_encebado"
+      ]
+    },
+    {
+      "call": "YG3COM",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "05/09/2026",
+        "hora": "05:01:52"
+      },
+      "juegos": [
+        "palo_encebado"
+      ]
+    },
+    {
+      "call": "YD3HNL",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "05/09/2026",
+        "hora": "05:00:30"
+      },
+      "juegos": [
+        "palo_encebado"
+      ]
+    },
+    {
+      "call": "YD1AFF",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "05/09/2026",
+        "hora": "04:29:48"
+      },
+      "juegos": [
+        "palo_encebado"
+      ]
+    },
+    {
+      "call": "VG5NMS",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "05/09/2026",
+        "hora": "03:18:45"
+      },
+      "juegos": [
+        "palo_encebado"
+      ]
+    },
+    {
+      "call": "XE2JJC",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "05/09/2026",
+        "hora": "00:50:48"
+      },
+      "juegos": [
+        "palo_encebado"
+      ]
+    },
+    {
+      "call": "LU1HFE",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "04/09/2026",
+        "hora": "20:22:24"
+      },
+      "juegos": [
+        "palo_encebado"
+      ]
+    },
+    {
+      "call": "LW1DOW",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "04/09/2026",
+        "hora": "18:21:00"
+      },
+      "juegos": [
+        "palo_encebado"
+      ]
+    },
+    {
+      "call": "LU3OIS",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "04/09/2026",
+        "hora": "15:40:05"
+      },
+      "juegos": [
+        "palo_encebado"
+      ]
+    },
+    {
+      "call": "9W8LLY",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "04/09/2026",
+        "hora": "13:41:01"
+      },
+      "juegos": [
+        "palo_encebado"
+      ]
+    },
+    {
+      "call": "EA5JXM",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "04/09/2026",
+        "hora": "13:20:59"
+      },
+      "juegos": [
+        "palo_encebado"
+      ]
+    },
+    {
+      "call": "YD2VUK",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "04/09/2026",
+        "hora": "12:45:03"
+      },
+      "juegos": [
+        "palo_encebado"
+      ]
+    },
+    {
+      "call": "HJ4KAC",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "03/09/2026",
+        "hora": "17:08:23"
+      },
+      "juegos": [
+        "emboque"
+      ]
+    },
+    {
+      "call": "EA1062RCU",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "03/09/2026",
+        "hora": "16:10:05"
+      },
+      "juegos": [
+        "emboque"
+      ]
+    },
+    {
+      "call": "EA5KBS",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "03/09/2026",
+        "hora": "15:06:36"
+      },
+      "juegos": [
+        "emboque"
+      ]
+    },
+    {
+      "call": "YB7VPM",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "03/09/2026",
+        "hora": "03:39:22"
+      },
+      "juegos": [
+        "trompo"
+      ]
+    },
+    {
+      "call": "LU2JIT",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "02/09/2026",
+        "hora": "17:37:47"
+      },
+      "juegos": [
+        "trompo"
+      ]
+    }
+  ],
+  "congelado": true,
+  "fuentes": [
+    {
+      "adif": "log_trompo.adi",
+      "fuente": "https://qsl.net/ce4jwi"
+    },
+    {
+      "adif": "log_emboque.adi",
+      "fuente": "https://qsl.net/ce4jwi"
+    },
+    {
+      "adif": "log_palo_ensebado.adi",
+      "fuente": "https://qsl.net/ce4jwi"
+    },
+    {
+      "adif": "log_carrera_saco.adi",
+      "fuente": "https://qsl.net/ce4jwi"
+    },
+    {
+      "adif": "log_tirar_cuerda.adi",
+      "fuente": "https://qsl.net/ce4jwi"
+    },
+    {
+      "adif": "log_volantin.adi",
+      "fuente": "https://qsl.net/ce4jwi"
+    }
+  ]
+}

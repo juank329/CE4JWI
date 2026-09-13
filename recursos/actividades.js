@@ -805,7 +805,7 @@ const ACTIVIDADES = [
   id: 83,
   title: "Fiesta de la Chilenidad Maule 2026",
   image: "public/CHILENIDAD MAULE 2026.webp",
-  status: "EN VIVO",
+  status: "FINALIZADO",
   description:
     "Activación especial Fiesta de la Chilenidad Maule. Solo APRS con la frase MAULE a la estación XR4MAU-10. QSL conmemorativa automática y ranking en tiempo real.",
   date: "12 Septiembre 2026",

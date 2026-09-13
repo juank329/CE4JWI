@@ -13,20 +13,11 @@ const path = require("path");
 const BASE = "https://qsl.net/ce4jwi";
 
 // Actividades con ranking congelado (final.json permanente en el repo)
-const CONGELADAS = ["talca", "agosto", "septiembre", "circo", "vino", "hitos-rio"];
+const CONGELADAS = ["talca", "agosto", "septiembre", "circo", "vino", "hitos-rio", "hitos-mina", "chilenidad", "choripan", "juegos", "hitos-casona", "hitos-parroquia"];
 
 // Actividades en vivo: sus ADIF se leen en tiempo real
 const VIVAS = [
-  { base: BASE, adif: "log_trompo.adi", actividad: "El Trompo" },
-  { base: BASE, adif: "log_emboque.adi", actividad: "El Emboque" },
-  { base: BASE, adif: "log_palo_ensebado.adi", actividad: "El Palo Ensebado" },
-  { base: BASE, adif: "log_carrera_saco.adi", actividad: "Carreras en Saco" },
-  { base: BASE, adif: "log_tirar_cuerda.adi", actividad: "Tirar la Cuerda" },
-  { base: BASE, adif: "log_volantin.adi", actividad: "Elevar Volantines" },
-  { base: BASE, adif: "log_mina.adi", actividad: "Hitos de Maule - Mina El Chivato" },
   { base: BASE, adif: "log_ce4jwi.adi", actividad: "General CE4JWI" },
-  { base: BASE, adif: "log_maule.adi", actividad: "Fiesta de la Chilenidad Maule 2026" },
-  { base: BASE, adif: "log_choripan.adi", actividad: "Día del Choripán en Chile 2026" },
 ];
 
 const PROPIAS = new Set(["CE4JWI", "XR4MAU"]);
