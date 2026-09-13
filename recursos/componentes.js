@@ -174,25 +174,7 @@ const COMPONENTES = {
   </div>
   
 
-  <!-- Widget: Top Indicativos (todas las actividades) -->
-  <div class="widget">
-    <div class="widget-header">
-      <svg class="widget-icon green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M8 21h8"/>
-        <path d="M12 17v4"/>
-        <path d="M7 4h10v5a5 5 0 0 1-10 0V4z"/>
-        <path d="M17 9a3 3 0 0 1 0 6"/>
-        <path d="M7 9a3 3 0 0 0 0 6"/>
-      </svg>
-      <h3>Top Indicativos</h3>
-    </div>
-    <div class="content">
-      <p style="margin:0 0 .3rem;font-size:.72rem;color:#666;">Contactos sumados de todas las actividades</p>
-      <ol id="rankingGeneralList" style="margin:0;padding:0;list-style:none;">
-        <li style="color:#888;font-size:.8rem;padding:.15rem 0;">Cargando ranking…</li>
-      </ol>
-    </div>
-  </div>
+  
 
 
 
@@ -617,39 +599,6 @@ function renderizarMarquee() {
 }
 
 /**
- * Widget "Top Indicativos": ranking general sumando todas las actividades.
- * Pinta el top 20 en la barra lateral. Las filas usan <a class="call-badge">
- * para que banderas.js las decore automaticamente (bandera del pais por prefijo).
- */
-function cargarRankingGeneral() {
-  const cont = document.getElementById("rankingGeneralList");
-  if (!cont) return;
-
-  fetch("/api/ranking-general")
-    .then(function (r) {
-      if (!r.ok) throw new Error("HTTP " + r.status);
-      return r.json();
-    })
-    .then(function (d) {
-      if (!d || !d.ok || !Array.isArray(d.top)) throw new Error("formato invalido");
-      const filas = d.top.slice(0, 20);
-      cont.innerHTML = filas
-        .map(function (f, i) {
-          return '<li style="display:flex;align-items:center;gap:6px;padding:.25rem 0;border-bottom:1px solid #f0f0f0;">'
-            + '<span style="flex:0 0 22px;text-align:right;font-size:.72rem;color:#888;">' + (i + 1) + '.</span>'
-            + '<a class="call-badge" href="https://www.qrz.com/db/' + f.call + '" target="_blank" rel="noopener" style="flex:1;font-family:JetBrains Mono,monospace;font-weight:700;color:#1a4d8f;font-size:.78rem;text-decoration:none;">' + f.call + '</a>'
-            + '<span style="font-weight:700;color:#16a34a;font-size:.8rem;">' + f.puntos + '</span>'
-            + '</li>';
-        })
-        .join("") || '<li style="color:#888;font-size:.8rem;">Sin datos todavia.</li>';
-      if (window.CE4JWI_banderas) window.CE4JWI_banderas.decorarTodos();
-    })
-    .catch(function (e) {
-      cont.innerHTML = '<li style="color:#a00;font-size:.8rem;">Ranking no disponible.</li>';
-    });
-}
-
-/**
  * Inicia el reloj local de la barra lateral
  */
 function iniciarReloj() {
@@ -696,10 +645,6 @@ function inicializarComponentes() {
 
   // Inicializar slider del sidebar
   inicializarSlider()
-
-  // Cargar el widget Top Indicativos de la barra lateral
-  cargarRankingGeneral()
-
 
   // Cargar el clima en vivo de la Región del Maule en el footer
   cargarClimaMaule()
