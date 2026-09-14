@@ -100,3 +100,4 @@ api/aprs-proxy.js      # proxy APRS
 - **"PREGUNTAME CUALQUIER CAMBIO"** antes de ejecutar — siempre preguntar primero.
 - No tocar `.respaldo_*` ni `.resp_*` (copias de seguridad del usuario).
 - Ignorar CA4NDW — solo trabajar con CE4JWI y XR4MAU.
+- **Auto-guardar**: SIEMPRE actualizar AGENTS.md al final de cada sesión con todos los cambios hechos. Commitear sin preguntar. La cuota de IA se agota a veces y el contexto se pierde — la memoria en AGENTS.md es lo único que persiste.
