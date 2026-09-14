@@ -811,4 +811,14 @@ const ACTIVIDADES = [
   date: "12 Septiembre 2026",
   url: "fiesta_de_la_chilenidad_maule_2026.html",
 },
+{
+  id: 84,
+  title: "Stephanie Vaquer - ¡Campeona Mundial! 2026",
+  image: "public/Stephanie_Vaquer.webp",
+  status: "FINALIZADO",
+  description:
+    "Activación especial por el triunfo mundial de Stephanie Vaquer. Solo APRS con la frase STEPHANIE a la estación CE4JWI-10. QSL conmemorativa automática y ranking en tiempo real.",
+  date: "13 Septiembre 2026",
+  url: "stephanie_vaquer_campeona_mundial_2026.html",
+},
 ]

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stephanie Vaquer - ¡Campeona Mundial! 2026 - CE4JWI · Solo APRS</title>
+  <meta name="description" content="Activación especial Stephanie Vaquer, Campeona Mundial 2026. Contacto SOLO por APRS a CE4JWI-10 con la frase STEPHANIE. QSL conmemorativa automática y ranking en tiempo real.">
+  <link rel="stylesheet" href="recursos/styles.css?v=2">
+  <link rel="stylesheet" href="recursos/header-responsive.css">
+  <link rel="stylesheet" href="recursos/slider.css">
+  <link rel="icon" href="public/favicon-32x32.png">
+  <style>
+    .ranking-section { margin: 3rem 0; }
+    .ranking-header { text-align: center; margin-bottom: 1.5rem; }
+    .ranking-header h2 { margin-bottom: 0.3rem; color: #0b4f84; }
+    .ranking-header .total-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #0b4f84, #1f7aa3);
+      color: #fff;
+      padding: 0.4rem 1.2rem;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1rem;
+      margin-top: 0.5rem;
+      box-shadow: 0 4px 15px rgba(11,79,132,0.35);
+    }
+    .ranking-live {
+      display: inline-block;
+      background: #0e8a5f;
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.75rem;
+      padding: 0.15rem 0.7rem;
+      border-radius: 50px;
+      letter-spacing: 0.5px;
+      margin-left: 0.5rem;
+      vertical-align: middle;
+      text-transform: uppercase;
+    }
+    .ranking-live::before {
+      content: "";
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: #fff;
+      border-radius: 50%;
+      margin-right: 0.35rem;
+      vertical-align: middle;
+      animation: pulse 1.2s infinite;
+    }
+    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.2; } }
+    .ranking-updated { text-align: center; font-size: 0.8rem; color: #999; margin-bottom: 1rem; }
+    .ranking-table-wrap {
+      overflow-x: auto;
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+      border: 3px solid #0b4f84;
+      background: #fff;
+    }
+    .ranking-table { width: 100%; border-collapse: collapse; font-family: 'Segoe UI', Arial, sans-serif; }
+    .ranking-table thead th {
+      background: #0b4f84;
+      color: #fff;
+      padding: 1rem 1.2rem;
+      text-align: left;
+      font-weight: 700;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      border-bottom: 3px solid #7ec8e3;
+    }
+    .ranking-table thead th:first-child { text-align: center; width: 40px; }
+    .ranking-table tbody tr:nth-child(odd) { background: #FFFFFF; }
+    .ranking-table tbody tr:nth-child(even) { background: #F0F7FC; }
+    .ranking-table tbody tr:hover { background: #E3F1F9; }
+    .ranking-table tbody td {
+      padding: 0.85rem 1.2rem;
+      font-size: 0.95rem;
+      color: #111827;
+      vertical-align: middle;
+      border-right: 1px solid #E5E7EB;
+    }
+    .ranking-table tbody td:last-child { border-right: none; }
+    .ranking-table tbody td:first-child {
+      text-align: center;
+      font-weight: 800;
+      font-size: 1rem;
+      color: #0b4f84;
+    }
+    .call-badge {
+      display: inline-block;
+      background: #0b4f84;
+      color: #FFFFFF !important;
+      padding: 0.25rem 0.7rem;
+      border-radius: 6px;
+      font-weight: 700;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9rem;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .call-badge:hover { background: #7ec8e3; color: #000 !important; }
+    .ranking-empty { text-align: center; padding: 3rem 1rem; color: #6c757d; font-size: 1rem; }
+    .ranking-empty .spinner {
+      display: inline-block;
+      width: 32px;
+      height: 32px;
+      border: 3px solid #e0e0e0;
+      border-top-color: #0b4f84;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin-bottom: 0.8rem;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .ranking-footer { text-align: center; margin-top: 1rem; font-size: 0.8rem; color: #999; }
+    .ranking-title { text-align: center; margin: 2rem 0 1rem; }
+    .ranking-title h2 { color: #0b4f84; }
+    @media (max-width: 600px) {
+      .ranking-table thead th,
+      .ranking-table tbody td { padding: 0.6rem 0.7rem; font-size: 0.8rem; }
+      .call-badge { font-size: 0.78rem; padding: 0.2rem 0.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <div id="header-container"></div>
+  <div id="marquee-container"></div>
+
+  <main class="main-container">
+    <div class="content">
+      <div class="banner">
+        <h1>Stephanie Vaquer &ndash; ¡Campeona Mundial! 2026</h1>
+      </div>
+
+      <section class="page-content">
+
+        <h3 class="destacar">13 Septiembre 2026</h3>
+
+        <div style="text-align:center; margin-bottom:2rem;">
+          <img src="public/Stephanie_Vaquer.webp" alt="Stephanie Vaquer - Campeona Mundial 2026 - Solo APRS" style="max-width:100%; border-radius:12px;">
+        </div>
+
+        <h2>Sobre la Actividad</h2>
+        <p>
+          La estación <strong>CE4JWI</strong> celebra el <strong>triunfo mundial de Stephanie Vaquer</strong>,
+          coronada <strong>Campeona Mundial</strong> el pasado 12 de septiembre de 2026, un hito histórico
+          para el deporte chileno que con orgullo homenajeamos con la radioafición mundial a través de una
+          <strong>QSL conmemorativa</strong>.
+        </p>
+        <p>
+          El contacto se realiza <strong>solo por APRS</strong>: envía la frase <strong>STEPHANIE</strong> a la estación
+          <strong>CE4JWI-10</strong> y la QSL conmemorativa se genera automáticamente.
+        </p>
+
+        <div class="nota">
+          <span class="etiqueta">DATO</span>
+          <p>Stephanie Vaquer es una luchadora chilena que alcanzó la cima del deporte al coronarse Campeona Mundial, orgullo de Chile y de la Región del Maule.</p>
+        </div>
+        <br>
+
+        <h2>Modos Disponibles</h2>
+        <div style="text-align:center; margin:2rem 0;">
+          <img src="public/CE4JWI -10 SOLO APRS.webp" alt="Modos de activación CE4JWI-10 - Solo APRS" style="max-width:80%; width:80%; border-radius:8px;">
+        </div>
+
+        <h2>Cómo Participar</h2>
+        <ul>
+          <li><strong>APRS:</strong> Solo APRS en 144.390 MHz a la estación <strong>CE4JWI-10</strong>, enviando el mensaje <strong>STEPHANIE</strong>.</li>
+          <li>Al recibir tu contacto, la <strong>QSL</strong> se genera automáticamente y se te envía el enlace por APRS.</li>
+        </ul>
+
+        <h3 class="destacar">ESTACIÓN ACTIVADORA</h3>
+        <h1 class="destacar">CE4JWI-10</h1>
+        <h3 class="destacar">¡CONTACTA Y CELEBRA EL TRIUNFO MUNDIAL DE STEPHANIE VAQUER!</h3>
+        <br>
+
+        <h2>QSL</h2>
+        <p>Al finalizar tu contacto, la QSL conmemorativa del triunfo de Stephanie Vaquer se genera automáticamente y se te envía el enlace por APRS.</p>
+
+        <div class="ranking-title">
+          <h2>Ranking de la Actividad</h2>
+          <p>Ranking <strong>en tiempo real</strong> de los contactos APRS con la frase <strong>STEPHANIE</strong>. Cada contacto suma <strong>1 punto</strong>.</p>
+        </div>
+
+        <div class="ranking-section">
+          <div class="ranking-header">
+            <h2>Estaciones Participantes <span class="ranking-live">En vivo</span></h2>
+            <div class="total-badge">Cargando&hellip;</div>
+          </div>
+          <div class="ranking-updated" id="ranking-updated"></div>
+          <div class="ranking-table-wrap">
+            <table class="ranking-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Indicativo</th>
+                  <th>QSO</th>
+                  <th>Último Contacto</th>
+                </tr>
+              </thead>
+              <tbody id="ranking-tbody">
+                <tr><td colspan="4"><div class="ranking-empty"><div class="spinner"></div><div>Cargando ranking&hellip;</div></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="ranking-footer">Ranking en tiempo real &middot; Stephanie Vaquer &ndash; Campeona Mundial 2026 &middot; CE4JWI</div>
+        </div>
+
+      </section>
+    </div>
+    <div id="sidebar-container"></div>
+  </main>
+
+  <div id="footer-container"></div>
+
+  <script src="recursos/actividades.js" defer></script>
+  <script src="recursos/componentes.js?v=2"></script>
+  <script src="recursos/banderas.js" defer></script>
+  <script>
+    (function () {
+      var tbody = document.getElementById("ranking-tbody");
+      if (!tbody) return;
+
+      function pintar(d) {
+        if (!d.ok || !Array.isArray(d.filas)) throw new Error("formato invalido");
+        var live = document.querySelector(".ranking-live");
+        if (live) {
+          var fin = d.congelado === true;
+          live.textContent = fin ? "Finalizado" : "En vivo";
+          live.style.background = fin ? "#6c757d" : "#0e8a5f";
+          live.className = "ranking-live" + (fin ? " finalizado" : "");
+          if (fin && !document.getElementById("rk-fin-style")) {
+            var st = document.createElement("style");
+            st.id = "rk-fin-style";
+            st.textContent = ".ranking-live.finalizado::before{animation:none !important;opacity:1 !important}";
+            document.head.appendChild(st);
+          }
+        }
+        var badge = document.querySelector(".ranking-header .total-badge");
+        if (badge) badge.textContent = d.totalContactos + " QSO \u00b7 " + d.participantes + " estaciones";
+        var upd = document.getElementById("ranking-updated");
+        if (upd && d.actualizado) {
+          var t = new Date(d.actualizado);
+          upd.textContent = "Actualizado el " + t.toLocaleDateString("es-CL") + " a las " + t.toLocaleTimeString("es-CL");
+        }
+        if (!d.filas.length) {
+          tbody.innerHTML = '<tr><td colspan="4"><div class="ranking-empty">A\u00fan no hay contactos registrados.</div></td></tr>';
+          return;
+        }
+        tbody.innerHTML = d.filas.map(function (f, i) {
+          var ultima = (f.ultima && f.ultima.fecha) ? f.ultima.fecha + " \u00b7 " + f.ultima.hora : "-";
+          return '<tr><td>' + (i + 1) + '</td><td><a class="call-badge" href="https://www.qrz.com/db/' + f.call + '" target="_blank">' + f.call + '</a></td><td>' + (f.total || 0) + '</td><td>' + ultima + '</td></tr>';
+        }).join("");
+      }
+
+      function cargar() {
+        return fetch("/api/ranking-stephanie")
+          .then(function (r) {
+            if (!r.ok) throw new Error("HTTP " + r.status);
+            return r.json();
+          })
+          .then(function (d) {
+            pintar(d);
+          })
+          .catch(function (e) {
+            console.warn("Ranking no disponible: " + e);
+            tbody.innerHTML = '<tr><td colspan="4"><div class="ranking-empty">No se pudo cargar el ranking.</div></td></tr>';
+          });
+      }
+
+      cargar();
+      setInterval(cargar, 60000);
+    })();
+  </script>
+</body>
+</html>

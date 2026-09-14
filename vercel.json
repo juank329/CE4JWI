@@ -14,6 +14,7 @@
     { "source": "/api/ranking-hitos-parroquia", "destination": "/api/ranking-final?actividad=hitos-parroquia" },
     { "source": "/api/ranking-chilenidad", "destination": "/api/ranking-final?actividad=chilenidad" },
     { "source": "/api/ranking-choripan", "destination": "/api/ranking-final?actividad=choripan" },
-    { "source": "/api/ranking-juegos", "destination": "/api/ranking-final?actividad=juegos" }
+    { "source": "/api/ranking-juegos", "destination": "/api/ranking-final?actividad=juegos" },
+    { "source": "/api/ranking-stephanie", "destination": "/api/ranking-final?actividad=stephanie" }
   ]
 }
