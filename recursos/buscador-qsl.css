@@ -1,0 +1,412 @@
+/* ==========================================================================
+   Buscador de Tarjetas QSL - CE4JWI
+   Parte de la web principal: usa variables, fuentes y colores de styles.css
+   ========================================================================== */
+
+/* ---- Cabecera del buscador ---- */
+.qsl-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.qsl-head .qsl-title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+
+.qsl-head .qsl-call {
+  background: linear-gradient(135deg, var(--blue), var(--red));
+  color: var(--white);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  padding: 0.4rem 0.9rem;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ---- Formulario de búsqueda ---- */
+.qsl-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  margin-bottom: 1.5rem;
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 1.1rem;
+  align-items: end;
+}
+
+.qsl-campo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  flex: 1 1 260px;
+  min-width: 0;
+}
+
+.qsl-campo label {
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+}
+
+.qsl-campo input {
+  padding: 0.65rem 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.qsl-campo input:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px var(--blue-soft);
+}
+
+.qsl-campo input::placeholder {
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  text-transform: none;
+  font-weight: 400;
+  font-size: 0.8rem;
+}
+
+.qsl-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  align-items: center;
+}
+
+.qsl-acciones .btn-buscar {
+  padding: 0.65rem 1.6rem;
+  border: none;
+  border-radius: var(--radius-sm);
+  background-color: var(--red);
+  color: white;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  letter-spacing: 0.02em;
+  transition: opacity 0.2s ease, transform 0.15s ease;
+}
+
+.qsl-acciones .btn-buscar:hover { opacity: 0.9; transform: translateY(-1px); }
+
+.qsl-acciones .btn-limpiar {
+  padding: 0.65rem 1.2rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--text-soft);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.qsl-acciones .btn-limpiar:hover { opacity: 0.8; }
+
+/* ---- Estados (cargando / sin resultados / aviso) ---- */
+.qsl-estado {
+  margin-bottom: 1.25rem;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-family: var(--font-body);
+}
+
+.qsl-aviso {
+  display: none;
+  padding: 0.9rem 1.1rem;
+  border-radius: var(--radius-md);
+  background: var(--red-soft);
+  border: 1px solid rgba(213, 43, 30, 0.25);
+  color: var(--red);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.85rem;
+  margin-bottom: 1.25rem;
+}
+
+.qsl-aviso.visible { display: block; }
+
+.qsl-cargando {
+  display: none;
+  padding: 1rem;
+  text-align: center;
+  color: var(--blue);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.qsl-cargando.visible { display: block; }
+
+/* ---- Grid de tarjetas QSL ---- */
+.qsl-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .qsl-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 1024px) {
+  .qsl-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.qsl-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.qsl-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.qsl-thumb {
+  display: block;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--surface-alt);
+  border-bottom: 1px solid var(--border);
+}
+
+.qsl-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.35s ease;
+}
+
+.qsl-card:hover .qsl-thumb img { transform: scale(1.04); }
+
+.qsl-card-body {
+  padding: 0.9rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  flex: 1;
+}
+
+.qsl-evento {
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--blue);
+  line-height: 1.3;
+  min-height: 2.05em;
+}
+
+.qsl-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  font-size: 0.72rem;
+  color: var(--text-soft);
+  font-family: var(--font-body);
+}
+
+.qsl-chip {
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 0.7rem;
+  color: var(--text-soft);
+  white-space: nowrap;
+}
+
+.qsl-descargar {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1rem;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, var(--blue), var(--red));
+  color: var(--white);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.8rem;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.15s ease;
+}
+
+.qsl-descargar svg { width: 16px; height: 16px; flex: 0 0 auto; }
+
+.qsl-descargar:hover { opacity: 0.92; transform: translateY(-1px); }
+
+/* ---- Filtro por estación emisora ---- */
+.qsl-filtros {
+  display: none;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 1.25rem;
+  border: 1px solid var(--border);
+  background: var(--surface-alt);
+  border-radius: var(--radius-md);
+  padding: 0.7rem 0.9rem;
+}
+
+.qsl-filtros.visible { display: flex; }
+
+.qsl-filtros .qsl-filtro-label {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+}
+
+.qsl-filtro {
+  padding: 0.4rem 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text-soft);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.qsl-filtro:hover { border-color: var(--blue); color: var(--blue); }
+
+.qsl-filtro.activo {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: var(--white);
+}
+
+.qsl-filtro[data-emisora="XR4MAU"].activo {
+  background: var(--red);
+  border-color: var(--red);
+}
+
+/* ---- Badge de estación emisora ---- */
+.qsl-emisora {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.7rem;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.7rem;
+  letter-spacing: 0.03em;
+}
+
+.qsl-emisora.ce4jwi {
+  background: var(--blue-soft);
+  color: var(--blue);
+  border: 1px solid rgba(0, 57, 166, 0.35);
+}
+
+.qsl-emisora.xr4mau {
+  background: var(--red-soft);
+  color: var(--red);
+  border: 1px solid rgba(213, 43, 30, 0.35);
+}
+
+.qsl-emisora svg { width: 13px; height: 13px; }
+
+/* ---- Top tarjeta: badge + evento ---- */
+.qsl-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.qsl-card-top .qsl-evento { min-height: 0; }
+
+.qsl-emisora { flex: 0 0 auto; }
+
+/* ---- Cabecera de grupo por estación ---- */
+.qsl-grupo {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0.35rem;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-soft);
+}
+
+.qsl-grupo::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.qsl-vacio {
+  grid-column: 1 / -1;
+  padding: 1.25rem;
+  text-align: center;
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  background: var(--surface-alt);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-md);
+}
+
+/* ---- Pie de página del buscador ---- */
+.qsl-nota {
+  margin-top: 1.75rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-family: var(--font-body);
+}
+
+.qsl-nota strong { color: var(--text-soft); }
