@@ -77,3 +77,26 @@ api/aprs-proxy.js      # proxy APRS
 - En Windows PowerShell: no borrar archivos `*.respaldo_*`, `*.eliminado_*`
   (son copias de seguridad del usuario).
 - Los `final.json` viven en git; borrar ADIF en qsl.net NO afecta los rankings congelados.
+
+## Bot QSL APRS (Desktop\BOT)
+
+### Ubicación y bots activos
+- `C:\Users\javen\OneDrive\Desktop\BOT\bot_aprs_ce4jwi\bot_qsl_ce4jwi.py` → **CE4JWI-7**
+- `C:\Users\javen\OneDrive\Desktop\BOT\bot_aprs_ce4jwi10\bot_qsl_ce4jwi.py` → **CE4JWI-10**
+- `C:\Users\javen\OneDrive\Desktop\BOT\bot_aprs_xr4mau\bot_qsl_xr4mau.py` → **XR4MAU-7**
+- `C:\Users\javen\OneDrive\Desktop\BOT\bot_aprs_xr4mau10\bot_qsl_xr4mau.py` → **XR4MAU-10**
+- Todos suben por FTP a `ftp.qsl.net` → `/ce4jwi` (misma carpeta).
+
+### Cambios realizados 14-sep-2026
+- **msg4 (despedida)** en CE4JWI-7 y CE4JWI-10 (automático + manual):
+  - De: `73 from {FIRMA_MSJ}`
+  - A: `Thanks for the QSO! Visit https://qsl.net/ce4jwi/ 73 {FIRMA_MSJ}`
+  - XR4MAU-7/-10 **sin cambios**.
+- **Consola (L775)** en los 4 bots: corregido `.webp` → `.jpg` (el bot guarda `.jpg` real).
+- **Auto CQ** en panel_qsl.py: intervalo `1200` (20 min) → `600` (10 min). Texto del panel y JS también actualizado a "10 min".
+
+### Reglas importantes
+- El usuario escribe en **MAYÚSCULAS** y es impaciente.
+- **"PREGUNTAME CUALQUIER CAMBIO"** antes de ejecutar — siempre preguntar primero.
+- No tocar `.respaldo_*` ni `.resp_*` (copias de seguridad del usuario).
+- Ignorar CA4NDW — solo trabajar con CE4JWI y XR4MAU.
