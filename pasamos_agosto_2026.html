@@ -220,7 +220,7 @@
       }
       var tbody = document.getElementById("ranking-tbody");
       if (tbody) {
-        fetch("/api/ranking-agosto")
+        fetch("ranking-data/agosto/final.json")
           .then(function (r) {
             if (!r.ok) throw new Error("HTTP " + r.status);
             return r.json();

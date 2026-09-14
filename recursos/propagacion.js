@@ -10,7 +10,6 @@
 (() => {
   "use strict";
 
-  const URL_SERVERLESS = "/api/get-solar";
   const URL_DIRECTA = "https://www.hamqsl.com/solarxml.php";
   const INTERVALO_MINUTOS = 15;
 
@@ -340,7 +339,7 @@
   }
 
   const PROXIES = [
-    (u) => URL_SERVERLESS + "?url=" + encodeURIComponent(u),
+    (u) => "https://corsproxy.io/?url=" + encodeURIComponent(u),
     (u) => "https://api.allorigins.win/raw?url=" + encodeURIComponent(u),
     (u) => "https://api.codetabs.com/v1/proxy?quest=" + encodeURIComponent(u),
     (u) => "https://test.cors.workers.dev/?" + u

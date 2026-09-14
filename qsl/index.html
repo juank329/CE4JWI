@@ -234,7 +234,7 @@
 
             const cargar = cacheQSL
                 ? Promise.resolve(cacheQSL)
-                : fetch('log_qsl.json?t=' + new Date().getTime()).then(res => {
+                : fetch('../log_qsl.json?t=' + new Date().getTime()).then(res => {
                     if (!res.ok) throw new Error('HTTP ' + res.status);
                     return res.json();
                 }).catch(() => fetch('https://qsl.net/ce4jwi/log_qsl.json?t=' + new Date().getTime()).then(res => {

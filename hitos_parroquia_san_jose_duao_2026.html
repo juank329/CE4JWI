@@ -257,7 +257,7 @@
       }
 
       function cargar() {
-        return fetch("/api/ranking-hitos-parroquia")
+        return fetch("ranking-data/hitos-parroquia/final.json")
           .then(function (r) {
             if (!r.ok) throw new Error("HTTP " + r.status);
             return r.json();

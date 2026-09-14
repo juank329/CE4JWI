@@ -1,14 +1,14 @@
 /**
  * Calendario CE4JWI - Tipo Apple Calendar
- * Los eventos provienen SOLO de Google Calendar. La fuente fresca es la
- * función serverless api/calendario.js (descarga el iCal de Google en cada
- * petición, sin CORS y sin caché), que se consulta automáticamente cada 60 s
- * para reflejar los cambios de inmediato. Como respaldo existe el espejo
- * recursos/eventos-calendario.json generado por el workflow (GitHub Actions).
+ * Los eventos provienen SOLO de Google Calendar. La fuente fresca la descarga
+ * el navegador directamente desde el iCal público de Google usando proxies
+ * CORS (sin función serverless, apto para hosting estático). Se consulta
+ * automáticamente cada 60 s para reflejar los cambios de inmediato. Como
+ * respaldo existe el espejo recursos/eventos-calendario.json generado por el
+ * workflow (GitHub Actions).
  * No se añaden eventos desde la web: todo se publica en Google Calendar.
  */
 
-const CAL_ICAL_URL = "/api/calendario"
 const CAL_JSON_LOCAL = "recursos/eventos-calendario.json"
 const CAL_CACHE_KEY = "ce4jwi_cal_cache_v2"
 const CAL_CACHE_TTL = 60 * 1000  // 60s
@@ -127,43 +127,8 @@ async function fetchConTimeout(url, ms) {
 }
 
 async function fetchEventos() {
-  // 1) Fuente fresca: función serverless api/calendario.js (usa el iCal de
-  //    Google en tiempo real, sin CORS). Devuelve {ok, eventos} o un array.
-  for (const fuente of [CAL_ICAL_URL]) {
-    try {
-      const r = await fetchConTimeout(fuente, 12000)
-      if (r.ok) {
-        const datos = await r.json()
-        const arr = Array.isArray(datos) ? datos : (datos.eventos || null)
-        if (Array.isArray(arr) && arr.length > 0) {
-          guardarCache(arr)
-          return arr
-        }
-      }
-    } catch (e) {
-      console.warn("[cal] api/calendario no disponible:", e.message || e)
-    }
-  }
-
-  // 2) Caché corta (60s) por si la fuente fresca falla momentáneamente
-  const cache = cargarCache()
-  if (cache) return cache
-
-  // 3) Respaldo: JSON generado por el workflow desde Google Calendar.
-  const base = await (async () => {
-    try {
-      const r = await fetchConTimeout(CAL_JSON_LOCAL, 8000)
-      if (r.ok) {
-        const arr = await r.json()
-        if (Array.isArray(arr) && arr.length > 0) return arr
-      }
-    } catch (e) {
-      console.warn("[cal] JSON local no disponible:", e.message || e)
-    }
-    return null
-  })()
-
-  // 4) Último recurso: iCal vía proxies CORS
+  // 1) Fuente fresca: iCal público de Google vía proxies CORS (tiempo real,
+  //    sin serverless). Refleja al instante los cambios hechos en Google.
   const proxies = [
     { url: (u) => `https://cors.sh/${u}`,                          nombre: "cors.sh" },
     { url: (u) => `https://api.allorigins.win/raw?url=${encodeURIComponent(u)}`, nombre: "allorigins" },
@@ -185,7 +150,25 @@ async function fetchEventos() {
     }
   }
 
-  // 5) Si todo falló, usamos el JSON generado (espejo de Google)
+  // 2) Caché corta (60s) por si la fuente fresca falla momentáneamente
+  const cache = cargarCache()
+  if (cache) return cache
+
+  // 3) Respaldo: JSON generado por el workflow desde Google Calendar.
+  const base = await (async () => {
+    try {
+      const r = await fetchConTimeout(CAL_JSON_LOCAL, 8000)
+      if (r.ok) {
+        const arr = await r.json()
+        if (Array.isArray(arr) && arr.length > 0) return arr
+      }
+    } catch (e) {
+      console.warn("[cal] JSON local no disponible:", e.message || e)
+    }
+    return null
+  })()
+
+  // 4) Si todo falló, usamos el JSON generado (espejo de Google)
   if (base) {
     guardarCache(base)
     return base

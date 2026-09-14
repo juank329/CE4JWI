@@ -257,7 +257,7 @@
       }
 
       function cargar() {
-        return fetch("/api/ranking-hitos-casona")
+        return fetch("ranking-data/hitos-casona/final.json")
           .then(function (r) {
             if (!r.ok) throw new Error("HTTP " + r.status);
             return r.json();

@@ -306,7 +306,7 @@
     (function () {
       var tbody = document.getElementById("ranking-tbody");
       if (!tbody) return;
-      fetch("/api/ranking?actividad=talca", { cache: "no-cache" })
+      fetch("ranking-data/talca/final.json", { cache: "no-cache" })
         .then(function (r) {
           if (!r.ok) throw new Error("HTTP " + r.status);
           return r.json();

@@ -285,7 +285,7 @@ function pintar(d) {
       }
 
       function cargar() {
-        return fetch("/api/ranking-patria")
+        return fetch("ranking-data/septiembre/final.json")
           .then(function (r) {
             if (!r.ok) throw new Error("HTTP " + r.status);
             return r.json();

@@ -258,7 +258,7 @@
       }
 
       function cargar() {
-        return fetch("/api/ranking-vino")
+        return fetch("ranking-data/vino/final.json")
           .then(function (r) {
             if (!r.ok) throw new Error("HTTP " + r.status);
             return r.json();
