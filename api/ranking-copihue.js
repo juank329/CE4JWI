@@ -66,6 +66,7 @@ function handler(req, res) {
     const ahora = new Date();
     const actualizado = `${ahora.getFullYear()}-${String(ahora.getMonth() + 1).padStart(2, "0")}-${String(ahora.getDate()).padStart(2, "0")}T${String(ahora.getHours()).padStart(2, "0")}:${String(ahora.getMinutes()).padStart(2, "0")}:00-04:00`;
 
+    res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Cache-Control", "no-store");
     res.status(200).json({
       ok: true,
@@ -78,6 +79,7 @@ function handler(req, res) {
       congelado: false,
     });
   })().catch((e) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
     res.status(500).json({ ok: false, error: String(e) });
   });
 }
