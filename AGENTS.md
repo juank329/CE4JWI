@@ -96,6 +96,22 @@ api/ranking-organillero.js # EN VIVO: actividad El Organillero (15-sep-2026, CE4
   hitos-parroquia, hitos-mina, hitos-casona, chilenidad, septiembre, plantilla_ranking.html.
   Todo subido por FTP a qsl.net.
 
+## Arreglos post-sello (15-sep-2026)
+
+- **Fix CORS ranking-final.js**: `api/ranking-final.js` no enviaba
+  `Access-Control-Allow-Origin: *` → los fetch de las actividades finalizadas eran
+  bloqueados por el navegador y el ranking se veía VACÍO. Agregada la cabecera.
+  Verificado en `/api/ranking-copihue` y `/api/ranking-vino` (CORS `*`).
+- **Bandera HQ1ERL (Honduras)**: `banderas.js` no mapeaba el prefijo `HQ` (solo `HR`).
+  Agregado `"HQ":"HN"`. PRECAUCIÓN: qsl.net cachea `.js` 60 min e ignora query strings → 
+  se cachebusteó a `banderas_20260915.js` (nuevo nombre) y las 19 páginas que lo
+  referenciaban ahora apuntan al archivo versionado.
+- **Orden buscador QSL** (`buscador-qsl.js`): ordenaba solo por `fecha` → al haber
+  2 QSL del mismo día (Copihue 15/09 02:52 vs Organillero 15/09 03:02) quedaba la de
+  Copihue primero (orden alfabético del archivo). Ahora ordena **fecha + hora + archivo**
+  descendente para que la más nueva salga primero. Cachebust → `buscador-qsl_20260915.js`
+  y `descargar-qsl.html` apunta al archivo versionado.
+
 ## Lo que se hizo (historial relevante)
 
 - Consolidación a 4 funciones (2 commits de sept 2026):
