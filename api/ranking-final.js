@@ -30,6 +30,7 @@ function handler(req, res) {
     res.status(500).json({ ok: false, error: "final.json invalido" });
     return;
   }
+  res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Cache-Control", "public, max-age=3600, s-maxage=86400");
   res.status(200).json({
     ok: true,
