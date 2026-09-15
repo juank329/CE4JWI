@@ -1,58 +1,36 @@
 # AGENTS.md — CE4JWI
 
-Guía para el mantenimiento del sitio web CE4JWI en Vercel.
+Guía para el mantenimiento del sitio web CE4JWI en qsl.net — **100% ESTÁTICO, SIN Vercel** (desde 15-sep-2026).
 
-## Regla de oro: límite de 12 funciones serverless (plan Hobby)
+## Regla de oro: NO reintroducir Vercel
 
-Vercel Hobby permite **máximo 12 funciones serverless por deploy** (`/api/*.js`).
-Si se agrega una función de más, el deploy falla con:
-"En el plan Hobby, no se pueden agregar más de 12 funciones sin servidor a una implementación."
+- Se borraron `api/*.js` (los 5 endpoints) y `vercel.json` (15-sep-2026).
+- **NO crear `/api/*` ni restaurar `vercel.json`**: la web no tiene backend;
+  todo ranking se sirve como JSON estático. El sitio `ce4jwi.vercel.app` queda solo como estática de respaldo.
 
-**Estado actual: 5 funciones en `api/` → 7 cupos libres.**
+## Ciclo de vida de una actividad (100% estático)
 
-```
-api/ranking-final.js       # TODAS las actividades congeladas (?actividad=<clave>)
-api/calendario.js          # estático
-api/get-solar.js           # solar
-api/aprs-proxy.js          # proxy APRS
-api/ranking-organillero.js # EN VIVO: actividad El Organillero (15-sep-2026, CE4JWI-10)
-```
+1. **Actividad EN VIVO** (bot APRS):
+   - Configurar `config.json` del bot: `frase_clave` + `nombre_actividad` (el ranking usa `nombre_actividad`).
+   - El bot genera `ranking_<actividad>.json` automáticamente en cada QSO (función `generar_ranking_json`,
+     en `bot_qsl_ce4jwi10/bot_qsl_ce4jwi.py`) y lo sube por FTP a `https://qsl.net/ce4jwi/ranking_<actividad>.json`.
+   - Página: `fetch("ranking_<actividad>.json", { cache: "no-cache" })`, badge "En vivo".
+   - Entry en `recursos/actividades.js` status EN VIVO + cachebust del JS versionado + actualizar HTML.
 
-## Ciclo de vida de una actividad (para no volver a chocar con el límite)
+2. **Actividad TERMINADA / a congelar**:
+   - Generar `ranking-data/<clave>/final.json` (copia permanente en git, NO depende del ADIF de qsl.net).
+   - Página: `fetch("ranking-data/<clave>/final.json", { cache: "no-cache" })`, badge "Finalizado".
+   - En `recursos/actividades.js` pasar el entry a TERMINADA + cachebust + actualizar HTML.
+   - Ya NO hay rewrites ni endpoints que borrar (Vercel fuera).
 
-1. **Actividad EN VIVO**: crear endpoint dedicado, ej. `api/ranking-<nueva>.js`
-   que lea su ADIF en `https://qsl.net/ce4jwi` (y/o `qsl.net/xr4mau`),
-   de la forma `fetch(BASE + "/log_<x>.adi")`. Esto suma 1 función, hay
-   cupo de sobra (8 libres).
-
-2. **Actividad TERMINADA / a congelar**: 
-   - Generar `ranking-data/<clave>/final.json` (copia permanente en git,
-     NO depende del ADIF de qsl.net).
-   - En `vercel.json` agregar un rewrite hacia el endpoint genérico:
-     `{ "source": "/api/ranking-<vieja>", "destination": "/api/ranking-final?actividad=<clave>" }`
-   - **BORRAR** el endpoint dedicado `api/ranking-<nueva>.js`.
-   - En `recursos/actividades.js` pasar el entry a status TERMINADA.
-   - Hacer cachebust (nuevo JS versionado) y actualizar los ~107 HTML.
-   
-   Así el total de funciones nunca crece: cada actividad en vivo ocupa 1
-   cupo y al cerrarse lo libera. Ejemplo ya hecho: **Copihue** (15-sep-2026).
-
-3. `vercel.json` ya tiene rewrites para TODAS las actividades congeladas:
-   talca (`/api/ranking`), agosto, circo, septiembre (patria → `?actividad=septiembre`),
-   vino, hitos-* (mina/rio/casona/parroquia), chilenidad, choripan, juegos y **copihue**.
-   Todas apuntan a `/api/ranking-final?actividad=<clave>`.
-
-## Endpoint genérico `api/ranking-final.js`
-
-- Sirve `ranking-data/<actividad>/final.json` según `?actividad=<clave>`.
-- Default: `talca` (por compatibilidad con `/api/ranking?actividad=talca`).
-- Devuelve: `ok, actividad, nombre, actualizado, totalContactos,
-  participantes, juegos (viene en el final.json si existe), filas, congelado:true, fuentes`.
+3. Actividades congeladas hoy: talca, agosto, septiembre, circo, vino, hitos-mina,
+   hitos-rio, hitos-casona, hitos-parroquia, chilenidad, choripan, juegos, copihue.
 
 ## Formato de datos
 
-- Páginas (`*.html`) leen de la API: `filas`, `participantes`, `totalContactos`,
-  `actualizado`, `congelado` (y `juegos`, `nombre` en juegos).
+- Páginas (`*.html`) leen de un JSON estático: `filas`, `participantes`, `totalContactos`,
+  `actualizado`, `congelado` (y `juegos`, `nombre` en juegos). En vivo → `ranking_<actividad>.json`;
+  congelado → `ranking-data/<clave>/final.json`.
 - `ranking-data/` contiene una carpeta por actividad terminada con su `final.json`
   (talca, agosto, septiembre, circo, vino, hitos-mina, hitos-rio, hitos-casona,
   hitos-parroquia, chilenidad, choripan, juegos, **copihue**).
@@ -60,61 +38,31 @@ api/ranking-organillero.js # EN VIVO: actividad El Organillero (15-sep-2026, CE4
 ## Actividad TERMINADA: Flor Nacional El Copihue 2026 (sellada 15-sep-2026)
 
 - **SELLADA** (15-sep 00:03) con `sellar_copihue.py --e`: último ADIF 83 QSO / 83 estaciones.
-- `ranking-data/copihue/final.json` en git (congelado, no depende del ADIF).
-- `vercel.json`: rewrite `/api/ranking-copihue` → `/api/ranking-final?actividad=copihue`.
-- `api/ranking-copihue.js` **BORRADO** (funciones 6 → 5).
-- Entry id 85 en `recursos/actividades.js` → status **TERMINADA**.
-- Cachebust 15-sep-2026 00:03: JS versionado `actividades_20260915000322_452461df.js`,
-  107 HTML actualizados (local y qsl.net).
-- Página `flor_nacional_el_copihue_2026.html`: badge → "Finalizado", sin "Cada contacto suma 1 punto".
-- API verificado: `https://ce4jwi.vercel.app/api/ranking-copihue` devuelve `congelado:true`, 83 contactos.
+- `ranking-data/copihue/final.json` en git + subido a qsl.net
+  (`https://qsl.net/ce4jwi/ranking-data/copihue/final.json`, congelado=true, 83 QSO).
+- Entry id 85 en `recursos/actividades.js` → status **TERMINADA**, badge "Finalizado".
+- Página `flor_nacional_el_copihue_2026.html`: fetch `ranking-data/copihue/final.json`, sin "Cada contacto suma 1 punto".
 
 ## Actividad EN VIVO: El Organillero (15-sep-2026)
 
 - Bot CE4JWI-10 (`config.json`): `frase_clave: ORGANILLERO`, `nombre_actividad: ORGANILLERO` — solo APRS.
-  **INICIADA 15-sep 00:16** (config ya modificada; el bot corre en la máquina del usuario).
-  ADIF en la máquina: `Desktop\BOT\bot_aprs_ce4jwi10\log_organillero.adi` (sube por FTP).
+  **INICIADA 15-sep 00:16**. ADIF en la máquina: `Desktop\BOT\bot_aprs_ce4jwi10\log_organillero.adi` (sube por FTP).
 - ADIF fuente web: `https://qsl.net/ce4jwi/log_organillero.adi`.
-- Endpoint dedicado: `api/ranking-organillero.js` (lee el ADIF, `congelado:false`, CORS `*`, `Cache-Control: no-store`).
-- API responde en Vercel: `https://ce4jwi.vercel.app/api/ranking-organillero`.
-- Página: `el_organillero_2026.html` en `https://qsl.net/ce4jwi/` (fetch a la API de Vercel, refresh 60 s, badge "En vivo"). Banner: `public/El Organillero.webp`, modos: `public/CE4JWI -10 SOLO APRS.webp`.
+- Ranking: el bot genera y sube `ranking_organillero.json` en cada QSO (`generar_ranking_json`).
+  Inicial verificado: 48 QSO == lo que devolvía la API de Vercel antes de eliminarla.
+- ✅ Bot CE4JWI-10 REINICIADO por el usuario (15-sep, PID 10564) — ya corre con `generar_ranking_json`.
+- Página: `el_organillero_2026.html` → `fetch("ranking_organillero.json", { cache: "no-cache" })`,
+  refresh 60 s, badge "En vivo". Banner: `public/El Organillero.webp`, modos: `public/CE4JWI -10 SOLO APRS.webp`.
 - Entry id 86 en `recursos/actividades.js` (status EN VIVO).
-- Cachebust 14-sep-2026 23:49: JS versionado `actividades_20260914234945_e29274b5.js`;
-  tras el sello de Copihue (00:03) los HTML pasaron a `actividades_20260915000322_452461df.js`
-  (aplica a todas las páginas, incluida el organillero).
-- Al terminar la actividad: crear `ranking-data/organillero/final.json`
-  + rewrite en vercel.json a ranking-final + BORRAR api/ranking-organillero.js + cachebust.
+- Al terminar la actividad: crear `ranking-data/organillero/final.json` + página apunta a él + cachebust.
 
-## DESCARTAR VERCEL de la web principal (15-sep-2026, en curso)
+## Descarte de Vercel (15-sep-2026, COMPLETADO)
 
-OBJETIVO: la web principal (qsl.net/ce4jwi) no debe depender de Vercel.
-Hoy (15-sep) solo 2 páginas usaban Vercel y YA se migraron a estático:
-
-- `flor_nacional_el_copihue_2026.html`: fetch → `ranking-data/copihue/final.json`
-  (relativo, cache no-cache). El `final.json` estaba en git pero NO subido a qsl.net;
-  se creó `/ranking-data/` y `/ranking-data/copihue/` por FTP y se subió. 
-  `https://qsl.net/ce4jwi/ranking-data/copihue/final.json` = 83 QSO, congelado.
-- `el_organillero_2026.html`: fetch → `ranking_organillero.json` (relativo, cache no-cache).
-  Este JSON lo genera AHORA el bot (nuevo): en `bot_qsl_ce4jwi10/bot_qsl_ce4jwi.py`,
-  función `generar_ranking_json(nombre_log)` — lee el ADIF local, arma el MISMO esquema
-  que devolvía el endpoint de Vercel (ok, actividad, nombre, actualizado, totalContactos,
-  participantes, filas: [{call,total,modos,ultima:{fecha,hora}}], congelado:false) y lo
-  sube por FTP como `ranking_<actividad>.json`. Se llama en `guardar_adif()` después de
-  `subir_log_adif()`. Orden: por total desc, luego fecha+hora desc (cmp_to_key).
-  ESTÁ SUBIDO el inicial: `https://qsl.net/ce4jwi/ranking_organillero.json` = 48 QSO.
-  Verificado: == respuesta del endpoint de Vercel (48).
-- ✅ Bot CE4JWI-10 REINICIADO por el usuario (15-sep, PID 10564 — antes 4908 con
-  código viejo). Ya corre con `generar_ranking_json`; cada QSO nuevo actualiza el
-  ranking_organillero.json. Verificado: hay 2 paneles corriendo (9812 y 3528) y el bot 10564.
-
-ESTADO DE VERCEL tras la migración: **COMPLETO — Vercel DESCONECTADO de la web**.
-El 15-sep-2026 se BORRARON del repo `api/*.js` (los 5 endpoints: ranking-final,
+PASO 4 COMPLETADO: se BORRARON del repo `api/*.js` (los 5 endpoints: ranking-final,
 calendario, get-solar, aprs-proxy, ranking-organillero) y `vercel.json`. Push disparó
-deploy; el sitio `ce4jwi.vercel.app` queda solo como estática de respaldo.
-**NO reintroducir endpoints ni vercel.json**: la web no tiene backend.
-Los respaldos del usuario dentro de `api/` se conservaron (`.respaldo_*`).
-
-PASO 4 COMPLETADO. Ya NO existe dependencia de Vercel en qsl.net/ce4jwi.
+deploy; `ce4jwi.vercel.app` queda solo como estática de respaldo. Los respaldos del
+usuario dentro de `api/` se conservaron (`.respaldo_*`). **NO reintroducir endpoints ni
+vercel.json**: la web no tiene backend. Ya NO existe dependencia de Vercel en qsl.net/ce4jwi.
 
 ## Frase y badge de puntos (15-sep-2026)
 
@@ -151,18 +99,18 @@ PASO 4 COMPLETADO. Ya NO existe dependencia de Vercel en qsl.net/ce4jwi.
   - Luego `ranking.js`, `ranking-agosto.js`, `ranking-circo.js`,
     `ranking-patria.js`, `ranking-vino.js`, `ranking-hitos.js` también
     → `ranking-final.js` + rewrites.
-  - Widget "Top Indicativos" de la barra lateral ELIMINADO junto con
-    `api/ranking-general.js` (no hay ranking general en el sidebar;
-    el ranking por actividad vive en cada página).
-- PRECAUCIÓN: jamás reintroducir `ranking-general.js` ni un widget que
-  consuma más funciones si no se libera antes el cupo.
+- Widget "Top Indicativos" de la barra lateral ELIMINADO junto con
+  `api/ranking-general.js` (no hay ranking general en el sidebar;
+  el ranking por actividad vive en cada página).
+- Este historial de consolidación (ranking-final.js + rewrites) era para el
+  flujo con Vercel. **Ya NO aplica**: la web es 100% estática y no hay límite de funciones.
 
 ## Entorno
 
-- Repo: https://github.com/juank329/CE4JWI (rama `main`), deploy automático en Vercel
-  (sitio: https://ce4jwi.vercel.app). Push a `main` dispara el deploy.
-  Si no auto-despliega, el usuario hace **Redeploy** en
-  https://vercel.com/juank329/ce4jwi/deployments (NO hay CLI ni tokens).
+- Repo: https://github.com/juank329/CE4JWI (rama `main`). Push a `main` = respaldo/versionado (NO deploy).
+- Publicación real: FTP a `ftp.qsl.net` (user ce4jwi) → carpeta `/ce4jwi` (sitio: https://qsl.net/ce4jwi/).
+  CDN qsl.net cachea `.js` 60 min e ignora query strings → cachebust con nombre versionado
+  (`<archivo>_YYYYMMDD.js`) y actualizar los HTML que lo referencian.
 - En Windows PowerShell: no borrar archivos `*.respaldo_*`, `*.eliminado_*`
   (son copias de seguridad del usuario).
 - Los `final.json` viven en git; borrar ADIF en qsl.net NO afecta los rankings congelados.
