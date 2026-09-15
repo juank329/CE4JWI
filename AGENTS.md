@@ -111,7 +111,7 @@ api/ranking-copihue.js    # EN VIVO: actividad Flor Nacional El Copihue (14-sep-
   - A: `Thanks for the QSO! Visit https://qsl.net/ce4jwi/ 73 {FIRMA_MSJ}`
   - XR4MAU-7/-10 **sin cambios**.
 - **Consola (L775)** en los 4 bots: corregido `.webp` → `.jpg` (el bot guarda `.jpg` real).
-- **Auto CQ** en panel_qsl.py: intervalo `1200` (20 min) → `600` (10 min). Texto del panel y JS también actualizado a "10 min".
+- **Auto CQ** en `panel_qsl.py` de los 4 bots activos (CE4JWI-7/-10, XR4MAU-7/-10): intervalo `1200` (20 min) y luego `600` (10 min) → **`300` (5 min)**. Textos del panel (.py y .html) actualizados a "5 min". CA4NDW **no se toca**.
 
 ### Reglas importantes
 - El usuario escribe en **MAYÚSCULAS** y es impaciente.
