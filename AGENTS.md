@@ -72,6 +72,10 @@ api/ranking-organillero.js # EN VIVO: actividad El Organillero (15-sep-2026, CE4
   ~106 HTML actualizados a la nueva referencia (local y qsl.net).
 - Al terminar la actividad (cuando el usuario lo diga): crear `ranking-data/copihue/final.json`
   + rewrite en vercel.json a ranking-final + BORRAR api/ranking-copihue.js.
+  **Script de sello listo**: `C:\Users\javen\AppData\Local\Temp\opencode\sellar_copihue.py`
+  (hace todo: lee ADIF final → final.json → rewrite → borra endpoint → status TERMINADA →
+  cachebust → FTP). Ejecutar con `python sellar_copihue.py --e` cuando el usuario lo ordene;
+  dry-run sin flags verifica. Al sellar, funciones pasan de 6 → 5.
 
 ## Actividad EN VIVO: El Organillero (15-sep-2026)
 
