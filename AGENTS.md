@@ -8,14 +8,15 @@ Vercel Hobby permite **máximo 12 funciones serverless por deploy** (`/api/*.js`
 Si se agrega una función de más, el deploy falla con:
 "En el plan Hobby, no se pueden agregar más de 12 funciones sin servidor a una implementación."
 
-**Estado actual: 5 funciones en `api/` → 7 cupos libres.**
+**Estado actual: 6 funciones en `api/` → 6 cupos libres.**
 
 ```
-api/ranking-final.js      # TODAS las actividades congeladas (?actividad=<clave>)
-api/calendario.js         # estático
-api/get-solar.js          # solar
-api/aprs-proxy.js         # proxy APRS
-api/ranking-copihue.js    # EN VIVO: actividad Flor Nacional El Copihue (14-sep-2026, CE4JWI-10)
+api/ranking-final.js       # TODAS las actividades congeladas (?actividad=<clave>)
+api/calendario.js          # estático
+api/get-solar.js           # solar
+api/aprs-proxy.js          # proxy APRS
+api/ranking-copihue.js     # EN VIVO: actividad Flor Nacional El Copihue (14-sep-2026, CE4JWI-10)
+api/ranking-organillero.js # EN VIVO: actividad El Organillero (15-sep-2026, CE4JWI-10)
 ```
 
 ## Ciclo de vida de una actividad (para no volver a chocar con el límite)
@@ -71,6 +72,23 @@ api/ranking-copihue.js    # EN VIVO: actividad Flor Nacional El Copihue (14-sep-
   ~106 HTML actualizados a la nueva referencia (local y qsl.net).
 - Al terminar la actividad (cuando el usuario lo diga): crear `ranking-data/copihue/final.json`
   + rewrite en vercel.json a ranking-final + BORRAR api/ranking-copihue.js.
+
+## Actividad EN VIVO: El Organillero (15-sep-2026)
+
+- Bot CE4JWI-10 (`config.json`): `frase_clave: ORGANILLERO`, `nombre_actividad: organillero` — solo APRS.
+  **AÚN NO INICIADA**: el config sigue en COPIHUE hasta que el usuario la inicie; el ADIF aún no se carga.
+- ADIF fuente: `https://qsl.net/ce4jwi/log_organillero.adi` (lo sube el bot por FTP cuando inicie).
+- Endpoint dedicado: `api/ranking-organillero.js` (lee el ADIF, `congelado:false`, CORS `*`, `Cache-Control: no-store`).
+- API responde en Vercel: `https://ce4jwi.vercel.app/api/ranking-organillero`.
+- Página: `el_organillero_2026.html` en `https://qsl.net/ce4jwi/` (fetch a la API de Vercel, refresh 60 s, badge "En vivo"). Banner: `public/El Organillero.webp`, modos: `public/CE4JWI -10 SOLO APRS.webp`.
+- Entry id 86 en `recursos/actividades.js` (status EN VIVO).
+- **Fecha 15-sep-2026**: cuando el usuario la inicie, cambiar `config.json` de CE4JWI-10 a
+  `frase_clave: ORGANILLERO` y `nombre_actividad: organillero`.
+- Cachebust 14-sep-2026 23:49: nuevo JS versionado `actividades_20260914234945_e29274b5.js`
+  (CDN qsl.net cachea .js 60 min e ignora query strings → nombre versionado).
+  107 HTML actualizados a la nueva referencia (local y qsl.net).
+- Al terminar la actividad (cuando el usuario lo diga): crear `ranking-data/organillero/final.json`
+  + rewrite en vercel.json a ranking-final + BORRAR api/ranking-organillero.js.
 
 ## Lo que se hizo (historial relevante)
 
