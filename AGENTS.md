@@ -85,6 +85,40 @@ api/ranking-organillero.js # EN VIVO: actividad El Organillero (15-sep-2026, CE4
 - Al terminar la actividad: crear `ranking-data/organillero/final.json`
   + rewrite en vercel.json a ranking-final + BORRAR api/ranking-organillero.js + cachebust.
 
+## DESCARTAR VERCEL de la web principal (15-sep-2026, en curso)
+
+OBJETIVO: la web principal (qsl.net/ce4jwi) no debe depender de Vercel.
+Hoy (15-sep) solo 2 páginas usaban Vercel y YA se migraron a estático:
+
+- `flor_nacional_el_copihue_2026.html`: fetch → `ranking-data/copihue/final.json`
+  (relativo, cache no-cache). El `final.json` estaba en git pero NO subido a qsl.net;
+  se creó `/ranking-data/` y `/ranking-data/copihue/` por FTP y se subió. 
+  `https://qsl.net/ce4jwi/ranking-data/copihue/final.json` = 83 QSO, congelado.
+- `el_organillero_2026.html`: fetch → `ranking_organillero.json` (relativo, cache no-cache).
+  Este JSON lo genera AHORA el bot (nuevo): en `bot_qsl_ce4jwi10/bot_qsl_ce4jwi.py`,
+  función `generar_ranking_json(nombre_log)` — lee el ADIF local, arma el MISMO esquema
+  que devolvía el endpoint de Vercel (ok, actividad, nombre, actualizado, totalContactos,
+  participantes, filas: [{call,total,modos,ultima:{fecha,hora}}], congelado:false) y lo
+  sube por FTP como `ranking_<actividad>.json`. Se llama en `guardar_adif()` después de
+  `subir_log_adif()`. Orden: por total desc, luego fecha+hora desc (cmp_to_key).
+  ESTÁ SUBIDO el inicial: `https://qsl.net/ce4jwi/ranking_organillero.json` = 48 QSO.
+  Verificado: == respuesta del endpoint de Vercel (48).
+- ⚠️ El bot CE4JWI-10 corría con el código VIEJO (PID 4908, iniciado 8:37). Para que los
+  próximos QSO generen el JSON, hay que REINICIAR el bot (el usuario lo hace en su máquina).
+
+ESTADO DE VERCEL tras la migración: los 5 endpoints siguen en el repo pero **ninguna
+página HTML los usa** (grep `ce4jwi.vercel.app` en *.html = 0). Endpoints:
+ranking-final, calendario, get-solar, aprs-proxy (inactivos) y ranking-organillero
+(hoy reemplazado por el JSON estático del bot).
+
+PASO 4 PENDIENTE (quiero hacer): borrar `api/` y `vercel.json` del repo para
+desconectar Vercel del todo. OJO: `vercel.json` contiene los rewrites de las
+actividades congeladas → /api/ranking-final (rutas /api/ranking-*); si se elimina,
+esas URLs https://ce4jwi.vercel.app/api/ranking-* dejan de servir (pero ninguna página
+las usa ya). gitignore NO debemos borrar config sin confirmar. RECORDAR: verificar que
+no haya widgets/sidebar/componentes que llamen a /api/* (componentes.js NO los llama;
+ya revisado 15-sep).
+
 ## Frase y badge de puntos (15-sep-2026)
 
 - Se ELIMINÓ la frase "Cada contacto suma <strong>1 punto</strong>." de todas las páginas
