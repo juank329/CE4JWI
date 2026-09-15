@@ -8,13 +8,14 @@ Vercel Hobby permite **máximo 12 funciones serverless por deploy** (`/api/*.js`
 Si se agrega una función de más, el deploy falla con:
 "En el plan Hobby, no se pueden agregar más de 12 funciones sin servidor a una implementación."
 
-**Estado actual: 4 funciones en `api/` → 8 cupos libres.**
+**Estado actual: 5 funciones en `api/` → 7 cupos libres.**
 
 ```
-api/ranking-final.js   # TODAS las actividades congeladas (?actividad=<clave>)
-api/calendario.js      # estático
-api/get-solar.js       # solar
-api/aprs-proxy.js      # proxy APRS
+api/ranking-final.js      # TODAS las actividades congeladas (?actividad=<clave>)
+api/calendario.js         # estático
+api/get-solar.js          # solar
+api/aprs-proxy.js         # proxy APRS
+api/ranking-copihue.js    # EN VIVO: actividad Flor Nacional El Copihue (14-sep-2026, CE4JWI-10)
 ```
 
 ## Ciclo de vida de una actividad (para no volver a chocar con el límite)
@@ -53,6 +54,23 @@ api/aprs-proxy.js      # proxy APRS
 - `ranking-data/` contiene una carpeta por actividad terminada con su `final.json`
   (talca, agosto, septiembre, circo, vino, hitos-mina, hitos-rio, hitos-casona,
   hitos-parroquia, chilenidad, choripan, juegos).
+
+## Actividad EN VIVO: Flor Nacional El Copihue (14-sep-2026)
+
+- Bot CE4JWI-10 (`config.json`): `frase_clave: COPIHUE`, `nombre_actividad: copihue` — solo APRS.
+- ADIF fuente: `https://qsl.net/ce4jwi/log_copihue.adi` (el bot lo sube por FTP).
+- Endpoint dedicado: `api/ranking-copihue.js` (lee el ADIF, `congelado:false`, `Cache-Control: no-store`).
+- API responde en Vercel: `https://ce4jwi.vercel.app/api/ranking-copihue`.
+- Página: `flor_nacional_el_copihue_2026.html` en `https://qsl.net/ce4jwi/`
+  (fetch a la API de Vercel, refresh 60 s, badge "En vivo"). Banner: `public/FLOR NACIONALELCOPIHUE.webp`.
+- Entry id 85 en `recursos/actividades.js` (status EN VIVO).
+- **NO es día nacional**: es una actividad inventada por el usuario, no una conmemoración oficial.
+- **Calendario NO se toca**: el usuario se encarga de eventos-calendario.json.
+- Cachebust 14-sep-2026: nuevo JS versionado `actividades_20260914133103_5f3e9a35.js`
+  (CDN qsl.net cachea .js 60 min e ignora query strings → nombre versionado).
+  ~106 HTML actualizados a la nueva referencia (local y qsl.net).
+- Al terminar la actividad (cuando el usuario lo diga): crear `ranking-data/copihue/final.json`
+  + rewrite en vercel.json a ranking-final + BORRAR api/ranking-copihue.js.
 
 ## Lo que se hizo (historial relevante)
 
