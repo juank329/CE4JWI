@@ -117,5 +117,6 @@ api/ranking-copihue.js    # EN VIVO: actividad Flor Nacional El Copihue (14-sep-
 - El usuario escribe en **MAYÚSCULAS** y es impaciente.
 - **"PREGUNTAME CUALQUIER CAMBIO"** antes de ejecutar — siempre preguntar primero.
 - No tocar `.respaldo_*` ni `.resp_*` (copias de seguridad del usuario).
-- Ignorar CA4NDW — solo trabajar con CE4JWI y XR4MAU.
+- Ignorar CA4NDW — solo trabajar con CE4JWI y XR4MAU. (Significa: no trabajar sobre los bots/folders de CA4NDW).
+- **NUNCA eliminar CA4NDW**: sus QSO quedan SIEMPRE en ADIF/ranking (confirmado por el usuario, 15-sep-2026). No filtrarla en endpoints ni en la web.
 - **Auto-guardar**: SIEMPRE actualizar AGENTS.md al final de cada sesión con todos los cambios hechos. Commitear sin preguntar. La cuota de IA se agota a veces y el contexto se pierde — la memoria en AGENTS.md es lo único que persiste.
