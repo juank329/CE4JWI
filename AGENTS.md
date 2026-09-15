@@ -8,14 +8,13 @@ Vercel Hobby permite **máximo 12 funciones serverless por deploy** (`/api/*.js`
 Si se agrega una función de más, el deploy falla con:
 "En el plan Hobby, no se pueden agregar más de 12 funciones sin servidor a una implementación."
 
-**Estado actual: 6 funciones en `api/` → 6 cupos libres.**
+**Estado actual: 5 funciones en `api/` → 7 cupos libres.**
 
 ```
 api/ranking-final.js       # TODAS las actividades congeladas (?actividad=<clave>)
 api/calendario.js          # estático
 api/get-solar.js           # solar
 api/aprs-proxy.js          # proxy APRS
-api/ranking-copihue.js     # EN VIVO: actividad Flor Nacional El Copihue (14-sep-2026, CE4JWI-10)
 api/ranking-organillero.js # EN VIVO: actividad El Organillero (15-sep-2026, CE4JWI-10)
 ```
 
@@ -32,13 +31,15 @@ api/ranking-organillero.js # EN VIVO: actividad El Organillero (15-sep-2026, CE4
    - En `vercel.json` agregar un rewrite hacia el endpoint genérico:
      `{ "source": "/api/ranking-<vieja>", "destination": "/api/ranking-final?actividad=<clave>" }`
    - **BORRAR** el endpoint dedicado `api/ranking-<nueva>.js`.
+   - En `recursos/actividades.js` pasar el entry a status TERMINADA.
+   - Hacer cachebust (nuevo JS versionado) y actualizar los ~107 HTML.
    
    Así el total de funciones nunca crece: cada actividad en vivo ocupa 1
-   cupo y al cerrarse lo libera.
+   cupo y al cerrarse lo libera. Ejemplo ya hecho: **Copihue** (15-sep-2026).
 
 3. `vercel.json` ya tiene rewrites para TODAS las actividades congeladas:
    talca (`/api/ranking`), agosto, circo, septiembre (patria → `?actividad=septiembre`),
-   vino, hitos-* (mina/rio/casona/parroquia), chilenidad, choripan y juegos.
+   vino, hitos-* (mina/rio/casona/parroquia), chilenidad, choripan, juegos y **copihue**.
    Todas apuntan a `/api/ranking-final?actividad=<clave>`.
 
 ## Endpoint genérico `api/ranking-final.js`
@@ -54,45 +55,46 @@ api/ranking-organillero.js # EN VIVO: actividad El Organillero (15-sep-2026, CE4
   `actualizado`, `congelado` (y `juegos`, `nombre` en juegos).
 - `ranking-data/` contiene una carpeta por actividad terminada con su `final.json`
   (talca, agosto, septiembre, circo, vino, hitos-mina, hitos-rio, hitos-casona,
-  hitos-parroquia, chilenidad, choripan, juegos).
+  hitos-parroquia, chilenidad, choripan, juegos, **copihue**).
 
-## Actividad EN VIVO: Flor Nacional El Copihue (14-sep-2026)
+## Actividad TERMINADA: Flor Nacional El Copihue 2026 (sellada 15-sep-2026)
 
-- Bot CE4JWI-10 (`config.json`): `frase_clave: COPIHUE`, `nombre_actividad: copihue` — solo APRS.
-- ADIF fuente: `https://qsl.net/ce4jwi/log_copihue.adi` (el bot lo sube por FTP).
-- Endpoint dedicado: `api/ranking-copihue.js` (lee el ADIF, `congelado:false`, `Cache-Control: no-store`).
-- API responde en Vercel: `https://ce4jwi.vercel.app/api/ranking-copihue`.
-- Página: `flor_nacional_el_copihue_2026.html` en `https://qsl.net/ce4jwi/`
-  (fetch a la API de Vercel, refresh 60 s, badge "En vivo"). Banner: `public/FLOR NACIONALELCOPIHUE.webp`.
-- Entry id 85 en `recursos/actividades.js` (status EN VIVO).
-- **NO es día nacional**: es una actividad inventada por el usuario, no una conmemoración oficial.
-- **Calendario NO se toca**: el usuario se encarga de eventos-calendario.json.
-- Cachebust 14-sep-2026: nuevo JS versionado `actividades_20260914133103_5f3e9a35.js`
-  (CDN qsl.net cachea .js 60 min e ignora query strings → nombre versionado).
-  ~106 HTML actualizados a la nueva referencia (local y qsl.net).
-- Al terminar la actividad (cuando el usuario lo diga): crear `ranking-data/copihue/final.json`
-  + rewrite en vercel.json a ranking-final + BORRAR api/ranking-copihue.js.
-  **Script de sello listo**: `C:\Users\javen\AppData\Local\Temp\opencode\sellar_copihue.py`
-  (hace todo: lee ADIF final → final.json → rewrite → borra endpoint → status TERMINADA →
-  cachebust → FTP). Ejecutar con `python sellar_copihue.py --e` cuando el usuario lo ordene;
-  dry-run sin flags verifica. Al sellar, funciones pasan de 6 → 5.
+- **SELLADA** (15-sep 00:03) con `sellar_copihue.py --e`: último ADIF 83 QSO / 83 estaciones.
+- `ranking-data/copihue/final.json` en git (congelado, no depende del ADIF).
+- `vercel.json`: rewrite `/api/ranking-copihue` → `/api/ranking-final?actividad=copihue`.
+- `api/ranking-copihue.js` **BORRADO** (funciones 6 → 5).
+- Entry id 85 en `recursos/actividades.js` → status **TERMINADA**.
+- Cachebust 15-sep-2026 00:03: JS versionado `actividades_20260915000322_452461df.js`,
+  107 HTML actualizados (local y qsl.net).
+- Página `flor_nacional_el_copihue_2026.html`: badge → "Finalizado", sin "Cada contacto suma 1 punto".
+- API verificado: `https://ce4jwi.vercel.app/api/ranking-copihue` devuelve `congelado:true`, 83 contactos.
 
 ## Actividad EN VIVO: El Organillero (15-sep-2026)
 
-- Bot CE4JWI-10 (`config.json`): `frase_clave: ORGANILLERO`, `nombre_actividad: organillero` — solo APRS.
-  **AÚN NO INICIADA**: el config sigue en COPIHUE hasta que el usuario la inicie; el ADIF aún no se carga.
-- ADIF fuente: `https://qsl.net/ce4jwi/log_organillero.adi` (lo sube el bot por FTP cuando inicie).
+- Bot CE4JWI-10 (`config.json`): `frase_clave: ORGANILLERO`, `nombre_actividad: ORGANILLERO` — solo APRS.
+  **INICIADA 15-sep 00:16** (config ya modificada; el bot corre en la máquina del usuario).
+  ADIF en la máquina: `Desktop\BOT\bot_aprs_ce4jwi10\log_organillero.adi` (sube por FTP).
+- ADIF fuente web: `https://qsl.net/ce4jwi/log_organillero.adi`.
 - Endpoint dedicado: `api/ranking-organillero.js` (lee el ADIF, `congelado:false`, CORS `*`, `Cache-Control: no-store`).
 - API responde en Vercel: `https://ce4jwi.vercel.app/api/ranking-organillero`.
 - Página: `el_organillero_2026.html` en `https://qsl.net/ce4jwi/` (fetch a la API de Vercel, refresh 60 s, badge "En vivo"). Banner: `public/El Organillero.webp`, modos: `public/CE4JWI -10 SOLO APRS.webp`.
 - Entry id 86 en `recursos/actividades.js` (status EN VIVO).
-- **Fecha 15-sep-2026**: cuando el usuario la inicie, cambiar `config.json` de CE4JWI-10 a
-  `frase_clave: ORGANILLERO` y `nombre_actividad: organillero`.
-- Cachebust 14-sep-2026 23:49: nuevo JS versionado `actividades_20260914234945_e29274b5.js`
-  (CDN qsl.net cachea .js 60 min e ignora query strings → nombre versionado).
-  107 HTML actualizados a la nueva referencia (local y qsl.net).
-- Al terminar la actividad (cuando el usuario lo diga): crear `ranking-data/organillero/final.json`
-  + rewrite en vercel.json a ranking-final + BORRAR api/ranking-organillero.js.
+- Cachebust 14-sep-2026 23:49: JS versionado `actividades_20260914234945_e29274b5.js`;
+  tras el sello de Copihue (00:03) los HTML pasaron a `actividades_20260915000322_452461df.js`
+  (aplica a todas las páginas, incluida el organillero).
+- Al terminar la actividad: crear `ranking-data/organillero/final.json`
+  + rewrite en vercel.json a ranking-final + BORRAR api/ranking-organillero.js + cachebust.
+
+## Frase y badge de puntos (15-sep-2026)
+
+- Se ELIMINÓ la frase "Cada contacto suma <strong>1 punto</strong>." de todas las páginas
+  de actividad (incluida la variante de juegos "…por juego. Máximo: 6 puntos (colección completa)").
+- Badge de actividades cerradas: `<span class="ranking-live">En vivo</span>` → 
+  `<span class="ranking-live finalizado">Finalizado</span>`. Las EN VIVO conservan "En vivo".
+  Septiembre: "Cerrado" → "Finalizado".
+- Aplicado en: stephanie, vino, choripan, organillero, circo, juegos, copihue, hitos-rio,
+  hitos-parroquia, hitos-mina, hitos-casona, chilenidad, septiembre, plantilla_ranking.html.
+  Todo subido por FTP a qsl.net.
 
 ## Lo que se hizo (historial relevante)
 
