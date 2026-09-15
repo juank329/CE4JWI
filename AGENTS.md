@@ -103,8 +103,9 @@ Hoy (15-sep) solo 2 páginas usaban Vercel y YA se migraron a estático:
   `subir_log_adif()`. Orden: por total desc, luego fecha+hora desc (cmp_to_key).
   ESTÁ SUBIDO el inicial: `https://qsl.net/ce4jwi/ranking_organillero.json` = 48 QSO.
   Verificado: == respuesta del endpoint de Vercel (48).
-- ⚠️ El bot CE4JWI-10 corría con el código VIEJO (PID 4908, iniciado 8:37). Para que los
-  próximos QSO generen el JSON, hay que REINICIAR el bot (el usuario lo hace en su máquina).
+- ✅ Bot CE4JWI-10 REINICIADO por el usuario (15-sep, PID 10564 — antes 4908 con
+  código viejo). Ya corre con `generar_ranking_json`; cada QSO nuevo actualiza el
+  ranking_organillero.json. Verificado: hay 2 paneles corriendo (9812 y 3528) y el bot 10564.
 
 ESTADO DE VERCEL tras la migración: **COMPLETO — Vercel DESCONECTADO de la web**.
 El 15-sep-2026 se BORRARON del repo `api/*.js` (los 5 endpoints: ranking-final,
