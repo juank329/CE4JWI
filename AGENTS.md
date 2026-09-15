@@ -106,18 +106,14 @@ Hoy (15-sep) solo 2 páginas usaban Vercel y YA se migraron a estático:
 - ⚠️ El bot CE4JWI-10 corría con el código VIEJO (PID 4908, iniciado 8:37). Para que los
   próximos QSO generen el JSON, hay que REINICIAR el bot (el usuario lo hace en su máquina).
 
-ESTADO DE VERCEL tras la migración: los 5 endpoints siguen en el repo pero **ninguna
-página HTML los usa** (grep `ce4jwi.vercel.app` en *.html = 0). Endpoints:
-ranking-final, calendario, get-solar, aprs-proxy (inactivos) y ranking-organillero
-(hoy reemplazado por el JSON estático del bot).
+ESTADO DE VERCEL tras la migración: **COMPLETO — Vercel DESCONECTADO de la web**.
+El 15-sep-2026 se BORRARON del repo `api/*.js` (los 5 endpoints: ranking-final,
+calendario, get-solar, aprs-proxy, ranking-organillero) y `vercel.json`. Push disparó
+deploy; el sitio `ce4jwi.vercel.app` queda solo como estática de respaldo.
+**NO reintroducir endpoints ni vercel.json**: la web no tiene backend.
+Los respaldos del usuario dentro de `api/` se conservaron (`.respaldo_*`).
 
-PASO 4 PENDIENTE (quiero hacer): borrar `api/` y `vercel.json` del repo para
-desconectar Vercel del todo. OJO: `vercel.json` contiene los rewrites de las
-actividades congeladas → /api/ranking-final (rutas /api/ranking-*); si se elimina,
-esas URLs https://ce4jwi.vercel.app/api/ranking-* dejan de servir (pero ninguna página
-las usa ya). gitignore NO debemos borrar config sin confirmar. RECORDAR: verificar que
-no haya widgets/sidebar/componentes que llamen a /api/* (componentes.js NO los llama;
-ya revisado 15-sep).
+PASO 4 COMPLETADO. Ya NO existe dependencia de Vercel en qsl.net/ce4jwi.
 
 ## Frase y badge de puntos (15-sep-2026)
 
