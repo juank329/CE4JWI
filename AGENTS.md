@@ -151,7 +151,7 @@ api/ranking-organillero.js # EN VIVO: actividad El Organillero (15-sep-2026, CE4
   - A: `Thanks for the QSO! Visit https://qsl.net/ce4jwi/ 73 {FIRMA_MSJ}`
   - XR4MAU-7/-10 **sin cambios**.
 - **Consola (L775)** en los 4 bots: corregido `.webp` → `.jpg` (el bot guarda `.jpg` real).
-- **Auto CQ** en `panel_qsl.py` de los 4 bots activos (CE4JWI-7/-10, XR4MAU-7/-10): intervalo `1200` (20 min) y luego `600` (10 min) → **`300` (5 min)**. Textos del panel (.py y .html) actualizados a "5 min". CA4NDW **no se toca**.
+- **Auto CQ** en `panel_qsl.py` de los 4 bots activos (CE4JWI-7/-10, XR4MAU-7/-10): intervalo `300` (5 min) → **`600` (10 min)** (15-sep-2026). Textos del panel (.py y .html) actualizados a "10 min" en los 4 bots. CA4NDW **no se toca**.
 - **Header ADIF completo ADIF**: los 4 bots antes escribían 2 líneas de texto plano (`ADIF Export...`, `Created automatically`) en el encabezado → QRZ avisaba "error ADIF" (pero importaba igual). Corregido: ahora `<COMMENT:n>…` válidos en `guardar_adif`.
 
 ### Reglas importantes
