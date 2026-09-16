@@ -51,7 +51,7 @@
     "OH":"FI","OJ":"FI","OG":"FI","OF":"FI","TA":"TR","TC":"TR","TB":"TR","TM":"TR",
     "UA":"RU","UB":"UA","UC":"BY","UD":"AZ","UE":"RU","UF":"RU","UG":"GE","UH":"RU","UI":"RU","UJ":"UZ","UK":"UZ","UL":"KZ","UM":"BY","UN":"KZ","UO":"RU","UP":"KZ","UQ":"BY","UR":"UA","US":"UA","UT":"UA","UU":"UA","UV":"UA","UW":"UA","UX":"UA","UY":"UA","UZ":"UA",
     "VK":"AU","VI":"AU","VH":"AU","VJ":"AU","VM":"AU","VZ":"AU","AX":"AU",
-    "ZL":"NZ","ZM":"NZ","ZK":"NZ","ZP":"PY","ZS":"ZA","ZR":"ZA","ZU":"ZA","ZV":"ZA","ZW":"ZA","3G":"CL","Z3":"MK","Z6":"XK",
+    "ZL":"NZ","ZM":"NZ","ZK":"NZ","ZP":"PY","ZS":"ZA","ZR":"ZA","ZU":"ZA","ZV":"ZA","ZW":"ZA","3G":"CL","Z3":"MK","Z6":"XK","BB":"CN",
     "4X":"IL","4Z":"IL","5B":"CY","5H":"TZ","5N":"NG","5R":"MG","5T":"MR","5U":"NE","5V":"TG","5W":"WS","5X":"UG","5Z":"KE","6M":"HK","6Y":"JM","7P":"LS","7Q":"MW","7X":"DZ","8P":"BB","8R":"GY","8S":"SE","8Z":"SA","9J":"ZM","9O":"CD",
     "E5":"CK","E7":"BA","EX":"KG","EY":"TJ","EZ":"TM","FJ":"GF","FM":"MQ","FG":"GP","FH":"YT","FK":"NC","FO":"PF","FP":"PM","FR":"RE","FS":"PM","FT":"TF",
     "HC":"EC","HD":"EC","HJ":"CO","HK":"CO","KP":"PR","OA":"PE","OB":"PE","PU":"BR","VG":"CA","VU":"IN"
