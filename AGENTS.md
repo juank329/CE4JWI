@@ -140,3 +140,13 @@ vercel.json**: la web no tiene backend. Ya NO existe dependencia de Vercel en qs
 - Ignorar CA4NDW — solo trabajar con CE4JWI y XR4MAU. (Significa: no trabajar sobre los bots/folders de CA4NDW).
 - **NUNCA eliminar CA4NDW**: sus QSO quedan SIEMPRE en ADIF/ranking (confirmado por el usuario, 15-sep-2026). No filtrarla en endpoints ni en la web.
 - **Auto-guardar**: SIEMPRE actualizar AGENTS.md al final de cada sesión con todos los cambios hechos. Commitear sin preguntar. La cuota de IA se agota a veces y el contexto se pierde — la memoria en AGENTS.md es lo único que persiste.
+
+## Motor i18n ES|EN (idioma_20260915.js) — 15-sep-2026
+- `recursos/idioma_20260915.js` define `window.I18N` tras **DOMContentLoaded** (detección: `localStorage["ce4jwi_idioma"]` en `esp|en` activo; EN solo si la clave vale `"en"`, `"eng"`, `"english"` → `en`).
+- API expuesta: `I18N.t(clave)`, `t(es,enOpcional)` (fallback=es), `I18N.formatear(clave,datos)`, `I18N.cambiarIdioma(lang)` (solo `es`/`en`; guarda en localStorage y hace `location.reload()`), `I18N.es()`, `I18N.actual()`, `I18N.aplicarDom()`, `I18N.aplicarRanking()`, `I18N.aplicarTodo()`.
+- **data-i18n**: traduce `[data-i18n]` (textContent), `[data-i18n-ph]` (placeholder), `[data-i18n-val]` (value), `[data-i18n-title]` (title) y fija `document.documentElement.lang`. Aplica hasta **99 claves** repetidas en ambos idiomas.
+- **Ranking (MutationObserver)**: re-traduce dinámicamente el ranking APRS (`estado.enVivo/FINALIZADO`, `ranking.enVivo`, `total-badge`, th `Indicativo`→Callsign, `País`→Country, etc.) porque esas tablas se re-pintan en español por `actividades_*.js` cada 60 s. Mantiene el observer activo también tras cambios de idioma.
+- **Selector en AGENTS**: `[data-i18n]="clave"`. En EN la etiqueta va en diccionario (EN); las frases propias de la actividad (callsign, frase APRS, país) **no** se traducen.
+- **Cachebust**: versionado `idioma_20260915.js`, `componentes_20260915.js`, `script_20260915.js`, `calendario_20260915.js`, `buscador-qsl_20260916.js` (CDN qsl.net ignora query strings, por eso se renombra el archivo). NO reintroducir `/api/*` (Vercel eliminado).
+- Order: `idioma` DEBE cargarse ANTES que `componentes` (defer no garantiza orden — usar carga síncrona al final del body o `defer` con el orden en el HTML).
+- El botón ES|EN vive en el navbar (inyectado por `componentes.js`, función `marcarBotonIdioma()`), con `data-i18n` solo para el tooltip/título.

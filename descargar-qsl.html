@@ -24,41 +24,41 @@
     <div class="content">
 
       <div class="banner">
-        <h1>Descarga de Tarjetas QSL</h1>
+        <h1 data-i18n="qsl.titulo">Descarga de Tarjetas QSL</h1>
       </div>
 
       <section class="page-content">
 
         <!-- ============ Cabecera del buscador ============ -->
         <div class="qsl-head">
-          <h2 class="qsl-title">Buscador de Tarjetas QSL Online</h2>
+          <h2 class="qsl-title" data-i18n="qsl.titulo">Buscador de Tarjetas QSL Online</h2>
           <span class="qsl-call">CE4JWI</span>
         </div>
 
-        <p class="qsl-nota" style="margin-bottom:1rem;margin-top:0;">Ingresa tu indicativo para descargar en tiempo real tus confirmaciones de radio.</p>
+        <p class="qsl-nota" style="margin-bottom:1rem;margin-top:0;" data-i18n="qsl.nota">Ingresa tu indicativo para descargar en tiempo real tus confirmaciones de radio.</p>
 
         <!-- ============ Formulario ============ -->
         <form class="qsl-form" id="qslForm" onsubmit="event.preventDefault(); document.getElementById('btnBuscar').click();">
           <div class="qsl-campo">
-            <label for="callInput">Indicativo</label>
-            <input type="text" id="callInput" placeholder="Ej: XR4MAU" autocomplete="off" enterkeyhint="search" spellcheck="false">
+            <label for="callInput" data-i18n="qsl.indicativo">Indicativo</label>
+            <input type="text" id="callInput" placeholder="Ej: XR4MAU" data-i18n-ph="qsl.placeholder" autocomplete="off" enterkeyhint="search" spellcheck="false">
           </div>
           <div class="qsl-acciones">
-            <button type="button" class="btn-buscar" id="btnBuscar">BUSCAR QSL</button>
-            <button type="button" class="btn-limpiar" id="btnLimpiar">Limpiar</button>
+            <button type="button" class="btn-buscar" id="btnBuscar" data-i18n="qsl.buscar">BUSCAR QSL</button>
+            <button type="button" class="btn-limpiar" id="btnLimpiar" data-i18n="qsl.limpiar">Limpiar</button>
           </div>
         </form>
 
         <!-- ============ Filtro por estación ============ -->
         <div class="qsl-filtros">
-          <span class="qsl-filtro-label">Estación:</span>
-          <button type="button" class="qsl-filtro activo" data-emisora="TODAS">Todas <span>(0)</span></button>
+          <span class="qsl-filtro-label" data-i18n="qsl.estacion">Estación:</span>
+          <button type="button" class="qsl-filtro activo" data-emisora="TODAS"><span data-i18n="qsl.todas">Todas</span> <span>(0)</span></button>
           <button type="button" class="qsl-filtro" data-emisora="CE4JWI">CE4JWI <span>(0)</span></button>
           <button type="button" class="qsl-filtro" data-emisora="XR4MAU">XR4MAU <span>(0)</span></button>
         </div>
 
         <!-- ============ Estados ============ -->
-        <div id="cargando" class="qsl-cargando">⏳ Consultando el libro de guardia...</div>
+        <div id="cargando" class="qsl-cargando" data-i18n="qsl.cargando">⏳ Consultando el libro de guardia...</div>
         <div id="aviso" class="qsl-aviso"></div>
         <div id="stats" class="qsl-estado" style="font-weight:700;color:var(--blue);"></div>
 
@@ -78,7 +78,8 @@
   <div id="footer-container"></div>
 
   <script src="recursos/actividades_20260915000322_452461df.js" defer></script>
-  <script defer src="recursos/componentes.js?v=2"></script>
-  <script defer src="recursos/buscador-qsl_20260915.js"></script>
+  <script defer src="recursos/idioma_20260915.js"></script>
+  <script defer src="recursos/componentes_20260915.js"></script>
+  <script defer src="recursos/buscador-qsl_20260916.js"></script>
 </body>
 </html>
