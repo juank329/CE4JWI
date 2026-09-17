@@ -57,6 +57,15 @@ Sitio web del indicativo CE4JWI en **qsl.net**. 100% estático HTML/CSS/JS/JSON/
 
 - `subir_v18.py` (FTP), `build_indicativos.py` (workflow `.github/workflows/actualizar-licencias.yml`, mensual, requiere pypdf y PAT_TOKEN), `sync_calendario.py` (workflow sync-calendario.yml, cada 3 h), `servidor_qsl.py` + `iniciar_qsl.bat` (dev local), `generar.py` + `generar-indice.py` (generadores QSL).
 - `generar_ranking_manual.py` + `TUTORIAL_RANKING.md`: ranking manual sin opencode (vivo vs congelado, formato JSON, rutas, cachebust, checklist).
+
+## Bot Telegram QSLs (17-sep-2026)
+
+- App INDEPENDIENTE (no toca los bots APRS): `C:\Users\javen\OneDrive\Desktop\BOT\_mantenimiento\telegram_qsl\bot_telegram_qsl.py`.
+- Usuario `@Ce4jwi_qsl_bot`. Cada colega se registra con `/registrar SU_CALL` (o `/borrar`, `/estado`).
+- Vigila el FTP de qsl.net cada 30 s (`scan_segundos`) y manda cada QSL nueva por DM al chat registrado. Reutiliza credenciales FTP de `LOG4OM_QSLNET\config.json` (clave `config_ftp`).
+- El TOKEN de Telegram NO se versiona: vive solo en `telegram_qsl\config.json` (`bot_token`). Nunca commitear.
+- Optimiza la imagen antes de enviar (`optimizar_jpeg`: JPEG <=900000 bytes) — sin esto Telegram devuelve HTTP 413 (QSLs de ~1.4 MB).
+- Enviados registrados en `enviados.json` (evita reenvíos). Arranca con `iniciar_bot_telegram_qsl.bat` (ventana visible). PID al crearlo: 14800.
 - `GUIA_ACTIVIDADES.md`: guía más antigua de creación de actividades (pasos 1-5); `plantilla.html` / `plantilla_ranking.html` son plantillas.
 - `.github/workflows/` hacen commit+push automáticos cuando regeneran datos (no intentar "fixear" si hay conflictos por sus commits).
 

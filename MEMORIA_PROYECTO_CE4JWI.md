@@ -123,3 +123,16 @@
   Verificado: PIDs 14164/1984 ya no existen. Los cambios de codigo (5 min + ranking json)
   quedan en disco para cuando se quieran relanzar.
 - Estan corriendo SOLO: CE4JWI-7 PID 240 [CUECA] y CE4JWI-10 PID 15960 [HUASO].
+
+## BOT TELEGRAM QSL (17-sep-2026, gratis)
+- App independiente en C:\Users\javen\OneDrive\Desktop\BOT\_mantenimiento\telegram_qsl\
+  (bot_telegram_qsl.py + config.json + iniciar_bot_telegram_qsl.bat + registro.json + enviados.json).
+- Usuario @Ce4jwi_qsl_bot (BotFather). Colegas se registran con /registrar SU_CALL.
+- Vigila FTP qsl.net cada 30 s; cuando aparece una QSL jpg nueva se la manda por DM al
+  chat registrado. Credenciales FTP reutiliza de LOG4OM_QSLNET\config.json (clave config_ftp).
+- TOKEN Telegram SOLO en telegram_qsl\config.json (bot_token). NUNCA versionar.
+- Fix HTTP 413: optimizar_jpeg comprime a JPEG <=~900 KB antes de enviar (QSLs ~1.4 MB).
+- enviados.json evita reenvios. Relanzar con iniciar_bot_telegram_qsl.bat ventana visible.
+  PID al crearlo: 14800. CE4JWI (chat 1296146556) ya registrado y probado OK (5 QSLs).
+- QSLs por APRS (CE4JWI/XR4MAU) ya existian y quedan en la web descargar-qsl.html; el
+  Telegram es un CANAL NUEVO de entrega, no reemplaza APRS/web.
