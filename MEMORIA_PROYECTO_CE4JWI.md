@@ -64,3 +64,12 @@
   subir_log_adif. Ya sube ranking_cueca.json autom\u00e1ticamente en cada QSO.
 - Bot CE4JWI-7 RELANZADO (nuevo PID, cwd bot_aprs_ce4jwi). Conectado como CE4JWI-7 frase [CUECA].
 - El ranking_cueca.json NO necesita ya generarse a mano.
+
+## TICKER CLIMA + ADIF/RANKINGS (16-sep-2026)
+- Ticker del clima ELIMINADO de componentes (HTML .weather-ticker + funciones clima + llamadas).
+  Cachebust nuevo: componentes_20260916_f089c287.js, 108/108 HTML re-apuntados, FTP 109/109 OK.
+  FIX previo: componentes_20260924.js que apuntaban los HTML NO estaba en producci\u00f3n
+  (faltaban men\u00fa/sidebar/footer) -> subido antes del cachebust.
+- CUECA: ADIF local=qsl.net=39 QSO/39 est., ranking_cueca.json regenerado 39/39 (estaba 23).
+  CE4JWI-7 ya lo auto-actualiza en cada QSO.
+- HUASO: ADIF local=qsl.net=46 QSO/46 est., ranking_huaso.json correcto (bot CE4JWI-10).

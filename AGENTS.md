@@ -86,6 +86,23 @@ Guía para el mantenimiento del sitio web CE4JWI en qsl.net — **100% ESTÁTICO
 - Nuevo cachebust: `recursos/actividades_20260916_42968cfe.js` (sha256[:8] del contenido), **108/108 HTML** re-apuntados.
 - Subido por FTP (6 piezas): 2 páginas + cachebust + actividades.js + 2 imágenes de modo. Verificado HTTP 200 en producción.
 
+## Ticker del clima ELIMINADO (16-sep-2026)
+
+- Se quitó de `recursos/componentes_*.js` TODO el bloque de clima del footer (HTML
+  `.weather-ticker`, funciones `interpretarClima`/`ES_CLIMA`/`CIUDADES_MAULE`/`cargarClimaMaule`,
+  y las llamadas `cargarClimaMaule()` + `setInterval(..., 15*60*1000)`). Mojibake=0.
+- Cachebust nuevo: `recursos/componentes_20260916_f089c287.js`, **108/108 HTML** re-apuntados.
+- FTP 109/109 (108 HTML + cachebust). Verificado en qsl.net (sin clima, componentes OK).
+- FIX previo: `componentes_20260924.js` (el que apuntaban los HTML) NO estaba en producción
+  → faltaban menú/sidebar/footer. Se subió el archivo pendiente por FTP antes del cachebust.
+
+## Rankings ADIF/ranking corregidos (16-sep-2026)
+
+- CUECA: ADIF local = qsl.net = **39 QSO / 39 estaciones** (0 duplicados). El ranking publicado
+  estaba en 23 (manual) → regenerado desde `log_cueca.adi` real del bot y subido:
+  `ranking_cueca.json` = 39/39, congelado=false. CE4JWI-7 ya lo auto-actualiza en cada QSO.
+- HUASO: ADIF local = qsl.net = **46 QSO / 46 estaciones** (0 duplicados). Ranking ya correcto (lo genera CE4JWI-10).
+
 ## Descarte de Vercel (15-sep-2026, COMPLETADO)
 
 PASO 4 COMPLETADO: se BORRARON del repo `api/*.js` (los 5 endpoints: ranking-final,
