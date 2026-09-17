@@ -57,3 +57,10 @@
   part, subido y verificado. NO se auto-actualiza; re-ejecutar generador si cambia log_cueca.adi.
 - ranking_huaso.json: lo genera el bot CE4JWI-10 (26 QSO) - NO tocar.
 - Cachebust nuevo: actividades_20260916_42968cfe.js (108/108 HTML re-apuntados). FTP 6/6 OK.
+
+## CE4JWI-7 ACTUALIZADO (16-sep-2026)
+- Se copi\u00f3 a CE4JWI-7 (bot_aprs_ce4jwi) el generar_ranking_json del CE4JWI-10: funciones
+  _leer_qsos_adif + generar_ranking_json, import cmp_to_key, llamada en guardar_adif tras
+  subir_log_adif. Ya sube ranking_cueca.json autom\u00e1ticamente en cada QSO.
+- Bot CE4JWI-7 RELANZADO (nuevo PID, cwd bot_aprs_ce4jwi). Conectado como CE4JWI-7 frase [CUECA].
+- El ranking_cueca.json NO necesita ya generarse a mano.

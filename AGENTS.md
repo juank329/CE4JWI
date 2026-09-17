@@ -59,10 +59,11 @@ Guía para el mantenimiento del sitio web CE4JWI en qsl.net — **100% ESTÁTICO
 ## Actividad EN VIVO: Día Nacional de la Cueca 2026 (16-sep-2026)
 
 - Bot **CE4JWI-7** (`Desktop\BOT\bot_aprs_ce4jwi`): `frase_clave: CUECA`, `nombre_actividad: CUECA` — solo APRS.
-- ⚠️ CE4JWI-7 **NO tiene** `generar_ranking_json` (solo sube `log_cueca.adi`). El ranking
-  `ranking_cueca.json` se generó MANUALMENTE (script `generar_ranking_cueca_v1_ascii_puro.py`
-  en temp, replica el esquema del bot CE4JWI-10) → NO se auto-actualiza: re-ejecutar al
-  cambiar el ADIF o agregar la función al bot.
+- ✅ **16-sep-2026**: se agregó a CE4JWI-7 el mismo `generar_ranking_json` del CE4JWI-10
+  (funciones `_leer_qsos_adif` + `generar_ranking_json`, import `from functools import cmp_to_key`,
+  y llamada `generar_ranking_json(nombre_log)` en `guardar_adif`) → ya sube `ranking_cueca.json`
+  por FTP en cada QSO automáticamente.
+- ✅ Bot CE4JWI-7 REINICIADO/relanzado (16-sep, nuevo PID) — correlado con `python -u bot_qsl_ce4jwi.py`.
 - Página: `dia_nacional_de_la_cueca_2026.html` → `fetch("ranking_cueca.json", { cache: "no-cache" })`,
   refresh 60 s, badge "En vivo". Banner: `public/Dia_Nacional_de_la_Cueca_2026.webp`,
   modos: `public/CE4JWI SOLO APRS.webp`. Sin "CQ CUECA"/"DMR".
