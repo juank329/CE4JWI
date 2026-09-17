@@ -90,3 +90,16 @@
   Corregido, FTP subido, verificado en qsl.net (FFFD=0). Header escrito ESPANOL sin acento.
 - Papelera de seguridad con TODO lo borrado: temp\opencode\audit_papelera (git tambien).
 - Cachebusts vivos tras limpieza = 7 (lista exacta en AGENTS).
+
+## AUTO-CQ CADA 5 MIN (17-sep-2026)
+- Usuario pidio CQ automaticos cada 5 min (antes 10 min) SOLO en CE4JWI-7 y CE4JWI-10
+  (no tocar XR4MAU ni CA4NDW).
+- panel_qsl.py de bot_aprs_ce4jwi y bot_aprs_ce4jwi10: time.sleep(600) -> time.sleep(300)
+  en _hilo_cq_automatico y detalle "cada 10 min" -> "cada 5 min". py_compile OK.
+- Reinicios: 1er intento con Start-Process -WindowStyle Hidden (el usuario dijo que "no
+  abrian"). Se detuvieron y se relanzaron con iniciar_ce4jwi.bat / iniciar_ce4jwi10.bat
+  (ventana de consola VISIBLE). PIDs nuevos: CE4JWI-7=240, CE4JWI-10=15960 (bot_pid.txt
+  actualizados por el propio bot). Ambos conectados a rotate.aprs2.net:14580 con frase
+  [CUECA] y [HUASO] y enviando BOLETIN cada ~5 min (log verificado).
+- Leccion: usar SIEMPRE los .bat (iniciar_ce4jwi.bat / iniciar_ce4jwi10.bat) para relanzar
+  bots, NO -WindowStyle Hidden.
