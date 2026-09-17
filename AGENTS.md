@@ -56,6 +56,35 @@ Guía para el mantenimiento del sitio web CE4JWI en qsl.net — **100% ESTÁTICO
 - Entry id 86 en `recursos/actividades.js` (status EN VIVO).
 - Al terminar la actividad: crear `ranking-data/organillero/final.json` + página apunta a él + cachebust.
 
+## Actividad EN VIVO: Día Nacional de la Cueca 2026 (16-sep-2026)
+
+- Bot **CE4JWI-7** (`Desktop\BOT\bot_aprs_ce4jwi`): `frase_clave: CUECA`, `nombre_actividad: CUECA` — solo APRS.
+- ⚠️ CE4JWI-7 **NO tiene** `generar_ranking_json` (solo sube `log_cueca.adi`). El ranking
+  `ranking_cueca.json` se generó MANUALMENTE (script `generar_ranking_cueca_v1_ascii_puro.py`
+  en temp, replica el esquema del bot CE4JWI-10) → NO se auto-actualiza: re-ejecutar al
+  cambiar el ADIF o agregar la función al bot.
+- Página: `dia_nacional_de_la_cueca_2026.html` → `fetch("ranking_cueca.json", { cache: "no-cache" })`,
+  refresh 60 s, badge "En vivo". Banner: `public/Dia_Nacional_de_la_Cueca_2026.webp`,
+  modos: `public/CE4JWI SOLO APRS.webp`. Sin "CQ CUECA"/"DMR".
+- Entry id 68 en `recursos/actividades.js` (status EN VIVO).
+
+## Actividad EN VIVO: Día del Huaso y de la Chilenidad 2026 (16-sep-2026)
+
+- Bot **CE4JWI-10** (`Desktop\BOT\bot_aprs_ce4jwi10`): `frase_clave: HUASO`, `nombre_actividad: HUASO` — solo APRS.
+- Ranking: lo genera el bot CE4JWI-10 (`generar_ranking_json`) → `ranking_huaso.json` subido por FTP en cada QSO. NO tocar.
+- Página: `dia_del_huaso_y_de_la_chilenidad_2026.html` →
+  `fetch("ranking_huaso.json", { cache: "no-cache" })`, refresh 60 s, badge "En vivo".
+  Banner: `public/dia del huado y de la chilenidad 2026.webp`,
+  modos: `public/CE4JWI -10 SOLO APRS.webp`. Sin "CQ HUASO"/"DMR".
+- Entry id 69 en `recursos/actividades.js` (status EN VIVO).
+
+## Cachebust actividades (16-sep-2026, Cueca + Huaso)
+
+- Editadas las entradas id 68 (Cueca) e id 69 (Huaso) en `recursos/actividades.js`:
+  status EN VIVO y descripción "Solo APRS con la frase CUECA/HUASO a CE4JWI-7/CE4JWI-10".
+- Nuevo cachebust: `recursos/actividades_20260916_42968cfe.js` (sha256[:8] del contenido), **108/108 HTML** re-apuntados.
+- Subido por FTP (6 piezas): 2 páginas + cachebust + actividades.js + 2 imágenes de modo. Verificado HTTP 200 en producción.
+
 ## Descarte de Vercel (15-sep-2026, COMPLETADO)
 
 PASO 4 COMPLETADO: se BORRARON del repo `api/*.js` (los 5 endpoints: ranking-final,

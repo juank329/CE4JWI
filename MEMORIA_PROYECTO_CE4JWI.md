@@ -46,3 +46,14 @@
 ## PENDIENTE (no bloqueante)
 - Verificar en vivo con Ctrl+F5 el index transmitido (la tarjeta ya deber\u00eda
   verse; si el usuario confirma, cerrar). Nada m\u00e1s pendiente.
+
+## CUEca + HUASO 2026 (16-sep-2026, ACTIVIDADES EN VIVO)
+- D\u00eda Nacional de la Cueca 2026 = bot **CE4JWI-7**, frase **CUECA** (SOLO APRS). P\u00e1gina
+  reescrita: fetch ranking_cueca.json en vivo, imagen public/CE4JWI SOLO APRS.webp, sin CQ/DMR.
+  id 68 en actividades.js = EN VIVO.
+- D\u00eda del Huaso y de la Chilenidad 2026 = bot **CE4JWI-10**, frase **HUASO**. P\u00e1gina
+  reescrita: fetch ranking_huaso.json en vivo, imagen public/CE4JWI -10 SOLO APRS.webp. id 69 = EN VIVO.
+- ranking_cueca.json: generado MANUALMENTE (CE4JWI-7 no tiene generar_ranking_json). 23 QSO/23
+  part, subido y verificado. NO se auto-actualiza; re-ejecutar generador si cambia log_cueca.adi.
+- ranking_huaso.json: lo genera el bot CE4JWI-10 (26 QSO) - NO tocar.
+- Cachebust nuevo: actividades_20260916_42968cfe.js (108/108 HTML re-apuntados). FTP 6/6 OK.
