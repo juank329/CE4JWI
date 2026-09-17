@@ -103,3 +103,17 @@
   [CUECA] y [HUASO] y enviando BOLETIN cada ~5 min (log verificado).
 - Leccion: usar SIEMPRE los .bat (iniciar_ce4jwi.bat / iniciar_ce4jwi10.bat) para relanzar
   bots, NO -WindowStyle Hidden.
+
+## REPLICADO EN XR4MAU-7 Y XR4MAU-10 (17-sep-2026)
+- Mismo cambio auto-CQ 5 min (time.sleep 300) en panel_qsl.py de bot_aprs_xr4mau y
+  bot_aprs_xr4mau10 (antes 600). detalle "cada 5 min".
+- AGREGADO generar_ranking_json a los 2 XR4MAU (bot_qsl_xr4mau.py): copiado el bloque
+  compuesto de CE4JWI-7 = import cmp_to_key + _leer_qsos_adif + generar_ranking_json +
+  llamada generar_ranking_json(nombre_log) en guardar_adif tras subir_log_adif.
+  py_compile OK en ambos.
+- Lanzados con iniciar_xr4mau.bat / iniciar_xr4mau10.bat (ventana visible), PIDs:
+  XR4MAU-7=14164 frase [RIO], XR4MAU-10=1984 frase [MAULE] (rotate.aprs2.net:14580,
+  logs del 17-09 10:31 OK).
+- Les genera: XR4MAU-7 -> ranking_rio.json, XR4MAU-10 -> ranking_maule.json
+  (nombre_actividad de config.json) tras cada QSO, subido por FTP como los CE4JWI.
+- CA4NDW: NO tocado (regla respetada).
