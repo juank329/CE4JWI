@@ -247,3 +247,10 @@ vercel.json**: la web no tiene backend. Ya NO existe dependencia de Vercel en qs
 ## TUTORIAL MANUAL DE RANKINGS (agregado Sep 17 2026)
 - TUTORIAL_RANKING.md (raiz repo): guia paso a paso para hacer ranking manual sin opencode (vivo vs congelado, formato JSON, rutas, cachebust, checklist).
 - generar_ranking_manual.py (raiz repo): script probado. Uso: python generar_ranking_manual.py <log.adi> <Nombre> [--final] [--salida RUTA].
+
+## Actividad: Conmemoracion Primera Junta Nacional de Gobierno 2026 (17-sep-2026, para 18-sep)
+- Bot CE4JWI-10 config.json YA editado: frase_clave=PRIMERA JUNTA, nombre_actividad=PRIMERA JUNTA -> genera log_primera_junta.adi + ranking_primera_junta.json (NO reiniciado hoy, sigue HUASO). Mañana 18 se relanza con iniciar_ce4jwi10.bat.
+- Pagina: conmemoracion_primera_junta_nacional_de_gobierno_2026.html (clon los_chinchineros, CE4JWI-10 solo APRS, fetch ranking_primera_junta.json, badge En vivo). Banner: public/conmemoracion primera junta nacional de gobierno.webp, modos: public/CE4JWI -10 SOLO APRS.webp.
+- Entry id 88 en recursos/actividades.js (status EN VIVO, fecha 18 Septiembre 2026).
+- Cachebust NUEVO: recursos/actividades_20260917_23c5f36d.js (sha256[:8]), 108/108 HTML re-apuntados.
+- FTP 4/4 OK: pagina + cachebust + actividades.js + ranking_primera_junta.json vacio inicial (para que hoy no de error). Verificado produccion: FFFD=0 en los 3, fetch ok, ranking sirve.
