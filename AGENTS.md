@@ -197,3 +197,38 @@ vercel.json**: la web no tiene backend. Ya NO existe dependencia de Vercel en qs
 - **Cachebust**: versionado `idioma_20260915.js`, `componentes_20260915.js`, `script_20260915.js`, `calendario_20260915.js`, `buscador-qsl_20260916.js` (CDN qsl.net ignora query strings, por eso se renombra el archivo). NO reintroducir `/api/*` (Vercel eliminado).
 - Order: `idioma` DEBE cargarse ANTES que `componentes` (defer no garantiza orden — usar carga síncrona al final del body o `defer` con el orden en el HTML).
 - El botón ES|EN vive en el navbar (inyectado por `componentes.js`, función `marcarBotonIdioma()`), con `data-i18n` solo para el tooltip/título.
+## LIMPIEZA / AUDITORIA REPO (17-sep-2026) - commit 98defdf
+- Auditoria completa de archivos sobrantes (script v2 en temp). El usuario aprobo borrar
+  ANTES de ejecutar (preguntar siempre primero). Se eliminaron 94 archivos:
+  - 37 respaldos/tmp: *.respaldo_*, *.eliminado_*, *.tmp.txt, carpeta api/ entera (4
+    respaldos de endpoints Vercel muertos), README.md.respaldo_fonetico.
+  - 20 mas en recursos/: respaldos de actividades.js, componentes.js, styles.css,
+    calendario.js, script.js, indicativos-data.js/json, mapa-comunas.js, eventos,
+    herramientas.js, aprs.js (todos .respaldo_/.eliminado de sesiones previas).
+  - 16 cachebusts viejos: actividades_2026091*, banderas_20260915, buscador-qsl_20260915,
+    componentes_20260915/17/18/24, idioma_20260915/17, componentes.js.resp_qsloff_20260907,
+    styles.css.resp_qsloff_20260907.
+  - recursos/novedades.js (NUNCA referenciado; la marquesina lee de actividades).
+  - ~66 scripts .py temporales (cirugia_*, *_tmp.py, *_chinchineros*, diag_*, etc.).
+  - 8 imagenes huerfanas en public/ (Dia_del_Huaso...png 2.6MB, SOLOadn.webp, eqsl cc.svg,
+    escudo-radioaficionado.jpg, licencia radioaficionado.svg, qrz com.svg, qrz_com.svgz,
+    zonas de radioaficionados de chile.jpg) + placeholder-user.jpg + placeholder.svg.
+  - log.html (reemplazada por QSO_logger.html, no referenciada).
+- CONSERVADOS (no borrar): build_indicativos.py y sync_calendario.py (los usan los
+  workflows .github), subir_v18.py (FTP), servidor_qsl.py + iniciar_qsl.bat (dev local),
+  generar.py + generar-indice.py (generadores QSL), plantilla.html / plantilla_ranking.html
+  (plantillas), PDFs SUBTEL (fallback de build_indicativos.py), los 3 JSON grandes
+  (indicativos-data.js + indicativos.json usados por buscador/mapa; historial y aspirante
+  los genera el build), qsl/index.html (redirige a descargar-qsl.html), paquete.json.
+- Cachebusts VIVOS (unicos referenciados por los 108 HTML): actividades_20260916_42968cfe.js,
+  componentes_20260916_f089c287.js, idioma_20260918.js, calendario_20260915.js,
+  buscador-qsl_20260916.js, banderas_20260916.js, script_20260915.js.
+- FIX mojibake: recursos/idioma_20260918.js tenia 8 x U+FFFD ("SOLO ESPA?OL" y 7
+  "PR?XIMAMENTE" visibles en el badge/semaforo del ranking). Corregido a ESPANOL sin acento
+  y PR\u00d3XIMAMENTE (7). Mojibake=0, FTP subido, verificado en produccion.
+- Papelera temporal de seguridad: C:\Users\javen\AppData\Local\Temp\opencode\audit_papelera
+  (copia previa de TODO lo borrado; git tambien conserva el historial en 98defdf).
+- Pendiente intacto: eliminar_4_paginas_herramientas_*_tmp.py (NO borrado, sigue en raiz
+  sin commitear para la tarea de borrar las 4 herramienta-*.html) + sellar Chinchineros.
+- Regla actualizada: "No tocar .respaldo_*" quedo obsoleto -> el repo YA no tiene respaldos;
+  si aparece uno nuevo es basura reciente y se pregunta antes de borrar.

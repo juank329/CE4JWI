@@ -73,3 +73,20 @@
 - CUECA: ADIF local=qsl.net=39 QSO/39 est., ranking_cueca.json regenerado 39/39 (estaba 23).
   CE4JWI-7 ya lo auto-actualiza en cada QSO.
 - HUASO: ADIF local=qsl.net=46 QSO/46 est., ranking_huaso.json correcto (bot CE4JWI-10).
+
+## AUDITORIA + LIMPIEZA COMPLETA REPO (17-sep-2026)
+- Auditoria (scripts temp v1/v2/v3): 259/563 huerfanos v1; refinada con patron url:.
+- El usuario pidio PREGUNTAR ANTES DE ELIMINAR. Aprobado por categoria (question tool):
+  1) respaldos/tmp + api/ ; 2) cachebusts viejos + novedades.js ; 3) scripts .py temporales ;
+  4) imagenes huerfanas + placeholder ; 5) dudosos -> SOLO log.html (conserva PDFs SUBTEL,
+     ranking_pasamos_agosto, indicativos-historial/aspirante.json).
+- Commit 98defdf ("auditoria: elimina respaldos, scripts temporales, cachebusts viejos,
+  imagenes huerfanas y log.html; corrige mojibake en idioma_20260918.js"), 94 files,
+  +7/-284305. Push OK.
+- Quedan SOLO 7 .py en raiz (build_indicativos, sync_calendario, subir_v18, servidor_qsl,
+  generar, generar-indice) + eliminar_4_paginas_herramientas_*_tmp.py (pendiente, se
+  restauro desde papelera: la limpieza lo habia borrado por la pasada .py).
+- FIX produccion: idioma_20260918.js tenia 8 U+FFFD (header ESPA?OL + 7 PR?XIMAMENTE).
+  Corregido, FTP subido, verificado en qsl.net (FFFD=0). Header escrito ESPANOL sin acento.
+- Papelera de seguridad con TODO lo borrado: temp\opencode\audit_papelera (git tambien).
+- Cachebusts vivos tras limpieza = 7 (lista exacta en AGENTS).
