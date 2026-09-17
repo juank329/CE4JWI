@@ -1,6 +1,6 @@
-﻿/**
- * ============================================================
- * CE4JWI - SELECCION DE IDIOMA - SOLO ESPA�OL (17-sep-2026)
+/**
+* ============================================================
+ * CE4JWI - SELECCION DE IDIOMA - SOLO ESPANOL (17-sep-2026)
  * ============================================================
  * Version 20260917 -- REVISION: el sitio es 100% en espanol.
  * No hay boton ES|EN. El motor borra cualquier preferencia de
@@ -11,7 +11,7 @@
  *   - var EN : diccionario ingles (obsoleto, clave unica "estado."
  *              devuelta por nombre -- se mantiene solo por compat.)
  *   - I18N.t('namespace.clave')  -> traduce al idioma activo.
- *   - I18N.t('estado.PR�XIMAMENTE') etc para el badge/semaforo
+ *   - I18N.t('estado.PRÓXIMAMENTE') etc para el badge/semaforo
  *     del ranking: nunca devuelve la clave cruda en pantalla,
  *     si no existe la clave usa el ES (o el texto tras el punto).
  * ============================================================
@@ -31,12 +31,12 @@
     "estado.ACTIVO": "ACTIVO",
     "estado.EN CURSO": "EN CURSO",
     "estado.FINALIZADO": "FINALIZADO",
-    "estado.PR�XIMAMENTE": "PR�XIMAMENTE",
+    "estado.PRÓXIMAMENTE": "PRÓXIMAMENTE",
     // ---- Estados crudos tal como vienen del JSON (sin traduccion)
     "estado.ACTIVO_CRUDO": "ACTIVO",
     "estado.EN CURSO_CRUDO": "EN CURSO",
     "estado.FINALIZADO_CRUDO": "FINALIZADO",
-    "estado.PR�XIMAMENTE_CRUDO": "PR�XIMAMENTE",
+    "estado.PRÓXIMAMENTE_CRUDO": "PRÓXIMAMENTE",
   };
 
   var actual = "es";
@@ -44,7 +44,7 @@
   /* Retorna el texto para una clave. Si no existe la clave:
    *  - nunca devuelve la clave cruda con prefijo.
    *  - devuelve el diccionario ES (o, si tampoco, el texto tras el
-   *    ultimo punto, ej. "estado.PR�XIMAMENTE" -> "PR�XIMAMENTE"). */
+   *    ultimo punto, ej. "estado.PRÓXIMAMENTE" -> "PRÓXIMAMENTE"). */
   function t(clave) {
     if (typeof clave !== "string" || !clave) return "";
     if (ES[clave] !== undefined) return ES[clave];
