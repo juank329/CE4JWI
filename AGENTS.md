@@ -232,3 +232,14 @@ vercel.json**: la web no tiene backend. Ya NO existe dependencia de Vercel en qs
   sin commitear para la tarea de borrar las 4 herramienta-*.html) + sellar Chinchineros.
 - Regla actualizada: "No tocar .respaldo_*" quedo obsoleto -> el repo YA no tiene respaldos;
   si aparece uno nuevo es basura reciente y se pregunta antes de borrar.
+
+## AUTO-CQ 5 MIN + RANKING JSON (17-sep-2026)
+- Bot APRS bucle: los .py de cada bot viven en C:\Users\javen\OneDrive\Desktop\BOT\<bot>\
+  (NO en el repo). panel_qsl.py -> _hilo_cq_automatico: time.sleep(300) (=5 min) en
+  CE4JWI-7, CE4JWI-10, XR4MAU-7, XR4MAU-10. CA4NDW NO se toca (regla).
+- generar_ranking_json (cerveza igual que CE4JWI-10) agregado a: CE4JWI-7, XR4MAU-7,
+  XR4MAU-10. Bloque = import cmp_to_key + _leer_qsos_adif + generar_ranking_json +
+  llamada en guardar_adif tras subir_log_adif. Sube ranking_<nombre_actividad>.json por FTP.
+- Corriendo en produccion SOLO: CE4JWI-7 (CUECA) y CE4JWI-10 (HUASO), relanzados con sus
+  iniciar_*.bat (ventana visible; NO usar Start-Process -WindowStyle Hidden). XR4MAU-7/10
+  cerrados por el usuario (no queria duplicados); codigo queda en disco por si se relanzan.
