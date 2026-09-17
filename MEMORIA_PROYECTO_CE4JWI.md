@@ -117,3 +117,9 @@
 - Les genera: XR4MAU-7 -> ranking_rio.json, XR4MAU-10 -> ranking_maule.json
   (nombre_actividad de config.json) tras cada QSO, subido por FTP como los CE4JWI.
 - CA4NDW: NO tocado (regla respetada).
+
+## XR4MAU CERRADOS POR EL USUARIO (17-sep-2026)
+- El usuario cerro MANUALMENTE los bots XR4MAU-7 y XR4MAU-10 (no queria duplicados).
+  Verificado: PIDs 14164/1984 ya no existen. Los cambios de codigo (5 min + ranking json)
+  quedan en disco para cuando se quieran relanzar.
+- Estan corriendo SOLO: CE4JWI-7 PID 240 [CUECA] y CE4JWI-10 PID 15960 [HUASO].
