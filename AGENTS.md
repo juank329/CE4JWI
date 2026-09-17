@@ -254,3 +254,4 @@ vercel.json**: la web no tiene backend. Ya NO existe dependencia de Vercel en qs
 - Entry id 88 en recursos/actividades.js (status EN VIVO, fecha 18 Septiembre 2026).
 - Cachebust NUEVO: recursos/actividades_20260917_23c5f36d.js (sha256[:8]), 108/108 HTML re-apuntados.
 - FTP 4/4 OK: pagina + cachebust + actividades.js + ranking_primera_junta.json vacio inicial (para que hoy no de error). Verificado produccion: FFFD=0 en los 3, fetch ok, ranking sirve.
+- NOTA: en el commit de cachebust (e7661b7), git add -A incluyo el script pendiente eliminar_4_paginas_herramientas_*_tmp.py y public/conmemoracion primera junta nacional de gobierno.webp. El script ya esta versionado en git (respaldo).
