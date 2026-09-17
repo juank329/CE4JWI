@@ -243,3 +243,7 @@ vercel.json**: la web no tiene backend. Ya NO existe dependencia de Vercel en qs
 - Corriendo en produccion SOLO: CE4JWI-7 (CUECA) y CE4JWI-10 (HUASO), relanzados con sus
   iniciar_*.bat (ventana visible; NO usar Start-Process -WindowStyle Hidden). XR4MAU-7/10
   cerrados por el usuario (no queria duplicados); codigo queda en disco por si se relanzan.
+
+## TUTORIAL MANUAL DE RANKINGS (agregado Sep 17 2026)
+- TUTORIAL_RANKING.md (raiz repo): guia paso a paso para hacer ranking manual sin opencode (vivo vs congelado, formato JSON, rutas, cachebust, checklist).
+- generar_ranking_manual.py (raiz repo): script probado. Uso: python generar_ranking_manual.py <log.adi> <Nombre> [--final] [--salida RUTA].
