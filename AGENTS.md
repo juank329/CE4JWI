@@ -44,7 +44,7 @@ Sitio web del indicativo CE4JWI en **qsl.net**. 100% estático HTML/CSS/JS/JSON/
 - **CA4NDW: nunca tocar sus bots, y sus QSO siempre quedan en ADIF/ranking.**
 - Auto-CQ cada **5 min** (`time.sleep(300)` en `_hilo_cq_automatico` de `panel_qsl.py`) en CE4JWI-7/-10 y XR4MAU-7/-10.
 - `panel_qsl.py` edita `config.json` en runtime; `bot_qsl_*.py` lo lee al arrancar (frase, log, ranking).
-- Estado 18-sep-2026: CE4JWI-7 (CUECA) APAGADO tras sellar ranking. CE4JWI-10 (PID 1760) relanzado con config **PRIMERA JUNTA** (18-sep) → `log_primera_junta.adi` + `ranking_primera_junta.json`. XR4MAU-7/-10 cerrados por el usuario (código 5-min + generar_ranking_json queda en disco).
+- Estado 18-sep-2026: CE4JWI-7 (CUECA) APAGADO tras sellar ranking. CE4JWI-10 corriendo en `bot_ce4jwi10_telegram` (TODO-EN-UNO APRS+Telegram, config **PRIMERA JUNTA** 18-sep, PID 16080) → `log_primera_junta.adi` + `ranking_primera_junta.json`. XR4MAU-7/-10 cerrados por el usuario (código 5-min + generar_ranking_json queda en disco).
 - suben por FTP a la misma carpeta `/ce4jwi`.
 
 ## Actividades actuales
@@ -58,16 +58,18 @@ Sitio web del indicativo CE4JWI en **qsl.net**. 100% estático HTML/CSS/JS/JSON/
 - `subir_v18.py` (FTP), `build_indicativos.py` (workflow `.github/workflows/actualizar-licencias.yml`, mensual, requiere pypdf y PAT_TOKEN), `sync_calendario.py` (workflow sync-calendario.yml, cada 3 h), `servidor_qsl.py` + `iniciar_qsl.bat` (dev local), `generar.py` + `generar-indice.py` (generadores QSL).
 - `generar_ranking_manual.py` + `TUTORIAL_RANKING.md`: ranking manual sin opencode (vivo vs congelado, formato JSON, rutas, cachebust, checklist).
 
-## Bot Telegram QSLs (17-sep-2026)
+## Bot Telegram QSLs (sección actualizada 18-sep-2026: TODO EN UNO)
 
-- App INDEPENDIENTE (no toca los bots APRS): `C:\Users\javen\OneDrive\Desktop\BOT\_mantenimiento\telegram_qsl\bot_telegram_qsl.py`.
+- **INTEGRADO como módulo dentro del bot APRS**: `C:\Users\javen\OneDrive\Desktop\BOT\bot_ce4jwi10_telegram\bot_qsl_ce4jwi.py` (copia de CE4JWI-10 + motor Telegram con prefijo `tg_*`). Un solo proceso hace APRS + Telegram. Arranca con `iniciar_ce4jwi10_telegram.bat`. Estado: APRS conectado + `Vigilando FTP cada 30 s` en el mismo PID.
+- El bot APRS ORIGINAL para CE4JWI-10 sigue en `…\bot_aprs_ce4jwi10\bot_qsl_ce4jwi.py` (sin Telegram; quedó como respaldo de trabajo). XR4MAU-7/-10 NO tienen integrado (no usar Telegram ahí mién mientras).
+- Los datos del Telegram (token, registro, candado, log) SIEMPRE viven en `C:\Users\javen\OneDrive\Desktop\BOT\_mantenimiento\telegram_qsl\` (fuente única compartida: `config.json`, `registro.json`, `enviados.json`, `bot_telegram_qsl.log`) — el módulo integrado los lee desde ahí (`TG_BASE`). El script independiente `bot_telegram_qsl.py` de esa carpeta quedó DESACTIVADO (su guardián/Startup se movió a `.respaldo_integrado`; NO relanzarlo, daría 409 + dobles envíos).
 - Usuario `@Ce4jwi_qsl_bot`. Cada colega se registra con `/registrar SU_CALL` (o `/borrar`, `/estado`).
-- Vigila el FTP de qsl.net cada 30 s (`scan_segundos`) y manda cada QSL nueva por DM al chat registrado. Reutiliza credenciales FTP de `LOG4OM_QSLNET\config.json` (clave `config_ftp`).
+- Vigila el FTP de qsl.net cada 30 s (`scan_segundos`) y manda cada QSL nueva por DM al chat registrado. Reutiliza credenciales FTP de `LOG4OM_QSLNET\config.json` (clave `config_ftp`); si falla, cae a las del bot APRS.
 - El TOKEN de Telegram NO se versiona: vive solo en `telegram_qsl\config.json` (`bot_token`). Nunca commitear.
-- Optimiza la imagen antes de enviar (`optimizar_jpeg`: JPEG <=900000 bytes) — sin esto Telegram devuelve HTTP 413 (QSLs de ~1.4 MB).
-- Envío con candado: `enviados.json` = `{"archivos": [...], "hashes": [...]}` (1459 archivos hist. sellados + hashes md5 del contenido). **Regla: una QSL se envía UNA vez; si se borra el mensaje en Telegram, NO se reenvía.** Solo cuenta duplicada el contenido idéntico (md5); si dos bots entregan QSL distintas del mismo QSO, van ambas.
-- `escanear_qsls_nuevas()` devuelve `{nombre: chat_id}`; el dedupe por md5 ocurre al enviar. Cada colega solo recibe sus propias QSL (call del nombre de archivo → `registro.json` → chat). `registro.json`: CE4JWI y XR4MAU → chat 1296146556 (monitoreo del dueño).
-- Arranque: `iniciar_bot_telegram_qsl.bat` (bot) + `guardian_bot_telegram_qsl.bat` (watchdog; solo relanza si no hay python con `bot_telegram_qsl.py`) + acceso directo en carpeta Inicio (`BotTelegramQSLGuardian.lnk`). PID activo en su momento: 1436. NO abrir segundas instancias manuales → 409 Conflict.
+- Optimiza la imagen antes de enviar (`tg_optimizar_jpeg`: JPEG <=900000 bytes) — sin esto Telegram devuelve HTTP 413 (QSLs de ~1.4 MB).
+- Envío con candado: `enviados.json` = `{"archivos": [...], "hashes": [...]}` (hist. selladas + hashes md5 del contenido). **Regla: una QSL se envía UNA vez; si se borra el mensaje en Telegram, NO se reenvía.** Solo cuenta duplicada el contenido idéntico (md5); si dos bots entregan QSL distintas del mismo QSO, van ambas.
+- `tg_escanear_qsls_nuevas()` devuelve `{nombre: chat_id}`; el dedupe por md5 ocurre al enviar. Cada colega solo recibe sus propias QSL (call del nombre de archivo → `registro.json` → chat). `registro.json`: CE4JWI y XR4MAU → chat 1296146556 (monitoreo del dueño) + colegas auto-registrados.
+- PID activo en su momento: 16080. NO abrir segundas instancias del bot integrado ni del telegram suelto → 409 Conflict.
 - `GUIA_ACTIVIDADES.md`: guía más antigua de creación de actividades (pasos 1-5); `plantilla.html` / `plantilla_ranking.html` son plantillas.
 - `.github/workflows/` hacen commit+push automáticos cuando regeneran datos (no intentar "fixear" si hay conflictos por sus commits).
 

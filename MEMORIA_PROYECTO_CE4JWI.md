@@ -161,3 +161,21 @@
 - PENDIENTE (mañana 18-sep): integrar Telegram dentro de bot_qsl_ce4jwi.py (1 solo proceso).
 - Sellado previo pre-18-sep: 1459 archivos históricos sellados en enviados.json (archivos),
   +26 hashes; QSLs de hoy (17-sep) quedan desbloqueadas para enviarse a su colega.
+
+## INTEGRACION TODO-EN-UNO (18-sep-2026)
+- Nueva carpeta C:\Users\javen\OneDrive\Desktop\BOT\bot_ce4jwi10_telegram\ = COPIA de
+  bot_aprs_ce4jwi10 (bot_qsl_ce4jwi.py + config.json + plantilla + log_primera_junta.adi +
+  calls_procesados + contador) con el motor Telegram del bot suelto integrado al final
+  (funciones prefijo tg_*, hilos tg_hilo_telegram + tg_hilo_vigilante lanzados con _hilo_tg_integrado).
+- Reutiliza SIEMPRE los datos de _mantenimiento\telegram_qsl (TG_BASE): config.json (token),
+  registro.json, enviados.json (candado), bot_telegram_qsl.log. Un solo proceso hace APRS+Telegram.
+- Arranque: iniciar_ce4jwi10_telegram.bat (python -X utf8). Verificado: conectado APRS
+  [PRIMERA JUNTA] + "Vigilando FTP cada 30 s" (lín. 15:55), PID 16080, bot_pid.txt=16080.
+- Apagados y NO relanzar: bot_telegram_qsl.py independiente (guardian y Startup .lnk movido
+  a .respaldo_integrado; relanzarlo daria 409 + dobles envios). Ctrl de ventanas: solo la del
+  todo-en-uno.
+- Fabricar la integración = editar COPIA del bot APRS: +imports urllib.request/parse/error,
+  +codigo TG al final antes de __main__, __main__ invoca _hilo_tg_integrado() antes de conectar.
+- Si otro bot APRS (XR4MAU) necesita Telegram en el futuro: repetir el patrón copiando con
+  TG_BASE apuntando a la misma carpeta _mantenimiento\telegram_qsl.
+- CLAVE: mismo token de Telegram NO puede estar en 2 procesos (getUpdates -> 409 Conflict).
