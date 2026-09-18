@@ -20,7 +20,7 @@ Sitio web del indicativo CE4JWI en **qsl.net**. 100% estático HTML/CSS/JS/JSON/
 
 ## Cachebusts VIVOS (únicos referenciados — SÓLO estos existen en producción)
 
-- `actividades_20260917_e490237b.js` (108 HTML) ← catálogo de actividades
+- `actividades_20260917_6eca614e.js` (108 HTML) ← catálogo de actividades
 - `componentes_20260916_f089c287.js` (29) ← header/sidebar/footer/menú
 - `idioma_20260918.js` (29) ← motor i18n ES|EN
 - `banderas_20260916.js` (23) ← banderas en rankings
@@ -44,14 +44,14 @@ Sitio web del indicativo CE4JWI en **qsl.net**. 100% estático HTML/CSS/JS/JSON/
 - **CA4NDW: nunca tocar sus bots, y sus QSO siempre quedan en ADIF/ranking.**
 - Auto-CQ cada **5 min** (`time.sleep(300)` en `_hilo_cq_automatico` de `panel_qsl.py`) en CE4JWI-7/-10 y XR4MAU-7/-10.
 - `panel_qsl.py` edita `config.json` en runtime; `bot_qsl_*.py` lo lee al arrancar (frase, log, ranking).
-- Estado 17-sep-2026: corriendo CE4JWI-7 (CUECA) y CE4JWI-10 (HUASO). XR4MAU-7/-10 cerrados por el usuario (código 5-min + generar_ranking_json queda en disco). Config de CE4JWI-10 ya apunta a **PRIMERA JUNTA** (actividad 18-sep; relanzar con `iniciar_ce4jwi10.bat` para activarla).
+- Estado 17-sep-2026: CE4JWI-7 (CUECA) APAGADO tras sellar ranking. CE4JWI-10 con config ya apuntando a **PRIMERA JUNTA** (18-sep; relanzar con `iniciar_ce4jwi10.bat` para activarla). XR4MAU-7/-10 cerrados por el usuario (código 5-min + generar_ranking_json queda en disco).
 - suben por FTP a la misma carpeta `/ce4jwi`.
 
 ## Actividades actuales
 
-- id 68 CUECA (CE4JWI-7, EN VIVO) → `ranking_cueca.json`; id 69 HUASO (CE4JWI-10, EN VIVO) → `ranking_huaso.json`.
+- id 68 CUECA (CE4JWI-7, **FINALIZADO**) y id 69 HUASO (CE4JWI-10, **FINALIZADO**) → sellados en `ranking-data/cueca/final.json` y `ranking-data/huaso/final.json` (congelado=true).
 - id 87 Chinchineros (EN VIVO, CE4JWI-10) → `ranking_chinchineros.json`; id 88 Primera Junta Nacional de Gobierno 2026 (**PRÓXIMAMENTE**, 18-sep, CE4JWI-10, frase PRIMERA JUNTA) → `ranking_primera_junta.json`.
-- Congeladas (ranking-data): talca, agosto, septiembre, circo, vino, hitos-*, chilenidad, choripan, juegos, copihue, organillero.
+- Congeladas (ranking-data): talca, agosto, septiembre, circo, vino, hitos-*, chilenidad, choripan, juegos, copihue, organillero, **cueca, huaso**.
 
 ## Scripts conservados en la raíz del repo
 
@@ -65,7 +65,9 @@ Sitio web del indicativo CE4JWI en **qsl.net**. 100% estático HTML/CSS/JS/JSON/
 - Vigila el FTP de qsl.net cada 30 s (`scan_segundos`) y manda cada QSL nueva por DM al chat registrado. Reutiliza credenciales FTP de `LOG4OM_QSLNET\config.json` (clave `config_ftp`).
 - El TOKEN de Telegram NO se versiona: vive solo en `telegram_qsl\config.json` (`bot_token`). Nunca commitear.
 - Optimiza la imagen antes de enviar (`optimizar_jpeg`: JPEG <=900000 bytes) — sin esto Telegram devuelve HTTP 413 (QSLs de ~1.4 MB).
-- Enviados registrados en `enviados.json` (evita reenvíos). Arranca con `iniciar_bot_telegram_qsl.bat` (ventana visible). PID al crearlo: 14800.
+- Envío con candado: `enviados.json` = `{"archivos": [...], "hashes": [...]}` (1459 archivos hist. sellados + hashes md5 del contenido). **Regla: una QSL se envía UNA vez; si se borra el mensaje en Telegram, NO se reenvía.** Solo cuenta duplicada el contenido idéntico (md5); si dos bots entregan QSL distintas del mismo QSO, van ambas.
+- `escanear_qsls_nuevas()` devuelve `{nombre: chat_id}`; el dedupe por md5 ocurre al enviar. Cada colega solo recibe sus propias QSL (call del nombre de archivo → `registro.json` → chat). `registro.json`: CE4JWI y XR4MAU → chat 1296146556 (monitoreo del dueño).
+- Arranque: `iniciar_bot_telegram_qsl.bat` (bot) + `guardian_bot_telegram_qsl.bat` (watchdog; solo relanza si no hay python con `bot_telegram_qsl.py`) + acceso directo en carpeta Inicio (`BotTelegramQSLGuardian.lnk`). PID activo en su momento: 1436. NO abrir segundas instancias manuales → 409 Conflict.
 - `GUIA_ACTIVIDADES.md`: guía más antigua de creación de actividades (pasos 1-5); `plantilla.html` / `plantilla_ranking.html` son plantillas.
 - `.github/workflows/` hacen commit+push automáticos cuando regeneran datos (no intentar "fixear" si hay conflictos por sus commits).
 

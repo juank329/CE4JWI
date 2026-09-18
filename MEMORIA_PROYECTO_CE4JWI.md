@@ -136,3 +136,28 @@
   PID al crearlo: 14800. CE4JWI (chat 1296146556) ya registrado y probado OK (5 QSLs).
 - QSLs por APRS (CE4JWI/XR4MAU) ya existian y quedan en la web descargar-qsl.html; el
   Telegram es un CANAL NUEVO de entrega, no reemplaza APRS/web.
+
+## SELLADO CUECA + HUASO (17-sep-2026)
+- CE4JWI-7 (CUECA) apagado tras sellar. Rankings congelados: ranking-data/cueca/final.json
+  (73 QSO) y ranking-data/huaso/final.json (82 QSO), ambos congelado=true, ok=true.
+- Paginas pasan a fetch("ranking-data/<clave>/final.json"); id 68 y 69 del catalogo ->
+  FINALIZADO (patron real del catálogo, aunque AGENTS diga TERMINADA en el ciclo de vida).
+- Cachebust nuevo de actividades: actividades_20260917_6eca614e.js, 108/108 HTML re-apuntados.
+- Commit e62dd9f; FTP 111/111 OK (incluye ranking-data/*/final.json + cachebust nuevo);
+  verificado en https://qsl.net/ce4jwi/ con 200 y FFFD=0.
+- Nota: subir_v18.py NO sube ranking-data/*/final.json ni cachebust de actividades;
+  el sellado hizo FTP manual de esos extras.
+
+## BOT TELEGRAM QSL RECORDATORIO (17-sep-2026)
+- Candado: una QSL se envia UNA vez. enviados.json = {archivos: [...], hashes: [md5...]}.
+  Si se borra el mensaje en Telegram NO se reenvia (regla del usuario).
+- Dedupe por contenido (md5): solo idénticas cuentan como duplicada; QSL distintas del
+  mismo QSO se envian ambas. escanear_qsls_nuevas() -> {nombre: chat_id} (no call).
+- Fix bug: enviar_qsls_pendientes usaba leer_registro().get(chat) -> None, no enviaba;
+  corregido a usar chat directo, call = call_desde_archivo para caption. QSLs prueban OK.
+- Guardián: guardian_bot_telegram_qsl.bat + acceso directo en carpeta Inicio
+  (Startup\BotTelegramQSLGuardian.lnk). Un solo proceso python (PID 1436) para evitar 409.
+- registro.json: CE4JWI y XR4MAU -> 1296146556 (monitoreo dueño). Colegas solo sus QSLs.
+- PENDIENTE (mañana 18-sep): integrar Telegram dentro de bot_qsl_ce4jwi.py (1 solo proceso).
+- Sellado previo pre-18-sep: 1459 archivos históricos sellados en enviados.json (archivos),
+  +26 hashes; QSLs de hoy (17-sep) quedan desbloqueadas para enviarse a su colega.
