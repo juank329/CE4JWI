@@ -44,7 +44,7 @@ Sitio web del indicativo CE4JWI en **qsl.net**. 100% estático HTML/CSS/JS/JSON/
 - **CA4NDW: nunca tocar sus bots, y sus QSO siempre quedan en ADIF/ranking.**
 - Auto-CQ cada **5 min** (`time.sleep(300)` en `_hilo_cq_automatico` de `panel_qsl.py`) en CE4JWI-7/-10 y XR4MAU-7/-10.
 - `panel_qsl.py` edita `config.json` en runtime; `bot_qsl_*.py` lo lee al arrancar (frase, log, ranking).
-- Estado 17-sep-2026: CE4JWI-7 (CUECA) APAGADO tras sellar ranking. CE4JWI-10 con config ya apuntando a **PRIMERA JUNTA** (18-sep; relanzar con `iniciar_ce4jwi10.bat` para activarla). XR4MAU-7/-10 cerrados por el usuario (código 5-min + generar_ranking_json queda en disco).
+- Estado 18-sep-2026: CE4JWI-7 (CUECA) APAGADO tras sellar ranking. CE4JWI-10 (PID 1760) relanzado con config **PRIMERA JUNTA** (18-sep) → `log_primera_junta.adi` + `ranking_primera_junta.json`. XR4MAU-7/-10 cerrados por el usuario (código 5-min + generar_ranking_json queda en disco).
 - suben por FTP a la misma carpeta `/ce4jwi`.
 
 ## Actividades actuales
