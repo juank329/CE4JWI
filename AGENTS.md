@@ -53,6 +53,13 @@ Sitio web del indicativo CE4JWI en **qsl.net**. 100% estático HTML/CSS/JS/JSON/
 - id 87 Chinchineros (EN VIVO, CE4JWI-10) → `ranking_chinchineros.json`; id 88 Primera Junta Nacional de Gobierno 2026 (**PRÓXIMAMENTE**, 18-sep, CE4JWI-10, frase PRIMERA JUNTA) → `ranking_primera_junta.json`.
 - Congeladas (ranking-data): talca, agosto, septiembre, circo, vino, hitos-*, chilenidad, choripan, juegos, copihue, organillero, **cueca, huaso**.
 
+## Widget Telegram QR en sidebar (corregido 18-sep-2026)
+
+- Widget `widget-telegram` (icono Telegram + QR clickeable → `https://t.me/Ce4jwi_qsl_bot`) está en TODOS los HTML vía `componentes.js` + cachebust.
+- **QR final = `public/qr_telegram_main.png`** (540×540, generado DESDE EL TEXTO con `qrcode`, quiet zone de 8 módulos). **NUNCA recortar/rotar un QR de una imagen** por zxing/pil: sale chueco o cortado a la mitad y no decodifica. Si el QR se ve mal → regenerar desde el texto.
+- URL de la imagen **sin espacios** (`qr_telegram_main.png`) → evita caché vieja del navegador (espacio+nombre repetido = el navegador sirve la imagen vieja y se ve "la mitad").
+- Cachebust vivo: `componentes_20260918_b8e91e96.js` (apunta a `public/qr_telegram_main.png`). Al regenerar QR: nuevo nombre de imagen + nuevo cachebust + re-apuntar los 108 HTML.
+
 ## Scripts conservados en la raíz del repo
 
 - `subir_v18.py` (FTP), `build_indicativos.py` (workflow `.github/workflows/actualizar-licencias.yml`, mensual, requiere pypdf y PAT_TOKEN), `sync_calendario.py` (workflow sync-calendario.yml, cada 3 h), `servidor_qsl.py` + `iniciar_qsl.bat` (dev local), `generar.py` + `generar-indice.py` (generadores QSL).

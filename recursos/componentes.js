@@ -1,4 +1,4 @@
-﻿/**
+/**
  * ============================================================
  * CE4JWI - Sistema de componentes reutilizables
  * ============================================================
@@ -39,36 +39,7 @@ const COMPONENTES = {
       <a href="calendario.html" class="nav-link" data-page="calendario"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M17 14C17.5523 14 18 13.5523 18 13C18 12.4477 17.5523 12 17 12C16.4477 12 16 12.4477 16 13C16 13.5523 16.4477 14 17 14Z" fill="currentColor"/><path d="M17 18C17.5523 18 18 17.5523 18 17C18 16.4477 17.5523 16 17 16C16.4477 16 16 16.4477 16 17C16 17.5523 16.4477 18 17 18Z" fill="currentColor"/><path d="M13 13C13 13.5523 12.5523 14 12 14C11.4477 14 11 13.5523 11 13C11 12.4477 11.4477 12 12 12C12.5523 12 13 12.4477 13 13Z" fill="currentColor"/><path d="M13 17C13 17.5523 12.5523 18 12 18C11.4477 18 11 17.5523 11 17C11 16.4477 11.4477 16 12 16C12.5523 16 13 16.4477 13 17Z" fill="currentColor"/><path d="M7 14C7.55229 14 8 13.5523 8 13C8 12.4477 7.55229 12 7 12C6.44772 12 6 12.4477 6 13C6 13.5523 6.44772 14 7 14Z" fill="currentColor"/><path d="M7 18C7.55229 18 8 17.5523 8 17C8 16.4477 7.55229 16 7 16C6.44772 16 6 16.4477 6 17C6 17.5523 6.44772 18 7 18Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M7 1.75C7.41421 1.75 7.75 2.08579 7.75 2.5V3.26272C8.412 3.24999 9.14133 3.24999 9.94346 3.25H14.0564C14.8586 3.24999 15.588 3.24999 16.25 3.26272V2.5C16.25 2.08579 16.5858 1.75 17 1.75C17.4142 1.75 17.75 2.08579 17.75 2.5V3.32709C18.0099 3.34691 18.2561 3.37182 18.489 3.40313C19.6614 3.56076 20.6104 3.89288 21.3588 4.64124C22.1071 5.38961 22.4392 6.33855 22.5969 7.51098C22.75 8.65018 22.75 10.1058 22.75 11.9435V14.0564C22.75 15.8941 22.75 17.3498 22.5969 18.489C22.4392 19.6614 22.1071 20.6104 21.3588 21.3588C20.6104 22.1071 19.6614 22.4392 18.489 22.5969C17.3498 22.75 15.8942 22.75 14.0565 22.75H9.94359C8.10585 22.75 6.65018 22.75 5.51098 22.5969C4.33856 22.4392 3.38961 22.1071 2.64124 21.3588C1.89288 20.6104 1.56076 19.6614 1.40314 18.489C1.24997 17.3498 1.24998 15.8942 1.25 14.0564V11.9436C1.24998 10.1058 1.24997 8.65019 1.40314 7.51098C1.56076 6.33855 1.89288 5.38961 2.64124 4.64124C3.38961 3.89288 4.33856 3.56076 5.51098 3.40313C5.7439 3.37182 5.99006 3.34691 6.25 3.32709V2.5C6.25 2.08579 6.58579 1.75 7 1.75ZM5.71085 4.88976C4.70476 5.02502 4.12511 5.27869 3.7019 5.7019C3.27869 6.12511 3.02502 6.70476 2.88976 7.71085C2.86685 7.88123 2.8477 8.06061 2.83168 8.25H21.1683C21.1523 8.06061 21.1331 7.88124 21.1102 7.71085C20.975 6.70476 20.7213 6.12511 20.2981 5.7019C19.8749 5.27869 19.2952 5.02502 18.2892 4.88976C17.2615 4.75159 15.9068 4.75 14 4.75H10C8.09318 4.75 6.73851 4.75159 5.71085 4.88976ZM2.75 12C2.75 11.146 2.75032 10.4027 2.76309 9.75H21.2369C21.2497 10.4027 21.25 11.146 21.25 12V14C21.25 15.9068 21.2484 17.2615 21.1102 18.2892C20.975 19.2952 20.7213 19.8749 20.2981 20.2981C19.8749 20.7213 19.2952 20.975 18.2892 21.1102C17.2615 21.2484 15.9068 21.25 14 21.25H10C8.09318 21.25 6.73851 21.2484 5.71085 21.1102C4.70476 20.975 4.12511 20.7213 3.7019 20.2981C3.27869 19.8749 3.02502 19.2952 2.88976 18.2892C2.75159 17.2615 2.75 15.9068 2.75 14V12Z" fill="currentColor"/></svg> CALENDARIO</a>
       <a href="QSO_logger.html" class="nav-link" data-page="qsologger"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/><path d="M8 4v5"/></svg> <span data-i18n="nav.generador">GENERADOR DE QSL</span></a>
       <a href="descargar-qsl.html" class="nav-link" data-page="descarga-qsl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 21h16"/></svg> <span data-i18n="nav.descarga">DESCARGA DE QSL</span></a>
-      <div class="nav-dropdown" id="navDropdownHerramientas">
-        <button type="button" class="nav-link nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false" aria-label="Herramientas">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-          <span data-i18n="nav.herramientas">Herramientas</span>
-          <svg class="nav-dropdown-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <div class="nav-dropdown-menu">
-          <a href="herramienta-indicativos.html" class="nav-link" data-page="indicativos">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/><path d="M8 11h6"/></svg>
-            <span data-i18n="nav.indicativos">Buscar Indicativos (SUBTEL)</span>
-          </a>
-          <a href="herramienta-satelites.html" class="nav-link" data-page="satelites">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h5v5l10-10h-5z"/><path d="M16 8l2-2"/><path d="M21 21l-4-4"/></svg>
-            <span data-i18n="nav.satelites">Seguimiento de Satélites FM</span>
-          </a>
-          <a href="herramienta-propagacion.html" class="nav-link" data-page="propagacion">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v3"/><path d="M12 18v3"/><path d="M3 12h3"/><path d="M18 12h3"/><path d="M5.6 5.6l2.1 2.1"/><path d="M16.3 16.3l2.1 2.1"/><path d="M5.6 18.4l2.1-2.1"/><path d="M16.3 7.7l2.1-2.1"/></svg>
-            <span data-i18n="nav.propagacion">Propagación HF en Tiempo Real</span>
-          </a>
-          <a href="herramienta-mapa-radio.html" class="nav-link" data-page="mapa-radio">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4L3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"/><path d="M9 4v14"/><path d="M15 6v14"/></svg>
-            <span data-i18n="nav.mapa">Mapa de Radioaficionados</span>
-          </a>
-        </div>
-      </div>
-      <div class="lang-switch" id="langSwitch" style="display:inline-flex;align-items:center;gap:2px;margin-left:10px;vertical-align:middle;">
-        <button type="button" class="lang-btn" data-lang="es" title="Español" aria-label="Español" onclick="window.I18N && I18N.cambiarIdioma('es')" style="background:none;border:1px solid rgba(255,255,255,.4);color:#fff;border-radius:4px;padding:2px 8px;font-size:.75rem;font-weight:700;cursor:pointer;">ES</button>
-        <button type="button" class="lang-btn" data-lang="en" title="English" aria-label="English" onclick="window.I18N && I18N.cambiarIdioma('en')" style="background:none;border:1px solid rgba(255,255,255,.4);color:#fff;border-radius:4px;padding:2px 8px;font-size:.75rem;font-weight:700;cursor:pointer;">EN</button>
-      </div>
-    </nav>
+      </nav>
   </div>
 </header>
   `,
@@ -145,25 +116,7 @@ const COMPONENTES = {
       </div>
   </div>
       
-<!-- Widget: Buscar en QRZ.COM -->
-  <div class="widget">
-    <div class="widget-header">
-      <img src="public/qrz_com.png" alt="QRZ" width="18" height="18">
-      <h3 data-i18n="sidebar.qrz">Buscar en QRZ.COM</h3>
-    </div>
-    <div class="widget-content">
-      <form id="topcall" action="https://www.qrz.com/lookup" method="post" target="_new">
-        <input autocomplete="off" id="tquery" name="tquery" type="text" maxlength="80" value="" placeholder="Ingresa Indicativo" data-i18n-ph="sidebar.ingresa"/>
-        <input id="mode" name="mode" type="hidden" maxlength="80" value="callsign" />
-        <input id="tsubmit" type="submit" value="Buscar" data-i18n-val="sidebar.buscar" />
-      </form>
-    </div>
-  </div>
-  
-
-  
-
-  <!-- Widget: Reloj local -->
+<!-- Widget: Reloj local -->
   <div class="widget">
     <div class="widget-header">
       <svg class="widget-icon purple" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -186,7 +139,7 @@ const COMPONENTES = {
     </div>
     <div class="widget-content widget-telegram-body">
       <a href="https://t.me/Ce4jwi_qsl_bot" target="_blank" rel="noopener" class="telegram-qr-link" title="Abrir el bot en Telegram">
-        <img src="public/qr telegram.png" alt="Código QR del bot CE4JWI QSL por Telegram" class="telegram-qr-img">
+        <img src="public/qr_telegram_main.png" alt="Código QR del bot CE4JWI QSL por Telegram" class="telegram-qr-img">
       </a>
       <p class="telegram-qr-text">¡Escanéame y recibe tus QSL directo en tu Telegram!</p>
       <span class="telegram-qr-pill">@Ce4jwi_qsl_bot</span>
@@ -227,17 +180,6 @@ const COMPONENTES = {
   footer: `
 <!-- Footer -->
 <footer class="footer">
-  <div class="weather-ticker" id="clima">
-    <div class="weather-ticker-label">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.5 19a4.5 4.5 0 0 0 0-9h-1.8A7 7 0 1 0 4 15.5"/></svg>
-      <span data-i18n="footer.region">Región del Maule</span>
-    </div>
-    <div class="weather-ticker-wrapper">
-      <div class="weather-ticker-content" id="weatherTickerContent">
-        <span class="weather-item" data-i18n="footer.cargandoClima">Cargando clima de la región...</span>
-      </div>
-    </div>
-  </div>
   <div class="footer-bottom">
     <p>&copy; <span id="footerYear">2025</span> - CE4JWI</p>
     <p class="footer-tagline" data-i18n="footer.tagline">73 de CE4JWI - ¡Nos escuchamos en el aire!</p>
@@ -357,111 +299,6 @@ function inicializarDropdowns() {
       }
     })
   })
-}
-
-/**
- * Traduce un código de clima (WMO) usado por Open-Meteo a icono + descripción en español
- */
-function interpretarClima(codigo) {
-  const mapa = {
-    0: ["☀️", "clima.0"],
-    1: ["🌤️", "clima.1"],
-    2: ["⛅", "clima.2"],
-    3: ["☁️", "clima.3"],
-    45: ["🌫️", "clima.45"],
-    48: ["🌫️", "clima.48"],
-    51: ["🌦️", "clima.51"],
-    53: ["🌦️", "clima.53"],
-    55: ["🌦️", "clima.55"],
-    61: ["🌧️", "clima.61"],
-    63: ["🌧️", "clima.63"],
-    65: ["🌧️", "clima.65"],
-    71: ["❄️", "clima.71"],
-    73: ["❄️", "clima.73"],
-    75: ["❄️", "clima.75"],
-    80: ["🌦️", "clima.80"],
-    81: ["🌦️", "clima.81"],
-    82: ["🌦️", "clima.82"],
-    95: ["⛈️", "clima.95"],
-    96: ["⛈️", "clima.96"],
-    99: ["⛈️", "clima.99"],
-  }
-  const item = mapa[codigo]
-  let texto = "—"
-  if (item) texto = (typeof I18N !== "undefined" && I18N.t) ? I18N.t(item[1]) : ES_CLIMA[item[1]] || item[1]
-  return item ? { icono: item[0], texto } : { icono: "🌡️", texto: "—" }
-}
-
-const ES_CLIMA = {
-  "clima.0": "Despejado", "clima.1": "Poco nublado", "clima.2": "Parcialmente nublado",
-  "clima.3": "Nublado", "clima.45": "Niebla", "clima.48": "Niebla",
-  "clima.51": "Llovizna", "clima.53": "Llovizna", "clima.55": "Llovizna",
-  "clima.61": "Lluvia débil", "clima.63": "Lluvia", "clima.65": "Lluvia fuerte",
-  "clima.71": "Nieve débil", "clima.73": "Nieve", "clima.75": "Nieve fuerte",
-  "clima.80": "Chubascos", "clima.81": "Chubascos", "clima.82": "Chubascos fuertes",
-  "clima.95": "Tormenta", "clima.96": "Tormenta con granizo", "clima.99": "Tormenta con granizo",
-}
-
-/**
- * Carga el clima en vivo (Open-Meteo, sin API key) para las ciudades de
- * la Región del Maule y lo pinta en el ticker del footer. Se refresca
- * automáticamente cada 15 minutos con temperatura y pronóstico reales.
- */
-const CIUDADES_MAULE = [
-  { nombre: "Curicó", lat: -34.9828, lon: -71.2394 },
-  { nombre: "Molina", lat: -35.1167, lon: -71.2833 },
-  { nombre: "Talca", lat: -35.4264, lon: -71.6554 },
-  { nombre: "Maule", lat: -35.52, lon: -71.68 },
-  { nombre: "San Javier", lat: -35.6, lon: -71.7333 },
-  { nombre: "Constitución", lat: -35.3333, lon: -72.4167 },
-  { nombre: "Cauquenes", lat: -35.967, lon: -72.3106 },
-  { nombre: "Parral", lat: -36.1444, lon: -71.8281 },
-]
-
-async function cargarClimaMaule() {
-  const contenedor = document.getElementById("weatherTickerContent")
-  if (!contenedor) return
-
-  try {
-    const lats = CIUDADES_MAULE.map((c) => c.lat).join(",")
-    const lons = CIUDADES_MAULE.map((c) => c.lon).join(",")
-    const url =
-      "https://api.open-meteo.com/v1/forecast?" +
-      `latitude=${lats}&longitude=${lons}` +
-      "&current=temperature_2m,weather_code" +
-      "&daily=temperature_2m_max,temperature_2m_min,weather_code&forecast_days=2" +
-      "&timezone=America%2FSantiago"
-
-    const respuesta = await fetch(url)
-    if (!respuesta.ok) throw new Error("No se pudo obtener el clima")
-    const datos = await respuesta.json()
-    const lista = Array.isArray(datos) ? datos : [datos]
-
-    const itemsHtml = CIUDADES_MAULE.map((ciudad, i) => {
-      const d = lista[i]
-      const temp = d && d.current ? Math.round(d.current.temperature_2m) : "--"
-      const codigo = d && d.current ? d.current.weather_code : null
-      const { icono, texto } = interpretarClima(codigo)
-
-      let pronostico = ""
-      if (d && d.daily && d.daily.temperature_2m_max && d.daily.temperature_2m_max[1]) {
-        const max = Math.round(d.daily.temperature_2m_max[1])
-        const min = Math.round(d.daily.temperature_2m_min[1])
-        const codigoFut = d.daily.weather_code[1]
-        const futuro = interpretarClima(codigoFut)
-        const mañana = (typeof I18N !== "undefined" && I18N.t) ? I18N.t("footer.climaManana") : "Mañana"
-        pronostico = `<span class="weather-forecast">${mañana} ${min}° / ${max}° ${futuro.icono}</span>`
-      }
-
-      return `<span class="weather-item"><span class="weather-city">${ciudad.nombre}</span><span class="weather-temp">${temp}°</span><span>${icono}</span><span>${texto}</span>${pronostico}</span><span class="weather-separator">•</span>`
-    }).join("")
-
-    // Se duplica el contenido para que el scroll infinito no deje espacios en blanco
-    contenedor.innerHTML = itemsHtml + itemsHtml
-  } catch (error) {
-    const msg = (typeof I18N !== "undefined" && I18N.t) ? I18N.t("footer.climaError") : "Clima no disponible en este momento, intenta más tarde."
-    contenedor.innerHTML = `<span class="weather-item">${msg}</span>`
-  }
 }
 
 /**
@@ -682,11 +519,6 @@ function inicializarComponentes() {
 
   // Inicializar slider del sidebar
   inicializarSlider()
-
-  // Cargar el clima en vivo de la Región del Maule en el footer
-  cargarClimaMaule()
-  // Actualizar el clima automáticamente cada 15 minutos
-  setInterval(cargarClimaMaule, 15 * 60 * 1000)
 
   // Marcar el botón de idioma activo y re-aplicar traducciones
   marcarBotonIdioma()

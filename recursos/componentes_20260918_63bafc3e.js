@@ -139,7 +139,7 @@ const COMPONENTES = {
     </div>
     <div class="widget-content widget-telegram-body">
       <a href="https://t.me/Ce4jwi_qsl_bot" target="_blank" rel="noopener" class="telegram-qr-link" title="Abrir el bot en Telegram">
-        <img src="public/qr telegram.png" alt="Código QR del bot CE4JWI QSL por Telegram" class="telegram-qr-img">
+        <img src="public/qr_telegram_main.png" alt="Código QR del bot CE4JWI QSL por Telegram" class="telegram-qr-img">
       </a>
       <p class="telegram-qr-text">¡Escanéame y recibe tus QSL directo en tu Telegram!</p>
       <span class="telegram-qr-pill">@Ce4jwi_qsl_bot</span>
