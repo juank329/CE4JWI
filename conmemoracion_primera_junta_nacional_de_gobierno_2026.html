@@ -217,7 +217,7 @@
 
   <div id="footer-container"></div>
 
-  <script src="recursos/actividades_20260917_6eca614e.js" defer></script>
+  <script src="recursos/actividades_20260919_a98a6563.js" defer></script>
   <script src="recursos/idioma_20260918.js"></script>
   <script src="recursos/componentes_20260918_63bafc3e.js"></script>
   <script src="recursos/banderas_20260916.js" defer></script>
@@ -259,7 +259,7 @@
       }
 
       function cargar() {
-        return fetch("ranking_primera_junta.json", { cache: "no-cache" })
+        return fetch("ranking-data/primera_junta/final.json", { cache: "no-cache" })
           .then(function (r) {
             if (!r.ok) throw new Error("HTTP " + r.status);
             return r.json();

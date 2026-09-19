@@ -664,7 +664,7 @@ const ACTIVIDADES = [
   id: 68,
   title: "Día Nacional de la Cueca 2026",
   image: "public/Dia_Nacional_de_la_Cueca_2026.webp",
-  status: "FINALIZADO",
+  status: "EN VIVO",
   description: "Activación especial por el Día Nacional de la Cueca, el baile nacional de Chile. Solo APRS con la frase CUECA a la estación CE4JWI-7. QSL conmemorativa automática y ranking en tiempo real.",
   date: "17 Septiembre 2026",
   url: "dia_nacional_de_la_cueca_2026.html",
@@ -673,7 +673,7 @@ const ACTIVIDADES = [
   id: 69,
   title: "Día del Huaso y de la Chilenidad 2026",
   image: "public/dia del huado y de la chilenidad 2026.webp",
-  status: "FINALIZADO",
+  status: "EN VIVO",
   description: "Activación especial por el Día del Huaso y de la Chilenidad. Solo APRS con la frase HUASO a la estación CE4JWI-10. QSL conmemorativa automática y ranking en tiempo real.",
   date: "17 Septiembre 2026",
   url: "dia_del_huaso_y_de_la_chilenidad_2026.html",
@@ -855,11 +855,7 @@ const ACTIVIDADES = [
   id: 88,
   title: "Conmemoración de la Primera Junta Nacional de Gobierno 2026",
   image: "public/conmemoracion primera junta nacional de gobierno.webp",
-  status: "PRÓXIMAMENTE",
+  status: "FINALIZADO",
   description:
     "Activación especial Conmemoración de la Primera Junta Nacional de Gobierno. Solo APRS con la frase PRIMERA JUNTA a la estación CE4JWI-10. QSL conmemorativa automática y ranking en tiempo real.",
-  date: "18 Septiembre 2026",
-  url: "conmemoracion_primera_junta_nacional_de_gobierno_2026.html",
-},
-  {    id: 89,    title: "Día de las Glorias del Ejército de Chile 2026",    image: "public/dia de las glorias del ejercito de chile 2026.webp",    status: "EN VIVO",    description:      "Activación especial Día de las Glorias del Ejército de Chile. Solo APRS con la frase EJERCITO a la estación CE4JWI-10. QSL conmemorativa automática y ranking en tiempo real.",    date: "19 Septiembre 2026",    url: "dia_de_las_glorias_del_ejercito_de_chile_2026.html",  },
-];
+  date

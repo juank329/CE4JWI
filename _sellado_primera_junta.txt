@@ -1,0 +1,13 @@
+paginas primera_junta 2026 candidatas: ['conmemoracion_primera_junta_nacional_de_gobierno_2026.html']
+A) ya apuntaba a final.json
+B) fuente id 88 status -> FINALIZADO (34220 bytes)
+C) cachebust nuevo: actividades_20260918_11e400c7.js (34553 bytes)
+   cachebust actuales referenciados: {'actividades_20260917_6eca614e.js': 108}
+   HTML que referencian OTRO actividades_* (a re-apuntar): 108
+   HTML re-apuntados al cachebust nuevo: 108
+== D) verificacion ==
+   FFFD total en HTML locales: 0
+   FFFD en fuente actividades.js: 0
+   fuente id 88 status ahora: FINALIZADO
+   pagina 2026 fetch final.json: True
+   pagina 2026 'congelado' en JS: True
