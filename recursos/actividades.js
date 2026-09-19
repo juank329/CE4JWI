@@ -708,9 +708,9 @@ const ACTIVIDADES = [
 {
   id: 73,
   title: "Día Nacional del Trabajador Radial 2026",
-  image: "public/dia nacional del trabajador radial 2026.webp",
+  image: "public/CE4JWI -10 SOLO APRS.webp",
   status: "PRÓXIMAMENTE",
-  description: "Activación especial por el Día Nacional del Trabajador Radial. Contacto por APRS (CQ RADIO) y DMR TG 73040 ADN Systems. QSL automática.",
+  description: "Activación especial por el Día Nacional del Trabajador Radial. Contacto SOLO por APRS (CQ RADIO / ADIF). QSL automática.",
   date: "21 Septiembre 2026",
   url: "dia_nacional_del_trabajador_radial_2026.html",
 },
