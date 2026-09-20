@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Sube por FTP absolute paths: idioma_20260918.js (motor i18n v2 corregido)
-# + TODOS los HTML + componentes_20260917.js. CWD-independiente.
-import ftplib, io, os
+# + TODOS los HTML + componentes_20260917.js + TODOS los actividades_*.js. CWD-independiente.
+import ftplib, glob, io, os
 
 HOST = "ftp.qsl.net"; USER = "ce4jwi"; PASS = "Sayayin@CE4JWI"
 BASE = r"C:\Users\javen\OneDrive\Documentos\GitHub\CE4JWI"
