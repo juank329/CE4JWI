@@ -12,13 +12,15 @@ def leer_adif(ruta):
     data = io.open(ruta, "r", encoding="utf-8", errors="replace").read()
     registros = []
     actual = {}
-    for m in re.finditer(r"<([A-Z0-9]+):\d+(?::[^>]*)?>([^<]*)", data):
-        clave, valor = m.group(1).upper(), m.group(2).strip()
-        if clave == "EOR" or clave == "EOH":
+    # Los <EOR>/<EOH> de los bots vienen sin dato (pelados): capturarlos tambien
+    patron = re.compile(r"<(EOR|EOH)>|<([A-Z0-9]+):\d+(?::[^>]*)?>([^<]*)")
+    for m in patron.finditer(data):
+        if m.group(1):
             if actual.get("CALL"):
                 registros.append(actual)
             actual = {}
         else:
+            clave, valor = m.group(2).upper(), m.group(3).strip()
             actual[clave] = valor
     if actual.get("CALL"):
         registros.append(actual)
@@ -78,6 +80,7 @@ def principal():
         "filas": filas,
     }
     if final:
+        doc["congelado"] = True
         carpeta = os.path.join("ranking-data", clave)
         if not os.path.isdir(carpeta):
             os.makedirs(carpeta)
