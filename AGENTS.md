@@ -20,7 +20,7 @@ Sitio web del indicativo CE4JWI en **qsl.net**. 100% estático HTML/CSS/JS/JSON/
 
 ## Cachebusts VIVOS (únicos referenciados — SÓLO estos existen en producción)
 
-- `actividades_20260921_47a4dea3.js` (110 HTML) ← catálogo de actividades (incluye id 91 CONDORITO). `index.html` usa `recursos/actividades.js` a propósito (no cachebust).
+- `actividades_20260921_0f1972c9.js` (110 HTML) ← catálogo de actividades (incluye id 91 CONDORITO). **ACTUALIZADO 22-sep: `index.html` usa `recursos/actividades_20260922.js`** (cambio de fecha de CONDORITO a rango 21-30 Sept; el CDN seguía sirviendo copias viejas del nombre anterior).
 - `componentes_20260916_f089c287.js` (29) ← header/sidebar/footer/menú
 - `idioma_20260918.js` (29) ← motor i18n ES|EN
 - `banderas_20260916.js` (23) ← banderas en rankings
@@ -57,6 +57,8 @@ Sitio web del indicativo CE4JWI en **qsl.net**. 100% estático HTML/CSS/JS/JSON/
 - **Parser ADIF bots**: los `<EOR>`/`<EOH>` vienen SIN dato (pelados) en los logs de los bots ⇒ cualquier regex de ADIF debe capturar también el tag pelado o cuenta 1 solo registro. Corregido en `generar_ranking_condorito.py` y `generar_ranking_manual.py` (este último además ya pone `congelado:true` con `--final`).
 - **CA4NDW-7 CQ auto (21-sep)**: integrado en `bot_qsl_ca4ndw.py` (`_hilo_cq_auto`, config `cq_auto_activo`/`cq_auto_intervalo_min`/`cq_auto_texto` en `config.json`); texto con `{qso}` muestra el contador. Cada 5 min. **22-sep**: se quitó el tramo "CQ CONDORITO 2026" del texto (es el nombre de actividad que cambia); quedó `CA4NDW-7 Ref 01 YAYITA - Van {qso} QSOs - Envia la palabra YAYITA...`. Bots con consola coloreada (helper `clr`/`_habilitar_vt`); CE4JWI-10: línea celeste en envíos Telegram + `[CONTADOR] Van N QSOs en la actividad.` en verde.
 - Pendiente: recordar al usuario **MAÑANA (22-sep-2026) a las 21:00** (acordar algo pendiente).
+- **IMPORTANTE qsl.net**: FTP actualiza el archivo al instante, pero el servidor HTTP/CDN sigue sirviendo copias viejas del MISMO nombre (a veces minutos). Ante un cambio de contenido revisable en producción usar SIEMPRE un nombre de archivo NUEVO (cachebust) y re-apuntar las páginas.
+- **CE4JWI-10 panel CQ→ACTIVA2 (22-sep)**: el CQ del panel va a `destino_cq` (config.json del bot = "ACTIVA2", fallback CQ). **REGL�A**: el loader `cargar_config()` SOLO copia claves que existan en `CONFIG_DEFECTO` (`datos.update({k:v ... if k in CONFIG_DEFECTO})`) ⇒ toda clave nueva de config debe agregarse ahí, no basta añadirla a config.json.
 - Congeladas (ranking-data): talca, agosto, septiembre, circo, vino, hitos-*, chilenidad, choripan, juegos, copihue, organillero, **cueca, huaso**.
 
 ## Widget Telegram QR en sidebar (corregido 18-sep-2026)
