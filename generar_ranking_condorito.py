@@ -5,6 +5,9 @@
   - CA4NDW-7  -> personaje YAYITA     (log_yayita.adi     en qsl.net/ca4ndw)
   - CE4JWI-10 -> personaje CONDORITO  (log_condorito.adi  en qsl.net/ce4jwi)
 
+# Bots locales (verificacion manual de rutas, NO se leen desde aqui):
+#   CA4NDW-7  -> C:\Users\javen\OneDrive\Desktop\condorito\bot_aprs_ca4ndw   (frase YAYITA, log_yayita.adi a qsl.net/ca4ndw)
+#   CE4JWI-10 -> C:\Users\javen\OneDrive\Desktop\BOT\bot_ce4jwi10_telegram    (frase CONDORITO, log_condorito.adi a qsl.net/ce4jwi)
 Sube ranking_condorito.json a AMBAS webs (ce4jwi y ca4ndw).
 
 Uso:
