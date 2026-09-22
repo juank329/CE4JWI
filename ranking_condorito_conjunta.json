@@ -2,9 +2,9 @@
   "ok": true,
   "actividad": "condorito",
   "nombre": "LOS PERSONAJES DE LA HISTORIETA CHILENA CONDORITO",
-  "actualizado": "2026-09-21T22:12:35-04:00",
-  "totalContactos": 76,
-  "participantes": 42,
+  "actualizado": "2026-09-22T02:30:12-04:00",
+  "totalContactos": 99,
+  "participantes": 55,
   "filas": [
     {
       "call": "9W3FAB",
@@ -154,6 +154,27 @@
       ]
     },
     {
+      "call": "EA3JBB",
+      "total": 2,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "05:57:14"
+      },
+      "personajes": [
+        {
+          "ref": "01",
+          "nombre": "YAYITA"
+        },
+        {
+          "ref": "02",
+          "nombre": "CONDORITO"
+        }
+      ]
+    },
+    {
       "call": "HJ1BNL",
       "total": 2,
       "modos": [
@@ -162,6 +183,27 @@
       "ultima": {
         "fecha": "22/09/2026",
         "hora": "01:21:23"
+      },
+      "personajes": [
+        {
+          "ref": "01",
+          "nombre": "YAYITA"
+        },
+        {
+          "ref": "02",
+          "nombre": "CONDORITO"
+        }
+      ]
+    },
+    {
+      "call": "HJ4KAC",
+      "total": 2,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "04:05:19"
       },
       "personajes": [
         {
@@ -280,6 +322,69 @@
       ]
     },
     {
+      "call": "LU3QJL",
+      "total": 2,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "02:27:26"
+      },
+      "personajes": [
+        {
+          "ref": "01",
+          "nombre": "YAYITA"
+        },
+        {
+          "ref": "02",
+          "nombre": "CONDORITO"
+        }
+      ]
+    },
+    {
+      "call": "LU4EOU",
+      "total": 2,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "02:25:43"
+      },
+      "personajes": [
+        {
+          "ref": "01",
+          "nombre": "YAYITA"
+        },
+        {
+          "ref": "02",
+          "nombre": "CONDORITO"
+        }
+      ]
+    },
+    {
+      "call": "LU4FGS",
+      "total": 2,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "00:54:05"
+      },
+      "personajes": [
+        {
+          "ref": "01",
+          "nombre": "YAYITA"
+        },
+        {
+          "ref": "02",
+          "nombre": "CONDORITO"
+        }
+      ]
+    },
+    {
       "call": "LU6EGD",
       "total": 2,
       "modos": [
@@ -309,6 +414,27 @@
       "ultima": {
         "fecha": "22/09/2026",
         "hora": "00:44:49"
+      },
+      "personajes": [
+        {
+          "ref": "01",
+          "nombre": "YAYITA"
+        },
+        {
+          "ref": "02",
+          "nombre": "CONDORITO"
+        }
+      ]
+    },
+    {
+      "call": "LU9DUV",
+      "total": 2,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "02:51:34"
       },
       "personajes": [
         {
@@ -490,6 +616,27 @@
       ]
     },
     {
+      "call": "WP4TZM",
+      "total": 2,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "02:23:02"
+      },
+      "personajes": [
+        {
+          "ref": "01",
+          "nombre": "YAYITA"
+        },
+        {
+          "ref": "02",
+          "nombre": "CONDORITO"
+        }
+      ]
+    },
+    {
       "call": "XR4MAU",
       "total": 2,
       "modos": [
@@ -616,6 +763,27 @@
       ]
     },
     {
+      "call": "YD6ATD",
+      "total": 2,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "06:29:20"
+      },
+      "personajes": [
+        {
+          "ref": "01",
+          "nombre": "YAYITA"
+        },
+        {
+          "ref": "02",
+          "nombre": "CONDORITO"
+        }
+      ]
+    },
+    {
       "call": "YD6AXX",
       "total": 2,
       "modos": [
@@ -700,6 +868,48 @@
       ]
     },
     {
+      "call": "YG3CKM",
+      "total": 2,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "03:25:35"
+      },
+      "personajes": [
+        {
+          "ref": "01",
+          "nombre": "YAYITA"
+        },
+        {
+          "ref": "02",
+          "nombre": "CONDORITO"
+        }
+      ]
+    },
+    {
+      "call": "YV5GHW",
+      "total": 2,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "03:08:57"
+      },
+      "personajes": [
+        {
+          "ref": "01",
+          "nombre": "YAYITA"
+        },
+        {
+          "ref": "02",
+          "nombre": "CONDORITO"
+        }
+      ]
+    },
+    {
       "call": "YY4BAJ",
       "total": 2,
       "modos": [
@@ -734,6 +944,23 @@
         {
           "ref": "02",
           "nombre": "CONDORITO"
+        }
+      ]
+    },
+    {
+      "call": "9W8AKN",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "05:42:23"
+      },
+      "personajes": [
+        {
+          "ref": "01",
+          "nombre": "YAYITA"
         }
       ]
     },
@@ -823,19 +1050,19 @@
       ]
     },
     {
-      "call": "LU4FGS",
+      "call": "LU8HEG",
       "total": 1,
       "modos": [
         "PKT"
       ],
       "ultima": {
         "fecha": "22/09/2026",
-        "hora": "00:54:05"
+        "hora": "06:09:57"
       },
       "personajes": [
         {
-          "ref": "01",
-          "nombre": "YAYITA"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -853,6 +1080,40 @@
         {
           "ref": "01",
           "nombre": "YAYITA"
+        }
+      ]
+    },
+    {
+      "call": "XE1ZKC",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "04:33:20"
+      },
+      "personajes": [
+        {
+          "ref": "01",
+          "nombre": "YAYITA"
+        }
+      ]
+    },
+    {
+      "call": "YD6SRR",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "03:56:26"
+      },
+      "personajes": [
+        {
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     }
