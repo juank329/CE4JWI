@@ -1,0 +1,21 @@
+{
+  "ok": true,
+  "actividad": "magallanes",
+  "nombre": "MAGALLANES",
+  "actualizado": "2026-09-20T22:29:30-04:00",
+  "totalContactos": 1,
+  "participantes": 1,
+  "filas": [
+    {
+      "call": "9W3EYY",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "",
+        "hora": ""
+      }
+    }
+  ]
+}

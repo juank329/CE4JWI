@@ -645,7 +645,7 @@ const ACTIVIDADES = [
 {
   id: 66,
   title: "Día de la Provincia de Talca 2026",
-  image: "public/DIA DE LA PROVINCIA DE TALCA 2026.webp",
+  image: "public/CE4JWI -10 SOLO APRS.webp",
   status: "PRÓXIMAMENTE",
   description: "Activación especial por el Día de la Provincia de Talca con el indicativo CE4JWI-10. Contacto por APRS (CQ TALCA) (SOLO APRS). QSL automática. Solo APRS (SOLO APRS).",
   date: "30 Agosto 2026",
@@ -708,7 +708,7 @@ const ACTIVIDADES = [
 {
   id: 73,
   title: "Día Nacional del Trabajador Radial 2026",
-  image: "public/dia nacional del trabajador radial 2026.webp",
+  image: "public/CE4JWI -10 SOLO APRS.webp",
   status: "PRÓXIMAMENTE",
   description: "Activación especial por el Día Nacional del Trabajador Radial. Contacto SOLO por APRS (CQ RADIO / ADIF). QSL automática.",
   date: "21 Septiembre 2026",
@@ -861,14 +861,7 @@ const ACTIVIDADES = [
   date: "18 Septiembre 2026",
   url: "conmemoracion_primera_junta_nacional_de_gobierno_2026.html",
 },
-  {
-  id: 89,    title: "Día de las Glorias del Ejército de Chile 2026",
-  image: "public/dia de las glorias del ejercito de chile 2026.webp",    
-  status: "FINALIZADO",    
-  description: "Activación especial Día de las Glorias del Ejército de Chile. Contacto por APRS (CQ EJERCITO) (SOLO APRS) a la estación CE4JWI-10. QSL conmemorativa automática y ranking en tiempo real. FINALIZADO (FINALIZADO).",    
-  date: "19 Septiembre 2026",    
-  url: "dia_de_las_glorias_del_ejercito_de_chile_2026.html",  
-},
+  {    id: 89,    title: "Día de las Glorias del Ejército de Chile 2026",    image: "public/CE4JWI -10 SOLO APRS.webp",    status: "FINALIZADO",    description:      "Activación especial Día de las Glorias del Ejército de Chile. Contacto por APRS (CQ EJERCITO) (SOLO APRS) a la estación CE4JWI-10. QSL conmemorativa automática y ranking en tiempo real. FINALIZADO (FINALIZADO).",    date: "19 Septiembre 2026",    url: "dia_de_las_glorias_del_ejercito_de_chile_2026.html",  },
 {
   id: 90,
   title: "Toma de Posesión del Estrecho de Magallanes 2026",
@@ -878,15 +871,5 @@ const ACTIVIDADES = [
     "Activación especial Toma de Posesión del Estrecho de Magallanes. Solo APRS con la frase MAGALLANES a la estación CE4JWI-10. QSL conmemorativa automática y ranking en tiempo real.",
   date: "20 Septiembre 2026",
   url: "toma_de_posesion_del_estrecho_de_magallanes_2026.html",
-},
-{
-  id: 91,
-  title: "Los Personajes de la Historieta Chilena CONDORITO",
-  image: "public/Actividad de Condorito.webp",
-  status: "EN VIVO",
-  description:
-    "Activación conjunta de CA4NDW-7 y CE4JWI-10. Solo APRS a CA4NDW-7 (frase YAYITA) o a CE4JWI-10 (frase CONDORITO). Dos indicativos, una QSL por día: ella una y yo otra. QSL conmemorativa automática y ranking en tiempo real.",
-  date: "21 Septiembre 2026",
-  url: "personajes_de_condorito_2026.html",
 },
 ];
