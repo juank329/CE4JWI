@@ -50,16 +50,19 @@ def bajar_adif(cfg):
         return "", str(e)[:120]
 
 def parsear(texto):
+    """ADIF: los <EOR>/<EOH> vienen sin dato (pelados) en los logs de los
+    bots; hay que capturarlos tambien para cerrar cada registro."""
     regs = []
     actual = {}
-    for m in re.finditer(r"<([A-Z0-9]+):\d+(?::[^>]*)?>([^<]*)", texto):
-        clave, valor = m.group(1).upper(), m.group(2).strip()
-        if clave == "EOR" or clave == "EOH":
+    pat = re.compile(r"<(EOR|EOH)>|<([A-Z0-9]+):\d+(?::[^>]*)?>([^<]*)")
+    for m in pat.finditer(texto):
+        if m.group(1):
             if actual.get("CALL"):
                 regs.append(actual)
             actual = {}
-        else:
-            actual[clave] = valor
+            continue
+        clave, valor = m.group(2).upper(), m.group(3).strip()
+        actual[clave] = valor
     if actual.get("CALL"):
         regs.append(actual)
     return regs
