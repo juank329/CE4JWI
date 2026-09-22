@@ -886,7 +886,7 @@ const ACTIVIDADES = [
   status: "EN VIVO",
   description:
     "Activación conjunta de CA4NDW-7 y CE4JWI-10. Solo APRS a CA4NDW-7 (frase YAYITA) o a CE4JWI-10 (frase CONDORITO). Dos indicativos, una QSL por día: ella una y yo otra. QSL conmemorativa automática y ranking en tiempo real.",
-  date: "21 Septiembre 2026",
+  date: "21-30 Septiembre 2026",
   url: "personajes_de_condorito_2026.html",
 },
 ];

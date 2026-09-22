@@ -44,6 +44,14 @@ function fechaFinActividad(activity) {
   return new Date(Number.parseInt(parts[2]), MESES_ES[parts[1]], dayFin)
 }
 
+// Devuelve true si HOY cae dentro del rango de fechas de la actividad
+// (hoy >= inicio y hoy <= fin). Con esto las actividades en curso quedan
+// de primero en las tarjetas, antes que las finalizadas o las proximas.
+function esActivaFecha(activity) {
+  const hoy = new Date(); hoy.setHours(0, 0, 0, 0)
+  return hoy >= parseSpanishDate(activity.date) && hoy <= fechaFinActividad(activity)
+}
+
 // Render Activity Cards con paginación (9 tarjetas por página)
 const ACTIVITIES_PER_PAGE = 9
 let currentPage = 1
@@ -60,6 +68,9 @@ function renderActivities() {
     if (a.showAfter && hoy < new Date(a.showAfter + "T00:00:00")) return false
     return true
   }).sort((a, b) => {
+    const aAct = esActivaFecha(a) ? 1 : 0
+    const bAct = esActivaFecha(b) ? 1 : 0
+    if (aAct !== bAct) return bAct - aAct
     return parseSpanishDate(b.date) - parseSpanishDate(a.date)
   })
 
