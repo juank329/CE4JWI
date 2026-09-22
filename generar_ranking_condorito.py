@@ -54,7 +54,7 @@ def parsear(texto):
     bots; hay que capturarlos tambien para cerrar cada registro."""
     regs = []
     actual = {}
-    pat = re.compile(r"<(EOR|EOH)>|<([A-Z0-9]+):\d+(?::[^>]*)?>([^<]*)")
+    pat = re.compile(r"<(EOR|EOH)>|<([A-Z0-9_]+):\d+(?::[^>]*)?>([^<]*)")
     for m in pat.finditer(texto):
         if m.group(1):
             if actual.get("CALL"):

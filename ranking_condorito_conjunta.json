@@ -2,10 +2,52 @@
   "ok": true,
   "actividad": "condorito",
   "nombre": "LOS PERSONAJES DE LA HISTORIETA CHILENA CONDORITO",
-  "actualizado": "2026-09-21T21:16:09-04:00",
-  "totalContactos": 58,
-  "participantes": 33,
+  "actualizado": "2026-09-21T22:12:35-04:00",
+  "totalContactos": 76,
+  "participantes": 42,
   "filas": [
+    {
+      "call": "9W3FAB",
+      "total": 2,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "01:19:53"
+      },
+      "personajes": [
+        {
+          "ref": "01",
+          "nombre": "YAYITA"
+        },
+        {
+          "ref": "02",
+          "nombre": "CONDORITO"
+        }
+      ]
+    },
+    {
+      "call": "9W8RBR",
+      "total": 2,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "01:40:17"
+      },
+      "personajes": [
+        {
+          "ref": "01",
+          "nombre": "YAYITA"
+        },
+        {
+          "ref": "02",
+          "nombre": "CONDORITO"
+        }
+      ]
+    },
     {
       "call": "CA3MKF",
       "total": 2,
@@ -13,8 +55,8 @@
         "PKT"
       ],
       "ultima": {
-        "fecha": "",
-        "hora": ""
+        "fecha": "22/09/2026",
+        "hora": "00:50:58"
       },
       "personajes": [
         {
@@ -34,8 +76,8 @@
         "PKT"
       ],
       "ultima": {
-        "fecha": "",
-        "hora": ""
+        "fecha": "22/09/2026",
+        "hora": "01:02:49"
       },
       "personajes": [
         {
@@ -55,8 +97,8 @@
         "PKT"
       ],
       "ultima": {
-        "fecha": "",
-        "hora": ""
+        "fecha": "22/09/2026",
+        "hora": "01:14:29"
       },
       "personajes": [
         {
@@ -76,8 +118,8 @@
         "PKT"
       ],
       "ultima": {
-        "fecha": "",
-        "hora": ""
+        "fecha": "22/09/2026",
+        "hora": "00:45:53"
       },
       "personajes": [
         {
@@ -97,8 +139,29 @@
         "PKT"
       ],
       "ultima": {
-        "fecha": "",
-        "hora": ""
+        "fecha": "22/09/2026",
+        "hora": "00:49:53"
+      },
+      "personajes": [
+        {
+          "ref": "01",
+          "nombre": "YAYITA"
+        },
+        {
+          "ref": "02",
+          "nombre": "CONDORITO"
+        }
+      ]
+    },
+    {
+      "call": "HJ1BNL",
+      "total": 2,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "01:21:23"
       },
       "personajes": [
         {
@@ -118,8 +181,8 @@
         "PKT"
       ],
       "ultima": {
-        "fecha": "",
-        "hora": ""
+        "fecha": "22/09/2026",
+        "hora": "00:46:49"
       },
       "personajes": [
         {
@@ -139,8 +202,8 @@
         "PKT"
       ],
       "ultima": {
-        "fecha": "",
-        "hora": ""
+        "fecha": "22/09/2026",
+        "hora": "00:41:37"
       },
       "personajes": [
         {
@@ -160,8 +223,29 @@
         "PKT"
       ],
       "ultima": {
-        "fecha": "",
-        "hora": ""
+        "fecha": "22/09/2026",
+        "hora": "00:48:57"
+      },
+      "personajes": [
+        {
+          "ref": "01",
+          "nombre": "YAYITA"
+        },
+        {
+          "ref": "02",
+          "nombre": "CONDORITO"
+        }
+      ]
+    },
+    {
+      "call": "LU2EQI",
+      "total": 2,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "01:25:52"
       },
       "personajes": [
         {
@@ -181,8 +265,8 @@
         "PKT"
       ],
       "ultima": {
-        "fecha": "",
-        "hora": ""
+        "fecha": "22/09/2026",
+        "hora": "00:45:32"
       },
       "personajes": [
         {
@@ -202,8 +286,8 @@
         "PKT"
       ],
       "ultima": {
-        "fecha": "",
-        "hora": ""
+        "fecha": "22/09/2026",
+        "hora": "00:48:18"
       },
       "personajes": [
         {
@@ -223,8 +307,8 @@
         "PKT"
       ],
       "ultima": {
-        "fecha": "",
-        "hora": ""
+        "fecha": "22/09/2026",
+        "hora": "00:44:49"
       },
       "personajes": [
         {
@@ -244,8 +328,8 @@
         "PKT"
       ],
       "ultima": {
-        "fecha": "",
-        "hora": ""
+        "fecha": "22/09/2026",
+        "hora": "01:02:31"
       },
       "personajes": [
         {
@@ -265,8 +349,8 @@
         "PKT"
       ],
       "ultima": {
-        "fecha": "",
-        "hora": ""
+        "fecha": "22/09/2026",
+        "hora": "01:05:38"
       },
       "personajes": [
         {
@@ -286,8 +370,71 @@
         "PKT"
       ],
       "ultima": {
-        "fecha": "",
-        "hora": ""
+        "fecha": "22/09/2026",
+        "hora": "00:43:53"
+      },
+      "personajes": [
+        {
+          "ref": "01",
+          "nombre": "YAYITA"
+        },
+        {
+          "ref": "02",
+          "nombre": "CONDORITO"
+        }
+      ]
+    },
+    {
+      "call": "PP5PK",
+      "total": 2,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "01:20:29"
+      },
+      "personajes": [
+        {
+          "ref": "01",
+          "nombre": "YAYITA"
+        },
+        {
+          "ref": "02",
+          "nombre": "CONDORITO"
+        }
+      ]
+    },
+    {
+      "call": "PU4RDM",
+      "total": 2,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "02:02:46"
+      },
+      "personajes": [
+        {
+          "ref": "01",
+          "nombre": "YAYITA"
+        },
+        {
+          "ref": "02",
+          "nombre": "CONDORITO"
+        }
+      ]
+    },
+    {
+      "call": "PY1RV",
+      "total": 2,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "01:44:55"
       },
       "personajes": [
         {
@@ -307,8 +454,8 @@
         "PKT"
       ],
       "ultima": {
-        "fecha": "",
-        "hora": ""
+        "fecha": "22/09/2026",
+        "hora": "00:31:19"
       },
       "personajes": [
         {
@@ -328,8 +475,8 @@
         "PKT"
       ],
       "ultima": {
-        "fecha": "",
-        "hora": ""
+        "fecha": "22/09/2026",
+        "hora": "00:42:37"
       },
       "personajes": [
         {
@@ -349,8 +496,8 @@
         "PKT"
       ],
       "ultima": {
-        "fecha": "",
-        "hora": ""
+        "fecha": "22/09/2026",
+        "hora": "00:21:05"
       },
       "personajes": [
         {
@@ -370,8 +517,8 @@
         "PKT"
       ],
       "ultima": {
-        "fecha": "",
-        "hora": ""
+        "fecha": "22/09/2026",
+        "hora": "00:19:28"
       },
       "personajes": [
         {
@@ -391,8 +538,29 @@
         "PKT"
       ],
       "ultima": {
-        "fecha": "",
-        "hora": ""
+        "fecha": "22/09/2026",
+        "hora": "00:53:30"
+      },
+      "personajes": [
+        {
+          "ref": "01",
+          "nombre": "YAYITA"
+        },
+        {
+          "ref": "02",
+          "nombre": "CONDORITO"
+        }
+      ]
+    },
+    {
+      "call": "YD3BEQ",
+      "total": 2,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "01:36:44"
       },
       "personajes": [
         {
@@ -412,8 +580,8 @@
         "PKT"
       ],
       "ultima": {
-        "fecha": "",
-        "hora": ""
+        "fecha": "22/09/2026",
+        "hora": "01:15:02"
       },
       "personajes": [
         {
@@ -433,8 +601,29 @@
         "PKT"
       ],
       "ultima": {
-        "fecha": "",
-        "hora": ""
+        "fecha": "22/09/2026",
+        "hora": "00:46:17"
+      },
+      "personajes": [
+        {
+          "ref": "01",
+          "nombre": "YAYITA"
+        },
+        {
+          "ref": "02",
+          "nombre": "CONDORITO"
+        }
+      ]
+    },
+    {
+      "call": "YD6AXX",
+      "total": 2,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "01:13:56"
       },
       "personajes": [
         {
@@ -454,8 +643,8 @@
         "PKT"
       ],
       "ultima": {
-        "fecha": "",
-        "hora": ""
+        "fecha": "22/09/2026",
+        "hora": "00:48:01"
       },
       "personajes": [
         {
@@ -475,8 +664,8 @@
         "PKT"
       ],
       "ultima": {
-        "fecha": "",
-        "hora": ""
+        "fecha": "22/09/2026",
+        "hora": "00:47:29"
       },
       "personajes": [
         {
@@ -496,8 +685,8 @@
         "PKT"
       ],
       "ultima": {
-        "fecha": "",
-        "hora": ""
+        "fecha": "22/09/2026",
+        "hora": "00:59:14"
       },
       "personajes": [
         {
@@ -517,8 +706,8 @@
         "PKT"
       ],
       "ultima": {
-        "fecha": "",
-        "hora": ""
+        "fecha": "22/09/2026",
+        "hora": "00:42:19"
       },
       "personajes": [
         {
@@ -538,8 +727,8 @@
         "PKT"
       ],
       "ultima": {
-        "fecha": "",
-        "hora": ""
+        "fecha": "22/09/2026",
+        "hora": "01:01:41"
       },
       "personajes": [
         {
@@ -549,14 +738,31 @@
       ]
     },
     {
-      "call": "9W3FAB",
+      "call": "9W8NIC",
       "total": 1,
       "modos": [
         "PKT"
       ],
       "ultima": {
-        "fecha": "",
-        "hora": ""
+        "fecha": "22/09/2026",
+        "hora": "01:31:09"
+      },
+      "personajes": [
+        {
+          "ref": "02",
+          "nombre": "CONDORITO"
+        }
+      ]
+    },
+    {
+      "call": "CA6GUI",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "01:20:38"
       },
       "personajes": [
         {
@@ -572,8 +778,8 @@
         "PKT"
       ],
       "ultima": {
-        "fecha": "",
-        "hora": ""
+        "fecha": "22/09/2026",
+        "hora": "01:06:00"
       },
       "personajes": [
         {
@@ -583,19 +789,19 @@
       ]
     },
     {
-      "call": "HJ1BNL",
+      "call": "HJ3HAG",
       "total": 1,
       "modos": [
         "PKT"
       ],
       "ultima": {
-        "fecha": "",
-        "hora": ""
+        "fecha": "22/09/2026",
+        "hora": "01:43:47"
       },
       "personajes": [
         {
-          "ref": "02",
-          "nombre": "CONDORITO"
+          "ref": "01",
+          "nombre": "YAYITA"
         }
       ]
     },
@@ -606,8 +812,8 @@
         "PKT"
       ],
       "ultima": {
-        "fecha": "",
-        "hora": ""
+        "fecha": "22/09/2026",
+        "hora": "00:31:11"
       },
       "personajes": [
         {
@@ -623,8 +829,8 @@
         "PKT"
       ],
       "ultima": {
-        "fecha": "",
-        "hora": ""
+        "fecha": "22/09/2026",
+        "hora": "00:54:05"
       },
       "personajes": [
         {
@@ -634,31 +840,14 @@
       ]
     },
     {
-      "call": "PP5PK",
+      "call": "LW7ELF",
       "total": 1,
       "modos": [
         "PKT"
       ],
       "ultima": {
-        "fecha": "",
-        "hora": ""
-      },
-      "personajes": [
-        {
-          "ref": "02",
-          "nombre": "CONDORITO"
-        }
-      ]
-    },
-    {
-      "call": "YD6AXX",
-      "total": 1,
-      "modos": [
-        "PKT"
-      ],
-      "ultima": {
-        "fecha": "",
-        "hora": ""
+        "fecha": "22/09/2026",
+        "hora": "01:27:03"
       },
       "personajes": [
         {

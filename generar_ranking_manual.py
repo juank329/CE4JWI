@@ -13,7 +13,7 @@ def leer_adif(ruta):
     registros = []
     actual = {}
     # Los <EOR>/<EOH> de los bots vienen sin dato (pelados): capturarlos tambien
-    patron = re.compile(r"<(EOR|EOH)>|<([A-Z0-9]+):\d+(?::[^>]*)?>([^<]*)")
+    patron = re.compile(r"<(EOR|EOH)>|<([A-Z0-9_]+):\d+(?::[^>]*)?>([^<]*)")
     for m in patron.finditer(data):
         if m.group(1):
             if actual.get("CALL"):
