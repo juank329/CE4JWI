@@ -2,12 +2,12 @@
   "ok": true,
   "actividad": "condorito",
   "nombre": "LOS PERSONAJES DE LA HISTORIETA CHILENA CONDORITO",
-  "actualizado": "2026-09-21T20:29:59-04:00",
+  "actualizado": "2026-09-21T20:39:58-04:00",
   "totalContactos": 2,
   "participantes": 2,
   "filas": [
     {
-      "call": "LU6EGD",
+      "call": "KP4LCA",
       "total": 1,
       "modos": [
         "PKT"
@@ -15,10 +15,16 @@
       "ultima": {
         "fecha": "",
         "hora": ""
-      }
+      },
+      "personajes": [
+        {
+          "ref": "02",
+          "nombre": "CONDORITO"
+        }
+      ]
     },
     {
-      "call": "XR4MAU",
+      "call": "PY2KMR",
       "total": 1,
       "modos": [
         "PKT"
@@ -26,7 +32,13 @@
       "ultima": {
         "fecha": "",
         "hora": ""
-      }
+      },
+      "personajes": [
+        {
+          "ref": "01",
+          "nombre": "YAYITA"
+        }
+      ]
     }
   ]
 }

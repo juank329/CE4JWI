@@ -135,6 +135,20 @@
       transition: all 0.2s;
     }
     .call-badge:hover { background: #7ec8e3; color: #000 !important; }
+    .chip {
+      display: inline-block;
+      padding: 0.25rem 0.7rem;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.3px;
+      margin: 0.15rem 0.15rem 0.15rem 0;
+      white-space: nowrap;
+    }
+    .chip-ref01 { background: #7d3c98; }
+    .chip-ref02 { background: #0b4f84; }
+    .chip-none { background: #dfe6ee; color: #6c757d; }
     .ranking-empty { text-align: center; padding: 3rem 1rem; color: #6c757d; font-size: 1rem; }
     .ranking-empty .spinner {
       display: inline-block;
@@ -230,7 +244,7 @@
                   <th>#</th>
                   <th>Indicativo</th>
                   <th>QSO</th>
-                  <th>Último Contacto</th>
+                  <th>Personaje</th>
                 </tr>
               </thead>
               <tbody id="ranking-tbody">
@@ -284,8 +298,15 @@
           return;
         }
         tbody.innerHTML = d.filas.map(function (f, i) {
-          var ultima = (f.ultima && f.ultima.fecha) ? f.ultima.fecha + " \u00b7 " + f.ultima.hora : "-";
-          return '<tr><td>' + (i + 1) + '</td><td><a class="call-badge" href="https://www.qrz.com/db/' + f.call + '" target="_blank">' + f.call + '</a></td><td>' + (f.total || 0) + '</td><td>' + ultima + '</td></tr>';
+          var chips = (f.personajes && f.personajes.length)
+            ? f.personajes.map(function (p) {
+                var cls = p.ref === "01" ? "chip chip-ref01" : "chip chip-ref02";
+                var nom = (p.nombre || "").toLowerCase();
+                nom = nom.charAt(0).toUpperCase() + nom.slice(1);
+                return '<span class="' + cls + '">' + nom + '</span>';
+              }).join(" ")
+            : '<span class="chip chip-none">-</span>';
+          return '<tr><td>' + (i + 1) + '</td><td><a class="call-badge" href="https://www.qrz.com/db/' + f.call + '" target="_blank">' + f.call + '</a></td><td>' + (f.total || 0) + '</td><td>' + chips + '</td></tr>';
         }).join("");
       }
 

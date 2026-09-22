@@ -6,8 +6,8 @@
   - CE4JWI-10 -> personaje CONDORITO  (log_condorito.adi  en qsl.net/ce4jwi)
 
 # Bots locales (verificacion manual de rutas, NO se leen desde aqui):
-#   CA4NDW-7  -> C:\Users\javen\OneDrive\Desktop\condorito\bot_aprs_ca4ndw   (frase YAYITA, log_yayita.adi a qsl.net/ca4ndw)
-#   CE4JWI-10 -> C:\Users\javen\OneDrive\Desktop\BOT\bot_ce4jwi10_telegram    (frase CONDORITO, log_condorito.adi a qsl.net/ce4jwi)
+#   CA4NDW-7  -> C:/Users/javen/OneDrive/Desktop/condorito/bot_aprs_ca4ndw   (frase YAYITA, log_yayita.adi a qsl.net/ca4ndw)
+#   CE4JWI-10 -> C:/Users/javen/OneDrive/Desktop/BOT/bot_ce4jwi10_telegram    (frase CONDORITO, log_condorito.adi a qsl.net/ce4jwi)
 Sube ranking_condorito.json a AMBAS webs (ce4jwi y ca4ndw).
 
 Uso:
@@ -28,6 +28,7 @@ PERSONAJES = [
 ]
 NOMBRE = "LOS PERSONAJES DE LA HISTORIETA CHILENA CONDORITO"
 CLAVE = "condorito"
+PERSONAJE_REF = {"YAYITA": "01", "CONDORITO": "02"}
 # ===================================================================
 
 def bajar_adif(cfg):
@@ -66,8 +67,10 @@ def acumular(qsos, regs, tag):
         call = r.get("CALL", "").upper().strip()
         if not call:
             continue
-        q = qsos.setdefault(call, {"total": 0, "ultima_fecha": "", "ultima_hora": ""})
+        q = qsos.setdefault(call, {"total": 0, "ultima_fecha": "", "ultima_hora": "", "personajes": ""})
         q["total"] += 1
+        if tag not in q["personajes"].split("|"):
+            q["personajes"] = (q["personajes"] + "|" + tag).strip("|")
         para["n"] += 1
         fecha = r.get("QSO_DATE", "")
         hora = r.get("TIME_ON", "")
@@ -101,11 +104,16 @@ def principal():
     filas = []
     orden = sorted(qsos.items(), key=lambda kv: (-kv[1]["total"], kv[0]))
     for call, q in orden:
+        personajes = []
+        for nombre in sorted(q["personajes"].split("|"), key=lambda x: PERSONAJE_REF.get(x, "99")):
+            if nombre:
+                personajes.append({"ref": PERSONAJE_REF.get(nombre, ""), "nombre": nombre})
         filas.append({
             "call": call,
             "total": q["total"],
             "modos": ["PKT"],
             "ultima": {"fecha": q["ultima_fecha"], "hora": q["ultima_hora"]},
+            "personajes": personajes,
         })
     total_contactos = sum(q["total"] for q in qsos.values())
     ahora = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=-4)))
