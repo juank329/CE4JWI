@@ -8,11 +8,11 @@
 # Bots locales (verificacion manual de rutas, NO se leen desde aqui):
 #   CA4NDW-7  -> C:/Users/javen/OneDrive/Desktop/condorito/bot_aprs_ca4ndw   (frase YAYITA, log_yayita.adi a qsl.net/ca4ndw)
 #   CE4JWI-10 -> C:/Users/javen/OneDrive/Desktop/BOT/bot_ce4jwi10_telegram    (frase CONDORITO, log_condorito.adi a qsl.net/ce4jwi)
-Sube ranking_condorito.json a AMBAS webs (ce4jwi y ca4ndw).
+Sube el ranking conjunto (ARCHIVO_RANKING) a AMBAS webs (ce4jwi y ca4ndw).
 
 Uso:
   python generar_ranking_condorito.py            # baja, une y sube
-  python generar_ranking_condorito.py --no-subir # solo genera ranking_condorito.json
+  python generar_ranking_condorito.py --no-subir # solo genera el JSON local
   python generar_ranking_condorito.py --final    # congela (congelado:true) y guarda final.json
 """
 import io, os, re, json, sys, datetime, ftplib
@@ -29,6 +29,9 @@ PERSONAJES = [
 NOMBRE = "LOS PERSONAJES DE LA HISTORIETA CHILENA CONDORITO"
 CLAVE = "condorito"
 PERSONAJE_REF = {"YAYITA": "01", "CONDORITO": "02"}
+# Archivo del ranking CONJUNTO. El bot CE4JWI-10 escribe ranking_<clave>.json en
+# cada QSO; usar un nombre propio evita que el bot pise el merge con CA4NDW-7.
+ARCHIVO_RANKING = "ranking_condorito_conjunta.json"
 # ===================================================================
 
 def bajar_adif(cfg):
@@ -129,9 +132,9 @@ def principal():
     if final:
         doc["congelado"] = True
 
-    with io.open("ranking_condorito.json", "w", encoding="utf-8") as f:
+    with io.open(ARCHIVO_RANKING, "w", encoding="utf-8") as f:
         f.write(json.dumps(doc, ensure_ascii=True, indent=2))
-    print("ranking_condorito.json generado | FFFD:", doc is not None and 0)
+    print(ARCHIVO_RANKING + " generado | FFFD:", doc is not None and 0)
     for linea in resumen:
         print(linea)
     print("Total contactos: %d | Estaciones: %d" % (total_contactos, len(filas)))
@@ -148,16 +151,16 @@ def principal():
         print("--no-subir: no se sube por FTP")
         return
 
-    with open("ranking_condorito.json", "rb") as fh:
+    with open(ARCHIVO_RANKING, "rb") as fh:
         datos = fh.read()
     for st in SITIOS:
         try:
             ftp = ftplib.FTP(st["host"])
             ftp.login(st["user"], st["pass"])
             ftp.set_pasv(True)
-            ftp.storbinary("STOR ranking_condorito.json", io.BytesIO(datos))
+            ftp.storbinary("STOR " + ARCHIVO_RANKING, io.BytesIO(datos))
             ftp.quit()
-            print("Subido a %s: /ranking_condorito.json" % st["label"])
+            print("Subido a %s: /%s" % (st["label"], ARCHIVO_RANKING))
         except Exception as e:
             print("ERROR subiendo a %s: %s" % (st["label"], str(e)[:120]))
 
