@@ -20,7 +20,7 @@ Sitio web del indicativo CE4JWI en **qsl.net**. 100% estático HTML/CSS/JS/JSON/
 
 ## Cachebusts VIVOS (únicos referenciados — SÓLO estos existen en producción)
 
-- `actividades_20260917_6eca614e.js` (108 HTML) ← catálogo de actividades
+- `actividades_20260921_47a4dea3.js` (110 HTML) ← catálogo de actividades (incluye id 91 CONDORITO). `index.html` usa `recursos/actividades.js` a propósito (no cachebust).
 - `componentes_20260916_f089c287.js` (29) ← header/sidebar/footer/menú
 - `idioma_20260918.js` (29) ← motor i18n ES|EN
 - `banderas_20260916.js` (23) ← banderas en rankings
@@ -50,7 +50,9 @@ Sitio web del indicativo CE4JWI en **qsl.net**. 100% estático HTML/CSS/JS/JSON/
 ## Actividades actuales
 
 - id 68 CUECA (CE4JWI-7, **FINALIZADO**) y id 69 HUASO (CE4JWI-10, **FINALIZADO**) → sellados en `ranking-data/cueca/final.json` y `ranking-data/huaso/final.json` (congelado=true).
-- id 87 Chinchineros (EN VIVO, CE4JWI-10) → `ranking_chinchineros.json`; id 88 Primera Junta Nacional de Gobierno 2026 (**PRÓXIMAMENTE**, 18-sep, CE4JWI-10, frase PRIMERA JUNTA) → `ranking_primera_junta.json`.
+- id 87 Chinchineros (EN VIVO, CE4JWI-10) → `ranking_chinchineros.json`; id 88 Primera Junta Nacional de Gobierno 2026 (**PRÓXIMAMENTE**, 18-sep, CE4JWI-10, frase PRIMERA JUNTA) → `ranking_primera_junta.json`; id 90 Magallanes (**PRÓXIMAMENTE**, 20-sep, frase MAGALLANES) → `ranking_MAGALLANES.json`.
+- **id 91 CONDORITO (EN VIVO, inició 00 UTC)**: actividad CONJUNTA CA4NDW-7 + CE4JWI-10. Página `personajes_de_condorito_2026.html` (hero dual, portada `public/Actividad de Condorito.webp`, sin imagen de modos). Ranking ÚNICO `ranking_condorito.json` en CAMBAS webs. **NO generar a mano**: correr `generar_ranking_condorito.py` en el repo (baja `log_yayita.adi` de ca4ndw + `log_condorito.adi` de ce4jwi, une por call, sube a CE4JWI y CA4NDW; `--no-subir` solo local; `--final` congela + final.json). Deploy 21-sep: cachebust `actividades_20260921_47a4dea3.js` + 110 HTML + FTP (117 archivos OK) + git push.
+- Pendiente hoy: ranking **Paz 2026 (id 72)** a las 22:00.
 - Congeladas (ranking-data): talca, agosto, septiembre, circo, vino, hitos-*, chilenidad, choripan, juegos, copihue, organillero, **cueca, huaso**.
 
 ## Widget Telegram QR en sidebar (corregido 18-sep-2026)
