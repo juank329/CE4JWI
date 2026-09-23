@@ -80,6 +80,7 @@ def parsear_ical(texto):
 
 
 def normalizar(evs):
+    from datetime import date, timedelta
     out = []
     for e in evs:
         s = e["dtstart"]
@@ -91,14 +92,28 @@ def normalizar(evs):
             fecha = f"{s[0:4]}-{s[4:6]}-{s[6:8]}"
             hora = None
             all_day = True
-        out.append({
-            "date": fecha,
-            "time": hora,
-            "allDay": all_day,
-            "title": e["summary"],
-            "description": e.get("description", ""),
-            "category": "actividad",
-        })
+
+        def _d(ss):
+            return date(int(ss[0:4]), int(ss[4:6]), int(ss[6:8]))
+        ini = _d(s)
+        fin = _d(e["dtend"]) if e.get("dtend") else ini
+        diff = (fin - ini).days
+        dias = 1
+        if diff > 0:
+            # all-day: DTEND es exclusivo; con hora: incluye el dia final
+            dias = diff if all_day else diff + 1
+        dias = max(1, dias)
+
+        for i in range(dias):
+            dia = ini + timedelta(days=i)
+            out.append({
+                "date": dia.isoformat(),
+                "time": hora,
+                "allDay": all_day,
+                "title": e["summary"],
+                "description": e.get("description", ""),
+                "category": "actividad",
+            })
     out.sort(key=lambda x: (x["date"] or "", x["time"] or ""))
     return out
 
