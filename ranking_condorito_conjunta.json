@@ -2,9 +2,9 @@
   "ok": true,
   "actividad": "condorito",
   "nombre": "LOS PERSONAJES DE LA HISTORIETA CHILENA CONDORITO",
-  "actualizado": "2026-09-22T02:30:12-04:00",
-  "totalContactos": 99,
-  "participantes": 55,
+  "actualizado": "2026-09-22T21:07:22-04:00",
+  "totalContactos": 155,
+  "participantes": 88,
   "filas": [
     {
       "call": "9W3FAB",
@@ -18,12 +18,33 @@
       },
       "personajes": [
         {
-          "ref": "01",
-          "nombre": "YAYITA"
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
         },
         {
-          "ref": "02",
-          "nombre": "CONDORITO"
+          "ref": "04",
+          "nombre": "CUASIMODO"
+        }
+      ]
+    },
+    {
+      "call": "9W8LLY",
+      "total": 2,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "12:16:34"
+      },
+      "personajes": [
+        {
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
+        },
+        {
+          "ref": "04",
+          "nombre": "CUASIMODO"
         }
       ]
     },
@@ -39,12 +60,12 @@
       },
       "personajes": [
         {
-          "ref": "01",
-          "nombre": "YAYITA"
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
         },
         {
-          "ref": "02",
-          "nombre": "CONDORITO"
+          "ref": "04",
+          "nombre": "CUASIMODO"
         }
       ]
     },
@@ -60,12 +81,12 @@
       },
       "personajes": [
         {
-          "ref": "01",
-          "nombre": "YAYITA"
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
         },
         {
-          "ref": "02",
-          "nombre": "CONDORITO"
+          "ref": "04",
+          "nombre": "CUASIMODO"
         }
       ]
     },
@@ -81,12 +102,12 @@
       },
       "personajes": [
         {
-          "ref": "01",
-          "nombre": "YAYITA"
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
         },
         {
-          "ref": "02",
-          "nombre": "CONDORITO"
+          "ref": "04",
+          "nombre": "CUASIMODO"
         }
       ]
     },
@@ -102,12 +123,33 @@
       },
       "personajes": [
         {
-          "ref": "01",
-          "nombre": "YAYITA"
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
         },
         {
-          "ref": "02",
-          "nombre": "CONDORITO"
+          "ref": "04",
+          "nombre": "CUASIMODO"
+        }
+      ]
+    },
+    {
+      "call": "CX2JO",
+      "total": 2,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "13:14:35"
+      },
+      "personajes": [
+        {
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
+        },
+        {
+          "ref": "04",
+          "nombre": "CUASIMODO"
         }
       ]
     },
@@ -123,12 +165,12 @@
       },
       "personajes": [
         {
-          "ref": "01",
-          "nombre": "YAYITA"
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
         },
         {
-          "ref": "02",
-          "nombre": "CONDORITO"
+          "ref": "04",
+          "nombre": "CUASIMODO"
         }
       ]
     },
@@ -144,12 +186,12 @@
       },
       "personajes": [
         {
-          "ref": "01",
-          "nombre": "YAYITA"
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
         },
         {
-          "ref": "02",
-          "nombre": "CONDORITO"
+          "ref": "04",
+          "nombre": "CUASIMODO"
         }
       ]
     },
@@ -165,12 +207,96 @@
       },
       "personajes": [
         {
-          "ref": "01",
-          "nombre": "YAYITA"
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
         },
         {
-          "ref": "02",
-          "nombre": "CONDORITO"
+          "ref": "04",
+          "nombre": "CUASIMODO"
+        }
+      ]
+    },
+    {
+      "call": "EA5KBS",
+      "total": 2,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "15:17:34"
+      },
+      "personajes": [
+        {
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
+        },
+        {
+          "ref": "04",
+          "nombre": "CUASIMODO"
+        }
+      ]
+    },
+    {
+      "call": "HC1FQ",
+      "total": 2,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "23:28:07"
+      },
+      "personajes": [
+        {
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
+        },
+        {
+          "ref": "04",
+          "nombre": "CUASIMODO"
+        }
+      ]
+    },
+    {
+      "call": "HC1Y",
+      "total": 2,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "23:01:28"
+      },
+      "personajes": [
+        {
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
+        },
+        {
+          "ref": "04",
+          "nombre": "CUASIMODO"
+        }
+      ]
+    },
+    {
+      "call": "HC3RJ",
+      "total": 2,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "23:15:29"
+      },
+      "personajes": [
+        {
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
+        },
+        {
+          "ref": "04",
+          "nombre": "CUASIMODO"
         }
       ]
     },
@@ -186,12 +312,33 @@
       },
       "personajes": [
         {
-          "ref": "01",
-          "nombre": "YAYITA"
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
         },
         {
-          "ref": "02",
-          "nombre": "CONDORITO"
+          "ref": "04",
+          "nombre": "CUASIMODO"
+        }
+      ]
+    },
+    {
+      "call": "HJ1JCM",
+      "total": 2,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "14:22:22"
+      },
+      "personajes": [
+        {
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
+        },
+        {
+          "ref": "04",
+          "nombre": "CUASIMODO"
         }
       ]
     },
@@ -207,12 +354,117 @@
       },
       "personajes": [
         {
-          "ref": "01",
-          "nombre": "YAYITA"
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
         },
         {
-          "ref": "02",
-          "nombre": "CONDORITO"
+          "ref": "04",
+          "nombre": "CUASIMODO"
+        }
+      ]
+    },
+    {
+      "call": "HJ7OZ",
+      "total": 2,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "22:43:34"
+      },
+      "personajes": [
+        {
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
+        },
+        {
+          "ref": "04",
+          "nombre": "CUASIMODO"
+        }
+      ]
+    },
+    {
+      "call": "HQ1ERL",
+      "total": 2,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "19:14:35"
+      },
+      "personajes": [
+        {
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
+        },
+        {
+          "ref": "04",
+          "nombre": "CUASIMODO"
+        }
+      ]
+    },
+    {
+      "call": "HQ7CEE",
+      "total": 2,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "19:22:37"
+      },
+      "personajes": [
+        {
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
+        },
+        {
+          "ref": "04",
+          "nombre": "CUASIMODO"
+        }
+      ]
+    },
+    {
+      "call": "HR2RD",
+      "total": 2,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "19:03:32"
+      },
+      "personajes": [
+        {
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
+        },
+        {
+          "ref": "04",
+          "nombre": "CUASIMODO"
+        }
+      ]
+    },
+    {
+      "call": "HR5PAR",
+      "total": 2,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "19:35:39"
+      },
+      "personajes": [
+        {
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
+        },
+        {
+          "ref": "04",
+          "nombre": "CUASIMODO"
         }
       ]
     },
@@ -228,12 +480,12 @@
       },
       "personajes": [
         {
-          "ref": "01",
-          "nombre": "YAYITA"
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
         },
         {
-          "ref": "02",
-          "nombre": "CONDORITO"
+          "ref": "04",
+          "nombre": "CUASIMODO"
         }
       ]
     },
@@ -249,12 +501,12 @@
       },
       "personajes": [
         {
-          "ref": "01",
-          "nombre": "YAYITA"
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
         },
         {
-          "ref": "02",
-          "nombre": "CONDORITO"
+          "ref": "04",
+          "nombre": "CUASIMODO"
         }
       ]
     },
@@ -270,12 +522,54 @@
       },
       "personajes": [
         {
-          "ref": "01",
-          "nombre": "YAYITA"
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
         },
         {
-          "ref": "02",
-          "nombre": "CONDORITO"
+          "ref": "04",
+          "nombre": "CUASIMODO"
+        }
+      ]
+    },
+    {
+      "call": "LU2DGE",
+      "total": 2,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "11:18:02"
+      },
+      "personajes": [
+        {
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
+        },
+        {
+          "ref": "04",
+          "nombre": "CUASIMODO"
+        }
+      ]
+    },
+    {
+      "call": "LU2DHU",
+      "total": 2,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "10:31:22"
+      },
+      "personajes": [
+        {
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
+        },
+        {
+          "ref": "04",
+          "nombre": "CUASIMODO"
         }
       ]
     },
@@ -291,12 +585,12 @@
       },
       "personajes": [
         {
-          "ref": "01",
-          "nombre": "YAYITA"
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
         },
         {
-          "ref": "02",
-          "nombre": "CONDORITO"
+          "ref": "04",
+          "nombre": "CUASIMODO"
         }
       ]
     },
@@ -312,12 +606,12 @@
       },
       "personajes": [
         {
-          "ref": "01",
-          "nombre": "YAYITA"
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
         },
         {
-          "ref": "02",
-          "nombre": "CONDORITO"
+          "ref": "04",
+          "nombre": "CUASIMODO"
         }
       ]
     },
@@ -333,12 +627,12 @@
       },
       "personajes": [
         {
-          "ref": "01",
-          "nombre": "YAYITA"
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
         },
         {
-          "ref": "02",
-          "nombre": "CONDORITO"
+          "ref": "04",
+          "nombre": "CUASIMODO"
         }
       ]
     },
@@ -354,12 +648,12 @@
       },
       "personajes": [
         {
-          "ref": "01",
-          "nombre": "YAYITA"
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
         },
         {
-          "ref": "02",
-          "nombre": "CONDORITO"
+          "ref": "04",
+          "nombre": "CUASIMODO"
         }
       ]
     },
@@ -375,12 +669,33 @@
       },
       "personajes": [
         {
-          "ref": "01",
-          "nombre": "YAYITA"
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
         },
         {
-          "ref": "02",
-          "nombre": "CONDORITO"
+          "ref": "04",
+          "nombre": "CUASIMODO"
+        }
+      ]
+    },
+    {
+      "call": "LU5VRN",
+      "total": 2,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "19:02:05"
+      },
+      "personajes": [
+        {
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
+        },
+        {
+          "ref": "04",
+          "nombre": "CUASIMODO"
         }
       ]
     },
@@ -396,12 +711,12 @@
       },
       "personajes": [
         {
-          "ref": "01",
-          "nombre": "YAYITA"
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
         },
         {
-          "ref": "02",
-          "nombre": "CONDORITO"
+          "ref": "04",
+          "nombre": "CUASIMODO"
         }
       ]
     },
@@ -417,12 +732,33 @@
       },
       "personajes": [
         {
-          "ref": "01",
-          "nombre": "YAYITA"
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
         },
         {
-          "ref": "02",
-          "nombre": "CONDORITO"
+          "ref": "04",
+          "nombre": "CUASIMODO"
+        }
+      ]
+    },
+    {
+      "call": "LU8HRC",
+      "total": 2,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "23:42:19"
+      },
+      "personajes": [
+        {
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
+        },
+        {
+          "ref": "04",
+          "nombre": "CUASIMODO"
         }
       ]
     },
@@ -438,12 +774,12 @@
       },
       "personajes": [
         {
-          "ref": "01",
-          "nombre": "YAYITA"
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
         },
         {
-          "ref": "02",
-          "nombre": "CONDORITO"
+          "ref": "04",
+          "nombre": "CUASIMODO"
         }
       ]
     },
@@ -459,12 +795,12 @@
       },
       "personajes": [
         {
-          "ref": "01",
-          "nombre": "YAYITA"
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
         },
         {
-          "ref": "02",
-          "nombre": "CONDORITO"
+          "ref": "04",
+          "nombre": "CUASIMODO"
         }
       ]
     },
@@ -480,12 +816,12 @@
       },
       "personajes": [
         {
-          "ref": "01",
-          "nombre": "YAYITA"
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
         },
         {
-          "ref": "02",
-          "nombre": "CONDORITO"
+          "ref": "04",
+          "nombre": "CUASIMODO"
         }
       ]
     },
@@ -501,12 +837,33 @@
       },
       "personajes": [
         {
-          "ref": "01",
-          "nombre": "YAYITA"
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
         },
         {
-          "ref": "02",
-          "nombre": "CONDORITO"
+          "ref": "04",
+          "nombre": "CUASIMODO"
+        }
+      ]
+    },
+    {
+      "call": "OA4DVG",
+      "total": 2,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "13:52:31"
+      },
+      "personajes": [
+        {
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
+        },
+        {
+          "ref": "04",
+          "nombre": "CUASIMODO"
         }
       ]
     },
@@ -522,12 +879,12 @@
       },
       "personajes": [
         {
-          "ref": "01",
-          "nombre": "YAYITA"
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
         },
         {
-          "ref": "02",
-          "nombre": "CONDORITO"
+          "ref": "04",
+          "nombre": "CUASIMODO"
         }
       ]
     },
@@ -543,12 +900,12 @@
       },
       "personajes": [
         {
-          "ref": "01",
-          "nombre": "YAYITA"
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
         },
         {
-          "ref": "02",
-          "nombre": "CONDORITO"
+          "ref": "04",
+          "nombre": "CUASIMODO"
         }
       ]
     },
@@ -564,12 +921,12 @@
       },
       "personajes": [
         {
-          "ref": "01",
-          "nombre": "YAYITA"
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
         },
         {
-          "ref": "02",
-          "nombre": "CONDORITO"
+          "ref": "04",
+          "nombre": "CUASIMODO"
         }
       ]
     },
@@ -585,12 +942,12 @@
       },
       "personajes": [
         {
-          "ref": "01",
-          "nombre": "YAYITA"
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
         },
         {
-          "ref": "02",
-          "nombre": "CONDORITO"
+          "ref": "04",
+          "nombre": "CUASIMODO"
         }
       ]
     },
@@ -606,12 +963,12 @@
       },
       "personajes": [
         {
-          "ref": "01",
-          "nombre": "YAYITA"
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
         },
         {
-          "ref": "02",
-          "nombre": "CONDORITO"
+          "ref": "04",
+          "nombre": "CUASIMODO"
         }
       ]
     },
@@ -627,12 +984,12 @@
       },
       "personajes": [
         {
-          "ref": "01",
-          "nombre": "YAYITA"
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
         },
         {
-          "ref": "02",
-          "nombre": "CONDORITO"
+          "ref": "04",
+          "nombre": "CUASIMODO"
         }
       ]
     },
@@ -648,12 +1005,33 @@
       },
       "personajes": [
         {
-          "ref": "01",
-          "nombre": "YAYITA"
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
         },
         {
-          "ref": "02",
-          "nombre": "CONDORITO"
+          "ref": "04",
+          "nombre": "CUASIMODO"
+        }
+      ]
+    },
+    {
+      "call": "YC0ASW",
+      "total": 2,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "15:22:55"
+      },
+      "personajes": [
+        {
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
+        },
+        {
+          "ref": "04",
+          "nombre": "CUASIMODO"
         }
       ]
     },
@@ -669,12 +1047,75 @@
       },
       "personajes": [
         {
-          "ref": "01",
-          "nombre": "YAYITA"
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
         },
         {
-          "ref": "02",
-          "nombre": "CONDORITO"
+          "ref": "04",
+          "nombre": "CUASIMODO"
+        }
+      ]
+    },
+    {
+      "call": "YD2BBH",
+      "total": 2,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "12:33:48"
+      },
+      "personajes": [
+        {
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
+        },
+        {
+          "ref": "04",
+          "nombre": "CUASIMODO"
+        }
+      ]
+    },
+    {
+      "call": "YD2VLD",
+      "total": 2,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "12:57:51"
+      },
+      "personajes": [
+        {
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
+        },
+        {
+          "ref": "04",
+          "nombre": "CUASIMODO"
+        }
+      ]
+    },
+    {
+      "call": "YD3ACK",
+      "total": 2,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "07:29:27"
+      },
+      "personajes": [
+        {
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
+        },
+        {
+          "ref": "04",
+          "nombre": "CUASIMODO"
         }
       ]
     },
@@ -690,12 +1131,12 @@
       },
       "personajes": [
         {
-          "ref": "01",
-          "nombre": "YAYITA"
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
         },
         {
-          "ref": "02",
-          "nombre": "CONDORITO"
+          "ref": "04",
+          "nombre": "CUASIMODO"
         }
       ]
     },
@@ -711,12 +1152,12 @@
       },
       "personajes": [
         {
-          "ref": "01",
-          "nombre": "YAYITA"
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
         },
         {
-          "ref": "02",
-          "nombre": "CONDORITO"
+          "ref": "04",
+          "nombre": "CUASIMODO"
         }
       ]
     },
@@ -732,12 +1173,12 @@
       },
       "personajes": [
         {
-          "ref": "01",
-          "nombre": "YAYITA"
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
         },
         {
-          "ref": "02",
-          "nombre": "CONDORITO"
+          "ref": "04",
+          "nombre": "CUASIMODO"
         }
       ]
     },
@@ -753,12 +1194,12 @@
       },
       "personajes": [
         {
-          "ref": "01",
-          "nombre": "YAYITA"
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
         },
         {
-          "ref": "02",
-          "nombre": "CONDORITO"
+          "ref": "04",
+          "nombre": "CUASIMODO"
         }
       ]
     },
@@ -774,12 +1215,12 @@
       },
       "personajes": [
         {
-          "ref": "01",
-          "nombre": "YAYITA"
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
         },
         {
-          "ref": "02",
-          "nombre": "CONDORITO"
+          "ref": "04",
+          "nombre": "CUASIMODO"
         }
       ]
     },
@@ -795,12 +1236,12 @@
       },
       "personajes": [
         {
-          "ref": "01",
-          "nombre": "YAYITA"
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
         },
         {
-          "ref": "02",
-          "nombre": "CONDORITO"
+          "ref": "04",
+          "nombre": "CUASIMODO"
         }
       ]
     },
@@ -816,12 +1257,12 @@
       },
       "personajes": [
         {
-          "ref": "01",
-          "nombre": "YAYITA"
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
         },
         {
-          "ref": "02",
-          "nombre": "CONDORITO"
+          "ref": "04",
+          "nombre": "CUASIMODO"
         }
       ]
     },
@@ -837,12 +1278,33 @@
       },
       "personajes": [
         {
-          "ref": "01",
-          "nombre": "YAYITA"
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
         },
         {
-          "ref": "02",
-          "nombre": "CONDORITO"
+          "ref": "04",
+          "nombre": "CUASIMODO"
+        }
+      ]
+    },
+    {
+      "call": "YD7YTB",
+      "total": 2,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "16:55:30"
+      },
+      "personajes": [
+        {
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
+        },
+        {
+          "ref": "04",
+          "nombre": "CUASIMODO"
         }
       ]
     },
@@ -858,12 +1320,12 @@
       },
       "personajes": [
         {
-          "ref": "01",
-          "nombre": "YAYITA"
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
         },
         {
-          "ref": "02",
-          "nombre": "CONDORITO"
+          "ref": "04",
+          "nombre": "CUASIMODO"
         }
       ]
     },
@@ -879,12 +1341,12 @@
       },
       "personajes": [
         {
-          "ref": "01",
-          "nombre": "YAYITA"
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
         },
         {
-          "ref": "02",
-          "nombre": "CONDORITO"
+          "ref": "04",
+          "nombre": "CUASIMODO"
         }
       ]
     },
@@ -900,12 +1362,12 @@
       },
       "personajes": [
         {
-          "ref": "01",
-          "nombre": "YAYITA"
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
         },
         {
-          "ref": "02",
-          "nombre": "CONDORITO"
+          "ref": "04",
+          "nombre": "CUASIMODO"
         }
       ]
     },
@@ -921,12 +1383,33 @@
       },
       "personajes": [
         {
-          "ref": "01",
-          "nombre": "YAYITA"
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
         },
         {
-          "ref": "02",
-          "nombre": "CONDORITO"
+          "ref": "04",
+          "nombre": "CUASIMODO"
+        }
+      ]
+    },
+    {
+      "call": "ZP6CEA",
+      "total": 2,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "11:28:40"
+      },
+      "personajes": [
+        {
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
+        },
+        {
+          "ref": "04",
+          "nombre": "CUASIMODO"
         }
       ]
     },
@@ -942,8 +1425,8 @@
       },
       "personajes": [
         {
-          "ref": "02",
-          "nombre": "CONDORITO"
+          "ref": "04",
+          "nombre": "CUASIMODO"
         }
       ]
     },
@@ -959,8 +1442,8 @@
       },
       "personajes": [
         {
-          "ref": "01",
-          "nombre": "YAYITA"
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
         }
       ]
     },
@@ -976,8 +1459,8 @@
       },
       "personajes": [
         {
-          "ref": "02",
-          "nombre": "CONDORITO"
+          "ref": "04",
+          "nombre": "CUASIMODO"
         }
       ]
     },
@@ -993,8 +1476,42 @@
       },
       "personajes": [
         {
-          "ref": "02",
-          "nombre": "CONDORITO"
+          "ref": "04",
+          "nombre": "CUASIMODO"
+        }
+      ]
+    },
+    {
+      "call": "CX4AT",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "23:03:59"
+      },
+      "personajes": [
+        {
+          "ref": "04",
+          "nombre": "CUASIMODO"
+        }
+      ]
+    },
+    {
+      "call": "DL5XL",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "06:40:58"
+      },
+      "personajes": [
+        {
+          "ref": "04",
+          "nombre": "CUASIMODO"
         }
       ]
     },
@@ -1010,8 +1527,25 @@
       },
       "personajes": [
         {
-          "ref": "01",
-          "nombre": "YAYITA"
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
+        }
+      ]
+    },
+    {
+      "call": "EA3IYN",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "11:55:26"
+      },
+      "personajes": [
+        {
+          "ref": "04",
+          "nombre": "CUASIMODO"
         }
       ]
     },
@@ -1027,25 +1561,59 @@
       },
       "personajes": [
         {
-          "ref": "01",
-          "nombre": "YAYITA"
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
         }
       ]
     },
     {
-      "call": "LU2DGE",
+      "call": "HK3CM",
       "total": 1,
       "modos": [
         "PKT"
       ],
       "ultima": {
         "fecha": "22/09/2026",
-        "hora": "00:31:11"
+        "hora": "23:02:54"
       },
       "personajes": [
         {
-          "ref": "02",
-          "nombre": "CONDORITO"
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
+        }
+      ]
+    },
+    {
+      "call": "HQ1FGZ",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "19:34:10"
+      },
+      "personajes": [
+        {
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
+        }
+      ]
+    },
+    {
+      "call": "HR2LED",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "20:52:11"
+      },
+      "personajes": [
+        {
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
         }
       ]
     },
@@ -1061,8 +1629,8 @@
       },
       "personajes": [
         {
-          "ref": "02",
-          "nombre": "CONDORITO"
+          "ref": "04",
+          "nombre": "CUASIMODO"
         }
       ]
     },
@@ -1078,8 +1646,8 @@
       },
       "personajes": [
         {
-          "ref": "01",
-          "nombre": "YAYITA"
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
         }
       ]
     },
@@ -1095,8 +1663,76 @@
       },
       "personajes": [
         {
-          "ref": "01",
-          "nombre": "YAYITA"
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
+        }
+      ]
+    },
+    {
+      "call": "XE2JJC",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "09:14:23"
+      },
+      "personajes": [
+        {
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
+        }
+      ]
+    },
+    {
+      "call": "YB0TNS",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "09:48:02"
+      },
+      "personajes": [
+        {
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
+        }
+      ]
+    },
+    {
+      "call": "YC2UGE",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "12:01:12"
+      },
+      "personajes": [
+        {
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
+        }
+      ]
+    },
+    {
+      "call": "YC6BH",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "16:15:37"
+      },
+      "personajes": [
+        {
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
         }
       ]
     },
@@ -1112,8 +1748,25 @@
       },
       "personajes": [
         {
-          "ref": "02",
-          "nombre": "CONDORITO"
+          "ref": "04",
+          "nombre": "CUASIMODO"
+        }
+      ]
+    },
+    {
+      "call": "YD7KVL",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "12:17:08"
+      },
+      "personajes": [
+        {
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
         }
       ]
     }

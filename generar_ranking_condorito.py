@@ -2,12 +2,17 @@
 # -*- coding: us-ascii -*-
 """Genera el ranking en tiempo real de la actividad conjunta CONDORITO
 (Los Personajes de la Historieta Chilena) uniendo los ADIF de:
-  - CA4NDW-7  -> personaje YAYITA     (log_yayita.adi     en qsl.net/ca4ndw)
-  - CE4JWI-10 -> personaje CONDORITO  (log_condorito.adi  en qsl.net/ce4jwi)
+  - CA4NDW-7  -> personaje TREMEBUNDA (Ref 03, log_tremebunda.adi en qsl.net/ca4ndw)
+  - CE4JWI-10 -> personaje CUASIMODO  (Ref 04, log_cuasimodo.adi  en qsl.net/ce4jwi)
+
+Cada personaje une su LOG HISTORICO + el ACTUAL (los personajes cambian
+dentro de la misma actividad; el RANKING siempre SUMA, nunca reinicia).
+Lo que SI se reinicia por referencia es la numeracion de las QSL del panel
+(contador_qsl.json de cada bot parte en 0 -> proxima QSL = 01).
 
 # Bots locales (verificacion manual de rutas, NO se leen desde aqui):
-#   CA4NDW-7  -> C:/Users/javen/OneDrive/Desktop/condorito/bot_aprs_ca4ndw   (frase YAYITA, log_yayita.adi a qsl.net/ca4ndw)
-#   CE4JWI-10 -> C:/Users/javen/OneDrive/Desktop/BOT/bot_ce4jwi10_telegram    (frase CONDORITO, log_condorito.adi a qsl.net/ce4jwi)
+#   CA4NDW-7  -> C:/Users/javen/OneDrive/Desktop/condorito/bot_aprs_ca4ndw   (frase TREMEBUNDA, log_tremebunda.adi a qsl.net/ca4ndw)
+#   CE4JWI-10 -> C:/Users/javen/OneDrive/Desktop/BOT/bot_ce4jwi10_telegram    (frase CUASIMODO, log_cuasimodo.adi a qsl.net/ce4jwi)
 Sube el ranking conjunto (ARCHIVO_RANKING) a AMBAS webs (ce4jwi y ca4ndw).
 
 Uso:
@@ -23,31 +28,42 @@ SITIOS = [
     {"host": "ftp.qsl.net", "user": "ca4ndw", "pass": "1014radio",       "label": "CA4NDW"},
 ]
 PERSONAJES = [
-    {"personaje": "YAYITA",    "host": "ftp.qsl.net", "user": "ca4ndw", "pass": "1014radio", "log": "log_yayita.adi"},
-    {"personaje": "CONDORITO", "host": "ftp.qsl.net", "user": "ce4jwi", "pass": "Sayayin@CE4JWI", "log": "log_condorito.adi"},
+    {"personaje": "TREMEBUNDA", "host": "ftp.qsl.net", "user": "ca4ndw", "pass": "1014radio",
+     "logs": ["log_yayita.adi", "log_tremebunda.adi"]},
+    {"personaje": "CUASIMODO", "host": "ftp.qsl.net", "user": "ce4jwi", "pass": "Sayayin@CE4JWI",
+     "logs": ["log_condorito.adi", "log_cuasimodo.adi"]},
 ]
 NOMBRE = "LOS PERSONAJES DE LA HISTORIETA CHILENA CONDORITO"
 CLAVE = "condorito"
-PERSONAJE_REF = {"YAYITA": "01", "CONDORITO": "02"}
+PERSONAJE_REF = {"TREMEBUNDA": "03", "CUASIMODO": "04"}
 # Archivo del ranking CONJUNTO. El bot CE4JWI-10 escribe ranking_<clave>.json en
 # cada QSO; usar un nombre propio evita que el bot pise el merge con CA4NDW-7.
 ARCHIVO_RANKING = "ranking_condorito_conjunta.json"
 # ===================================================================
 
 def bajar_adif(cfg):
-    """Descarga el .adi remoto. Devuelve (texto, error)."""
-    try:
-        ftp = ftplib.FTP(cfg["host"])
-        ftp.login(cfg["user"], cfg["pass"])
-        ftp.set_pasv(True)
-        buf = []
-        def cb(d):
-            buf.append(d)
-        ftp.retrbinary("RETR " + cfg["log"], cb)
-        ftp.quit()
-        return b"".join(buf).decode("utf-8", errors="replace"), None
-    except Exception as e:
-        return "", str(e)[:120]
+    """Descarga los .adi remotos (log historico + log actual del personaje).
+    Devuelve (texto_unido, lista_errores); un log ausente NO anula al resto."""
+    partes = []
+    errores = []
+    for log in cfg["logs"]:
+        try:
+            ftp = ftplib.FTP(cfg["host"])
+            ftp.login(cfg["user"], cfg["pass"])
+            ftp.set_pasv(True)
+            buf = []
+            def cb(d):
+                buf.append(d)
+            ftp.retrbinary("RETR " + log, cb)
+            ftp.quit()
+            texto = b"".join(buf).decode("utf-8", errors="replace")
+            if texto.strip():
+                partes.append(texto)
+            else:
+                errores.append("[%s] %s vacio" % (cfg["personaje"], log))
+        except Exception as e:
+            errores.append("[%s] %s error: %s" % (cfg["personaje"], log, str(e)[:80]))
+    return "\n".join(partes), errores
 
 def parsear(texto):
     """ADIF: los <EOR>/<EOH> vienen sin dato (pelados) en los logs de los
@@ -96,12 +112,11 @@ def principal():
     qsos = {}
     resumen = []
     for cfg in PERSONAJES:
-        texto, err = bajar_adif(cfg)
-        if err:
-            resumen.append("[%s] ERROR %s" % (cfg["personaje"], err))
-            continue
+        texto, errores = bajar_adif(cfg)
+        for e in errores:
+            resumen.append(e)
         if not texto.strip():
-            resumen.append("[%s] vacio (aun sin contactos)" % cfg["personaje"])
+            resumen.append("[%s] aun sin contactos" % cfg["personaje"])
             continue
         regs = parsear(texto)
         p = acumular(qsos, regs, cfg["personaje"])

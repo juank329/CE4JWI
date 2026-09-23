@@ -29,6 +29,8 @@
     .chip { display: inline-block; padding: 2px 10px; border-radius: 50px; font-size: 0.7rem; font-weight: 700; color: #fff; margin: 2px 3px 2px 0; white-space: nowrap; }
     .chip-ref01 { background: #7d3c98; }
     .chip-ref02 { background: #0b4f84; }
+    .chip-ref03 { background: #d70d0d; }
+    .chip-ref04 { background: #182748; }
     .chip-none { background: #dfe6ee; color: #6c757d; }
     .rk-empty { text-align: center; padding: 40px 16px; color: #6c757d; font-size: 0.9rem; }
     .rk-empty .spin { display: inline-block; width: 26px; height: 26px; border: 3px solid #e0e0e0; border-top-color: #0b4f84; border-radius: 50%; animation: rot 0.8s linear infinite; margin-bottom: 10px; }
@@ -87,7 +89,7 @@
         tbody.innerHTML = d.filas.map(function (f, i) {
           var chips = (f.personajes && f.personajes.length)
             ? f.personajes.map(function (p) {
-                var cls = p.ref === "01" ? "chip chip-ref01" : "chip chip-ref02";
+                var cls = /^\d{2}$/.test(p.ref || "") ? "chip chip-ref" + p.ref : "chip chip-none";
                 var nom = (p.nombre || "").toLowerCase();
                 nom = nom.charAt(0).toUpperCase() + nom.slice(1);
                 return '<span class="' + cls + '">' + nom + '</span>';
