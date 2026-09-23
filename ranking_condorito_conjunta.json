@@ -2,10 +2,35 @@
   "ok": true,
   "actividad": "condorito",
   "nombre": "LOS PERSONAJES DE LA HISTORIETA CHILENA CONDORITO",
-  "actualizado": "2026-09-22T21:07:22-04:00",
-  "totalContactos": 155,
+  "actualizado": "2026-09-22T21:31:04-04:00",
+  "totalContactos": 156,
   "participantes": 88,
   "filas": [
+    {
+      "call": "YC2UAI",
+      "total": 3,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "00:19:28"
+      },
+      "personajes": [
+        {
+          "ref": "01",
+          "nombre": "YAYITA"
+        },
+        {
+          "ref": "02",
+          "nombre": "CONDORITO"
+        },
+        {
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
+        }
+      ]
+    },
     {
       "call": "9W3FAB",
       "total": 2,
@@ -18,12 +43,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -39,12 +64,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -60,12 +85,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -81,12 +106,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -102,12 +127,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -123,12 +148,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -144,12 +169,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -165,12 +190,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -186,12 +211,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -207,12 +232,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -228,12 +253,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -249,12 +274,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -270,12 +295,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -291,12 +316,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -312,12 +337,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -333,12 +358,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -354,12 +379,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -375,12 +400,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -396,12 +421,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -417,12 +442,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -438,12 +463,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -459,12 +484,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -480,12 +505,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -501,12 +526,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -522,12 +547,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -543,12 +568,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -564,12 +589,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -585,12 +610,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -606,12 +631,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -627,12 +652,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -648,12 +673,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -669,12 +694,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -690,12 +715,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -711,12 +736,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -732,12 +757,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -753,12 +778,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -774,12 +799,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -795,12 +820,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -816,12 +841,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -837,12 +862,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -858,12 +883,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -879,12 +904,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -900,12 +925,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -921,12 +946,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -942,12 +967,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -963,12 +988,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -984,12 +1009,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -1005,12 +1030,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -1026,33 +1051,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
-        }
-      ]
-    },
-    {
-      "call": "YC2UAI",
-      "total": 2,
-      "modos": [
-        "PKT"
-      ],
-      "ultima": {
-        "fecha": "22/09/2026",
-        "hora": "00:19:28"
-      },
-      "personajes": [
-        {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
-        },
-        {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -1068,12 +1072,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -1089,12 +1093,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -1110,12 +1114,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -1131,12 +1135,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -1152,12 +1156,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -1173,12 +1177,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -1194,12 +1198,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -1215,12 +1219,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -1236,12 +1240,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -1257,12 +1261,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -1278,12 +1282,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -1299,12 +1303,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -1320,12 +1324,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -1341,12 +1345,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -1362,12 +1366,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -1383,12 +1387,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -1404,12 +1408,12 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         },
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -1425,8 +1429,8 @@
       },
       "personajes": [
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -1442,8 +1446,8 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         }
       ]
     },
@@ -1459,8 +1463,8 @@
       },
       "personajes": [
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -1476,8 +1480,8 @@
       },
       "personajes": [
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -1493,8 +1497,8 @@
       },
       "personajes": [
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -1510,8 +1514,8 @@
       },
       "personajes": [
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -1527,8 +1531,8 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         }
       ]
     },
@@ -1544,8 +1548,8 @@
       },
       "personajes": [
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -1561,8 +1565,8 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         }
       ]
     },
@@ -1578,8 +1582,8 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         }
       ]
     },
@@ -1595,8 +1599,8 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         }
       ]
     },
@@ -1612,8 +1616,8 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         }
       ]
     },
@@ -1629,8 +1633,8 @@
       },
       "personajes": [
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -1646,8 +1650,8 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         }
       ]
     },
@@ -1663,8 +1667,8 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         }
       ]
     },
@@ -1680,8 +1684,8 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         }
       ]
     },
@@ -1697,8 +1701,8 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         }
       ]
     },
@@ -1714,8 +1718,8 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         }
       ]
     },
@@ -1731,8 +1735,8 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         }
       ]
     },
@@ -1748,8 +1752,8 @@
       },
       "personajes": [
         {
-          "ref": "04",
-          "nombre": "CUASIMODO"
+          "ref": "02",
+          "nombre": "CONDORITO"
         }
       ]
     },
@@ -1765,8 +1769,8 @@
       },
       "personajes": [
         {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
+          "ref": "01",
+          "nombre": "YAYITA"
         }
       ]
     }

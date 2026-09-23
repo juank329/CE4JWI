@@ -2,13 +2,14 @@
 # -*- coding: us-ascii -*-
 """Genera el ranking en tiempo real de la actividad conjunta CONDORITO
 (Los Personajes de la Historieta Chilena) uniendo los ADIF de:
-  - CA4NDW-7  -> personaje TREMEBUNDA (Ref 03, log_tremebunda.adi en qsl.net/ca4ndw)
-  - CE4JWI-10 -> personaje CUASIMODO  (Ref 04, log_cuasimodo.adi  en qsl.net/ce4jwi)
+  - CA4NDW-7  -> YAYITA (Ref 01, log_yayita.adi)      + TREMEBUNDA (Ref 03, log_tremebunda.adi)
+  - CE4JWI-10 -> CONDORITO (Ref 02, log_condorito.adi) + CUASIMODO (Ref 04, log_cuasimodo.adi)
 
-Cada personaje une su LOG HISTORICO + el ACTUAL (los personajes cambian
-dentro de la misma actividad; el RANKING siempre SUMA, nunca reinicia).
-Lo que SI se reinicia por referencia es la numeracion de las QSL del panel
-(contador_qsl.json de cada bot parte en 0 -> proxima QSL = 01).
+El ranking SUMA y SE VAN AGREGANDO personajes: un corresponsal muestra un
+chip por cada personaje con que contacto (historicos y nuevos). Al cambiar
+de referencia se AGREGA el personaje nuevo; los anteriores NUNCA se borran.
+El total de QSO siempre crece. Lo que SI se reinicia en 0 (-> QSL 01) por
+referencia es la numeracion de las QSL del panel (contador_qsl.json).
 
 # Bots locales (verificacion manual de rutas, NO se leen desde aqui):
 #   CA4NDW-7  -> C:/Users/javen/OneDrive/Desktop/condorito/bot_aprs_ca4ndw   (frase TREMEBUNDA, log_tremebunda.adi a qsl.net/ca4ndw)
@@ -28,14 +29,18 @@ SITIOS = [
     {"host": "ftp.qsl.net", "user": "ca4ndw", "pass": "1014radio",       "label": "CA4NDW"},
 ]
 PERSONAJES = [
+    {"personaje": "YAYITA",     "host": "ftp.qsl.net", "user": "ca4ndw", "pass": "1014radio",
+     "logs": ["log_yayita.adi"]},
+    {"personaje": "CONDORITO",  "host": "ftp.qsl.net", "user": "ce4jwi", "pass": "Sayayin@CE4JWI",
+     "logs": ["log_condorito.adi"]},
     {"personaje": "TREMEBUNDA", "host": "ftp.qsl.net", "user": "ca4ndw", "pass": "1014radio",
-     "logs": ["log_yayita.adi", "log_tremebunda.adi"]},
-    {"personaje": "CUASIMODO", "host": "ftp.qsl.net", "user": "ce4jwi", "pass": "Sayayin@CE4JWI",
-     "logs": ["log_condorito.adi", "log_cuasimodo.adi"]},
+     "logs": ["log_tremebunda.adi"]},
+    {"personaje": "CUASIMODO",  "host": "ftp.qsl.net", "user": "ce4jwi", "pass": "Sayayin@CE4JWI",
+     "logs": ["log_cuasimodo.adi"]},
 ]
 NOMBRE = "LOS PERSONAJES DE LA HISTORIETA CHILENA CONDORITO"
 CLAVE = "condorito"
-PERSONAJE_REF = {"TREMEBUNDA": "03", "CUASIMODO": "04"}
+PERSONAJE_REF = {"YAYITA": "01", "CONDORITO": "02", "TREMEBUNDA": "03", "CUASIMODO": "04"}
 # Archivo del ranking CONJUNTO. El bot CE4JWI-10 escribe ranking_<clave>.json en
 # cada QSO; usar un nombre propio evita que el bot pise el merge con CA4NDW-7.
 ARCHIVO_RANKING = "ranking_condorito_conjunta.json"
