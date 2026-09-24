@@ -31,6 +31,8 @@
     .chip-ref02 { background: #0b4f84; }
     .chip-ref03 { background: #d70d0d; }
     .chip-ref04 { background: #182748; }
+    .chip-ref05 { background: #0e8a5f; }
+    .chip-ref06 { background: #b45309; }
     .chip-none { background: #dfe6ee; color: #6c757d; }
     .rk-empty { text-align: center; padding: 40px 16px; color: #6c757d; font-size: 0.9rem; }
     .rk-empty .spin { display: inline-block; width: 26px; height: 26px; border: 3px solid #e0e0e0; border-top-color: #0b4f84; border-radius: 50%; animation: rot 0.8s linear infinite; margin-bottom: 10px; }
@@ -51,7 +53,7 @@
     <div style="overflow-x:auto;">
       <table>
         <thead>
-          <tr><th>#</th><th>Indicativo</th><th>QSO</th><th>Personaje</th></tr>
+          <tr><th>#</th><th>Indicativo</th><th>QSO</th><th>Personajes</th></tr>
         </thead>
         <tbody id="rk-tbody">
           <tr><td colspan="4"><div class="rk-empty"><div class="spin"></div><div>Cargando ranking&hellip;</div></div></td></tr>
@@ -92,6 +94,7 @@
                 var cls = /^\d{2}$/.test(p.ref || "") ? "chip chip-ref" + p.ref : "chip chip-none";
                 var nom = (p.nombre || "").toLowerCase();
                 nom = nom.charAt(0).toUpperCase() + nom.slice(1);
+                if (p.ref === "06") { nom = "Con\u00e9"; }
                 return '<span class="' + cls + '">' + nom + '</span>';
               }).join(" ")
             : '<span class="chip chip-none">-</span>';
