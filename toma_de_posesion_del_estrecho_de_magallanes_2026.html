@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Toma de Posesión del Estrecho de Magallanes 2026</title>
-  <meta name="description" content="Activación especial Toma de Posesi\u00f3n del Estrecho de Magallanes 2026. Contacto SOLO por APRS a CE4JWI-10 con la frase MAGELLAN. QSL conmemorativa automática y ranking en tiempo real.">
+  <meta name="description" content="Activación especial Toma de Posesión del Estrecho de Magallanes 2026. Contacto SOLO por APRS a CE4JWI-10 con la frase MAGALLANES. QSL conmemorativa automática y ranking en tiempo real.">
   <link rel="stylesheet" href="recursos/styles.css?v=3">
   <link rel="stylesheet" href="recursos/header-responsive.css">
   <link rel="stylesheet" href="recursos/slider.css">
@@ -146,12 +146,12 @@
 
         <h2>Sobre la Actividad</h2>
         <p>
-          La estación <strong>CE4JWI</strong> celebra el <strong>Toma de Posesi\u00f3n del Estrecho de Magallanes</strong>,
+          La estación <strong>CE4JWI</strong> celebra el <strong>Toma de Posesión del Estrecho de Magallanes</strong>,
           fecha en que se conmemora a las glorias y los héroes del Ejército de Chile, recordando el sacrificio
           y el heroísmo de quienes han forjado la patria. Participa con la radioafición mundial y obtén una <strong>QSL conmemorativa</strong>.
         </p>
         <p>
-          El contacto se realiza <strong>solo por APRS</strong>: envía la frase <strong>MAGELLAN</strong> a la estación
+          El contacto se realiza <strong>solo por APRS</strong>: envía la frase <strong>MAGALLANES</strong> a la estación
           <strong>CE4JWI-10</strong> y la QSL conmemorativa se genera automáticamente.
         </p>
 
@@ -183,6 +183,35 @@
         
 
        
+<div class="ranking-title">
+          <h2>Ranking de la Actividad</h2>
+          <p>Ranking de los contactos APRS con la frase <strong>MAGALLANES</strong>.</p>
+        </div>
+
+        <div class="ranking-section">
+          <div class="ranking-header">
+            <h2>Estaciones Participantes <span class="ranking-live finalizado">Finalizado</span></h2>
+            <div class="total-badge">Cargando&hellip;</div>
+          </div>
+          <div class="ranking-updated" id="ranking-updated"></div>
+          <div class="ranking-table-wrap">
+            <table class="ranking-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Indicativo</th>
+                  <th>QSO</th>
+                  <th>Último Contacto</th>
+                </tr>
+              </thead>
+              <tbody id="ranking-tbody">
+                <tr><td colspan="4"><div class="ranking-empty"><div class="spinner"></div><div>Cargando ranking&hellip;</div></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="ranking-footer">Ranking finalizado &middot; Toma de Posesión del Estrecho de Magallanes 2026 &middot; CE4JWI</div>
+        </div>
+
       </section>
     </div>
     <div id="sidebar-container"></div>
@@ -190,7 +219,7 @@
 
   <div id="footer-container"></div>
 
-  <script src="recursos/actividades_20260921_0f1972c9.js" defer></script>
+  <script src="recursos/actividades_20260924_7f23fab2.js" defer></script>
   <script src="recursos/idioma_20260918.js"></script>
   <script src="recursos/componentes_20260918_63bafc3e.js"></script>
   <script src="recursos/banderas_20260916.js" defer></script>
@@ -232,7 +261,7 @@
       }
 
       function cargar() {
-        return fetch("ranking_MAGELLAN.json", { cache: "no-cache" })
+        return fetch("ranking-data/magallanes/final.json", { cache: "no-cache" })
           .then(function (r) {
             if (!r.ok) throw new Error("HTTP " + r.status);
             return r.json();
