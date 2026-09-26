@@ -38,6 +38,7 @@
     .chip-ref09 { background: #ff8a00; }
     .chip-ref10 { background: #22d3ee; }
     .chip-ref11 { background: #a3e635; }
+    .chip-trofeo { background: #b8860b; font-size: 1.1rem; }
     .chip-none { background: #dfe6ee; color: #6c757d; }
     .rk-empty { text-align: center; padding: 40px 16px; color: #6c757d; font-size: 0.9rem; }
     .rk-empty .spin { display: inline-block; width: 26px; height: 26px; border: 3px solid #e0e0e0; border-top-color: #0b4f84; border-radius: 50%; animation: rot 0.8s linear infinite; margin-bottom: 10px; }
@@ -103,7 +104,10 @@
                 return '<span class="' + cls + '">' + nom + '</span>';
               }).join(" ")
             : '<span class="chip chip-none">-</span>';
-          return '<tr><td>' + (i + 1) + '</td><td><a class="call-badge" href="https://www.qrz.com/db/' + f.call + '" target="_blank" rel="noopener">' + f.call + '</a></td><td>' + (f.total || 0) + '</td><td>' + chips + '</td></tr>';
+          var totalCell = (f.personajes && f.personajes.length >= 14)
+            ? '<span class="chip chip-trofeo" title="Colecci\u00f3n completa 14/14">\uD83C\uDFC6</span>'
+            : (f.total || 0);
+          return '<tr><td>' + (i + 1) + '</td><td><a class="call-badge" href="https://www.qrz.com/db/' + f.call + '" target="_blank" rel="noopener">' + f.call + '</a></td><td>' + totalCell + '</td><td>' + chips + '</td></tr>';
         }).join("");
       }
 
