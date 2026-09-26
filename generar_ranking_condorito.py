@@ -45,11 +45,18 @@ PERSONAJES = [
      "logs": ["log_huevoduro.adi"]},
     {"personaje": "UNGENIO",    "host": "ftp.qsl.net", "user": "ce4jwi", "pass": "Sayayin@CE4JWI",
      "logs": ["log_ungenio.adi"]},
+    {"personaje": "DONCHUMA",   "host": "ftp.qsl.net", "user": "ca4ndw", "pass": "1014radio",
+     "logs": ["log_donchuma.adi"]},
+    {"personaje": "COMEGATO",   "host": "ftp.qsl.net", "user": "ce4jwi", "pass": "Sayayin@CE4JWI",
+     "logs": ["log_comegato.adi"]},
+    {"personaje": "GARGANTADELATA", "host": "ftp.qsl.net", "user": "ce4jwi", "pass": "Sayayin@CE4JWI",
+     "logs": ["log_gargantadelata.adi"]},
 ]
 NOMBRE = "LOS PERSONAJES DE LA HISTORIETA CHILENA CONDORITO"
 CLAVE = "condorito"
 PERSONAJE_REF = {"YAYITA": "01", "CONDORITO": "02", "TREMEBUNDA": "03", "CUASIMODO": "04",
-                 "YUYITO": "05", "CONE": "06", "HUEVODURO": "07", "UNGENIO": "08"}
+                 "YUYITO": "05", "CONE": "06", "HUEVODURO": "07", "UNGENIO": "08",
+                 "DONCHUMA": "09", "COMEGATO": "10", "GARGANTADELATA": "11"}
 # Archivo del ranking CONJUNTO. El bot CE4JWI-10 escribe ranking_<clave>.json en
 # cada QSO; usar un nombre propio evita que el bot pise el merge con CA4NDW-7.
 ARCHIVO_RANKING = "ranking_condorito_conjunta.json"
