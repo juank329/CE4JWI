@@ -51,12 +51,19 @@ PERSONAJES = [
      "logs": ["log_comegato.adi"]},
     {"personaje": "GARGANTADELATA", "host": "ftp.qsl.net", "user": "ce4jwi", "pass": "Sayayin@CE4JWI",
      "logs": ["log_gargantadelata.adi"]},
+    {"personaje": "CORTISONA",  "host": "ftp.qsl.net", "user": "ca4ndw", "pass": "1014radio",
+     "logs": ["log_cortisona.adi"]},
+    {"personaje": "FONOLA",     "host": "ftp.qsl.net", "user": "ce4jwi", "pass": "Sayayin@CE4JWI",
+     "logs": ["log_fonola.adi"]},
+    {"personaje": "CHULETA",    "host": "ftp.qsl.net", "user": "ce4jwi", "pass": "Sayayin@CE4JWI",
+     "logs": ["log_chuleta.adi"]},
 ]
 NOMBRE = "LOS PERSONAJES DE LA HISTORIETA CHILENA CONDORITO"
 CLAVE = "condorito"
 PERSONAJE_REF = {"YAYITA": "01", "CONDORITO": "02", "TREMEBUNDA": "03", "CUASIMODO": "04",
                  "YUYITO": "05", "CONE": "06", "HUEVODURO": "07", "UNGENIO": "08",
-                 "DONCHUMA": "09", "COMEGATO": "10", "GARGANTADELATA": "11"}
+                 "DONCHUMA": "09", "COMEGATO": "10", "GARGANTADELATA": "11",
+                 "CORTISONA": "12", "FONOLA": "13", "CHULETA": "14"}
 # Archivo del ranking CONJUNTO. El bot CE4JWI-10 escribe ranking_<clave>.json en
 # cada QSO; usar un nombre propio evita que el bot pise el merge con CA4NDW-7.
 ARCHIVO_RANKING = "ranking_condorito_conjunta.json"
@@ -125,6 +132,62 @@ def acumular(qsos, regs, tag):
                 q["ultima_fecha"], q["ultima_hora"] = f, h
     return para
 
+def emitir_certificados(filas):
+    """Genera y sube el certificado 14/14 para quien complete la coleccion (y lo encola para envio TG)."""
+    import subprocess
+    TOTAL_REFS = 14
+    BOT_DIR = r"C:\Users\javen\OneDrive\Desktop\BOT\bot_ce4jwi10_telegram"
+    REG = os.path.join(BOT_DIR, "certificados_emitidos.json")
+    PEND = os.path.join(BOT_DIR, "certificados_pendientes.json")
+    emitidos = {}
+    if os.path.isfile(REG):
+        try:
+            with io.open(REG, "r", encoding="utf-8") as f:
+                emitidos = json.loads(f.read() or "{}")
+        except Exception:
+            emitidos = {}
+    pendientes = []
+    if os.path.isfile(PEND):
+        try:
+            with io.open(PEND, "r", encoding="utf-8") as f:
+                pendientes = json.loads(f.read() or "[]")
+        except Exception:
+            pendientes = []
+    nuevos = 0
+    for fila in filas:
+        call = fila.get("call", "").upper().strip()
+        personajes = fila.get("personajes") or []
+        if len(personajes) < TOTAL_REFS:
+            continue
+        if call in emitidos:
+            continue
+        base = call.split("-")[0].upper().strip()
+        modulo = os.path.join(BOT_DIR, "generar_certificado.py")
+        try:
+            r = subprocess.run([sys.executable, modulo, base, "--subir"],
+                               capture_output=True, text=True, timeout=180)
+            ok = r.returncode == 0 and os.path.exists(os.path.join(BOT_DIR, "salida_" + base + ".png"))
+            if not ok:
+                print("CERT sin exito", base, (r.stdout + r.stderr)[-200:])
+                continue
+        except Exception as e:
+            print("CERT error", base, e)
+            continue
+        emitidos[call] = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
+        pendientes.append({
+            "call": call,
+            "link": "https://qsl.net/ce4jwi/certificados/%s.png" % base,
+            "fecha": emitidos[call],
+        })
+        nuevos += 1
+        print("CERTIFICADO emitido:", call)
+    if nuevos:
+        with io.open(REG, "w", encoding="utf-8") as f:
+            f.write(json.dumps(emitidos, ensure_ascii=True, indent=2))
+        with io.open(PEND, "w", encoding="utf-8") as f:
+            f.write(json.dumps(pendientes, ensure_ascii=True, indent=2))
+        print("Certificados pendientes de envio:", len(pendientes))
+
 def principal():
     args = sys.argv[1:]
     subir = "--no-subir" not in args
@@ -177,6 +240,12 @@ def principal():
     for linea in resumen:
         print(linea)
     print("Total contactos: %d | Estaciones: %d" % (total_contactos, len(filas)))
+
+    if subir:
+        try:
+            emitir_certificados(filas)
+        except Exception as e:
+            print("AVISO certificados:", e)
 
     if final:
         carpeta = os.path.join("ranking-data", CLAVE)
