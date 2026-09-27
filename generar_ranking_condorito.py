@@ -178,7 +178,15 @@ def emitir_certificados(filas):
             "call": call,
             "link": "https://qsl.net/ce4jwi/certificados/%s.png" % base,
             "fecha": emitidos[call],
+            "aprs": True,
         })
+        try:
+            envio = [sys.executable, os.path.join(BOT_DIR, "certificado_aprs.py"), base,
+                     "https://qsl.net/ce4jwi/certificados/%s.png" % base]
+            subprocess.run(envio, capture_output=True, text=True, timeout=180)
+            print("APRS enviado a:", call)
+        except Exception as e:
+            print("CERT APRS error:", base, e)
         nuevos += 1
         print("CERTIFICADO emitido:", call)
     if nuevos:
@@ -242,10 +250,22 @@ def principal():
     print("Total contactos: %d | Estaciones: %d" % (total_contactos, len(filas)))
 
     if subir:
-        try:
-            emitir_certificados(filas)
-        except Exception as e:
-            print("AVISO certificados:", e)
+        lock_cert = os.path.join(r"C:\Users\javen\OneDrive\Desktop\BOT\bot_ce4jwi10_telegram", "certificados.lock")
+        if not os.path.exists(lock_cert):
+            try:
+                with open(lock_cert, "w", encoding="utf-8") as f:
+                    f.write("ok")
+                try:
+                    emitir_certificados(filas)
+                except Exception as e:
+                    print("AVISO certificados:", e)
+            finally:
+                try:
+                    os.remove(lock_cert)
+                except Exception:
+                    pass
+        else:
+            print("emitir: lock activo, saltado (otra instancia)")
 
     if final:
         carpeta = os.path.join("ranking-data", CLAVE)
