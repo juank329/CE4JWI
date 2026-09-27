@@ -21,7 +21,7 @@ Uso:
   python generar_ranking_condorito.py --no-subir # solo genera el JSON local
   python generar_ranking_condorito.py --final    # congela (congelado:true) y guarda final.json
 """
-import io, os, re, json, sys, datetime, ftplib
+import io, os, re, json, sys, datetime, ftplib, time
 
 # ===== CONFIG (cambiar rutas remotas de cada log si difieren) =====
 SITIOS = [
@@ -75,22 +75,29 @@ def bajar_adif(cfg):
     partes = []
     errores = []
     for log in cfg["logs"]:
-        try:
-            ftp = ftplib.FTP(cfg["host"])
-            ftp.login(cfg["user"], cfg["pass"])
-            ftp.set_pasv(True)
-            buf = []
-            def cb(d):
-                buf.append(d)
-            ftp.retrbinary("RETR " + log, cb)
-            ftp.quit()
-            texto = b"".join(buf).decode("utf-8", errors="replace")
-            if texto.strip():
-                partes.append(texto)
-            else:
-                errores.append("[%s] %s vacio" % (cfg["personaje"], log))
-        except Exception as e:
-            errores.append("[%s] %s error: %s" % (cfg["personaje"], log, str(e)[:80]))
+        texto = None
+        for intento in range(3):
+            try:
+                ftp = ftplib.FTP(cfg["host"])
+                ftp.login(cfg["user"], cfg["pass"])
+                ftp.set_pasv(True)
+                buf = []
+                def cb(d):
+                    buf.append(d)
+                ftp.retrbinary("RETR " + log, cb)
+                ftp.quit()
+                texto = b"".join(buf).decode("utf-8", errors="replace")
+                if texto.strip():
+                    break
+            except Exception as e:
+                errores.append("[%s] %s intento %d error: %s" % (cfg["personaje"], log, intento + 1, str(e)[:80]))
+                time.sleep(2)
+        if texto is None:
+            errores.append("[%s] %s no disponible" % (cfg["personaje"], log))
+        elif texto.strip():
+            partes.append(texto)
+        else:
+            errores.append("[%s] %s vacio" % (cfg["personaje"], log))
     return "\n".join(partes), errores
 
 def parsear(texto):
