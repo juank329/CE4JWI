@@ -2,10 +2,79 @@
   "ok": true,
   "actividad": "condorito",
   "nombre": "LOS PERSONAJES DE LA HISTORIETA CHILENA CONDORITO",
-  "actualizado": "2026-09-26T20:56:35-04:00",
-  "totalContactos": 826,
+  "actualizado": "2026-09-26T22:00:54-04:00",
+  "totalContactos": 852,
   "participantes": 119,
   "filas": [
+    {
+      "call": "9W3EZY",
+      "total": 14,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "26/09/2026",
+        "hora": "22:58:05"
+      },
+      "personajes": [
+        {
+          "ref": "01",
+          "nombre": "YAYITA"
+        },
+        {
+          "ref": "02",
+          "nombre": "CONDORITO"
+        },
+        {
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
+        },
+        {
+          "ref": "04",
+          "nombre": "CUASIMODO"
+        },
+        {
+          "ref": "05",
+          "nombre": "YUYITO"
+        },
+        {
+          "ref": "06",
+          "nombre": "CONE"
+        },
+        {
+          "ref": "07",
+          "nombre": "HUEVODURO"
+        },
+        {
+          "ref": "08",
+          "nombre": "UNGENIO"
+        },
+        {
+          "ref": "09",
+          "nombre": "DONCHUMA"
+        },
+        {
+          "ref": "10",
+          "nombre": "COMEGATO"
+        },
+        {
+          "ref": "11",
+          "nombre": "GARGANTADELATA"
+        },
+        {
+          "ref": "12",
+          "nombre": "CORTISONA"
+        },
+        {
+          "ref": "13",
+          "nombre": "FONOLA"
+        },
+        {
+          "ref": "14",
+          "nombre": "CHULETA"
+        }
+      ]
+    },
     {
       "call": "9W3FAB",
       "total": 14,
@@ -84,6 +153,75 @@
       "ultima": {
         "fecha": "22/09/2026",
         "hora": "01:40:17"
+      },
+      "personajes": [
+        {
+          "ref": "01",
+          "nombre": "YAYITA"
+        },
+        {
+          "ref": "02",
+          "nombre": "CONDORITO"
+        },
+        {
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
+        },
+        {
+          "ref": "04",
+          "nombre": "CUASIMODO"
+        },
+        {
+          "ref": "05",
+          "nombre": "YUYITO"
+        },
+        {
+          "ref": "06",
+          "nombre": "CONE"
+        },
+        {
+          "ref": "07",
+          "nombre": "HUEVODURO"
+        },
+        {
+          "ref": "08",
+          "nombre": "UNGENIO"
+        },
+        {
+          "ref": "09",
+          "nombre": "DONCHUMA"
+        },
+        {
+          "ref": "10",
+          "nombre": "COMEGATO"
+        },
+        {
+          "ref": "11",
+          "nombre": "GARGANTADELATA"
+        },
+        {
+          "ref": "12",
+          "nombre": "CORTISONA"
+        },
+        {
+          "ref": "13",
+          "nombre": "FONOLA"
+        },
+        {
+          "ref": "14",
+          "nombre": "CHULETA"
+        }
+      ]
+    },
+    {
+      "call": "CA3MKF",
+      "total": 14,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "00:50:58"
       },
       "personajes": [
         {
@@ -421,6 +559,144 @@
       ]
     },
     {
+      "call": "EA5KBS",
+      "total": 14,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "15:17:34"
+      },
+      "personajes": [
+        {
+          "ref": "01",
+          "nombre": "YAYITA"
+        },
+        {
+          "ref": "02",
+          "nombre": "CONDORITO"
+        },
+        {
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
+        },
+        {
+          "ref": "04",
+          "nombre": "CUASIMODO"
+        },
+        {
+          "ref": "05",
+          "nombre": "YUYITO"
+        },
+        {
+          "ref": "06",
+          "nombre": "CONE"
+        },
+        {
+          "ref": "07",
+          "nombre": "HUEVODURO"
+        },
+        {
+          "ref": "08",
+          "nombre": "UNGENIO"
+        },
+        {
+          "ref": "09",
+          "nombre": "DONCHUMA"
+        },
+        {
+          "ref": "10",
+          "nombre": "COMEGATO"
+        },
+        {
+          "ref": "11",
+          "nombre": "GARGANTADELATA"
+        },
+        {
+          "ref": "12",
+          "nombre": "CORTISONA"
+        },
+        {
+          "ref": "13",
+          "nombre": "FONOLA"
+        },
+        {
+          "ref": "14",
+          "nombre": "CHULETA"
+        }
+      ]
+    },
+    {
+      "call": "KP4LCA",
+      "total": 14,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "00:46:49"
+      },
+      "personajes": [
+        {
+          "ref": "01",
+          "nombre": "YAYITA"
+        },
+        {
+          "ref": "02",
+          "nombre": "CONDORITO"
+        },
+        {
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
+        },
+        {
+          "ref": "04",
+          "nombre": "CUASIMODO"
+        },
+        {
+          "ref": "05",
+          "nombre": "YUYITO"
+        },
+        {
+          "ref": "06",
+          "nombre": "CONE"
+        },
+        {
+          "ref": "07",
+          "nombre": "HUEVODURO"
+        },
+        {
+          "ref": "08",
+          "nombre": "UNGENIO"
+        },
+        {
+          "ref": "09",
+          "nombre": "DONCHUMA"
+        },
+        {
+          "ref": "10",
+          "nombre": "COMEGATO"
+        },
+        {
+          "ref": "11",
+          "nombre": "GARGANTADELATA"
+        },
+        {
+          "ref": "12",
+          "nombre": "CORTISONA"
+        },
+        {
+          "ref": "13",
+          "nombre": "FONOLA"
+        },
+        {
+          "ref": "14",
+          "nombre": "CHULETA"
+        }
+      ]
+    },
+    {
       "call": "LU1QAO",
       "total": 14,
       "modos": [
@@ -567,6 +843,144 @@
       "ultima": {
         "fecha": "22/09/2026",
         "hora": "00:45:32"
+      },
+      "personajes": [
+        {
+          "ref": "01",
+          "nombre": "YAYITA"
+        },
+        {
+          "ref": "02",
+          "nombre": "CONDORITO"
+        },
+        {
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
+        },
+        {
+          "ref": "04",
+          "nombre": "CUASIMODO"
+        },
+        {
+          "ref": "05",
+          "nombre": "YUYITO"
+        },
+        {
+          "ref": "06",
+          "nombre": "CONE"
+        },
+        {
+          "ref": "07",
+          "nombre": "HUEVODURO"
+        },
+        {
+          "ref": "08",
+          "nombre": "UNGENIO"
+        },
+        {
+          "ref": "09",
+          "nombre": "DONCHUMA"
+        },
+        {
+          "ref": "10",
+          "nombre": "COMEGATO"
+        },
+        {
+          "ref": "11",
+          "nombre": "GARGANTADELATA"
+        },
+        {
+          "ref": "12",
+          "nombre": "CORTISONA"
+        },
+        {
+          "ref": "13",
+          "nombre": "FONOLA"
+        },
+        {
+          "ref": "14",
+          "nombre": "CHULETA"
+        }
+      ]
+    },
+    {
+      "call": "LU4EOU",
+      "total": 14,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "02:25:43"
+      },
+      "personajes": [
+        {
+          "ref": "01",
+          "nombre": "YAYITA"
+        },
+        {
+          "ref": "02",
+          "nombre": "CONDORITO"
+        },
+        {
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
+        },
+        {
+          "ref": "04",
+          "nombre": "CUASIMODO"
+        },
+        {
+          "ref": "05",
+          "nombre": "YUYITO"
+        },
+        {
+          "ref": "06",
+          "nombre": "CONE"
+        },
+        {
+          "ref": "07",
+          "nombre": "HUEVODURO"
+        },
+        {
+          "ref": "08",
+          "nombre": "UNGENIO"
+        },
+        {
+          "ref": "09",
+          "nombre": "DONCHUMA"
+        },
+        {
+          "ref": "10",
+          "nombre": "COMEGATO"
+        },
+        {
+          "ref": "11",
+          "nombre": "GARGANTADELATA"
+        },
+        {
+          "ref": "12",
+          "nombre": "CORTISONA"
+        },
+        {
+          "ref": "13",
+          "nombre": "FONOLA"
+        },
+        {
+          "ref": "14",
+          "nombre": "CHULETA"
+        }
+      ]
+    },
+    {
+      "call": "LU4FGS",
+      "total": 14,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "00:54:05"
       },
       "personajes": [
         {
@@ -1387,6 +1801,75 @@
       ]
     },
     {
+      "call": "YD6ASL",
+      "total": 14,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "00:46:17"
+      },
+      "personajes": [
+        {
+          "ref": "01",
+          "nombre": "YAYITA"
+        },
+        {
+          "ref": "02",
+          "nombre": "CONDORITO"
+        },
+        {
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
+        },
+        {
+          "ref": "04",
+          "nombre": "CUASIMODO"
+        },
+        {
+          "ref": "05",
+          "nombre": "YUYITO"
+        },
+        {
+          "ref": "06",
+          "nombre": "CONE"
+        },
+        {
+          "ref": "07",
+          "nombre": "HUEVODURO"
+        },
+        {
+          "ref": "08",
+          "nombre": "UNGENIO"
+        },
+        {
+          "ref": "09",
+          "nombre": "DONCHUMA"
+        },
+        {
+          "ref": "10",
+          "nombre": "COMEGATO"
+        },
+        {
+          "ref": "11",
+          "nombre": "GARGANTADELATA"
+        },
+        {
+          "ref": "12",
+          "nombre": "CORTISONA"
+        },
+        {
+          "ref": "13",
+          "nombre": "FONOLA"
+        },
+        {
+          "ref": "14",
+          "nombre": "CHULETA"
+        }
+      ]
+    },
+    {
       "call": "YD6HMM",
       "total": 14,
       "modos": [
@@ -1456,16 +1939,89 @@
       ]
     },
     {
-      "call": "9W3EZY",
-      "total": 13,
+      "call": "YG1CBG",
+      "total": 14,
       "modos": [
         "PKT"
       ],
       "ultima": {
         "fecha": "22/09/2026",
-        "hora": "01:01:41"
+        "hora": "00:59:14"
       },
       "personajes": [
+        {
+          "ref": "01",
+          "nombre": "YAYITA"
+        },
+        {
+          "ref": "02",
+          "nombre": "CONDORITO"
+        },
+        {
+          "ref": "03",
+          "nombre": "TREMEBUNDA"
+        },
+        {
+          "ref": "04",
+          "nombre": "CUASIMODO"
+        },
+        {
+          "ref": "05",
+          "nombre": "YUYITO"
+        },
+        {
+          "ref": "06",
+          "nombre": "CONE"
+        },
+        {
+          "ref": "07",
+          "nombre": "HUEVODURO"
+        },
+        {
+          "ref": "08",
+          "nombre": "UNGENIO"
+        },
+        {
+          "ref": "09",
+          "nombre": "DONCHUMA"
+        },
+        {
+          "ref": "10",
+          "nombre": "COMEGATO"
+        },
+        {
+          "ref": "11",
+          "nombre": "GARGANTADELATA"
+        },
+        {
+          "ref": "12",
+          "nombre": "CORTISONA"
+        },
+        {
+          "ref": "13",
+          "nombre": "FONOLA"
+        },
+        {
+          "ref": "14",
+          "nombre": "CHULETA"
+        }
+      ]
+    },
+    {
+      "call": "YV5GHW",
+      "total": 14,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "22/09/2026",
+        "hora": "03:08:57"
+      },
+      "personajes": [
+        {
+          "ref": "01",
+          "nombre": "YAYITA"
+        },
         {
           "ref": "02",
           "nombre": "CONDORITO"
@@ -1521,79 +2077,14 @@
       ]
     },
     {
-      "call": "CA3MKF",
+      "call": "LU9DUV",
       "total": 13,
       "modos": [
         "PKT"
       ],
       "ultima": {
         "fecha": "22/09/2026",
-        "hora": "00:50:58"
-      },
-      "personajes": [
-        {
-          "ref": "01",
-          "nombre": "YAYITA"
-        },
-        {
-          "ref": "02",
-          "nombre": "CONDORITO"
-        },
-        {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
-        },
-        {
-          "ref": "04",
-          "nombre": "CUASIMODO"
-        },
-        {
-          "ref": "05",
-          "nombre": "YUYITO"
-        },
-        {
-          "ref": "06",
-          "nombre": "CONE"
-        },
-        {
-          "ref": "07",
-          "nombre": "HUEVODURO"
-        },
-        {
-          "ref": "08",
-          "nombre": "UNGENIO"
-        },
-        {
-          "ref": "10",
-          "nombre": "COMEGATO"
-        },
-        {
-          "ref": "11",
-          "nombre": "GARGANTADELATA"
-        },
-        {
-          "ref": "12",
-          "nombre": "CORTISONA"
-        },
-        {
-          "ref": "13",
-          "nombre": "FONOLA"
-        },
-        {
-          "ref": "14",
-          "nombre": "CHULETA"
-        }
-      ]
-    },
-    {
-      "call": "KP4LCA",
-      "total": 13,
-      "modos": [
-        "PKT"
-      ],
-      "ultima": {
-        "fecha": "22/09/2026",
-        "hora": "00:46:49"
+        "hora": "02:51:34"
       },
       "personajes": [
         {
@@ -1637,71 +2128,6 @@
           "nombre": "COMEGATO"
         },
         {
-          "ref": "11",
-          "nombre": "GARGANTADELATA"
-        },
-        {
-          "ref": "13",
-          "nombre": "FONOLA"
-        },
-        {
-          "ref": "14",
-          "nombre": "CHULETA"
-        }
-      ]
-    },
-    {
-      "call": "LU4EOU",
-      "total": 13,
-      "modos": [
-        "PKT"
-      ],
-      "ultima": {
-        "fecha": "22/09/2026",
-        "hora": "02:25:43"
-      },
-      "personajes": [
-        {
-          "ref": "01",
-          "nombre": "YAYITA"
-        },
-        {
-          "ref": "02",
-          "nombre": "CONDORITO"
-        },
-        {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
-        },
-        {
-          "ref": "04",
-          "nombre": "CUASIMODO"
-        },
-        {
-          "ref": "05",
-          "nombre": "YUYITO"
-        },
-        {
-          "ref": "06",
-          "nombre": "CONE"
-        },
-        {
-          "ref": "07",
-          "nombre": "HUEVODURO"
-        },
-        {
-          "ref": "08",
-          "nombre": "UNGENIO"
-        },
-        {
-          "ref": "10",
-          "nombre": "COMEGATO"
-        },
-        {
-          "ref": "11",
-          "nombre": "GARGANTADELATA"
-        },
-        {
           "ref": "12",
           "nombre": "CORTISONA"
         },
@@ -1716,24 +2142,16 @@
       ]
     },
     {
-      "call": "LU4FGS",
-      "total": 13,
+      "call": "YD3ATQ",
+      "total": 12,
       "modos": [
         "PKT"
       ],
       "ultima": {
-        "fecha": "22/09/2026",
-        "hora": "00:54:05"
+        "fecha": "23/09/2026",
+        "hora": "04:50:47"
       },
       "personajes": [
-        {
-          "ref": "01",
-          "nombre": "YAYITA"
-        },
-        {
-          "ref": "02",
-          "nombre": "CONDORITO"
-        },
         {
           "ref": "03",
           "nombre": "TREMEBUNDA"
@@ -1757,6 +2175,10 @@
         {
           "ref": "08",
           "nombre": "UNGENIO"
+        },
+        {
+          "ref": "09",
+          "nombre": "DONCHUMA"
         },
         {
           "ref": "10",
@@ -1850,63 +2272,6 @@
       "ultima": {
         "fecha": "22/09/2026",
         "hora": "05:57:14"
-      },
-      "personajes": [
-        {
-          "ref": "01",
-          "nombre": "YAYITA"
-        },
-        {
-          "ref": "02",
-          "nombre": "CONDORITO"
-        },
-        {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
-        },
-        {
-          "ref": "04",
-          "nombre": "CUASIMODO"
-        },
-        {
-          "ref": "05",
-          "nombre": "YUYITO"
-        },
-        {
-          "ref": "06",
-          "nombre": "CONE"
-        },
-        {
-          "ref": "07",
-          "nombre": "HUEVODURO"
-        },
-        {
-          "ref": "08",
-          "nombre": "UNGENIO"
-        },
-        {
-          "ref": "09",
-          "nombre": "DONCHUMA"
-        },
-        {
-          "ref": "10",
-          "nombre": "COMEGATO"
-        },
-        {
-          "ref": "11",
-          "nombre": "GARGANTADELATA"
-        }
-      ]
-    },
-    {
-      "call": "EA5KBS",
-      "total": 11,
-      "modos": [
-        "PKT"
-      ],
-      "ultima": {
-        "fecha": "22/09/2026",
-        "hora": "15:17:34"
       },
       "personajes": [
         {
@@ -2070,14 +2435,14 @@
       ]
     },
     {
-      "call": "WP4TZM",
+      "call": "PY1RV",
       "total": 11,
       "modos": [
         "PKT"
       ],
       "ultima": {
         "fecha": "22/09/2026",
-        "hora": "02:23:02"
+        "hora": "01:44:55"
       },
       "personajes": [
         {
@@ -2095,10 +2460,6 @@
         {
           "ref": "04",
           "nombre": "CUASIMODO"
-        },
-        {
-          "ref": "05",
-          "nombre": "YUYITO"
         },
         {
           "ref": "06",
@@ -2123,18 +2484,22 @@
         {
           "ref": "11",
           "nombre": "GARGANTADELATA"
+        },
+        {
+          "ref": "12",
+          "nombre": "CORTISONA"
         }
       ]
     },
     {
-      "call": "YD6ASL",
+      "call": "WP4TZM",
       "total": 11,
       "modos": [
         "PKT"
       ],
       "ultima": {
         "fecha": "22/09/2026",
-        "hora": "00:46:17"
+        "hora": "02:23:02"
       },
       "personajes": [
         {
@@ -2249,120 +2614,6 @@
       "ultima": {
         "fecha": "22/09/2026",
         "hora": "00:48:01"
-      },
-      "personajes": [
-        {
-          "ref": "01",
-          "nombre": "YAYITA"
-        },
-        {
-          "ref": "02",
-          "nombre": "CONDORITO"
-        },
-        {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
-        },
-        {
-          "ref": "04",
-          "nombre": "CUASIMODO"
-        },
-        {
-          "ref": "05",
-          "nombre": "YUYITO"
-        },
-        {
-          "ref": "06",
-          "nombre": "CONE"
-        },
-        {
-          "ref": "07",
-          "nombre": "HUEVODURO"
-        },
-        {
-          "ref": "08",
-          "nombre": "UNGENIO"
-        },
-        {
-          "ref": "09",
-          "nombre": "DONCHUMA"
-        },
-        {
-          "ref": "10",
-          "nombre": "COMEGATO"
-        },
-        {
-          "ref": "11",
-          "nombre": "GARGANTADELATA"
-        }
-      ]
-    },
-    {
-      "call": "YG1CBG",
-      "total": 11,
-      "modos": [
-        "PKT"
-      ],
-      "ultima": {
-        "fecha": "22/09/2026",
-        "hora": "00:59:14"
-      },
-      "personajes": [
-        {
-          "ref": "01",
-          "nombre": "YAYITA"
-        },
-        {
-          "ref": "02",
-          "nombre": "CONDORITO"
-        },
-        {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
-        },
-        {
-          "ref": "04",
-          "nombre": "CUASIMODO"
-        },
-        {
-          "ref": "05",
-          "nombre": "YUYITO"
-        },
-        {
-          "ref": "06",
-          "nombre": "CONE"
-        },
-        {
-          "ref": "07",
-          "nombre": "HUEVODURO"
-        },
-        {
-          "ref": "08",
-          "nombre": "UNGENIO"
-        },
-        {
-          "ref": "09",
-          "nombre": "DONCHUMA"
-        },
-        {
-          "ref": "10",
-          "nombre": "COMEGATO"
-        },
-        {
-          "ref": "11",
-          "nombre": "GARGANTADELATA"
-        }
-      ]
-    },
-    {
-      "call": "YV5GHW",
-      "total": 11,
-      "modos": [
-        "PKT"
-      ],
-      "ultima": {
-        "fecha": "22/09/2026",
-        "hora": "03:08:57"
       },
       "personajes": [
         {
@@ -2628,112 +2879,6 @@
       ]
     },
     {
-      "call": "LU9DUV",
-      "total": 10,
-      "modos": [
-        "PKT"
-      ],
-      "ultima": {
-        "fecha": "22/09/2026",
-        "hora": "02:51:34"
-      },
-      "personajes": [
-        {
-          "ref": "01",
-          "nombre": "YAYITA"
-        },
-        {
-          "ref": "02",
-          "nombre": "CONDORITO"
-        },
-        {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
-        },
-        {
-          "ref": "04",
-          "nombre": "CUASIMODO"
-        },
-        {
-          "ref": "05",
-          "nombre": "YUYITO"
-        },
-        {
-          "ref": "06",
-          "nombre": "CONE"
-        },
-        {
-          "ref": "07",
-          "nombre": "HUEVODURO"
-        },
-        {
-          "ref": "08",
-          "nombre": "UNGENIO"
-        },
-        {
-          "ref": "09",
-          "nombre": "DONCHUMA"
-        },
-        {
-          "ref": "10",
-          "nombre": "COMEGATO"
-        }
-      ]
-    },
-    {
-      "call": "PY1RV",
-      "total": 10,
-      "modos": [
-        "PKT"
-      ],
-      "ultima": {
-        "fecha": "22/09/2026",
-        "hora": "01:44:55"
-      },
-      "personajes": [
-        {
-          "ref": "01",
-          "nombre": "YAYITA"
-        },
-        {
-          "ref": "02",
-          "nombre": "CONDORITO"
-        },
-        {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
-        },
-        {
-          "ref": "04",
-          "nombre": "CUASIMODO"
-        },
-        {
-          "ref": "06",
-          "nombre": "CONE"
-        },
-        {
-          "ref": "07",
-          "nombre": "HUEVODURO"
-        },
-        {
-          "ref": "08",
-          "nombre": "UNGENIO"
-        },
-        {
-          "ref": "09",
-          "nombre": "DONCHUMA"
-        },
-        {
-          "ref": "10",
-          "nombre": "COMEGATO"
-        },
-        {
-          "ref": "11",
-          "nombre": "GARGANTADELATA"
-        }
-      ]
-    },
-    {
       "call": "XR4MAU",
       "total": 10,
       "modos": [
@@ -2979,55 +3124,6 @@
         {
           "ref": "09",
           "nombre": "DONCHUMA"
-        }
-      ]
-    },
-    {
-      "call": "YD3ATQ",
-      "total": 9,
-      "modos": [
-        "PKT"
-      ],
-      "ultima": {
-        "fecha": "23/09/2026",
-        "hora": "04:50:47"
-      },
-      "personajes": [
-        {
-          "ref": "03",
-          "nombre": "TREMEBUNDA"
-        },
-        {
-          "ref": "04",
-          "nombre": "CUASIMODO"
-        },
-        {
-          "ref": "05",
-          "nombre": "YUYITO"
-        },
-        {
-          "ref": "06",
-          "nombre": "CONE"
-        },
-        {
-          "ref": "07",
-          "nombre": "HUEVODURO"
-        },
-        {
-          "ref": "08",
-          "nombre": "UNGENIO"
-        },
-        {
-          "ref": "09",
-          "nombre": "DONCHUMA"
-        },
-        {
-          "ref": "10",
-          "nombre": "COMEGATO"
-        },
-        {
-          "ref": "11",
-          "nombre": "GARGANTADELATA"
         }
       ]
     },
@@ -3351,6 +3447,51 @@
       ]
     },
     {
+      "call": "YD9IRE",
+      "total": 8,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "24/09/2026",
+        "hora": "01:15:15"
+      },
+      "personajes": [
+        {
+          "ref": "05",
+          "nombre": "YUYITO"
+        },
+        {
+          "ref": "06",
+          "nombre": "CONE"
+        },
+        {
+          "ref": "07",
+          "nombre": "HUEVODURO"
+        },
+        {
+          "ref": "08",
+          "nombre": "UNGENIO"
+        },
+        {
+          "ref": "09",
+          "nombre": "DONCHUMA"
+        },
+        {
+          "ref": "11",
+          "nombre": "GARGANTADELATA"
+        },
+        {
+          "ref": "13",
+          "nombre": "FONOLA"
+        },
+        {
+          "ref": "14",
+          "nombre": "CHULETA"
+        }
+      ]
+    },
+    {
       "call": "HJ7OZ",
       "total": 7,
       "modos": [
@@ -3585,43 +3726,6 @@
         {
           "ref": "14",
           "nombre": "CHULETA"
-        }
-      ]
-    },
-    {
-      "call": "YD9IRE",
-      "total": 6,
-      "modos": [
-        "PKT"
-      ],
-      "ultima": {
-        "fecha": "24/09/2026",
-        "hora": "01:15:15"
-      },
-      "personajes": [
-        {
-          "ref": "05",
-          "nombre": "YUYITO"
-        },
-        {
-          "ref": "06",
-          "nombre": "CONE"
-        },
-        {
-          "ref": "07",
-          "nombre": "HUEVODURO"
-        },
-        {
-          "ref": "08",
-          "nombre": "UNGENIO"
-        },
-        {
-          "ref": "09",
-          "nombre": "DONCHUMA"
-        },
-        {
-          "ref": "11",
-          "nombre": "GARGANTADELATA"
         }
       ]
     },
