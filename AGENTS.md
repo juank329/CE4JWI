@@ -193,12 +193,24 @@ Sitio web del indicativo CE4JWI en **qsl.net**. 100% estático HTML/CSS/JS/JSON/
 
 ## ESTADO DE LA WEB 28-sep-2026 (todo verificado en produccion, 0 errores)
 
-- **Catalogo**: UN SOLO archivo `recursos/actividades.js`, los 113 HTML lo referencian tal cual. Se borraron las 5 copias con cachebust. Catálogo con **91 actividades**: id 71 (Turismo) y id 91 (Condorito) en `FINALIZADO`, id 92 (Ciencias, 4-oct) es la única `PRÓXIMAMENTE` con fecha futura.
+- **Catalogo**: UN SOLO archivo `recursos/actividades.js`, los 114 HTML lo referencian tal cual. Se borraron las 5 copias con cachebust. Catálogo con **92 actividades**: id 71 (Turismo) y id 91 (Condorito) en `FINALIZADO`, id 92 (Ciencias, 4-oct) `PRÓXIMAMENTE`, id 93 (Día Mundial Contra la Rabia, 28-sep) `EN VIVO`.
 - **Indice**: `index.html` vuelve a pintar las tarjetas (revisar siempre que `src="recursos/actividades.js"` exista en produccion y NO sea `recursos/recursos/...`).
 - **Calendario**: `recursos/calendario.html` + `recursos/calendario_20260922.js` (22.192 B) + `recursos/eventos-calendario.json` (**81 eventos**, lista plana con `date`/`time`/`allDay`/`title`/`description`/`category`; incluye CONDORITO expandido dia a dia del 22 al 27-sep). Todo HTTP 200 y FFFD=0. El `fetch` de los datos esta DENTRO del JS, no en el HTML.
 - **Auditoria de las 114 paginas**: 113 con `actividades.js` + `componentes_20260918_63bafc3e.js` + `idioma` + contenedor `marquee-container`, sin duplicados y sin inconsistencias. La unica excepcion es `ranking_condorito_en_vivo.html`, que es **standalone** (sin header, sin marquesina, sin catalogo) a proposito: no tocarlo.
 
+## ACTIVIDAD NUEVA: DÍA MUNDIAL CONTRA LA RABIA (id 93, 28-sep-2026)
+
+- Página: `dia_mundial_contra_la_rabia_2026.html` (13.135 B, 0 FFFD), ranking en vivo con `fetch("ranking_rabia.json?t=" + Date.now())` y refresco cada 60 s, igual que la de Ciencias.
+- Imágenes: portada `public/dia mundial contra la rabia.webp`, modos `public/CE4JWI -10 SOLO APRS.webp`.
+- Bot: frase clave `RABIA`, `nombre_actividad: "rabia"` ⇒ genera **`log_rabia.adi`** y publica **`ranking_rabia.json`** (ya verificado en producción con 4 QSO: XR4MAU, YC2UAI, YD6HWZ, YD6HMM).
+- Termina a las 00:00 UTC del 29-sep. Catálogo con fecha `28 Septiembre 2026` (un solo día) ⇒ hoy la tarjeta sale `EN VIVO` y mañana sola pasa a `FINALIZADO`.
+- Al cerrar: bajar `log_rabia.adi` a `adif/ce4jwi/`, congelar `ranking_rabia.json` como `ranking-data/rabia/final.json` + raíz, y NO regenerar nada.
+
 ## LECCIONES DE HOY (28-sep) — GUARDAR PARA NO REPETIRLAS
+
+7. **qsl.net devuelve un SOFT-404 con HTTP 200**: una página inexistente responde `200` con el HTML de error (`<title>Error 404 - Page Cannot Be Found</title>`, ~5,4 KB). **Nunca confiar solo en el StatusCode**: hay que mirar el `<title>` o el tamaño esperado.
+8. **DOBLE ENVÍO DE QSL AL TELEGRAM (bug del bot, ya corregido)**: había dos enviadores sin coordinación en `bot_qsl_ce4jwi.py`: (a) `tg_enviar_qsls_pendientes()` que vigila el FTP `/qsl` cada 30 s, y (b) `tg_enviar_qsl_directa()` que manda la "instantánea" al final del QSO (~60 s después, tras los 4 mensajes APRS y el `sleep`). El vigilante ganaba la carrera y marcaba el archivo en `enviados.json`, pero la instantánea **no comprobaba nada y volvía a mandar la misma foto** ⇒ 15 indicativos con doble QSL. **Arreglo**: la instantánea ahora consulta `enviados.json` (nombre **y** MD5) antes de enviar y salta con `"Instantanea OMITIDA..."`; además se agregó `_tg_estado_lock` para que las dos rutas no se pisen al escribir `enviados.json` (el guardián lo tenía, la instantánea no). Respaldo del script: `bot_qsl_ce4jwi.py.bak_20260928`.
+9. **`ftplib` en Python 3.14**: `ftplib.FTP(host, user, pw)` YA hace login; si además se llama `ftp.login()` sale `530 Can't change to another user`. Usar una u otra, nunca las dos.
 
 1. **REGLA DEL USUARIO: las actividades viven SOLO en `recursos/actividades.js`.** No crear mas `actividades_<fecha>_<hash>.js` ni dejar copias. Ese patron de cachebust queda derogado **solo para el catalogo** (sigue valiendo para `componentes_*.js`, `idioma_*.js`, `calendario_*.js`). Consecuencia: el CDN cachea ~60 min, asi que verificar siempre con `?t=<epoch>`.
 2. **BUG QUE ROMPIO EL INDEX**: el `-replace` de PowerShell 5.1 dejo los 113 HTML con `recursos/recursos/actividades_...js` y el indice dejo de mostrar actividades. **Regla: re-apuntar `.js` SIEMPRE en bytes con Python** (`open(f,'rb').read()` + `replace` + `open(f,'wb').write()`), nunca con `-replace`; y verificar en produccion la **ruta completa**, no solo el nombre del archivo.

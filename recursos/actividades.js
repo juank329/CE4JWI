@@ -898,5 +898,15 @@ const ACTIVIDADES = [
     "Activación especial por el Día Nacional de la Ciencia, la Tecnología, el Conocimiento y la Innovación, que por ley se celebra el primer domingo de octubre. Solo APRS con la palabra CIENCIAS a la estación CE4JWI-10. QSL conmemorativa automática y ranking en tiempo real.",
   date: "4 Octubre 2026",
   url: "dia_nacional_de_las_ciencias_2026.html",
+},,
+{
+  id: 93,
+  title: "Día Mundial Contra la Rabia 2026",
+  image: "public/dia mundial contra la rabia.webp",
+  status: "EN VIVO",
+  description:
+    "Activación especial por el Día Mundial Contra la Rabia, que se celebra cada 28 de septiembre en todo el mundo. Solo APRS con la palabra RABIA a la estación CE4JWI-10. QSL conmemorativa automática y ranking en tiempo real.",
+  date: "28 Septiembre 2026",
+  url: "dia_mundial_contra_la_rabia_2026.html",
 },
 ];
