@@ -909,4 +909,44 @@ const ACTIVIDADES = [
   date: "28 Septiembre 2026",
   url: "dia_mundial_contra_la_rabia_2026.html",
 },
+{
+  id: 94,
+  title: "Día Mundial del Corazón 2026",
+  image: "public/dia_mundia_del_corazon.webp",
+  status: "PRÓXIMAMENTE",
+  description:
+    "Activación especial por el Día Mundial del Corazón, que se celebra cada 29 de septiembre en todo el mundo. Solo APRS con la palabra CORAZON a la estación CE4JWI-10. QSL conmemorativa automática y ranking en tiempo real.",
+  date: "29 Septiembre 2026",
+  url: "dia_mundial_del_corazon_2026.html",
+},
+{
+  id: 95,
+  title: "Día Internacional de la Traducción 2026",
+  image: "public/dia_internacional_de_la_traduccion.webp",
+  status: "PRÓXIMAMENTE",
+  description:
+    "Activación especial por el Día Internacional de la Traducción, que la ONU declara todos los 30 de septiembre. Solo APRS con la palabra TRADUCCION a la estación CE4JWI-10. QSL conmemorativa automática y ranking en tiempo real.",
+  date: "30 Septiembre 2026",
+  url: "dia_internacional_de_la_traduccion_2026.html",
+},
+{
+  id: 96,
+  title: "Día Internacional de la Música 2026",
+  image: "public/dia_internacional_de_la_musica.webp",
+  status: "PRÓXIMAMENTE",
+  description:
+    "Activación especial por el Día Internacional de la Música, que se celebra cada 1 de octubre. Solo APRS con la palabra MUSICA a la estación CE4JWI-10. QSL conmemorativa automática y ranking en tiempo real.",
+  date: "1 Octubre 2026",
+  url: "dia_internacional_de_la_musica_2026.html",
+},
+{
+  id: 97,
+  title: "Día Internacional de la No Violencia 2026",
+  image: "public/dia_internacional_de_la_no_violencia.webp",
+  status: "PRÓXIMAMENTE",
+  description:
+    "Activación especial por el Día Internacional de la No Violencia. Solo APRS con la palabra NO VIOLENCIA a la estación CE4JWI-10. QSL conmemorativa automática y ranking en tiempo real.",
+  date: "2 Octubre 2026",
+  url: "dia_internacional_de_la_no_violencia_2026.html",
+},
 ];
