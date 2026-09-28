@@ -157,6 +157,13 @@ Sitio web del indicativo CE4JWI en **qsl.net**. 100% estático HTML/CSS/JS/JSON/
 - **Como esta la pagina**: ranking en vivo con refresco cada 60 s, badge "En vivo" que pasa solo a "Finalizado" cuando el JSON trae `congelado: true`, y si el JSON aun no existe muestra "El ranking se publica el 4 de octubre, al comenzar la activacion".
 - **Datos de la efemeride usados en el texto** (verificados por web, no inventados): el Dia Nacional de la Ciencia, la Tecnologia, el Conocimiento y la Innovacion se celebra **por ley el primer domingo de octubre** (en 2026 = domingo 4 de octubre); el **Ministerio de Ciencia, Tecnologia, Conocimiento e Innovacion (MinCiencia)** fue creado por la **Ley 21.105** (2018), junto con la **ANID**; ese domingo se celebra el **Festival de las Ciencias**.
 
+## CERTIFICADOS 14/14 CONDORITO: PAGINA DE DESCARGAS + REENVIO APRS (27-sep-2026)
+
+- **Pagina de descargas**: `certificados_condorito_2026.html` (38 certificados, grid con tarjetas, enlace JPG + PNG por estacion, busqueda manual). Publicada en `https://qsl.net/ce4jwi/certificados_condorito_2026.html` (HTTP 200, FFFD=0). `personajes_de_condorito_2026.html` ahora enlaza a ella (seccion "Certificado 14/14"). Commit `10d9444`, push OK.
+- **Entrega por APRS**: usar SIEMPRE el enlace `.jpg` (los `.png` 8MB son lentos). `certificado_aprs.py <CALL> https://qsl.net/ce4jwi/certificados/<CALL>.jpg` desde `Desktop\BOT\bot_ce4jwi10_telegram`.
+- **REGLIA de reenvio (orden del usuario)**: SOLO enviar si el certificado falta. Discriminator: en `certificados_pendientes.json` del bot viejo Condorito, `"aprs": true` = ya se envio por APRS; los que no estan en pendientes ya se entregaron por Telegram. Efectivo: de los 38 emitidos, solo **YC2UAI y YD3AFS** (emitidos 21:01/21:10, antes de que `certificado_aprs.py` quedara listo 21:26) nunca recibieron enlace.
+- **ENVIADOS 27-sep**: YC2UAI (sin SSID) y YD3AFS-10 (resuelto desde bot_debug.log), 2 mensajes c/u con enlace `.jpg`. `certificados_pendientes.json` actualizado (29/29 con `aprs: true`). Tarea 14/14 cerrada: los 38 tienen certificado publicado + entregado.
+
 ## Mejoras permanentes del bot universal (27-sep, fuera del repo, en `Desktop\BOT\CE4JWI-10-TELEGRAM`)
 
 - **Avisos Telegram al operador** (`admin_chat_id`): `tg_aviso_inicio()` (indicativo, actividad, frase, destino CQ, QSLs hoy/total, registrados), `tg_aviso_desconexion(motivo)` y `tg_resumen_final(motivo)` con **el detalle de los contactos de la sesión** (UTC + indicativo + archivo QSL) y totales. Listas de sesión: `SESION_QSOS` (se alimenta en `guardar_adif`) y `SESION_TG` (en `tg_enviar_qsl_directa` y en el envío por FTP de `tg_enviar_qsls_pendientes`). `SESION_INICIO` se fija al importar el módulo.
