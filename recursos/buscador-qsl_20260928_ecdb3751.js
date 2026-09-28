@@ -11,10 +11,20 @@
  * aparecen todas las tarjetas de ambas estaciones, con su badge
  * de emisora y un filtro para separarlas si se desea.
  *
+ * Los certificados (carpeta "Certificados", subcarpeta
+ * /certificados del hosting) NO son QSL: se muestran en su propio
+ * bloque, debajo de todas las QSL, con el evento al que pertenecen
+ * y sus descargas JPG y PNG.
+ *
+ * Orden: primero las QSL (más nueva primero) y después los
+ * certificados (más nuevo primero; a igual fecha, por indicativo).
+ *
  * Robustez:
  *  - Si log_qsl.json llega truncado (el bot puede estar
  *    reescribiéndolo), reintenta automáticamente con backoff.
  *  - Soporta ?call=XR4MAU para enlazar desde cualquier página.
+ *  - Si el motor de idiomas no conoce una clave, se usa el texto
+ *    en español de este archivo en vez de mostrar la clave.
  * ============================================================
  */
 
@@ -22,16 +32,23 @@
   const _i = () => (typeof I18N !== "undefined" && I18N) ? I18N : null;
   const _t = (clave, vars) => {
     const i = _i();
-    if (i && i.formatear) return i.formatear(clave, vars);
-    // Fallback en español si el motor no está presente
+    if (i && i.formatear) {
+      const t = i.formatear(clave, vars);
+      // El motor puede devolver la propia clave si no la conoce.
+      if (t && t !== clave) return t;
+    }
+    // Fallback en español si el motor no está presente o no tiene la clave
     const ES = {
       "qsl.vacio": "Sin tarjetas de {emisora} para este indicativo.",
       "qsl.grupo": "Estación {em} — {n} tarjeta{s}",
+      "qsl.grupoCert": "Certificados — {n} certificado{s}",
       "qsl.noEncontradas": "❌ No se encontraron tarjetas para el indicativo {call} en el libro de guardia.",
       "qsl.stats": "📇 {n} tarjeta{s} encontrada{s} para {call}",
       "qsl.indice": "Índice en línea: {total} tarjetas — {ce4} de CE4JWI y {xr} de XR4MAU en un solo lugar.",
       "qsl.sinActivas": "⚠️ Aún no se han registrado activaciones en el servidor. Intenta nuevamente en un momento.",
-      "qsl.descargar": "DESCARGAR QSL"
+      "qsl.descargar": "DESCARGAR QSL",
+      "qsl.descargarCert": "DESCARGAR CERTIFICADO",
+      "qsl.tipoCert": "Certificado"
     };
     let texto = ES[clave] || clave;
     if (vars) Object.keys(vars).forEach((k) => { texto = texto.split("{" + k + "}").join(String(vars[k])); });
@@ -54,6 +71,14 @@
 
   // Filtro de estación emisora activo: "TODAS" | "CE4JWI" | "XR4MAU"
   let emisoraActiva = "TODAS";
+
+  /**
+   * Un certificado no es una QSL: viene con carpeta "Certificados" y
+   * tipo "certificado", y se reconoce por cualquiera de los dos.
+   */
+  function esCertificado(qsl) {
+    return String(qsl.carpeta || "") === "Certificados" || String(qsl.tipo || "") === "certificado";
+  }
 
   /**
    * Detecta la estación emisora de una tarjeta.
@@ -151,18 +176,28 @@
       resultadosActuales = datos
         .filter((qsl) => (qsl.call || "").toUpperCase().trim() === callBuscado)
         .sort((a, b) => {
+          // Los certificados van al final, siempre.
+          const ca = esCertificado(a) ? 1 : 0;
+          const cb = esCertificado(b) ? 1 : 0;
+          if (ca !== cb) return ca - cb;
           const df = String(b.fecha || "").localeCompare(String(a.fecha || ""));
           if (df !== 0) return df;
           const dh = String(b.hora || "").localeCompare(String(a.hora || ""));
           if (dh !== 0) return dh;
+          // A igual fecha y hora: QSL por nombre de archivo, certificado por indicativo.
+          if (ca === 1) {
+            return String(a.call || "").localeCompare(String(b.call || ""));
+          }
           return String(b.archivo || b.url || "").localeCompare(String(a.archivo || a.url || ""));
         });
 
       // Cuenta de tarjetas totales del índice (para el pie)
       const totalIndice = datos.length;
       const porEstacion = { CE4JWI: 0, XR4MAU: 0 };
+      let totalCert = 0;
       datos.forEach((qsl) => {
-        porEstacion[emisoraDe(qsl)] += 1;
+        if (esCertificado(qsl)) totalCert += 1;
+        else porEstacion[emisoraDe(qsl)] += 1;
       });
 
       if (resultadosActuales.length === 0) {
@@ -176,7 +211,7 @@
 
       if (estado) {
         estado.textContent = _t("qsl.indice", {
-          total: totalIndice,
+          total: totalIndice - totalCert,
           ce4: porEstacion.CE4JWI,
           xr: porEstacion.XR4MAU,
         });
@@ -197,6 +232,7 @@
   }
 
   function actualizarContadoresFiltros() {
+    // Los certificados los emitió CE4JWI: cuentan como tal en los filtros.
     const contador = (emisora) =>
       resultadosActuales.filter((q) => emisoraDe(q) === emisora).length;
 
@@ -213,6 +249,10 @@
     if (contenedor) actualizarContadoresFiltros();
   }
 
+  /**
+   * Pinta los resultados: primero las QSL agrupadas por estación
+   * (CE4JWI, luego XR4MAU) y, debajo, el bloque de certificados.
+   */
   function aplicarFiltro() {
     grid.innerHTML = "";
     const visibles = resultadosActuales.filter(
@@ -230,8 +270,9 @@
 
     // Agrupa: primero CE4JWI, luego XR4MAU (se muestra el contador por estación).
     const ordenEmisoras = ["CE4JWI", "XR4MAU"];
+    const qsls = visibles.filter((q) => !esCertificado(q));
     const grupos = ordenEmisoras
-      .map((em) => ({ em, items: visibles.filter((q) => emisoraDe(q) === em) }))
+      .map((em) => ({ em, items: qsls.filter((q) => emisoraDe(q) === em) }))
       .filter((g) => g.items.length > 0);
 
     grupos.forEach((grupo) => {
@@ -243,26 +284,51 @@
       }
       grupo.items.forEach((qsl) => grid.appendChild(crearTarjeta(qsl)));
     });
+
+    // Bloque de certificados, siempre al final.
+    const certs = visibles.filter(esCertificado);
+    if (certs.length > 0) {
+      const cabecera = document.createElement("div");
+      cabecera.className = "qsl-grupo qsl-grupo-cert";
+      cabecera.textContent = _t("qsl.grupoCert", { n: certs.length, s: certs.length === 1 ? "" : "s" });
+      grid.appendChild(cabecera);
+      certs.forEach((c) => grid.appendChild(crearTarjeta(c)));
+    }
   }
 
   function crearTarjeta(qsl) {
     const url = qsl.url || "";
     const nombreArchivo = String(qsl.archivo || url.substring(url.lastIndexOf("/") + 1));
-    const evento = String(qsl.carpeta || "General").replace(/_/g, " ");
+    const evento = String(qsl.evento || qsl.carpeta || "General").replace(/_/g, " ");
     const emisora = emisoraDe(qsl);
     const info = AREA[emisora] || AREA.CE4JWI;
+    const esCert = esCertificado(qsl);
 
     const chips = [];
     if (qsl.fecha) chips.push(`<span class="qsl-chip">📅 ${qsl.fecha}</span>`);
     if (qsl.hora) chips.push(`<span class="qsl-chip">🕐 ${qsl.hora}</span>`);
     if (qsl.modo) chips.push(`<span class="qsl-chip">📻 ${qsl.modo}</span>`);
+    if (esCert) chips.push(`<span class="qsl-chip">🏅 ${_t("qsl.tipoCert")}</span>`);
 
     const card = document.createElement("article");
-    card.className = "qsl-card";
+    card.className = esCert ? "qsl-card qsl-card-cert" : "qsl-card";
+
+    // El certificado ofrece JPG (principal) y, si existe, PNG.
+    let descargas = `<a class="qsl-descargar" href="${url}" download="${nombreArchivo}">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 21h16"/></svg>
+          ${esCert ? _t("qsl.descargarCert") : _t("qsl.descargar")}
+        </a>`;
+    if (esCert && qsl.url_png) {
+      const nombrePng = String(qsl.archivo_png || qsl.url_png.substring(qsl.url_png.lastIndexOf("/") + 1));
+      descargas += `<a class="qsl-descargar qsl-descargar-alt" href="${qsl.url_png}" download="${nombrePng}">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 21h16"/></svg>
+          PNG
+        </a>`;
+    }
 
     card.innerHTML = `
       <a class="qsl-thumb" href="${url}" target="_blank" rel="noopener">
-        <img loading="lazy" src="${url}" alt="QSL de ${qsl.call || ""}">
+        <img loading="lazy" src="${url}" alt="${esCert ? "Certificado" : "QSL"} de ${qsl.call || ""}">
       </a>
       <div class="qsl-card-body">
         <div class="qsl-card-top">
@@ -270,10 +336,7 @@
           <div class="qsl-evento">${evento}</div>
         </div>
         ${chips.length ? `<div class="qsl-meta">${chips.join("")}</div>` : ""}
-        <a class="qsl-descargar" href="${url}" download="${nombreArchivo}">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 21h16"/></svg>
-          ${_t("qsl.descargar")}
-        </a>
+        ${descargas}
       </div>
     `;
 
