@@ -206,6 +206,13 @@ Sitio web del indicativo CE4JWI en **qsl.net**. 100% estático HTML/CSS/JS/JSON/
 - Termina a las 00:00 UTC del 29-sep. Catálogo con fecha `28 Septiembre 2026` (un solo día) ⇒ hoy la tarjeta sale `EN VIVO` y mañana sola pasa a `FINALIZADO`.
 - Al cerrar: bajar `log_rabia.adi` a `adif/ce4jwi/`, congelar `ranking_rabia.json` como `ranking-data/rabia/final.json` + raíz, y NO regenerar nada.
 
+## LIMPIEZA DEL SERVIDOR (28-sep): qué se borró y qué NO se puede borrar
+
+- Se borraron del FTP **33 archivos huérfanos de `/recursos`** (verificados con 0 referencias en los 190 archivos del servidor, 9,89 MB de HTML+JS+CSS): 19 copias `actividades_<fecha>_<hash>.js` + 14 viejos (`componentes_20260915/17/18/18_075f73ca/18_a77cef27/18_b8e91e96/24.js`, `idioma_20260915.js`, `idioma_20260917.js`, `banderas_20260915.js`, `buscador-qsl.js`, `buscador-qsl_20260915.js`, `calendario_20260915.js`, `novedades.js`). `/recursos` quedó en 45 archivos.
+- **NO se borró `actividades_20260916_42968cfe.js`: la referencia `log.html`**, que sigue usando esa copia vieja del catálogo (por eso el log no ve la actividad id 93). Unificarlo es un cambio de 1 línea en `log.html`, pendiente de que lo autorice.
+- **Cómo detectar huérfanos bien**: NO comparar el nombre del archivo contra la lista de páginas (`if n not in lista_de_paginas` compara strings equivocados y marca todo como huérfano). Lo correcto es buscar el **nombre del archivo dentro del contenido** de cada HTML/JS/CSS (`aguja in contenido`) y, para el chequeo post-borrado, confirmar con un listado por carpeta que **todo lo referenciado sigue existiendo**.
+- Script reutilizable en `C:\Users\javen\AppData\Local\Temp\opencode\`: `verificar_borrables.py` (mapa de referencias), `borrar_sobrantes.py` (borra + verifica), `verificar_final.py` (chequeo post-borrado), `estado_ftp.py` (estado rápido), `verificar_produccion.js` (valida el catálogo servido con node, no con PowerShell — **JS no se evalúa con `Invoke-Expression`**).
+
 ## LECCIONES DE HOY (28-sep) — GUARDAR PARA NO REPETIRLAS
 
 7. **qsl.net devuelve un SOFT-404 con HTTP 200**: una página inexistente responde `200` con el HTML de error (`<title>Error 404 - Page Cannot Be Found</title>`, ~5,4 KB). **Nunca confiar solo en el StatusCode**: hay que mirar el `<title>` o el tamaño esperado.
