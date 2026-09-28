@@ -215,9 +215,12 @@ Sitio web del indicativo CE4JWI en **qsl.net**. 100% estático HTML/CSS/JS/JSON/
 - **LECCIÓN: subir una actividad no es solo el HTML.** La primera subida quirúrgica mandó la página y `actividades.js`, pero **no las imágenes de `public/`**, y la tarjeta salió sin imagen. **Regla: después de crear una actividad, comprobar en el servidor TODAS las imágenes que usan su página y su ficha**, no solo los `.js`.
 - **`553 Could not create file` en vsFTPd de qsl.net es PUNTUAL**: con este servidor los `STOR` fallan a veces y al reintentar funcionan. **Siempre reintentar 3-5 veces con `ftp.retry()`** antes de culpar a permisos o cuota. Comprobado: los espacios en el nombre NO son el problema (`public/dia mundial contra la rabia.webp` se sube bien), `MKD` funciona en la raíz y en `public/`, y un archivo de 650 KB pasa sin problema. No hay comandos `QUOTA`/`SITE QUOTA` en ese servidor (`SITE` solo admite `CHMOD UMASK HELP`).
 
-## ORDEN DE LAS TARJETAS DEL INDEX (regla actual, comprobada el 28-sep)
+## ORDEN DE LAS TARJETAS DEL INDEX (cambiado el 28-sep a pedido del usuario)
 
-`recursos/script_20260915.js` ordena así: **primero las actividades cuya fecha incluye hoy** (`esActivaFecha`), y dentro de cada grupo **por fecha descendente**. Por eso el 28-sep la página 1 quedó: 1) Rabia (28-sep, `ACTIVO`), 2) Ciencias (4-oct, `PRÓXIMAMENTE`, la fecha más cercana), 3) Donante (27-sep), 4) Turismo (27-sep), 5) Paz... El estado de la tarjeta se **calcula por fecha**, no se lee del `status` guardado. Si se quiere que las finalizadas bajen de página o que agrupe por estado, hay que cambiar ese `.sort()` (no está hecho).
+- **Regla actual: SOLO por fecha, de la más reciente a la más antigua.** Se quitó la promoción de la actividad "en curso" (`esActivaFecha` en el `.sort()`), que se había agregado para CONDORITO y era **un caso puntual, no una regla del catálogo**. El usuario fue explícito: "solo por esa vez".
+- Implementación: `recursos/script_20260928_bdb07a7e.js` (sustituyó a `script_20260915.js`, que se borró del repo y del servidor). Orden: `parseSpanishDate(b.date) - a.date`, luego desempate por `fechaFinActividad` y por `id` ascendente.
+- El **distintivo de la tarjeta sigue calculándose por fecha** (FINALIZADO / ACTIVO / el `status` guardado), eso no cambió: solo se quitó la promoción en el orden.
+- Al desplegar este tipo de cambio hay que crear el archivo **con fecha nueva** (aquí `script_20260928_bdb07a7e.js`) porque Cloudflare ignora el query string: re-apuntar los HTML en **bytes** y borrar el script viejo del repo y del servidor para no dejar copias.
 
 ## LECCIONES DE HOY (28-sep) — GUARDAR PARA NO REPETIRLAS
 

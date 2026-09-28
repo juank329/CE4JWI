@@ -44,7 +44,9 @@ function fechaFinActividad(activity) {
   return new Date(Number.parseInt(parts[2]), MESES_ES[parts[1]], dayFin)
 }
 
-// Devuelve true si HOY cae dentro del rango de fechas de la actividad
+// Devuelve true si HOY cae dentro del rango de fechas de la actividad.
+// Ya no se usa para ordenar las tarjetas (el orden es solo por fecha);
+// se conserva como utilidad por si mas adelante se necesita.
 // (hoy >= inicio y hoy <= fin). Con esto las actividades en curso quedan
 // de primero en las tarjetas, antes que las finalizadas o las proximas.
 function esActivaFecha(activity) {
@@ -68,10 +70,15 @@ function renderActivities() {
     if (a.showAfter && hoy < new Date(a.showAfter + "T00:00:00")) return false
     return true
   }).sort((a, b) => {
-    const aAct = esActivaFecha(a) ? 1 : 0
-    const bAct = esActivaFecha(b) ? 1 : 0
-    if (aAct !== bAct) return bAct - aAct
-    return parseSpanishDate(b.date) - parseSpanishDate(a.date)
+    // Orden del catalogo: SOLO por fecha, de la mas reciente a la mas
+    // antigua. La promocion de la actividad "en curso" que se hizo para
+    // CONDORITO (varios dias) era un caso puntual y ya no se aplica:
+    // el catalogo se ordena por fecha y nada mas.
+    const dif = parseSpanishDate(b.date) - parseSpanishDate(a.date)
+    if (dif !== 0) return dif
+    const difFin = fechaFinActividad(b) - fechaFinActividad(a)
+    if (difFin !== 0) return difFin
+    return a.id - b.id
   })
 
   renderPage(1)
