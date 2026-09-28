@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Certificados 14/14 - Condorito 2026 - CE4JWI</title>
+  <meta name="description" content="Descarga tu certificado 14/14 del Conjunto de Los Personajes de la Historieta Chilena Condorito 2026 (CA4NDW-7 y CE4JWI-10).">
+  <link rel="stylesheet" href="recursos/styles.css?v=3">
+  <link rel="stylesheet" href="recursos/header-responsive.css">
+  <link rel="stylesheet" href="recursos/slider.css">
+  <link rel="icon" href="public/favicon-32x32.png">
+  <style>
+    .cert-intro { max-width: 820px; margin: 0 auto 2rem; text-align: center; color: #334155; }
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 1.2rem;
+      padding: 0.2rem;
+    }
+    .cert-card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+      transition: transform 0.15s, box-shadow 0.15s;
+      display: flex;
+      flex-direction: column;
+    }
+    .cert-card:hover { transform: translateY(-3px); box-shadow: 0 8px 22px rgba(11,79,132,0.18); }
+    .cert-card img { width: 100%; display: block; border-bottom: 1px solid #eef2f6; }
+    .cert-body { padding: 0.7rem 0.9rem 0.9rem; display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; }
+    .cert-call { font-family: 'Courier New', monospace; font-weight: 700; color: #0b4f84; }
+    .cert-links a { display: inline-block; font-size: 0.75rem; font-weight: 700; color: #0b4f84; text-decoration: none; margin-left: 0.35rem; }
+    .cert-links a:hover { text-decoration: underline; }
+    .cert-aviso {
+      max-width: 820px; margin: 2rem auto; padding: 1rem 1.3rem; border-radius: 10px;
+      background: #fff8e1; border: 1px solid #f4b942; color: #6b4e00; font-size: 0.95rem; text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div id="header-container"></div>
+  <div id="marquee-container"></div>
+
+  <main class="main-container">
+    <div class="content">
+      <div class="banner">
+        <h1>Certificados 14/14 · Condorito 2026</h1>
+      </div>
+
+      <section class="page-content">
+        <p class="cert-intro">
+          Reconocimiento de la <strong>Colección Completa (14/14)</strong> a las estaciones que completaron los
+          14 personajes de la activación conjunta
+          <strong>Los Personajes de la Historieta Chilena CONDORITO</strong>
+          (CA4NDW-7 y CE4JWI-10), 21 al 30 de septiembre de 2026.<br>
+          Busca tu indicativo y descarga tu certificado. Está en JPG (rápido) y PNG (original en alta calidad).
+        </p>
+
+        <div class="cert-aviso">
+          Si completaste los 14 personajes y <strong>no encuentras tu certificado</strong>, envíanos una
+          señal por APRS o escríbenos por Telegram y lo revisamos.
+        </div>
+
+        <div class="cert-grid" id="cert-grid">
+          <div class="ranking-empty"><div class="spinner"></div><div>Cargando certificados&hellip;</div></div>
+        </div>
+
+      </section>
+    </div>
+    <div id="sidebar-container"></div>
+  </main>
+
+  <div id="footer-container"></div>
+
+  <script src="recursos/actividades_20260927_77015395.js" defer></script>
+  <script src="recursos/idioma_20260918.js"></script>
+  <script src="recursos/componentes_20260918_63bafc3e.js"></script>
+  <script src="recursos/banderas_20260916.js" defer></script>
+  <style>
+    .ranking-empty { text-align:center; padding:3rem 1rem; color:#6c757d; font-size:1rem; }
+    .ranking-empty .spinner {
+      display:inline-block; width:32px; height:32px; border:3px solid #e0e0e0;
+      border-top-color:#0b4f84; border-radius:50%; animation:spin .8s linear infinite; margin-bottom:.8rem;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+  <script>
+    (function () {
+      var CALLS = ["9W3EZY","9W3FAB","9W8RBR","CA3MKF","CA3PVF","CA4FAX","CX2TG","CX3JG","DL5XL","EA5KBS","KP4LCA",
+                   "LU1QAO","LU1XLI","LU2DGE","LU2XCV","LU4EOU","LU4FGS","LU6EGD","LU9DUV","LU9TRL","LW3DFA","LW7EDH",
+                   "PP5PK","PU4RDM","PY1RV","PY2KMR","W4CVT","WP4TZM","YC2UAI","YD2VLD","YD3ACK","YD3AFS","YD6ASL",
+                   "YD6AXX","YD6HMM","YG1CBG","YV5GHW","YY4BAJ"];
+      var grid = document.getElementById("cert-grid");
+      if (!grid) return;
+      grid.innerHTML = CALLS.map(function (c) {
+        var lt = encodeURIComponent(c + ".jpg"), lp = encodeURIComponent(c + ".png");
+        return '<div class="cert-card">' +
+               '<img src="certificados/' + lt + '" alt="Certificado ' + c + '" loading="lazy">' +
+               '<div class="cert-body"><span class="cert-call">' + c + '</span>' +
+               '<span class="cert-links"><a href="certificados/' + lt + '" download>JPG</a>' +
+               '<a href="certificados/' + lp + '" download>PNG</a></span></div></div>';
+      }).join("");
+    })();
+  </script>
+</body>
+</html>
