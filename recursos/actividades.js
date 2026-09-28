@@ -898,7 +898,7 @@ const ACTIVIDADES = [
     "Activación especial por el Día Nacional de la Ciencia, la Tecnología, el Conocimiento y la Innovación, que por ley se celebra el primer domingo de octubre. Solo APRS con la palabra CIENCIAS a la estación CE4JWI-10. QSL conmemorativa automática y ranking en tiempo real.",
   date: "4 Octubre 2026",
   url: "dia_nacional_de_las_ciencias_2026.html",
-},,
+},
 {
   id: 93,
   title: "Día Mundial Contra la Rabia 2026",
