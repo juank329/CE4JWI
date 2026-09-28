@@ -146,6 +146,17 @@ Sitio web del indicativo CE4JWI en **qsl.net**. 100% estático HTML/CSS/JS/JSON/
 - **Turismo NO se sello**: sigue en vivo (`ranking_turismo.json`, `congelado: false`). `adif/ce4jwi/log_turismo.adi` es solo una foto del momento; al cerrar la actividad hay que volver a bajar el ADIF definitivo y regenerar ese ranking.
 - Scripts usados (en `C:\Users\javen\AppData\Local\Temp\opencode`): `archivar_adif.py`, `sellar_rankings.py`, `limpiar_rankings.py`, `subir2.py` (el unico que subo los 57; los otros dos fallaron por el MKD bloqueado).
 
+## ACTIVIDAD "DIA NACIONAL DE LAS CIENCIAS..." 2026 (27-sep-2026, pagina lista, bot SIN tocar)
+
+- **Pagina**: `dia_nacional_de_las_ciencias_2026.html`, publicada en `https://qsl.net/ce4jwi/dia_nacional_de_las_ciencias_2026.html` (verificada HTTP 200).
+- **Datos de la activacion**: indicativo **CE4JWI-10**, frase clave **CIENCIAS** (una sola palabra), ADIF **`log_ciencias.adi`**, ranking en vivo **`ranking_ciencias.json`**, fecha **4 de octubre de 2026**, **solo APRS 144.390 MHz**.
+- **Los nombres de ADIF y de JSON los deriva el bot de `nombre_acidad`** (`bot_qsl_ce4jwi.py`: `nombre_limpio = re.sub(r"[^a-zA-Z0-9_]+","_", nombre_actividad.lower())`, despues `log_<nombre_limpio>.adi` y `ranking_<nombre_limpio>.json`). O sea: basta con poner `"nombre_actividad": "ciencias"` y `"frase_clave": "CIENCIAS"` en `config.json`.
+- **El usuario decidio NO tocar el `config.json` todavia**: el bot sigue corriendo con la actividad TURISMO (frase TURISMO). Para el 4 de octubre hay que cambiar `frase_clave` y `nombre_actividad` en `Desktop\BOT\CE4JWI-10-TELEGRAM\config.json` y reiniciar el bot.
+- **Imagenes**: la de la activacion es `public/dia nacional de las cienciass.webp` (**OJO: el nombre tiene doble "s" en "cienciass", asi esta en disco y en el servidor; el usuario decidio no renombrarla**). La imagen de modos es `public/CE4JWI -10 SOLO APRS.webp`.
+- **Catalogo**: entrada **id 92** agregada a `recursos/actividades.js` con `status: "PRÓXIMAMENTE"`, y nuevo cachebust **`recursos/actividades_20260927_77015395.js`** re-apuntado en los **112 HTML** del repo (patron de `plantilla_actividad_ranking_generador.py`). Todo subido por FTP: pagina + catalogo + 112 HTML + imagen.
+- **Como esta la pagina**: ranking en vivo con refresco cada 60 s, badge "En vivo" que pasa solo a "Finalizado" cuando el JSON trae `congelado: true`, y si el JSON aun no existe muestra "El ranking se publica el 4 de octubre, al comenzar la activacion".
+- **Datos de la efemeride usados en el texto** (verificados por web, no inventados): el Dia Nacional de la Ciencia, la Tecnologia, el Conocimiento y la Innovacion se celebra **por ley el primer domingo de octubre** (en 2026 = domingo 4 de octubre); el **Ministerio de Ciencia, Tecnologia, Conocimiento e Innovacion (MinCiencia)** fue creado por la **Ley 21.105** (2018), junto con la **ANID**; ese domingo se celebra el **Festival de las Ciencias**.
+
 ## Mejoras permanentes del bot universal (27-sep, fuera del repo, en `Desktop\BOT\CE4JWI-10-TELEGRAM`)
 
 - **Avisos Telegram al operador** (`admin_chat_id`): `tg_aviso_inicio()` (indicativo, actividad, frase, destino CQ, QSLs hoy/total, registrados), `tg_aviso_desconexion(motivo)` y `tg_resumen_final(motivo)` con **el detalle de los contactos de la sesión** (UTC + indicativo + archivo QSL) y totales. Listas de sesión: `SESION_QSOS` (se alimenta en `guardar_adif`) y `SESION_TG` (en `tg_enviar_qsl_directa` y en el envío por FTP de `tg_enviar_qsls_pendientes`). `SESION_INICIO` se fija al importar el módulo.
