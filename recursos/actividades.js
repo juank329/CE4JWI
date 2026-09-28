@@ -691,7 +691,7 @@ const ACTIVIDADES = [
   id: 71,
   title: "Día Mundial del Turismo 2026",
   image: "public/DIA MUNDIAL DEL TURISMO 2026.webp",
-  status: "PRÓXIMAMENTE",
+  status: "FINALIZADO",
   description: "Activación especial por el Día Mundial del Turismo. Contacto por APRS (CQ TURISMO) y DMR TG 73040 ADN Systems. QSL automática.",
   date: "27 Septiembre 2026",
   url: "dia_mundial_del_turismo_2026.html",
