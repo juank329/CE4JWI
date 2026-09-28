@@ -1,0 +1,407 @@
+{
+  "ok": true,
+  "actividad": "gastronomia",
+  "nombre": "GASTRONOMIA",
+  "actualizado": "2026-09-27T21:04:23-04:00",
+  "totalContactos": 36,
+  "participantes": 36,
+  "filas": [
+    {
+      "call": "CA3MKF",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "09/09/2026",
+        "hora": "17:39:04"
+      }
+    },
+    {
+      "call": "CA3PVF",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "09/09/2026",
+        "hora": "17:40:15"
+      }
+    },
+    {
+      "call": "CA4FAX",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "09/09/2026",
+        "hora": "20:30:42"
+      }
+    },
+    {
+      "call": "CE4JWI",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "09/09/2026",
+        "hora": "15:30:26"
+      }
+    },
+    {
+      "call": "CE4MBN",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "10/09/2026",
+        "hora": "00:33:17"
+      }
+    },
+    {
+      "call": "CO5ABC",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "09/09/2026",
+        "hora": "18:04:52"
+      }
+    },
+    {
+      "call": "CX2JO",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "09/09/2026",
+        "hora": "15:30:53"
+      }
+    },
+    {
+      "call": "CX2TG",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "09/09/2026",
+        "hora": "15:49:36"
+      }
+    },
+    {
+      "call": "CX3JG",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "09/09/2026",
+        "hora": "15:33:09"
+      }
+    },
+    {
+      "call": "EA3FJT",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "09/09/2026",
+        "hora": "16:14:27"
+      }
+    },
+    {
+      "call": "EA3IGD",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "09/09/2026",
+        "hora": "17:54:42"
+      }
+    },
+    {
+      "call": "EA7FP",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "09/09/2026",
+        "hora": "15:58:47"
+      }
+    },
+    {
+      "call": "EA7JWA",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "09/09/2026",
+        "hora": "18:22:21"
+      }
+    },
+    {
+      "call": "LU2BR",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "09/09/2026",
+        "hora": "17:50:30"
+      }
+    },
+    {
+      "call": "LU2EQI",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "09/09/2026",
+        "hora": "15:35:58"
+      }
+    },
+    {
+      "call": "LU2XCV",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "09/09/2026",
+        "hora": "15:58:09"
+      }
+    },
+    {
+      "call": "LU6EGD",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "09/09/2026",
+        "hora": "15:28:31"
+      }
+    },
+    {
+      "call": "LU7QAY",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "09/09/2026",
+        "hora": "15:32:39"
+      }
+    },
+    {
+      "call": "LU9DUV",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "09/09/2026",
+        "hora": "15:58:27"
+      }
+    },
+    {
+      "call": "LU9TRL",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "09/09/2026",
+        "hora": "15:42:24"
+      }
+    },
+    {
+      "call": "LW3DFA",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "09/09/2026",
+        "hora": "16:58:17"
+      }
+    },
+    {
+      "call": "PY2KMR",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "09/09/2026",
+        "hora": "15:34:18"
+      }
+    },
+    {
+      "call": "W4CVT",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "09/09/2026",
+        "hora": "15:34:37"
+      }
+    },
+    {
+      "call": "WP4TZM",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "09/09/2026",
+        "hora": "16:42:33"
+      }
+    },
+    {
+      "call": "XR4MAU",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "09/09/2026",
+        "hora": "15:59:10"
+      }
+    },
+    {
+      "call": "YC2UAI",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "09/09/2026",
+        "hora": "15:27:24"
+      }
+    },
+    {
+      "call": "YD2VLD",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "09/09/2026",
+        "hora": "15:44:44"
+      }
+    },
+    {
+      "call": "YD3AFS",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "09/09/2026",
+        "hora": "15:45:10"
+      }
+    },
+    {
+      "call": "YD3BEQ",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "09/09/2026",
+        "hora": "15:49:14"
+      }
+    },
+    {
+      "call": "YD6HHD",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "09/09/2026",
+        "hora": "15:31:12"
+      }
+    },
+    {
+      "call": "YD6HMM",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "09/09/2026",
+        "hora": "15:57:43"
+      }
+    },
+    {
+      "call": "YD6HXJ",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "09/09/2026",
+        "hora": "15:50:26"
+      }
+    },
+    {
+      "call": "YD6SRR",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "09/09/2026",
+        "hora": "15:48:33"
+      }
+    },
+    {
+      "call": "YD7YTB",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "09/09/2026",
+        "hora": "18:15:30"
+      }
+    },
+    {
+      "call": "YG1CBG",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "09/09/2026",
+        "hora": "15:29:04"
+      }
+    },
+    {
+      "call": "YY4BAJ",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "09/09/2026",
+        "hora": "17:13:14"
+      }
+    }
+  ],
+  "congelado": true
+}

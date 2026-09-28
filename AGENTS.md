@@ -130,6 +130,22 @@ Sitio web del indicativo CE4JWI en **qsl.net**. 100% estático HTML/CSS/JS/JSON/
 - **El CDN de qsl.net devuelve 403 a `urllib` sin User-Agent**: para leer/verificar un JSON publicado hay que mandar UA de navegador (y `?t=<epoch>` para saltar caché).
 - **ANDROID / TERMUX: INTENTO ABANDONADO (27-sep)**. El usuario lo pidió, se dejó el bot portable (resolver `TG_BASE` por env → ruta Windows → carpeta local `telegram_qsl\`, fuentes TTF con fallback, `PANEL_BIND`) y el ZIP en `Desktop\BOT\bot_universal_android.zip` + `INSTALACION_ANDROID.md`, pero **no se puede empaquetar en una APK sola** (Termux + Python + pip + permiso de almacenamiento) y dio errores en el celular ⇒ **se sigue trabajando desde el PC**. Los cambios son retrocompatibles: en Windows el bot se comporta igual. El acceso directo de Inicio `CE4JWI-10 Telegram Bot.lnk` debe desactivarse antes de cualquier prueba en otro equipo.
 
+## SELLADO DE TODOS LOS RANKINGS ANTERIORES (27-sep-2026, antes de borrar los ADIF)
+
+- **Objetivo del usuario**: que ningun ranking pasado se pierda al eliminar los ADIF. Se respaldaron los 76 ADIF (`adif/ce4jwi` 44 + `adif/ca4ndw` 32, indice en `adif/INDICE.md`, commit `d557569`) y ademas se **sellaron 57 rankings** en `ranking-data/<clave>/final.json`, todos con `congelado: true`, **4185 QSOs en total**.
+- **Regla dura: un `final.json` que ya existe NO se regenera.** El unico excepcion fue `septiembre`, que existia sin `congelado` y se regenero desde `adif/ce4jwi/log_patria.adi` dando las mismas 58 QSO / 58 estaciones.
+- **`talca` no tiene ADIF en el FTP** (`log_talca.adi` no existe), asi que NO se pudo regenerar: se marco el archivo que ya estaba publicado con `congelado: true` y una nota que lo deja explicito. 85 QSO / 57 estaciones.
+- **JSON vivos de actividades terminadas, congelados y subidos** (las paginas los leian por su nombre, ahora con `congelado: true`): `ranking_chinchineros.json` 104, `ranking_organillero.json` 65, `ranking_magallanes.json` 75, `ranking_ejercito.json` 48.
+- **CUANDO HAY DOS ESTACIONES EN LA MISMA ACTIVIDAD** se guardan aparte con sufijo: `ejercito` (CE4JWI 48) + `ejercito-ca4ndw` (62) = 110 QSO del Dia de las Glorias; `folklore-ce4jwi` 71 + `folklore-ca4ndw` 41; `volantin-ce4jwi` 53 + `volantin-ca4ndw` 25; `cueca` 73 (CE4JWI) + `cueca-ca4ndw` 31; `juegos` 311 (conjunto) + `juegos-ca4ndw` 45.
+- **QUIRK DEL FTP DE qsl.net (importante)**: `MKD` esta **bloqueado** (550 "Create directory operation failed") y `CWD` a una subcarpeta existente tambien puede fallar (550). Lo que si funciona es `STOR <ruta_relativa>` desde `/ranking-data`, y por eso las 20 subcarpetas que ya existian se actualizaron asi. Los 37 rankings sin subcarpeta se publicaron planos como **`ranking-data/<clave>.json`** y **`ranking-data/final.json`** quedo como **indice** con los 57 rankings (nombre, QSO, estaciones, congelado). Ninguna pagina usa ese `final.json` suelto, asi que no se rompio nada.
+- **DISCREPANCIAS CONOCIDAS entre ADIF y ranking historico (documentadas, el ranking manda)**:
+  - `hitos-rio` 68 QSO pero `log_rio.adi` tiene 3 (el ADIF no es la fuente de ese ranking).
+  - `stephanie` 44 QSO, su ADIF tiene 45.
+  - `juegos` 311 QSO / 107 estaciones, mientras los dos ADIF suman 90.
+  - `talca` sin ADIF.
+- **Turismo NO se sello**: sigue en vivo (`ranking_turismo.json`, `congelado: false`). `adif/ce4jwi/log_turismo.adi` es solo una foto del momento; al cerrar la actividad hay que volver a bajar el ADIF definitivo y regenerar ese ranking.
+- Scripts usados (en `C:\Users\javen\AppData\Local\Temp\opencode`): `archivar_adif.py`, `sellar_rankings.py`, `limpiar_rankings.py`, `subir2.py` (el unico que subo los 57; los otros dos fallaron por el MKD bloqueado).
+
 ## Mejoras permanentes del bot universal (27-sep, fuera del repo, en `Desktop\BOT\CE4JWI-10-TELEGRAM`)
 
 - **Avisos Telegram al operador** (`admin_chat_id`): `tg_aviso_inicio()` (indicativo, actividad, frase, destino CQ, QSLs hoy/total, registrados), `tg_aviso_desconexion(motivo)` y `tg_resumen_final(motivo)` con **el detalle de los contactos de la sesión** (UTC + indicativo + archivo QSL) y totales. Listas de sesión: `SESION_QSOS` (se alimenta en `guardar_adif`) y `SESION_TG` (en `tg_enviar_qsl_directa` y en el envío por FTP de `tg_enviar_qsls_pendientes`). `SESION_INICIO` se fija al importar el módulo.

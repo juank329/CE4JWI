@@ -1,10 +1,10 @@
 {
   "ok": true,
-  "actividad": "septiembremesdelapatria",
-  "nombre": "SEPTIEMBRE, MES DE LA PATRIA",
-  "actualizado": "2026-09-27T21:09:46-04:00",
-  "totalContactos": 58,
-  "participantes": 58,
+  "actividad": "carrerasaco",
+  "nombre": "CARRERA SACO",
+  "actualizado": "2026-09-27T21:03:42-04:00",
+  "totalContactos": 57,
+  "participantes": 57,
   "filas": [
     {
       "call": "9W3EZY",
@@ -13,8 +13,8 @@
         "PKT"
       ],
       "ultima": {
-        "fecha": "01/09/2026",
-        "hora": "14:02:16"
+        "fecha": "05/09/2026",
+        "hora": "06:29:49"
       }
     },
     {
@@ -24,8 +24,19 @@
         "PKT"
       ],
       "ultima": {
-        "fecha": "01/09/2026",
-        "hora": "13:57:36"
+        "fecha": "05/09/2026",
+        "hora": "06:21:46"
+      }
+    },
+    {
+      "call": "9W8AKN",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "05/09/2026",
+        "hora": "07:26:30"
       }
     },
     {
@@ -35,30 +46,19 @@
         "PKT"
       ],
       "ultima": {
-        "fecha": "01/09/2026",
-        "hora": "14:24:08"
+        "fecha": "05/09/2026",
+        "hora": "08:34:34"
       }
     },
     {
-      "call": "CA3EQX",
+      "call": "CA3PVF",
       "total": 1,
       "modos": [
         "PKT"
       ],
       "ultima": {
-        "fecha": "01/09/2026",
-        "hora": "21:03:11"
-      }
-    },
-    {
-      "call": "CA3MKF",
-      "total": 1,
-      "modos": [
-        "PKT"
-      ],
-      "ultima": {
-        "fecha": "01/09/2026",
-        "hora": "13:56:13"
+        "fecha": "05/09/2026",
+        "hora": "20:49:27"
       }
     },
     {
@@ -68,8 +68,8 @@
         "PKT"
       ],
       "ultima": {
-        "fecha": "01/09/2026",
-        "hora": "12:26:26"
+        "fecha": "05/09/2026",
+        "hora": "07:17:27"
       }
     },
     {
@@ -79,19 +79,19 @@
         "PKT"
       ],
       "ultima": {
-        "fecha": "01/09/2026",
-        "hora": "13:32:21"
+        "fecha": "05/09/2026",
+        "hora": "19:10:28"
       }
     },
     {
-      "call": "CO5RMM",
+      "call": "CX2JO",
       "total": 1,
       "modos": [
         "PKT"
       ],
       "ultima": {
-        "fecha": "01/09/2026",
-        "hora": "14:29:24"
+        "fecha": "05/09/2026",
+        "hora": "20:33:30"
       }
     },
     {
@@ -101,8 +101,8 @@
         "PKT"
       ],
       "ultima": {
-        "fecha": "01/09/2026",
-        "hora": "13:36:31"
+        "fecha": "05/09/2026",
+        "hora": "18:15:19"
       }
     },
     {
@@ -112,30 +112,8 @@
         "PKT"
       ],
       "ultima": {
-        "fecha": "01/09/2026",
-        "hora": "12:01:19"
-      }
-    },
-    {
-      "call": "EA1062RCU",
-      "total": 1,
-      "modos": [
-        "PKT"
-      ],
-      "ultima": {
-        "fecha": "01/09/2026",
-        "hora": "19:13:07"
-      }
-    },
-    {
-      "call": "EA3FJT",
-      "total": 1,
-      "modos": [
-        "PKT"
-      ],
-      "ultima": {
-        "fecha": "01/09/2026",
-        "hora": "19:37:34"
+        "fecha": "05/09/2026",
+        "hora": "17:55:36"
       }
     },
     {
@@ -145,8 +123,8 @@
         "PKT"
       ],
       "ultima": {
-        "fecha": "02/09/2026",
-        "hora": "08:52:00"
+        "fecha": "05/09/2026",
+        "hora": "18:14:35"
       }
     },
     {
@@ -156,85 +134,30 @@
         "PKT"
       ],
       "ultima": {
-        "fecha": "01/09/2026",
-        "hora": "11:58:39"
+        "fecha": "05/09/2026",
+        "hora": "18:56:08"
       }
     },
     {
-      "call": "EA7JWA",
+      "call": "HJ1BNL",
       "total": 1,
       "modos": [
         "PKT"
       ],
       "ultima": {
-        "fecha": "01/09/2026",
-        "hora": "14:23:54"
+        "fecha": "05/09/2026",
+        "hora": "18:38:17"
       }
     },
     {
-      "call": "HC1FQ",
+      "call": "HK1I",
       "total": 1,
       "modos": [
         "PKT"
       ],
       "ultima": {
-        "fecha": "01/09/2026",
-        "hora": "19:09:30"
-      }
-    },
-    {
-      "call": "HC1Y",
-      "total": 1,
-      "modos": [
-        "PKT"
-      ],
-      "ultima": {
-        "fecha": "01/09/2026",
-        "hora": "18:56:38"
-      }
-    },
-    {
-      "call": "HC3RJ",
-      "total": 1,
-      "modos": [
-        "PKT"
-      ],
-      "ultima": {
-        "fecha": "01/09/2026",
-        "hora": "19:13:34"
-      }
-    },
-    {
-      "call": "HJ1CTR",
-      "total": 1,
-      "modos": [
-        "PKT"
-      ],
-      "ultima": {
-        "fecha": "02/09/2026",
-        "hora": "12:46:25"
-      }
-    },
-    {
-      "call": "HJ7OZ",
-      "total": 1,
-      "modos": [
-        "PKT"
-      ],
-      "ultima": {
-        "fecha": "01/09/2026",
-        "hora": "12:39:45"
-      }
-    },
-    {
-      "call": "HK4THN",
-      "total": 1,
-      "modos": [
-        "PKT"
-      ],
-      "ultima": {
-        "fecha": "01/09/2026",
-        "hora": "19:10:46"
+        "fecha": "06/09/2026",
+        "hora": "03:08:10"
       }
     },
     {
@@ -244,8 +167,8 @@
         "PKT"
       ],
       "ultima": {
-        "fecha": "01/09/2026",
-        "hora": "23:19:53"
+        "fecha": "05/09/2026",
+        "hora": "22:52:31"
       }
     },
     {
@@ -255,8 +178,19 @@
         "PKT"
       ],
       "ultima": {
-        "fecha": "01/09/2026",
-        "hora": "21:45:21"
+        "fecha": "05/09/2026",
+        "hora": "19:22:20"
+      }
+    },
+    {
+      "call": "LU2BR",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "05/09/2026",
+        "hora": "17:53:58"
       }
     },
     {
@@ -266,8 +200,19 @@
         "PKT"
       ],
       "ultima": {
-        "fecha": "01/09/2026",
-        "hora": "12:26:45"
+        "fecha": "05/09/2026",
+        "hora": "13:00:55"
+      }
+    },
+    {
+      "call": "LU2JFC",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "05/09/2026",
+        "hora": "19:56:49"
       }
     },
     {
@@ -277,19 +222,19 @@
         "PKT"
       ],
       "ultima": {
-        "fecha": "01/09/2026",
-        "hora": "19:12:52"
+        "fecha": "05/09/2026",
+        "hora": "18:49:16"
       }
     },
     {
-      "call": "LU5VRN",
+      "call": "LU6EGD",
       "total": 1,
       "modos": [
         "PKT"
       ],
       "ultima": {
-        "fecha": "01/09/2026",
-        "hora": "19:12:06"
+        "fecha": "05/09/2026",
+        "hora": "21:41:07"
       }
     },
     {
@@ -299,96 +244,63 @@
         "PKT"
       ],
       "ultima": {
-        "fecha": "01/09/2026",
-        "hora": "21:43:09"
+        "fecha": "05/09/2026",
+        "hora": "21:44:11"
       }
     },
     {
-      "call": "LW7EDH",
+      "call": "LU7QGC",
       "total": 1,
       "modos": [
         "PKT"
       ],
       "ultima": {
-        "fecha": "01/09/2026",
-        "hora": "12:17:02"
+        "fecha": "05/09/2026",
+        "hora": "22:04:25"
       }
     },
     {
-      "call": "LW7ELF",
+      "call": "LU9DUV",
       "total": 1,
       "modos": [
         "PKT"
       ],
       "ultima": {
-        "fecha": "01/09/2026",
-        "hora": "14:13:34"
+        "fecha": "05/09/2026",
+        "hora": "21:48:45"
       }
     },
     {
-      "call": "OA4CAJ",
+      "call": "LU9TRL",
       "total": 1,
       "modos": [
         "PKT"
       ],
       "ultima": {
-        "fecha": "01/09/2026",
-        "hora": "19:09:03"
+        "fecha": "05/09/2026",
+        "hora": "18:49:30"
       }
     },
     {
-      "call": "OA4DEX",
+      "call": "OA4DVG",
       "total": 1,
       "modos": [
         "PKT"
       ],
       "ultima": {
-        "fecha": "01/09/2026",
-        "hora": "19:20:56"
+        "fecha": "05/09/2026",
+        "hora": "19:29:22"
       }
     },
     {
-      "call": "OA4DFD",
+      "call": "PY2KMR",
       "total": 1,
       "modos": [
         "PKT"
       ],
       "ultima": {
-        "fecha": "01/09/2026",
-        "hora": "19:21:59"
-      }
-    },
-    {
-      "call": "OA4DFM",
-      "total": 1,
-      "modos": [
-        "PKT"
-      ],
-      "ultima": {
-        "fecha": "01/09/2026",
-        "hora": "20:58:01"
-      }
-    },
-    {
-      "call": "OA4DOS",
-      "total": 1,
-      "modos": [
-        "PKT"
-      ],
-      "ultima": {
-        "fecha": "01/09/2026",
-        "hora": "20:57:46"
-      }
-    },
-    {
-      "call": "PU4RDM",
-      "total": 1,
-      "modos": [
-        "PKT"
-      ],
-      "ultima": {
-        "fecha": "01/09/2026",
-        "hora": "19:15:58"
+        "fecha": "05/09/2026",
+        "hora": "22:07:04"
       }
     },
     {
@@ -398,8 +310,8 @@
         "PKT"
       ],
       "ultima": {
-        "fecha": "01/09/2026",
-        "hora": "19:34:49"
+        "fecha": "05/09/2026",
+        "hora": "18:10:56"
       }
     },
     {
@@ -409,8 +321,8 @@
         "PKT"
       ],
       "ultima": {
-        "fecha": "01/09/2026",
-        "hora": "12:00:53"
+        "fecha": "05/09/2026",
+        "hora": "17:53:30"
       }
     },
     {
@@ -420,19 +332,19 @@
         "PKT"
       ],
       "ultima": {
-        "fecha": "01/09/2026",
-        "hora": "12:00:33"
+        "fecha": "05/09/2026",
+        "hora": "18:27:18"
       }
     },
     {
-      "call": "XE1JMB",
+      "call": "XE1ZKC",
       "total": 1,
       "modos": [
         "PKT"
       ],
       "ultima": {
-        "fecha": "01/09/2026",
-        "hora": "19:22:50"
+        "fecha": "05/09/2026",
+        "hora": "09:17:51"
       }
     },
     {
@@ -442,8 +354,8 @@
         "PKT"
       ],
       "ultima": {
-        "fecha": "01/09/2026",
-        "hora": "03:53:29"
+        "fecha": "05/09/2026",
+        "hora": "06:20:54"
       }
     },
     {
@@ -453,30 +365,8 @@
         "PKT"
       ],
       "ultima": {
-        "fecha": "01/09/2026",
-        "hora": "14:46:38"
-      }
-    },
-    {
-      "call": "YC0ASW",
-      "total": 1,
-      "modos": [
-        "PKT"
-      ],
-      "ultima": {
-        "fecha": "02/09/2026",
-        "hora": "14:41:14"
-      }
-    },
-    {
-      "call": "YC1SNI",
-      "total": 1,
-      "modos": [
-        "PKT"
-      ],
-      "ultima": {
-        "fecha": "01/09/2026",
-        "hora": "23:19:29"
+        "fecha": "05/09/2026",
+        "hora": "06:28:52"
       }
     },
     {
@@ -486,19 +376,52 @@
         "PKT"
       ],
       "ultima": {
-        "fecha": "01/09/2026",
-        "hora": "06:36:08"
+        "fecha": "05/09/2026",
+        "hora": "08:31:10"
       }
     },
     {
-      "call": "YC2UGE",
+      "call": "YC3AWK",
       "total": 1,
       "modos": [
         "PKT"
       ],
       "ultima": {
-        "fecha": "02/09/2026",
-        "hora": "01:21:23"
+        "fecha": "05/09/2026",
+        "hora": "07:41:54"
+      }
+    },
+    {
+      "call": "YC3BQZ",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "05/09/2026",
+        "hora": "14:41:16"
+      }
+    },
+    {
+      "call": "YD0BQO",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "05/09/2026",
+        "hora": "06:59:32"
+      }
+    },
+    {
+      "call": "YD2AGT",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "06/09/2026",
+        "hora": "01:37:34"
       }
     },
     {
@@ -508,19 +431,19 @@
         "PKT"
       ],
       "ultima": {
-        "fecha": "01/09/2026",
-        "hora": "21:53:33"
+        "fecha": "05/09/2026",
+        "hora": "07:31:13"
       }
     },
     {
-      "call": "YD2VDS",
+      "call": "YD2SMG",
       "total": 1,
       "modos": [
         "PKT"
       ],
       "ultima": {
-        "fecha": "02/09/2026",
-        "hora": "01:23:58"
+        "fecha": "05/09/2026",
+        "hora": "06:30:52"
       }
     },
     {
@@ -530,41 +453,96 @@
         "PKT"
       ],
       "ultima": {
-        "fecha": "01/09/2026",
-        "hora": "08:13:01"
+        "fecha": "05/09/2026",
+        "hora": "15:41:56"
       }
     },
     {
-      "call": "YD2VUK",
+      "call": "YD3AFS",
       "total": 1,
       "modos": [
         "PKT"
       ],
       "ultima": {
-        "fecha": "01/09/2026",
-        "hora": "21:57:56"
+        "fecha": "05/09/2026",
+        "hora": "06:35:13"
       }
     },
     {
-      "call": "YD3HNL",
+      "call": "YD3AQR",
       "total": 1,
       "modos": [
         "PKT"
       ],
       "ultima": {
-        "fecha": "02/09/2026",
-        "hora": "11:24:00"
+        "fecha": "05/09/2026",
+        "hora": "07:39:19"
       }
     },
     {
-      "call": "YD6ASL",
+      "call": "YD3ATQ",
       "total": 1,
       "modos": [
         "PKT"
       ],
       "ultima": {
-        "fecha": "01/09/2026",
-        "hora": "23:20:07"
+        "fecha": "05/09/2026",
+        "hora": "07:08:35"
+      }
+    },
+    {
+      "call": "YD3BEQ",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "05/09/2026",
+        "hora": "10:24:19"
+      }
+    },
+    {
+      "call": "YD5NPC",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "05/09/2026",
+        "hora": "06:40:07"
+      }
+    },
+    {
+      "call": "YD6HHD",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "05/09/2026",
+        "hora": "19:16:14"
+      }
+    },
+    {
+      "call": "YD6HMM",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "05/09/2026",
+        "hora": "06:38:05"
+      }
+    },
+    {
+      "call": "YD6SRR",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "05/09/2026",
+        "hora": "06:41:51"
       }
     },
     {
@@ -574,19 +552,19 @@
         "PKT"
       ],
       "ultima": {
-        "fecha": "02/09/2026",
-        "hora": "00:58:50"
+        "fecha": "05/09/2026",
+        "hora": "08:37:40"
       }
     },
     {
-      "call": "YF3CJU",
+      "call": "YD7VTG",
       "total": 1,
       "modos": [
         "PKT"
       ],
       "ultima": {
-        "fecha": "01/09/2026",
-        "hora": "21:29:06"
+        "fecha": "06/09/2026",
+        "hora": "01:53:45"
       }
     },
     {
@@ -596,19 +574,30 @@
         "PKT"
       ],
       "ultima": {
-        "fecha": "01/09/2026",
-        "hora": "12:05:52"
+        "fecha": "05/09/2026",
+        "hora": "06:31:57"
       }
     },
     {
-      "call": "YH7HM",
+      "call": "YG1RBS",
       "total": 1,
       "modos": [
         "PKT"
       ],
       "ultima": {
-        "fecha": "02/09/2026",
-        "hora": "13:38:43"
+        "fecha": "05/09/2026",
+        "hora": "06:52:19"
+      }
+    },
+    {
+      "call": "YG5NMS",
+      "total": 1,
+      "modos": [
+        "PKT"
+      ],
+      "ultima": {
+        "fecha": "05/09/2026",
+        "hora": "07:38:35"
       }
     },
     {
@@ -618,8 +607,8 @@
         "PKT"
       ],
       "ultima": {
-        "fecha": "02/09/2026",
-        "hora": "02:11:14"
+        "fecha": "06/09/2026",
+        "hora": "02:42:08"
       }
     },
     {
@@ -629,19 +618,19 @@
         "PKT"
       ],
       "ultima": {
-        "fecha": "01/09/2026",
-        "hora": "20:34:44"
+        "fecha": "05/09/2026",
+        "hora": "18:05:40"
       }
     },
     {
-      "call": "YY6RTJ",
+      "call": "ZP6CEA",
       "total": 1,
       "modos": [
         "PKT"
       ],
       "ultima": {
-        "fecha": "02/09/2026",
-        "hora": "04:04:23"
+        "fecha": "05/09/2026",
+        "hora": "22:20:44"
       }
     }
   ],

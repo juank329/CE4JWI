@@ -615,5 +615,7 @@
   ],
   "supabase": {
     "qsos": 4
-  }
+  },
+  "congelado": true,
+  "nota": "Archivo sin log_talca.adi en el FTP (no se puede regenerar). Cifras del ranking ya publicado; se marca como sellado sin alterar los datos."
 }
