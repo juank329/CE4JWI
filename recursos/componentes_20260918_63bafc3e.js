@@ -391,10 +391,19 @@ const MQ_MESES = {
   Julio: 6, Agosto: 7, Septiembre: 8, Octubre: 9, Noviembre: 10, Diciembre: 11,
 }
 
+// Todo el calculo de fechas de la marquesina va en UTC a proposito: la
+// ventana de cada actividad es de 00:00 a 23:59 UTC (regla del usuario
+// del 29-sep-2026), asi que el estado no puede depender de la zona horaria
+// de quien visita. Antes comparaba contra la medianoche LOCAL.
+function mqHoyUTC() {
+  const d = new Date()
+  return Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate())
+}
+
 function mqParseFecha(fechaStr) {
   const partes = fechaStr.split(" ")
   const dia = Number.parseInt(partes[0])
-  return new Date(Number.parseInt(partes[2]), MQ_MESES[partes[1]], dia)
+  return Date.UTC(Number.parseInt(partes[2]), MQ_MESES[partes[1]], dia)
 }
 
 // Fecha de fin: soporta rangos "29-31 Enero 2026" (usa el último día)
@@ -402,7 +411,8 @@ function mqFechaFin(actividad) {
   const partes = actividad.date.split(" ")
   const dias = partes[0]
   const diaFin = dias.includes("-") ? Number.parseInt(dias.split("-")[1]) : Number.parseInt(dias)
-  return new Date(Number.parseInt(partes[2]), MQ_MESES[partes[1]], diaFin)
+  // El ultimo dia de la actividad termina a las 23:59:59 UTC.
+  return Date.UTC(Number.parseInt(partes[2]), MQ_MESES[partes[1]], diaFin, 23, 59, 59)
 }
 
 // Estado efectivo según la fecha (misma lógica que la portada):
@@ -410,8 +420,8 @@ function mqFechaFin(actividad) {
 // - hoy cae dentro del rango -> ACTIVO
 // - todavía no llega el día  -> estado guardado (PRÓXIMAMENTE)
 function mqEstadoEfectivo(actividad) {
-  const hoy = new Date()
-  hoy.setHours(0, 0, 0, 0)
+  const hoy = mqHoyUTC()
+  // = medianoche UTC de hoy (ver mqHoyUTC())
   const fin = mqFechaFin(actividad)
   if (fin < hoy) return "FINALIZADO"
   const inicio = mqParseFecha(actividad.date)
@@ -430,16 +440,16 @@ function renderizarMarquee() {
   if (!contenedor) return
   if (typeof ACTIVIDADES === "undefined" || !Array.isArray(ACTIVIDADES)) return
 
-  const hoy = new Date()
-  hoy.setHours(0, 0, 0, 0)
+  const hoy = mqHoyUTC()
+  // = medianoche UTC de hoy (ver mqHoyUTC())
 
   // Próximas (fecha de inicio en el futuro o de hoy en adelante).
   // Las que ya finalizaron se excluyen automáticamente por mqEstadoEfectivo.
-  const fechaHoy = new Date()
-  fechaHoy.setHours(0, 0, 0, 0)
+  const fechaHoy = mqHoyUTC()
+  // = medianoche UTC de hoy (ver mqHoyUTC())
   const proximas = ACTIVIDADES
     .filter((a) => mqEstadoEfectivo(a) === "PRÓXIMAMENTE")
-    .filter((a) => !a.showAfter || hoy >= new Date(a.showAfter + "T00:00:00"))
+    .filter((a) => !a.showAfter || hoy >= new Date(a.showAfter + "T00:00:00Z"))
     .sort((a, b) => mqParseFecha(a.date) - mqParseFecha(b.date))
 
   let seleccion = proximas

@@ -26,13 +26,23 @@ const MESES_ES = {
     Diciembre: 11,
   }
 
+// Todo el calculo de fechas de las actividades va en UTC a proposito:
+// la ventana de cada actividad es de 00:00 a 23:59 UTC (regla del usuario
+// del 29-sep-2026), asi que el estado no puede depender de la zona horaria
+// de quien visita. Antes se comparaba contra la medianoche LOCAL, y la
+// tarjeta se corria de -2 h (en Espana) a +3 h (en Chile).
+function hoyUTC() {
+  const d = new Date()
+  return Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate())
+}
+
 function parseSpanishDate(dateStr) {
   const parts = dateStr.split(" ")
   const day = Number.parseInt(parts[0])
   const month = MESES_ES[parts[1]]
   const year = Number.parseInt(parts[2])
 
-  return new Date(year, month, day)
+  return Date.UTC(year, month, day)
 }
 
 // Devuelve la fecha de fin de una actividad. Soporta rangos multivia
@@ -41,7 +51,9 @@ function fechaFinActividad(activity) {
   const parts = activity.date.split(" ")
   const dayStr = parts[0]
   const dayFin = dayStr.includes("-") ? Number.parseInt(dayStr.split("-")[1]) : Number.parseInt(dayStr)
-  return new Date(Number.parseInt(parts[2]), MESES_ES[parts[1]], dayFin)
+  // El ultimo dia de la actividad termina a las 23:59:59 UTC: recien a las
+  // 00:00 UTC del dia siguiente la actividad queda finalizada.
+  return Date.UTC(Number.parseInt(parts[2]), MESES_ES[parts[1]], dayFin, 23, 59, 59)
 }
 
 // Devuelve true si HOY cae dentro del rango de fechas de la actividad.
@@ -50,7 +62,7 @@ function fechaFinActividad(activity) {
 // (hoy >= inicio y hoy <= fin). Con esto las actividades en curso quedan
 // de primero en las tarjetas, antes que las finalizadas o las proximas.
 function esActivaFecha(activity) {
-  const hoy = new Date(); hoy.setHours(0, 0, 0, 0)
+  const hoy = hoyUTC()
   return hoy >= parseSpanishDate(activity.date) && hoy <= fechaFinActividad(activity)
 }
 
@@ -63,11 +75,11 @@ function renderActivities() {
   const grid = document.getElementById("activityGrid")
 
   sortedActivitiesCache = [...activities].filter(a => {
-    const hoy = new Date(); hoy.setHours(0,0,0,0)
+    const hoy = hoyUTC()
     // Se muestran TODAS las actividades, incluida su estado PRÓXIMAMENTE,
     // sin ocultar por antigüedad futura (antes se ocultaban las de >7 días).
     // Solo se respeta showAfter (fecha de lanzamiento fijada) si está definido.
-    if (a.showAfter && hoy < new Date(a.showAfter + "T00:00:00")) return false
+    if (a.showAfter && hoy < new Date(a.showAfter + "T00:00:00Z")) return false
     return true
   }).sort((a, b) => {
     // Orden del catalogo: SOLO por fecha, de la mas reciente a la mas
@@ -105,8 +117,8 @@ function renderPage(page) {
     // - hoy dentro del rango de la actividad -> ACTIVO
     // - la fecha de fin ya pasó                 -> FINALIZADO
     // - todavía no llega el día                 -> estado guardado (PRÓXIMAMENTE)
-    const hoyInicio = new Date()
-    hoyInicio.setHours(0, 0, 0, 0)
+    const hoyInicio = hoyUTC()
+    // = medianoche UTC de hoy (ver hoyUTC())
     const fechaInicio = parseSpanishDate(activity.date)
     const fechaFin = fechaFinActividad(activity)
     let estadoEfectivo = activity.status
