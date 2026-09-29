@@ -220,31 +220,36 @@ Existe una lista llamada `const ACTIVIDADES = [...]` con bloques como este:
 
 - Agrega tu bloque al final (o edita uno existente).
 - Toma un `id` nuevo (el último más 1). Al momento de escribir esto el mayor es 87.
-- `status` puede ser: `PRÓXIMAMENTE`, `EN VIVO`, `TERMINADA`.
+- `status` puede ser: `PRÓXIMAMENTE`, `ACTIVO`, `EN CURSO`, `FINALIZADO` (74 entradas ya usan `FINALIZADO`, ese es el valor de cierre). Al GUARDAR el estado importa poco: `renderActivities()` lo pisa por fecha (`FINALIZADO` si la fecha ya paso, `ACTIVO` si hoy cae en el rango), asi que la tarjeta se actualiza sola al cambiar el dia.
 - `url` debe ser el nombre del archivo `.html` de la actividad (SIN `recursos/`).
 
-### 9d. Regenerar el "cachebust" de actividades (IMPORTANTE)
-Los navegadores guardan en caché el archivo `actividades.js`. Por eso el sitio usa
-una copia "fresca" con fecha y un código corto: `actividades_20260916_42968cfe.js`
-(y los 108 HTML la referencian).
+### 9d. Cachebust de actividades: **NO HAY, Y A PROPOSITO** (regla del 28-sep-2026)
+Los navegadores y Cloudflare guardan en caché `actividades.js` (~60 min,
+`s-maxage=3600`). Hubo una epoca en que el sitio usaba copias "frescas" con fecha
+(`actividades_<AAAAMMDD>_<hash>.js`), pero el usuario lo prohibio explicitamente el
+28-sep-2026 y se borraron todas las copias del repo.
+
+Regla vigente, textual del usuario: **UN SOLO `actividades.js`, SIN COPIAS CON CACHEBUST**.
 
 Si editaste `actividades.js`:
-1. Guarda en `recursos/` una copia con el formato `actividades_AAAAMMDD_xxxxxxxx.js`
-   (fecha de hoy + 8 caracteres al azar, por ejemplo `actividades_20260917_abcdef12.js`).
-2. En los 108 archivos `.html`, reemplaza la línea:
-   ```
-   <script src="recursos/actividades_20260916_42968cfe.js" defer></script>
-   ```
-   por la nueva. (opencode lo hace con un script; a mano puedes usar "Buscar y
-   reemplazar en todos los archivos" del editor, como VS Code: Ctrl+Shift+F).
-3. Sube por FTP tanto la copia nueva `recursos/actividades_AAAAMMDD_...js` como los HTML modificados.
+1. Edita SOLO `recursos/actividades.js`.
+2. NO crees `actividades_<fecha>_<hash>.js`, NO re-apuntes los `.html` (los 114 lo
+   referencian tal cual) y NO dejes copias en el repo.
+3. Sube SOLO `recursos/actividades.js` por FTP.
+4. Consecuencia ACEPTADA: el cambio puede tardar hasta ~1 h en verse. No es un bug y no
+   se arregla con query strings, porque Cloudflare IGNORA el query string como clave de caché.
+
+Ojo: esto NO afecta a que las tarjetas sean correctas. `renderActivities()` calcula el
+estado por fecha, asi que una actividad que ya termino muestra FINALIZADO igual, aun
+sirviendo el `.js` viejo desde el caché. Referencia real: cierre de RABIA 28-sep-2026.
 
 > Regla del proyecto: MOJIBake = 0. Guarda TODO con **UTF-8 sin BOM** y escribiendo
 > los nombres/archivos en ASCII puro (sin tildes raras ni símbolos rotos).
 
 ### 9e. Actualizar el estado al terminar
-Cuando la actividad termina: cambia `status: "EN VIVO"` a `status: "TERMINADA"`,
-repite el paso 9d (nuevo cachebust) y sube todo.
+Cuando la actividad termina: cambia `status: "EN VIVO"` a `status: "FINALIZADO"`, sube
+`recursos/actividades.js` por FTP y sube el ranking con `"congelado": true` a la raiz.
+**NO repitas el paso 9d**: ya no hay cachebust que regenerar.
 
 ---
 
