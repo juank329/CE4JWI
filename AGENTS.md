@@ -348,3 +348,15 @@ Sitio web del indicativo CE4JWI en **qsl.net**. 100% estático HTML/CSS/JS/JSON/
 6. Catálogo: entrada a `status: "FINALIZADO"` con `cerrar_actividad.py`, fecha sin tocar, subir `recursos/actividades.js` por FTP.
 7. Guardar copia del ADIF en `adif/ce4jwi/` del repo (en el servidor el ADIF vive en la raíz, NO en `adif/ce4jwi/`).
 8. Commit + push.
+
+## EL SITIO ES SOLO EN ESPAÑOL (29-sep-2026) - QUITADO EL CÓDIGO MUERTO EN INGLÉS
+
+- **Decisión textual del usuario**: "en mi web, solo existe idioma español, nada más" y "no quiero más idiomas". Y al elegir el alcance: **"solo borrar el código muerto en inglés"**.
+- **Lo que se borró** (código muerto: nunca se veía, porque `I18N.actual()` siempre devolvía `"es"` y no hay botón de idioma en ninguna página):
+  - `recursos/calendario_20260922.js`: `C_MES_EN`, `C_DOW_EN`, `C_DOW_FULL_EN`, la función `calEsEN()` y el ternario de `calMes()`/`calDow()`/`calDowFull()`. En `abrirModal()` el ternario de la fecha se dejó solo la rama española (`5 de Octubre de 2026`).
+  - `recursos/componentes_20260918_63bafc3e.js`: `marcarBotonIdioma()` y su llamada en `inicializarComponentes()`. Buscaba `.lang-btn`, que **no existe en ningún HTML**, así que retornaba en la primera línea.
+  - `recursos/idioma_20260918.js`: el comentario que documentaba un `var EN` inexistente, y el stub `I18N.marcarBotonIdioma`. Se conserva `I18N.aplicarTodo()` (sí se usa para los estados del ranking).
+- **Lo que NO se borró, y no se debe borrar**: las páginas HTML viejas que quedaron solo en el servidor (`corazon.html` con su navbar GeoCities en inglés, `log.html`, `BUSCAR.html`, `gal.html`, etc.). El usuario lo dijo explícito: borrar código, no páginas.
+- Copias huérfanas de `calendario.js` y `calendario_20260915.js` **siguen con las tablas en inglés** y ningún HTML las referencia: se dejan como historia, igual que `script.js` y `componentes.js`. Si alguna vez se vuelven a referenciar, hay que limpiarlas.
+- **Prueba**: `Temp\opencode\probar_calendario.js` → 27 comprobaciones (12 meses, 7 días cortos, 7 largos, formato del modal) y falla si aparece una palabra inglesa. Ojo al escribir ese test: **"May" y "Mar" también son español** (Mayo, Marzo/Martes), así que dan falsos positivos si se buscan sin límites de palabra.
+- Después del cambio, `probar_utc_componentes.js` sigue en **17/17**: el arreglo de las 23:59 UTC y la limpieza de idiomas conviven en el mismo archivo sin tocarse.

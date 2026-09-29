@@ -530,23 +530,8 @@ function inicializarComponentes() {
   // Inicializar slider del sidebar
   inicializarSlider()
 
-  // Marcar el botón de idioma activo y re-aplicar traducciones
-  marcarBotonIdioma()
+  // Re-aplicar los estados del ranking (el sitio es solo en espanol)
   if (typeof I18N !== "undefined" && I18N.aplicarTodo) I18N.aplicarTodo()
-}
-
-/**
- * Resalta el botón ES|EN del header según el idioma guardado
- */
-function marcarBotonIdioma() {
-  const botones = document.querySelectorAll(".lang-btn")
-  if (!botones.length) return
-  const idioma = (typeof I18N !== "undefined" && I18N.actual) ? I18N.actual() : "es"
-  botones.forEach((b) => {
-    const activo = b.getAttribute("data-lang") === idioma
-    b.style.background = activo ? "rgba(255,255,255,.25)" : "none"
-    b.style.fontWeight = activo ? "800" : "700"
-  })
 }
 
 // Ejecutar cuando el DOM esté listo

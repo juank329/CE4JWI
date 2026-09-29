@@ -18,18 +18,9 @@ const NOMBRES_MES = ["", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
 const NOMBRES_DOW = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"]
 const NOMBRES_DOW_FULL = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"]
 
-// Nombres en inglés para el selector EN (el idioma base es español)
-const C_MES_EN = ["", "January", "February", "March", "April", "May", "June",
-                  "July", "August", "September", "October", "November", "December"]
-const C_DOW_EN = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
-const C_DOW_FULL_EN = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
-
-function calEsEN() {
-  return typeof I18N !== "undefined" && I18N.actual && I18N.actual() === "en"
-}
-function calMes(i) { return calEsEN() ? C_MES_EN[i] : NOMBRES_MES[i] }
-function calDow(i) { return calEsEN() ? C_DOW_EN[i] : NOMBRES_DOW[i] }
-function calDowFull(i) { return calEsEN() ? C_DOW_FULL_EN[i] : NOMBRES_DOW_FULL[i] }
+function calMes(i) { return NOMBRES_MES[i] }
+function calDow(i) { return NOMBRES_DOW[i] }
+function calDowFull(i) { return NOMBRES_DOW_FULL[i] }
 function calT(clave) {
   return (typeof I18N !== "undefined" && I18N.t) ? I18N.t(clave) : ""
 }
@@ -483,9 +474,7 @@ function renderTodo() {
 function abrirModal(evento) {
   const catInfo = CATEGORIAS.find((c) => c.key === evento.category) || { label: evento.category.toUpperCase() }
   const fechaObj = new Date(evento.date + "T00:00:00")
-  const fechaStr = calEsEN()
-    ? `${calMes(fechaObj.getMonth() + 1)} ${fechaObj.getDate()}, ${fechaObj.getFullYear()}`
-    : `${fechaObj.getDate()} de ${calMes(fechaObj.getMonth() + 1)} de ${fechaObj.getFullYear()}`
+  const fechaStr = `${fechaObj.getDate()} de ${calMes(fechaObj.getMonth() + 1)} de ${fechaObj.getFullYear()}`
 
   const modal = document.createElement("div")
   modal.className = "cal-modal-bg active"

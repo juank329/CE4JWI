@@ -6,14 +6,13 @@
  * No hay boton ES|EN. El motor borra cualquier preferencia de
  * idioma guardada (localStorage) y fuerza siempre "es".
  *
- * Documentacion corta (motor ES/EN en este repositorio):
- *   - var ES : diccionario espanol (claves con prefijo seccion.)
- *   - var EN : diccionario ingles (obsoleto, clave unica "estado."
- *              devuelta por nombre -- se mantiene solo por compat.)
- *   - I18N.t('namespace.clave')  -> traduce al idioma activo.
- *   - I18N.t('estado.PRÓXIMAMENTE') etc para el badge/semaforo
- *     del ranking: nunca devuelve la clave cruda en pantalla,
- *     si no existe la clave usa el ES (o el texto tras el punto).
+ * Documentacion corta (el sitio es SOLO en espanol):
+ *   - ES : unico diccionario, claves con prefijo de seccion.
+ *   - I18N.t('namespace.clave') devuelve el texto en espanol.
+ *   - I18N.t('estado.PRÓXIMAMENTE') etc para el badge del ranking:
+ *     nunca devuelve la clave cruda en pantalla; si la clave no
+ *     existe, devuelve el texto tras el ultimo punto.
+ *   - No hay segundo idioma, ni selector, ni boton de idioma.
  * ============================================================
  */
 (function () {
@@ -94,7 +93,6 @@
     aplicarTodo: aplicarTodo,
     es: function () { return true; },
     actual: function () { return "es"; },
-    marcarBotonIdioma: function () {},
   };
 
   // ---- Forzar ES al cargar: limpiar preferencia guardada DE UNA VEZ
