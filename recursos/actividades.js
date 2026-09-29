@@ -903,7 +903,7 @@ const ACTIVIDADES = [
   id: 93,
   title: "Día Mundial Contra la Rabia 2026",
   image: "public/dia mundial contra la rabia.webp",
-  status: "EN VIVO",
+  status: "FINALIZADO",
   description:
     "Activación especial por el Día Mundial Contra la Rabia, que se celebra cada 28 de septiembre en todo el mundo. Solo APRS con la palabra RABIA a la estación CE4JWI-10. QSL conmemorativa automática y ranking en tiempo real.",
   date: "28 Septiembre 2026",
