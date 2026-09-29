@@ -322,13 +322,17 @@ Sitio web del indicativo CE4JWI en **qsl.net**. 100% estático HTML/CSS/JS/JSON/
 - **Regla textual**: "de ahorita en adelante todas finalizan 23:59 UTC".
 - **Ventana de cada actividad: de 00:00 a 23:59 UTC** del día que dice el catálogo. El CIERRE (parada limpia del bot + ranking con `congelado: true` + entrada a `FINALIZADO`) se hace **a las 23:59 UTC**, no a las 00:00 del día siguiente.
 - El "23:59 UTC" es la HORA DE CORTE. El formato de fecha del catálogo no cambia: sigue siendo un solo día (o un rango) en `actividades.js`.
-- **OJO: HAY UN BUG QUE HACE QUE EL SITIO NO CUMPLA ESTA REGLA (pendiente de arreglar)**: `recursos/script_20260928_bdb07a7e.js` calcula el día en la **zona horaria del visitante**, no en UTC:
-  - `fechaFin = new Date(año, mes, día)` (línea 44) = medianoche **local**.
-  - `hoyInicio = new Date(); setHours(0,0,0,0)` (líneas 108-109) = medianoche **local** del visitante.
-  - Consecuencia medida: en Chile (UTC-3) la tarjeta pasa a FINALIZADO a las **03:00 UTC** (3 h tarde: muestra ACTIVO con la actividad ya cerrada) y en España (UTC+2) a las **22:00 UTC** (2 h antes: muestra FINALIZADO con la actividad todavía viva).
-  - Arreglo propuesto: calcular `hoyInicio` a las 00:00 **UTC** y `fechaFin` el último día a las **23:59:59 UTC**, para que desde cualquier país se vea EN VIVO hasta las 23:59:59 UTC.
-  - Al desplegar: es un `.js` compartido por los 114 HTML y Cloudflare lo cachea ~60 min. Sin cachebust hay que esperar a que venza la caché.
-- Estado al guardar esto: **CORAZON (id 94) corriendo**, 64 QSOs en `ranking_corazon.json`, ranking publicado en la raíz del sitio. Cierra esta noche a las 23:59 UTC con el mismo procedimiento de RABIA.
+- **ARREGLO HECHO Y PUBLICADO (29-sep-2026, commit `993d56f`)**: la ventana ya es 00:00-23:59 UTC para cualquier visitante. Fin del bug.
+  - **La lógica estaba duplicada en DOS archivos y buscar solo uno no basta**: `recursos/script_20260928_bdb07a7e.js` (tarjetas de la portada, lo referencian 2 HTML) y `recursos/componentes_20260918_63bafc3e.js` (marquesina PRÓXIMAS, lo referencian 118 HTML, con sus propias `mqFechaFin`/`mqEstadoEfectivo`). Cualquier arreglo de fechas va en **los dos**.
+  - `fechaFin`/`mqFechaFin` devuelven el último día a las **23:59:59 UTC**; `hoyInicio`/`hoy` a las 00:00 **UTC** (helpers nuevos `hoyUTC()` y `mqHoyUTC()`); `showAfter` como `T00:00:00Z`.
+  - Efecto: a las 00:00 UTC del día siguiente la actividad pasa sola a FINALIZADO, y ni antes ni después según la zona del visitante.
+  - Verificado con 17 casos de límite (00:00, 23:59:59, cierre, futuras, rangos) en 6 zonas de UTC-11 a UTC+14: **17/17 en todas**. Antes fallaba 5/17 en Chile y 3/17 en España.
+  - Copies huérfanas con el mismo bug y que **ningún HTML referencia**: `recursos/script.js`, `recursos/componentes.js`, `recursos/componentes_20260916_f089c287.js`. No tocar salvo que se vuelvan a referenciar.
+  - **Trampa al verificar**: nada más subir, `publicar_un_archivo.py` puede dar `hash igual: True` y acto seguido otro nodo de borde de Cloudflare sigue con la versión vieja (`CF=HIT`, `Age` subiendo, ETag `W/"20f6b4f-..."`). El origen FTP ya está bien; solo hay que esperar a que venza la caché de 3600 s. Sondear hasta que el cuerpo servido contenga `hoyUTC`.
+- Estado al guardar esto (verificado 29-sep **15:31 UTC**): **CORAZON (id 94) corriendo**, PID **3808**, `bot_qsl_ce4jwi.py`. `log_corazon.adi` con **70 QSOs, 70 indicativos únicos, 0 duplicados**, todos `QSO_DATE 20260929`, de **00:11 a 13:31 UTC**; `ranking_corazon.json` en la raíz del sitio con 70 filas, `congelado: false`, `actualizado 2026-09-29T10:32:09-04:00`. Cierra esta noche a las **23:59 UTC** con el mismo procedimiento de RABIA.
+  - El bot **se reinició solo a las 13:57 UTC** (antes hubo fallos de DNS: `getaddrinfo failed`). El ADIF y el ranking son acumulativos, así que sobreviven al reinicio; `calls_procesados.json` mantiene el control de duplicados entre sesiones.
+  - `TIME_ON` del ADIF y la hora del nombre de la QSL están en **UTC** (ej. `001126` = 00:11:26 UTC), aunque la fecha de modificación del archivo se vea en hora local. No confundir al contarlos.
+  - La carpeta del bot es `Desktop\BOT\CE4JWI-10-TELEGRAM`. **No existe** `Documentos\BOT\...`; apuntar ahí da "ADIF no existe" aunque el archivo esté ahí.
 
 ## CIERRE DE UNA ACTIVIDAD A LAS 23:59 UTC (procedimiento, continuacion del de RABIA 28-sep)
 
