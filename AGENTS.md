@@ -367,10 +367,14 @@ Mismo criterio que la web: **el bot tampoco debe emitir nada en inglés**. Archi
 
 ### 1. Cuadro de datos de la QSL (dibujado en la imagen)
 
-- En `generar_qsl()` de `bot_qsl_ce4jwi.py`: `OPERATOR`→`OPERADOR`, `QSO WITH`→`QSO CON`, y las seis columnas `[62,"DATE"],[170,"UTC"],[275,"BAND"],[380,"MODE"],[505,"FREQ"],[620,"RST"]` → `FECHA`,`UTC`,`BANDA`,`MODO`,`FREC`,`RST`.
+- En `generar_qsl()` de `bot_qsl_ce4jwi.py`: `OPERATOR`→`OPERADOR`, `QSO WITH`→`QSO CON`, y las seis columnas `[62,"DATE"],[170,"UTC"],[275,"BAND"],[380,"MODE"],[505,"FREQ"],[620,"RST"]` → `FECHA`,`UTC`,`BANDA`,`MODO`,`FRECUENCIA`,`RST`.
 - `UTC` y `RST` **se dejan igual a propósito**: no son inglés, se usan igual en español.
 - `Nº 0001` y `Gracias por el QSO, 73!` ya estaban en español.
-- **Por qué no se descuadra**: las seis columnas se dibujan con `anchor="ma"` (centradas en su centro), así que cambiar el ancho del rótulo no mueve nada. La fila 1 tiene los valores en x fijo (180 y 500). Medido con la fuente real: lo más apretado es `BANDA + MODO`, 66 px de ancho contra 105 de separación.
+- **Por qué no se descuadra**: las seis columnas se dibujan con `anchor="ma"` (centradas en su centro), así que cambiar el ancho del rótulo no mueve nada. La fila 1 tiene los valores en x fijos (180 y 500).
+- **Anchos medidos píxel a píxel** (ink real sobre el panel rojo, con `cuadro_x=609`): `FECHA` 64, `UTC` 36, `BANDA` 67, `MODO` 58, `FRECUENCIA` 125, `RST` 47.
+- Aire entre rótulos: FECHA→UTC 58, UTC→BANDA 54, BANDA→MODO 41, MODO→**FRECUENCIA 35**, FRECUENCIA→RST 34. Con `FREC` eran 72 y 73, o sea que la palabra completa deja menos aire pero nada se toca: para que dos rótulos se peguen de verdad harían falta menos de 10 px.
+- **OJO, el que va realmente apretado es `RST`, y eso es previo a todos estos cambios**: su tinta llega a x=1257 y el borde de la caja está en x=1259, o sea **2 px de margen**. Aprieta contra el borde derecho, no contra la frecuencia. No lo "arregles" achicando `FRECUENCIA` pensando que el problema es ese.
+- Para medir esto bien hay que distinguir la letra blanca del **fondo blanco de la plantilla**, que queda fuera de la caja: el umbral "casi blanco" marca ambos. Hay que ubicar primero dónde termina el panel rojo (por la **derecha**, no por la izquierda, o te marca la primera letra) y medir la tinta solo dentro. Script: `Temp\opencode\revisar_medicion.py`.
 
 ### 2. Los 4 mensajes APRS que salen por radio (esto SÍ lo ve la gente)
 
