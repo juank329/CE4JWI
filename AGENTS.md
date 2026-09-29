@@ -360,3 +360,38 @@ Sitio web del indicativo CE4JWI en **qsl.net**. 100% estático HTML/CSS/JS/JSON/
 - Copias huérfanas de `calendario.js` y `calendario_20260915.js` **siguen con las tablas en inglés** y ningún HTML las referencia: se dejan como historia, igual que `script.js` y `componentes.js`. Si alguna vez se vuelven a referenciar, hay que limpiarlas.
 - **Prueba**: `Temp\opencode\probar_calendario.js` → 27 comprobaciones (12 meses, 7 días cortos, 7 largos, formato del modal) y falla si aparece una palabra inglesa. Ojo al escribir ese test: **"May" y "Mar" también son español** (Mayo, Marzo/Martes), así que dan falsos positivos si se buscan sin límites de palabra.
 - Después del cambio, `probar_utc_componentes.js` sigue en **17/17**: el arreglo de las 23:59 UTC y la limpieza de idiomas conviven en el mismo archivo sin tocarse.
+
+## EL BOT APRS TAMBIÉN EN ESPAÑOL (29-sep-2026) - RÓTULOS DE LA QSL Y MENSAJES POR RADIO
+
+Mismo criterio que la web: **el bot tampoco debe emitir nada en inglés**. Archivos en `Desktop\BOT\CE4JWI-10-TELEGRAM`, **fuera del repo**, así que estos cambios no tienen historial de git: si se pierden, se pierden.
+
+### 1. Cuadro de datos de la QSL (dibujado en la imagen)
+
+- En `generar_qsl()` de `bot_qsl_ce4jwi.py`: `OPERATOR`→`OPERADOR`, `QSO WITH`→`QSO CON`, y las seis columnas `[62,"DATE"],[170,"UTC"],[275,"BAND"],[380,"MODE"],[505,"FREQ"],[620,"RST"]` → `FECHA`,`UTC`,`BANDA`,`MODO`,`FREC`,`RST`.
+- `UTC` y `RST` **se dejan igual a propósito**: no son inglés, se usan igual en español.
+- `Nº 0001` y `Gracias por el QSO, 73!` ya estaban en español.
+- **Por qué no se descuadra**: las seis columnas se dibujan con `anchor="ma"` (centradas en su centro), así que cambiar el ancho del rótulo no mueve nada. La fila 1 tiene los valores en x fijo (180 y 500). Medido con la fuente real: lo más apretado es `BANDA + MODO`, 66 px de ancho contra 105 de separación.
+
+### 2. Los 4 mensajes APRS que salen por radio (esto SÍ lo ve la gente)
+
+- Eran lo **único** que el bot emitía en inglés. El caption de Telegram, el resumen diario y los avisos de inicio/desconexión/cierre ya estaban en español.
+- Ahora: `Hola! Tu QSL esta lista para descargar` / `Fecha ... Hora ...UTC 2M PKT 144.390` / el enlace corto / `Gracias por el QSO! 73 {FIRMA}`.
+- El usuario pidió **quitar el "Visita https://qsl.net/ce4jwi/"** del mensaje 4. Con eso la URL queda solo en el mensaje 3.
+- **Están DUPLICADOS en dos funciones y hay que cambiar los dos**: `_enviar_qsl()` (automático) y `_hilo_envio_manual()` (manual, el que manda las QSLs pendientes). Es fácil cambiar uno y dejar el otro en inglés.
+
+### LAS DOS RESTRICCIONES QUE IMPORTAN AQUÍ
+
+1. **APRS es ASCII de 7 bits.** Por radio, las tildes, la `ñ` y la `¡` no son válidas: pueden llegar como `?`, como caracteres raros o borradas. El usuario eligió **sin acentos** justamente por esto. **No volver a poner tildes ni `¡` en los mensajes APRS.** (En la QSL, que es una imagen, los acentos sí van bien: es PIL, no radio.)
+2. **Un mensaje de texto APRS admite máximo 67 caracteres**; si se pasa, la persona lo ve cortado. Largos actuales con `firma_mensaje: "CE4JWI Juan"`: 38, 45, 29 y 34. El mensaje 4 **depende de `firma_mensaje`**: hoy le sobran 33, pero si esa firma crece en `config.json` hay que volver a medirlo.
+
+### Cómo verificar sin mandarle nada a nadie por radio
+
+- `Temp\opencode\verificar_espacios_qsl.py`: mide el ancho real de cada rótulo contra el hueco disponible, para ver si dos rótulos se pisan.
+- `Temp\opencode\verificar_qsl_aplicada.py`: **parsea `bot_qsl_ce4jwi.py` con `ast`**, saca de ahí las cadenas que se dibujan y rehace la QSL. Sirve para comprobar que lo aplicado es lo que se ve, y no una copia a mano.
+- `Temp\opencode\verificar_mensajes_aprs.py`: igual para los 4 mensajes: los saca del `.py` con `ast`, los evalúa con los valores reales y avisa si pasan de 67 o si dejan de ser ASCII. Compara los dos bloques para que no se desincronicen.
+- Ojo al parsear con `ast`: en un f-string el valor útil está dentro de `FormattedValue`, y la función del bloque manual es `_hilo_envio_manual`, **no** `tg_enviar_qsls_pendientes`.
+
+### Pendiente en manos del usuario
+
+- El bot estaba **corriendo (PID 3808) con el código viejo en memoria**: hasta que el usuario lo reinicie, las QSLs y los mensajes por radio siguen saliendo en inglés. El bot no se reinicia solo desde acá.
+- Respaldos: `bot_qsl_ce4jwi.py.bak_20260929_1436` (rótulos) y `bot_qsl_ce4jwi.py.bak_20260929_1504` (mensajes).
