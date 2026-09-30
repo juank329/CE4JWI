@@ -267,7 +267,7 @@
       }
 
       function cargar() {
-        return fetch("ranking_traducion.json?t=" + Date.now(), { cache: "no-cache" })
+        return fetch("ranking_traduccion.json?t=" + Date.now(), { cache: "no-cache" })
           .then(function (r) {
             if (!r.ok) throw new Error("HTTP " + r.status);
             return r.json();
