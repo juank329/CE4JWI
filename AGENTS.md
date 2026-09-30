@@ -399,3 +399,30 @@ Mismo criterio que la web: **el bot tampoco debe emitir nada en inglés**. Archi
 
 - El bot estaba **corriendo (PID 3808) con el código viejo en memoria**: hasta que el usuario lo reinicie, las QSLs y los mensajes por radio siguen saliendo en inglés. El bot no se reinicia solo desde acá.
 - Respaldos: `bot_qsl_ce4jwi.py.bak_20260929_1436` (rótulos) y `bot_qsl_ce4jwi.py.bak_20260929_1504` (mensajes).
+
+## CIERRE CORAZON (29-sep-2026) + ARRANQUE TRADUCCION (30-sep)
+
+- **RANKING SELLADO**: `generar_ranking_manual.py "adif\ce4jwi\log_corazon.adi" "CORAZON" --final` → **80 contactos / 80 estaciones**, `congelado: true`. Publicado en la raíz como `ranking_corazon.json` (15.394 B, verificado byte a byte desde el navegador) y copia permanente en **`ranking-data/corazon/final.json`** (ambos con los mismos 80 indicativos). Commit `fa5f90f`.
+- **ADIF definitivo verificado ANTES de sellar** (como en Turismo): `log_corazon.adi` local y el del FTP **idénticos byte a byte**, 25.686 B, md5 `6c6b76c068a67ba836d3a17b398657a5`, 80 QSO / 80 indicativos. Script: `Temp\opencode\verificar_adif_corazon.py`.
+- **La web marca FINALIZADO sola, sin tocar `actividades.js`**: `mqEstadoEfectivo()` en `componentes_20260918_63bafc3e.js` deriva el estado de la FECHA en UTC y hoy devuelve `ACTIVO` mientras `fin >= hoy` (fin = 23:59:59 del último día). Recién a las 00:00 UTC del día siguiente devuelve `FINALIZADO`. **El `status` guardado en el catálogo no manda**: es solo el fallback para fechas futuras. Editar `actividades.js` a mano sería inerte y dejaría catálogo y web contradiciéndose. Ojo: `cerrar_actividad.py` **NO existe** en el repo, no inventar pasos del procedimiento.
+- **TRADUCCION (id 95, 30-sep)**: frase `TRADUCCION`, `nombre_actividad: traduccion` ⇒ `log_traduccion.adi` + `ranking_traduccion.json`. Página `dia_internacional_de_la_traduccion_2026.html`.
+- **BUG EN LA PAGINA DE TRADUCCION, ARREGLADO (30-sep)**: el `fetch` pedía **`ranking_traducion.json` (SIN la doble C)** mientras el bot sube `ranking_traduccion.json`. El fetch daba 404 y la tabla **nunca se pintaba** (se veía "el ranking no sube"). Corregido en bytes con Python (`Temp\opencode\arreglar_fetch_traduccion.py`) y subido por FTP; verificado en producción. Es el mismo tipo de fallo que el typo `MAGELLAN` de la línea 72.
+- **OJO AL SUBIR POR FTP**: el servido pesa más que el local (13.528 vs 13.161 B) porque **Cloudflare inyecta su `<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/...">`**. No es un error de subida: comparar ignorando esa línea, no por hash de bytes.
+
+### LOS TRES ERRORES QUE COMETI EL 29/30-sep-2026 (no repetirlos)
+
+1. **MATÉ EL BOT DE LA ACTIVIDAD QUE ESTABA CORRIENDO.** Para parar CORAZON puse `detener_bot.flag`, pero TRADUCCION ya había arrancado con ese mismo bot. Loaje: **leí `bot_debug.log` con hora local y lo interpreté como UTC**. La hora local es UTC-3, así que `21:39` de la línea era `00:39 UTC` del día siguiente, o sea el presente. **Regla: convertir SIEMPRE a UTC antes de sacar conclusiones de tiempo del log**, y nunca dar por parada una actividad solo porque no haya nada en el log.
+2. **AFIRMÉ QUE EL RANKING SUBÍA SIN CRUZAR LOS NOMBRES.** Leí `ranking_traduccion.json` desde el servidor, respondió bien, y le dije al usuario "el ranking sí está subiendo" mientras la página pedía `ranking_traducion.json`. Dos comprobaciones que por separado se ven bien y juntas son el bug. **Regla: antes de decir "funciona", verificar el NOMBRE EXACTO que pide el consumidor (el `fetch` de la página), no solo que el archivo que yo busco exista.**
+3. **INVENTÉ UN PASO DEL PROCEDIMIENTO.** Afirmé que el catálogo se cerraba con `cerrar_actividad.py`; ese script no existe. **Regla: antes de citar un paso de procedimiento, confirmar que la herramienta existe; si no existe, decirlo como supuesto.**
+
+### IDEA PENDIENTE: aceptar la frase clave en español Y en inglés
+
+- El usuario lo pidió el 30-sep y después decidió **"dejémoslo como está"**, así que **no se implementó**. Queda como idea, no como tarea.
+- El match es una sola línea, `bot_qsl_ce4jwi.py` L673: `if PALABRA_CLAVE_ACTIVACION.upper() not in texto_upper:`. Ya es tolerante (busca la palabra dentro del mensaje, no exige igualdad).
+- Lo que se perdería hoy está en el log: `text=TRANSLATION` → `no contiene la frase clave [TRADUCCION], ignorado`.
+- Si algún día se hace: la clave nueva `frase_clave_en` **tiene que estar en `CONFIG_DEFECTO` del bot Y del panel** (regla de la línea 73: el loader solo copia claves que estén ahí). Decidir aparte si el boletín de CQ anuncia las dos frases (tiene límite de longitud APRS) y si el log de rechazo las lista. El texto de QSL por radio **no se traduce**: sigue siempre en español ASCII.
+
+### Estado al 30-sep-2026 14:40 UTC
+
+- CORAZON: cerrado y sellado (80 estaciones). TRADUCCION: en marcha, bot corriendo, 73 QSO cuando se comprobó.
+- El usuario decide el arranque/cierre del bot desde el panel ("Guardar y abrir el bot"). No hacerlo por iniciativa propia.
