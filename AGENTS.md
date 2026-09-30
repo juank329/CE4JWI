@@ -400,6 +400,38 @@ Mismo criterio que la web: **el bot tampoco debe emitir nada en inglés**. Archi
 - El bot estaba **corriendo (PID 3808) con el código viejo en memoria**: hasta que el usuario lo reinicie, las QSLs y los mensajes por radio siguen saliendo en inglés. El bot no se reinicia solo desde acá.
 - Respaldos: `bot_qsl_ce4jwi.py.bak_20260929_1436` (rótulos) y `bot_qsl_ce4jwi.py.bak_20260929_1504` (mensajes).
 
+### CARRUSEL DEL SIDEBAR: 5 SLIDES (30-sep-2026)
+
+Orden final: `ADN ACTIVA2.png` / `HFk (2).png` / `APRS CARROUSEL.png` / `CQHAM.png` / `peanut.png`. El usuario reemplazó ADN ACTIVA2 y APRS CARROUSEL, ycq/Peanut son nuevas. **Todas en `public/`** (las pide el carrusel como `public/<archivo>.png`), 1400x900 RGBA.
+
+- El slider está **escrito a mano en el HTML del sidebar dentro del JS**: un `<div class="slide">` por imagen y un `<span class="dot" data-slide="N">` por slide. El JS **no genera los dots**, así que añadir una imagen obliga a añadir su dot o el carrusel se descuadra. La función `inicializarSlider()` usa `querySelectorAll` sobre `.slide` y `.dot`, y `translateX(-${currentSlide * 100}%)`.
+- `recursos/slider.css` NO depende del número de slides (`.slide { flex: 0 0 100%; min-width: 100% }` + `transition: transform 0.5s ease-in-out`), así que 5 imágenes no rompen la animación.
+- Cachebust: `componentes_20260930_a825bdc8.js`, re-apuntado en los **118 HTML**. `ranking_condorito_en_vivo.html` es el único sin referencia (standalone, no tocarlo).
+
+### EL ERROR MAS IMPORTANTE DE HOY: `publicar_un_archivo.py` SUBE A LA CARPETA EQUIVOCADA
+
+**Me pasó DOS veces el mismo día y las dos vezes reporté "OK, hash igual":**
+
+1. **El JS** se subió a `/ce4jwi/` en vez de `/ce4jwi/recursos/`. Como los 118 HTML ya apuntaban al nombre nuevo, el header y el sidebar de **todo el sitio** dieron 404 durante un rato.
+2. **Las 5 imágenes** se subieron a `/ce4jwi/` en vez de `/ce4jwi/public/`. Resultado: `public/CQHAM.png` y `public/peanut.png` daban 404 (el "corrupto" era la página de error de 5.439 B del propio qsl.net dentro del `<img>`), y `public/ADN ACTIVA2.png` seguía con la versión VIEJA porque el reemplazo se fue a la raíz.
+
+**Por qué no lo detecté:** el script hace `ftp.storbinary("STOR " + <ruta>)` con la ruta a la que se le pasó el archivo, pero **le quita el prefijo de carpeta** y luego **verifica en esa misma ruta equivocada**. Además **no escapa los espacios**: verificar `ADN ACTIVA2.png` sin `urllib.parse.quote` revienta con `InvalidURL: URL can't contain control characters`. Ese fallo es lo que delató que su "verificación" nunca funcionó con nombres con espacio.
+
+**REGLAS:**
+- **Verificar SIEMPRE en la URL que consume el cliente** (`https://qsl.net/ce4jwi/public/<archivo>`), no en la ruta que uno cree que escribió. Con las imágenes miré la raíz dos veces y por eso el bug pasó desapercibido.
+- Para `recursos/` y `public/`, subir con `STOR recursos/<archivo>` / `STOR public/<archivo>` desde la raíz del FTP. FTP **plano** (no TLS) y **sin `cwd`**: `cwd('/ce4jwi')` falla con 550 y `FTP_TLS` + cwd con 550 también.
+- Confirmar con `NLST /recursos` o `NLST /public` que el archivo está donde debe.
+- Un 404 de qsl.net son **exactamente 5.439 B** con `Content-Type: text/html` y `<title>Error 404 - Page Cannot Be Found</title>`. Si una imagen "pesa" 5.439 B, es un 404, no una imagen corrupta.
+- **Cloudflare inyecta su `<script src="https://static.cloudflareinsights.com/beacon.min.js/...">` en el HTML servido**: el HTML local y el servido nunca coinciden por hash. Comparar ignorando esa línea, no byte a byte.
+
+### CACHÉ: POR QUÉ EL USUARIO NO VEÍA LOS CAMBIOS
+
+Todas mis verificaciones usaban `?t=<epoch>`, que salta la caché del CDN, así que mostraban el archivo correcto mientras el navegador del usuario seguía con el viejo. **Verificar SIN cache-buster y con User-Agent de navegador** es lo que revela lo que ve un visitante real. Con el JS viejo cacheado (`max-age=3600`) el usuario seguía viendo 3 slides.
+
+### COMO CONTAR SLIDES SIN CAER EN EL TRAMPA
+
+`class="slide` también matchea `slider-container`, `slider-track` y `slider-widget`. Contando `<div class="slide` a pelo salen "8" cuando hay 5. Usar el regex completo `<div class="slide( active)?">\s*<img src="([^"]+)"`. **Me pasó dos veces** (informé 8 y 6 slides cuando había 5).
+
 ## CIERRE CORAZON (29-sep-2026) + ARRANQUE TRADUCCION (30-sep)
 
 - **RANKING SELLADO**: `generar_ranking_manual.py "adif\ce4jwi\log_corazon.adi" "CORAZON" --final` → **80 contactos / 80 estaciones**, `congelado: true`. Publicado en la raíz como `ranking_corazon.json` (15.394 B, verificado byte a byte desde el navegador) y copia permanente en **`ranking-data/corazon/final.json`** (ambos con los mismos 80 indicativos). Commit `fa5f90f`.
