@@ -949,4 +949,14 @@ const ACTIVIDADES = [
   date: "2 Octubre 2026",
   url: "dia_internacional_de_la_no_violencia_2026.html",
 },
+{
+  id: 98,
+  title: "DÍA NACIONAL DEL HOSPITAL EN CHILE 2026",
+  image: "public/Dia_Nacional_del_Hospital_en_Chile.webp",
+  status: "PRÓXIMAMENTE",
+  description:
+    "Activación especial por el Día Nacional del Hospital en Chile. Solo APRS con la palabra HOSPITAL a la estación CE4JWI-10. QSL conmemorativa automática y ranking final.",
+  date: "3 Octubre 2026",
+  url: "dia_nacional_del_hospital_en_chile_2026.html",
+},
 ];
