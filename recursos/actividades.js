@@ -933,7 +933,7 @@ const ACTIVIDADES = [
   id: 96,
   title: "Día Internacional de la Música 2026",
   image: "public/dia_internacional_de_la_musica.webp",
-  status: "PRÓXIMAMENTE",
+  status: "FINALIZADO",
   description:
     "Activación especial por el Día Internacional de la Música, que se celebra cada 1 de octubre. Solo APRS con la palabra MUSICA a la estación CE4JWI-10. QSL conmemorativa automática y ranking en tiempo real.",
   date: "1 Octubre 2026",
