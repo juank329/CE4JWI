@@ -258,7 +258,7 @@
       }
 
       function cargar() {
-        return fetch("ranking-data/hospital/final.json")
+        return fetch("ranking_hospital.json?t=" + Date.now(), { cache: "no-cache" })
           .then(function (r) {
             if (!r.ok) throw new Error("HTTP " + r.status);
             return r.json();

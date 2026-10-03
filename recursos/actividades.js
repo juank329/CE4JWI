@@ -943,7 +943,7 @@ const ACTIVIDADES = [
   id: 97,
   title: "Día Internacional de la No Violencia 2026",
   image: "public/dia_internacional_de_la_no_violencia.webp",
-  status: "PRÓXIMAMENTE",
+  status: "FINALIZADO",
   description:
     "Activación especial por el Día Internacional de la No Violencia. Solo APRS con la palabra NO VIOLENCIA a la estación CE4JWI-10. QSL conmemorativa automática y ranking en tiempo real.",
   date: "2 Octubre 2026",
