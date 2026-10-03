@@ -55,7 +55,7 @@
           14 personajes de la activación conjunta
           <strong>Los Personajes de la Historieta Chilena CONDORITO</strong>
           (CA4NDW-7 y CE4JWI-10), 21 al 30 de septiembre de 2026.<br>
-          Busca tu indicativo y descarga tu certificado. Está en JPG (rápido) y PNG (original en alta calidad).
+          Busca tu indicativo y descarga tu certificado en JPG.
         </p>
 
         <div class="cert-aviso">
@@ -95,12 +95,11 @@
       var grid = document.getElementById("cert-grid");
       if (!grid) return;
       grid.innerHTML = CALLS.map(function (c) {
-        var lt = encodeURIComponent(c + ".jpg"), lp = encodeURIComponent(c + ".png");
+        var lt = encodeURIComponent(c + ".jpg");
         return '<div class="cert-card">' +
                '<img src="certificados/' + lt + '" alt="Certificado ' + c + '" loading="lazy">' +
                '<div class="cert-body"><span class="cert-call">' + c + '</span>' +
-               '<span class="cert-links"><a href="certificados/' + lt + '" download>JPG</a>' +
-               '<a href="certificados/' + lp + '" download>PNG</a></span></div></div>';
+               '<span class="cert-links"><a href="certificados/' + lt + '" download>JPG</a></span></div></div>';
       }).join("");
     })();
   </script>
