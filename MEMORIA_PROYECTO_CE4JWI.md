@@ -179,3 +179,84 @@
 - Si otro bot APRS (XR4MAU) necesita Telegram en el futuro: repetir el patrón copiando con
   TG_BASE apuntando a la misma carpeta _mantenimiento\telegram_qsl.
 - CLAVE: mismo token de Telegram NO puede estar en 2 procesos (getUpdates -> 409 Conflict).
+
+## ESTADO ACTUAL (03-oct-2026) - leer esto primero
+- FTP: raiz con 2665 QSL jpg. Reparto: 2026-09 = 2403 (3,0 GB), 2026-10 = 260 (238 MB).
+  Agosto = 0 (borrado). Total raiz ~3,0 GB.
+- Repo remoto: https://github.com/juank329/CE4JWI.git rama main. ULTIMO dato de visibilidad:
+  private=False (el usuario debe cambiarlo a mano en GitHub Settings, no hay token).
+- Publicacion real = FTP qsl.net. NO hay Vercel ni GitHub Pages. GitHub solo versiona.
+  qsl.net devuelve HTTP 200 con pagina de error de 5439 B: SIEMPRE validar por TAMANO, no por status.
+
+## HOSPITAL 2026 (creado y publicado, todavia NO_)
+- Pagina dia_nacional_del_hospital_en_chile_2026.html. id 98 en actividades.js.
+  fecha 3 Octubre 2026, frase HOSPITAL, estacion CE4JWI-10 solo APRS, estado PROXIMAMENTE.
+- Imagen: public\Dia_Nacional_del_Hospital_en_Chile.webp (850100 B). SIN tilde en el nombre.
+  Modes: public\CE4JWI -10 SOLO APRS.webp (208090 B) - es la imagen correcta de modos.
+- La pagina hace fetch("ranking_hospital.json?t="+Date.now(), {cache:"no-cache"}).
+  ranking_hospital.json NO existe todavia: la actividad no empezo.
+  ranking-data/hospital/final.json quedo como archivo vacio congelado, la pagina NO lo usa.
+- NO marcar FINALIZADO antes de que el usuario cierre la actividad.
+
+## MUSICA + NO VIOLENCIA (cerradas y selladas)
+- MUSICA: adif\ce4jwi\log_musica.adi (31120 B), 97 QSO / 95 estaciones.
+  ranking_musica.json + ranking-data\musica\final.json, congelado=true, 18239 B. id 96 FINALIZADO.
+- NO VIOLENCIA: adif\ce4jwi\log_no_violencia.adi (30486 B), 95 QSO / 95 estaciones.
+  ranking_no_violencia.json + ranking-data\no_violencia\final.json, congelado=true, 18253 B.
+  id 97 FINALIZADO.
+- PATRON DE SELLADO REAL (corrige la nota de CUECA/HUASO mas arriba): la pagina lee el JSON de
+  la RAIZ (ranking_<clave>.json) y ranking-data/<clave>/final.json queda como copia permanente.
+  El archivo de la raiz es el que se sube al FTP en cada actualizacion del bot.
+
+## COMUNICADO: SUBIR_V18.PY ESTUVO PUBLICO (resuelto, pendiente rotar clave)
+- subir_v18.py se subio por FTP a la raiz y quedo descargable en
+  https://qsl.net/ce4jwi/subir_v18.py con HOST/USER/PASS visibles. Cualquiera podia leer la clave.
+- Borrado del FTP el 03-oct-2026 y verificado 404 falso (5439 B). La copia LOCAL se conserva
+  porque los scripts de subida leen de ahi.
+- LA CLAVE FTP SIGUE ESTANDO EN EL HISTORIAL DE GIT (commits ce1a7e7 y 465f88a) y el repo estuvo
+  publico. PENDIENTE DEL USUARIO: 1) cambiar la clave del FTP en qsl.net, 2) despues limpiar
+  el historial de git con git filter-repo.
+- El bot Telegram NO tiene SMTP: manda la foto con sendPhoto. El COMMENT del ADIF lleva el link
+  a qsl.net de cada QSL.
+
+## LIMPIEZA DE ESPACIO EN FTP (03-oct-2026, con autorizacion del usuario)
+- Certificados: 38 PNG duplicados borrados = 313159623 B (298,7 MB).
+  certificados_condorito_2026.html ahora enlaza solo JPG.
+- Lote tecnico + public sin uso: 49 archivos, 3,7 MB (9 imagenes de public sin referencia,
+  5 .pyc, 29 .py de la raiz, 6 .md de la raiz). Incluyo subir_v18.py.
+- QSL de FT8: 117 archivos, 71,0 MB. Los nombres eran FT8_CE4JWI_<call>_<fecha>_FT8.jpg.
+- QSL de AGOSTO 2026: 206 archivos, 241 MB, verificado 404 falso en produccion.
+- TOTAL liberado: ~614 MB.
+- REGLAS DE BORRADO: borrar por grupo explicito con dry-run antes; verificar en produccion con
+  Invoke-WebRequest comparando contra 5439 B; NO tocar el sitio sin autorizacion del usuario.
+- OJO con el parser de nombres de QSL: hay 6 formatos. El indicativo de la otra estacion es el
+  token justo ANTES de la fecha. Formato DD-MM-YYYY o DDMMYY compacto (DDMMYY = _DDMMYY_).
+  Comparar el anio como int, no como string, o el filtro devuelve 0 sin avisar.
+
+## BASE DE EMAILS + BUSCADOR (nuevo, 03-oct-2026)
+- Carpeta: C:\Users\javen\OneDrive\Desktop\ADIF_para_HamSpark\
+- El usuario subio ADIF_INDICATIVOS_CON_QSL.adi a hamspark.com y bajo el export
+  hamspark_qso_export_2026-10-03.adi, que trae 269 emails reales de los 274 indicativos con QSL.
+- BASE_EMAILS.csv (indicativo,email) + BASE_EMAILS.json (mismo dato, para el bot). 269 entradas.
+- ABRIR_BUSCADOR.bat arranca consulta_emails.py (servidor local en 127.0.0.1:8765) y abre
+  buscador_emails.html: buscar indicativo, ver email, editar, agregar si falta, borrar.
+  Endpoints: /api/buscar /api/guardar /api/todos /api/sin-email /api/estadisticas.
+  27 indicativos con QSL todavia NO tienen email.
+- AGREGAR_EMAILS.bat corre agregar_emails.py: lee los .adi de la carpeta y suma los campos
+  EMAIL / E_MAIL a la base, sin duplicar. Ahi se dejan los exports nuevos de hamspark.
+- IMPORTANTE: guardar cada export de hamspark con nombre distinto (AAAA-MM-DD); si se repite el
+  nombre el navegador lo baja como _ (1) y el script no lo lee por no terminar en .adi.
+- PLAN DEL USUARIO para el bot: si hay email -> enviar por correo; si no -> enviar por APRS.
+  todavia NO implementado en el panel.
+- enviar_qsl_email.py y config_email.json quedaron PREPARADOS pero sin usar: las QSL pesan
+  ~1,2 MB y sin recomprimir losaternary con mas tarjetas llegan a 53 MB (limite gmail 25 MB).
+- El usuario dijo NO recomprimir las imagenes por ahora.
+- qsl.net BLOQUEA User-Agent de Python: da 403. Hay que mandar cabecera de navegador en las
+  descargas https. Velocidad medida ~871 KB/s.
+
+## PENDIENTES QUE REQUIEREN AL USUARIO
+- Cambiar la clave del FTP en qsl.net (urgente) y luego limpiar el historial de git.
+- Poner el repo de GitHub en privado.
+- Cerrar la actividad Hospital el 3 de octubre y generar ranking_hospital.json.
+- Cargar en hamspark los ADIF que falten para completar los 27 indicativos sin email.
+- Implementar en el panel del bot la regla email -> correo, sin email -> APRS.
